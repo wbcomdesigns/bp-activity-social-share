@@ -122,6 +122,11 @@ class Buddypress_Share {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-buddypress-share-feedback.php';
 
 		/**
+		 * The class responsible for defining custom settings
+		 * of the plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-buddypress-share-settings.php';
+		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
@@ -154,22 +159,23 @@ class Buddypress_Share {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-		$plugin_admin = new Buddypress_Share_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin      = new Buddypress_Share_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin_page = new Buddypress_Share_Options_Page( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( bp_core_admin_hook(), $plugin_admin, 'bp_share_plugin_menu' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'bp_share_settings_init' );
-		$this->loader->add_action( 'wp_ajax_bp_share_insert_services_ajax', $plugin_admin, 'bp_share_insert_services_ajax' );
-		$this->loader->add_action( 'wp_ajax_nopriv_bp_share_insert_services_ajax', $plugin_admin, 'bp_share_insert_services_ajax' );
-		$this->loader->add_action( 'wp_ajax_bp_share_delete_services_ajax', $plugin_admin, 'bp_share_delete_services_ajax' );
-		$this->loader->add_action( 'wp_ajax_nopriv_bp_share_delete_services_ajax', $plugin_admin, 'bp_share_delete_services_ajax' );
-		$this->loader->add_action( 'wp_ajax_bp_share_chb_services_ajax', $plugin_admin, 'bp_share_chb_services_ajax' );
-		$this->loader->add_action( 'wp_ajax_nopriv_bp_share_chb_services_ajax', $plugin_admin, 'bp_share_chb_services_ajax' );
-		$this->loader->add_action( 'wp_ajax_bp_share_delete_user_services_ajax', $plugin_admin, 'bp_share_delete_user_services_ajax' );
-		$this->loader->add_action( 'wp_ajax_nopriv_bp_share_delete_user_services_ajax', $plugin_admin, 'bp_share_delete_user_services_ajax' );
-		$this->loader->add_action( 'bp_share_add_services_options', $plugin_admin, 'bp_share_add_options', 10, 2 );
-		$this->loader->add_action( 'bp_share_user_services', $plugin_admin, 'bp_share_user_added_services', 10, 3 );
+		$this->loader->add_action( bp_core_admin_hook(), $plugin_admin_page, 'bp_share_plugin_menu' );
+		$this->loader->add_action( 'admin_init', $plugin_admin_page, 'bp_share_settings_init' );
+		$this->loader->add_action( 'wp_ajax_bp_share_insert_services_ajax', $plugin_admin_page, 'bp_share_insert_services_ajax' );
+		$this->loader->add_action( 'wp_ajax_nopriv_bp_share_insert_services_ajax', $plugin_admin_page, 'bp_share_insert_services_ajax' );
+		$this->loader->add_action( 'wp_ajax_bp_share_delete_services_ajax', $plugin_admin_page, 'bp_share_delete_services_ajax' );
+		$this->loader->add_action( 'wp_ajax_nopriv_bp_share_delete_services_ajax', $plugin_admin_page, 'bp_share_delete_services_ajax' );
+		$this->loader->add_action( 'wp_ajax_bp_share_chb_services_ajax', $plugin_admin_page, 'bp_share_chb_services_ajax' );
+		$this->loader->add_action( 'wp_ajax_nopriv_bp_share_chb_services_ajax', $plugin_admin_page, 'bp_share_chb_services_ajax' );
+		$this->loader->add_action( 'wp_ajax_bp_share_delete_user_services_ajax', $plugin_admin_page, 'bp_share_delete_user_services_ajax' );
+		$this->loader->add_action( 'wp_ajax_nopriv_bp_share_delete_user_services_ajax', $plugin_admin_page, 'bp_share_delete_user_services_ajax' );
+		$this->loader->add_action( 'bp_share_add_services_options', $plugin_admin_page, 'bp_share_add_options', 10, 2 );
+		$this->loader->add_action( 'bp_share_user_services', $plugin_admin_page, 'bp_share_user_added_services', 10, 3 );
 	}
 
 	/**

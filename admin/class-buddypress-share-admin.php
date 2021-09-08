@@ -158,11 +158,7 @@ class Buddypress_Share_Admin {
 		$service_faw         = isset( $_POST['service_faw'] ) ? sanitize_text_field( wp_unslash( $_POST['service_faw'] ) ) : '';
 		$service_key         = $service_value = isset( $_POST['service_value'] ) ? sanitize_text_field( wp_unslash( $_POST['service_value'] ) ) : '';
 		$service_description = isset( $_POST['service_description'] ) ? sanitize_text_field( wp_unslash( $_POST['service_description'] ) ) : '';
-
-		$option_name             = 'bp_share_services';
-		$html_view_arr           = array();
-		$html_view               = '';
-		$html_view_arr['status'] = false;
+		$option_name         = 'bp_share_services';
 		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) ) {
 			if ( get_site_option( $option_name ) !== false ) {
 				$services = get_site_option( $option_name );
@@ -176,23 +172,6 @@ class Buddypress_Share_Admin {
 						),
 					);
 					update_site_option( $option_name, $new_service );
-					$html_view .= '<tr id = "tr_' . $service_key . '" class="bp-share-services-row">';
-					$html_view .= '<th scope="row" id="bp_share_chb" class="bp-share-td">';
-					$html_view .= '<input type="checkbox" name="chb_' . $service_key . '" value="1" checked="checked"/>';
-					$html_view .= '</th>';
-					$html_view .= '<td class="bp-share-title bp-share-td" style="width: 190px;">';
-					$html_view .= '<strong style="margin-top: 3px;"><i class="' . $service_faw . ' fa-lg"></i> ' . $service_name . '</strong>';
-					$html_view .= '<div class="row-actions-visible"></div>';
-					$html_view .= '</td>';
-					$html_view .= '<td class="bp-share-column-description desc bp-share-td">';
-					$html_view .= '<div class="plugin-description">';
-					$html_view .= '<p>' . $service_description . '</p>';
-					$html_view .= '</div>';
-					$html_view .= '<div class="active second plugin-version-author-uri">';
-					$html_view .= '</div>';
-					$html_view .= '</td>';
-					$html_view .= '<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="' . $service_key . '"><i class="fa fa-window-close"></i></p></td>';
-					$html_view .= '</tr>';
 				} else {
 					$new_value = array(
 						"chb_$service_value"  => 1,
@@ -200,33 +179,11 @@ class Buddypress_Share_Admin {
 						'service_icon'        => "$service_faw",
 						'service_description' => "$service_description",
 					);
-
-					foreach ( $services as $s_key => $s_value ) {
-						if ( $s_key == $service_value ) {
-							$html_view_arr['status'] = true;
-						}
-					}
-					foreach ( $services as $key => $value ) {
-						$services[ $service_value ] = $new_value;
-					}
+					$bp_copy_activity = $services['bp_copy_activity'];
+					unset( $services['bp_copy_activity'] );
+					$services[ $service_value ]   = $new_value;
+					$services['bp_copy_activity'] = $bp_copy_activity;
 					update_site_option( $option_name, $services );
-					$html_view .= '<tr id = "tr_' . $service_key . '" class="bp-share-services-row">';
-					$html_view .= '<th scope="row" id="bp_share_chb" class="bp-share-td">';
-					$html_view .= '<input type="checkbox" name="chb_' . $service_key . '" value="1" checked="checked"/>';
-					$html_view .= '</th>';
-					$html_view .= '<td class="bp-share-title bp-share-td" style="width: 190px;">';
-					$html_view .= '<strong style="margin-top: 3px;"><i class="' . $service_faw . ' fa-lg"></i> ' . $service_name . '</strong>';
-					$html_view .= '<div class="row-actions-visible"></div>';
-					$html_view .= '</td>';
-					$html_view .= '<td class="bp-share-column-description desc bp-share-td">';
-					$html_view .= '<div class="plugin-description">';
-					$html_view .= '<p>' . $service_description . '</p>';
-					$html_view .= '</div>';
-					$html_view .= '<div class="active second plugin-version-author-uri">';
-					$html_view .= '</div>';
-					$html_view .= '</td>';
-					$html_view .= '<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="' . $service_key . '"><i class="fa fa-window-close"></i></p></td>';
-					$html_view .= '</tr>';
 				}
 			} else {
 				$new_service = array(
@@ -242,8 +199,6 @@ class Buddypress_Share_Admin {
 				$autoload   = 'no';
 				update_site_option( $option_name, $new_service, $deprecated, $autoload );
 			}
-			$html_view_arr['view'] = $html_view;
-			echo json_encode( $html_view_arr );
 		}
 		die();
 	}
@@ -411,7 +366,7 @@ class Buddypress_Share_Admin {
 							'service_array': difference,
 						};
 						// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-						jQuery.post(my_ajax_object.ajax_url, data, function (response) {
+						jQuery.post('<?php echo admin_url( 'admin-ajax.php' ); ?>', data, function (response) {
 							//                            console.log(response);
 						});
 					}

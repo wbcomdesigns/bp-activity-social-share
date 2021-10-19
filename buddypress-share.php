@@ -161,7 +161,7 @@ function bpshare_same_network_config() {
  *  Check if buddypress activate.
  */
 function bpshare_requires_buddypress() {
-	if ( ! class_exists( 'Buddypress' ) ) {
+	if ( ! class_exists( 'BuddyPress' ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		add_action( 'admin_notices', 'bpshare_required_plugin_admin_notice' );
 		unset( $_GET['activate'] );
@@ -198,9 +198,10 @@ function bpshare_required_plugin_admin_notice() {
 
 add_action( 'activated_plugin', 'bpshare_activation_redirect_settings' );
 function bpshare_activation_redirect_settings( $plugin ){
-
-	if( $plugin == plugin_basename( __FILE__ ) ) {
-		wp_redirect( admin_url( 'admin.php?page=buddypress-share' ) ) ;
-		exit;
+	if (  class_exists( 'BuddyPress' ) ) {
+		if( $plugin == plugin_basename( __FILE__ ) ) {
+			wp_redirect( admin_url( 'admin.php?page=buddypress-share' ) ) ;
+			exit;
+		}
 	}
 }

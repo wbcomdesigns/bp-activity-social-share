@@ -1,7 +1,17 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Global
+# Themes Specific
+    # BuddyBoss
+    # Kleo
+    # OneCommunity
+    # Rehub
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Global
+--------------------------------------------------------------*/
 
 .activity ul li .activity-meta .service-buttons a.bp-share {
     background: none !important;
@@ -145,19 +155,29 @@ body:not(.logged-in).bp-nouveau #buddypress .activity-list .activity-item .activ
     display: none;
 }
 
-/* BuddyBoss Theme Specific */
+/*--------------------------------------------------------------
+## BuddyBoss
+--------------------------------------------------------------*/
 .bp-nouveau.buddyboss-theme .activity-list .activity-item .bp-share-button::before {
     content: '\e927';
     font-family: bb-icons;
     font-size: initial;
 }
 
-/* kleo theme fixes */
+/*--------------------------------------------------------------
+## Kleo
+--------------------------------------------------------------*/
 body.kleo #buddypress .activity-meta a.button.bp-share-button {
     line-height: initial;
 }
 
-/* OneCommunity theme fixes */
+.kleo-page #buddypress .activity-meta a.button.bp-share-button {
+    display: inline;
+}
+
+/*--------------------------------------------------------------
+## OneCommunity
+--------------------------------------------------------------*/
 body.onecommunity.bp-nouveau #buddypress .activity-list .activity-item .activity-meta .bp-share-button {
     display: block;
     padding: 0 8px;
@@ -167,7 +187,9 @@ body.onecommunity.bp-nouveau .activity-list .activity-item .activity-meta .bp-sh
     content: none;
 }
 
-/* rehub theme fixes */
+/*--------------------------------------------------------------
+## Rehub
+--------------------------------------------------------------*/
 body.rehub-theme #buddypress div.activity-meta a.bp-share-button:hover span {
     background: none;
 }

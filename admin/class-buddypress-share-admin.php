@@ -260,7 +260,7 @@ class Buddypress_Share_Admin {
 			update_site_option( 'bp_share_services_extra', $extra_option_new );
 			$services = get_site_option( 'bp_share_services' );
 			if ( ! empty( $services ) ) {
-				if ( ! empty( $active_services ) ) {					
+				if ( ! empty( $active_services ) ) {
 					foreach ( $services as $service_key => $value ) {
 						if ( in_array( 'chb_' . $service_key, $active_services ) ) {
 							$services[ $service_key ][ 'chb_' . $service_key ] = 1;
@@ -271,7 +271,7 @@ class Buddypress_Share_Admin {
 						}
 					}
 					update_site_option( 'bp_share_all_services_disable', 'enable' );
-				} else {			
+				} else {
 					foreach ( $services as $service_key => $value ) {
 						$services[ $service_key ][ 'chb_' . $service_key ] = 0;
 						update_site_option( $option_name, $services );
@@ -546,7 +546,7 @@ class Buddypress_Share_Admin {
 			<form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" id="bp_share_form">
 			<?php wp_nonce_field( 'update-options' ); ?>
 					<h3><?php esc_html_e( 'Add Social Services', 'buddypress-share' ); ?></h3>
-					<table cellspacing="0" class="add_share_services widefat fixed plugins">
+					<table cellspacing="0" class="add_share_services widefat plugins">
 						<thead>
 							<tr>
 								<th class="manage-column column-cb check-column" id="cb" scope="col">&nbsp;</th>
@@ -556,9 +556,9 @@ class Buddypress_Share_Admin {
 						</thead>
 						<tbody id="the-list">
 							<tr>
-								<th scope="row"></th>
-								<td class="plugin-title" style="width: 190px;">
-									<strong style="margin-top: 3px; float: left;"><?php esc_html_e( 'Social Sites', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
+								<td scope="row"></td>
+								<td class="plugin-title">
+									<strong><?php esc_html_e( 'Social Sites', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
 								<td class="column-description desc">
 									<div class="plugin-description">
 										<select name="social_services_selector" id="social_services_selector_id" class="social_services_selector">
@@ -579,9 +579,9 @@ class Buddypress_Share_Admin {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"></th>
-								<td class="plugin-title" style="width: 190px;">
-									<strong style="margin-top: 3px; float: left;"><?php esc_html_e( 'Font Awesome Icon Class', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
+								<td scope="row"></td>
+								<td class="plugin-title">
+									<strong><?php esc_html_e( 'Font Awesome Icon Class', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
 								<td class="column-faw-icon desc">
 									<div class="plugin-faw-icon">
 										<input class="faw_class_input" name="faw_class_input" type="text">
@@ -590,9 +590,9 @@ class Buddypress_Share_Admin {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"></th>
-								<td class="plugin-title" style="width: 190px;">
-									<strong style="margin-top: 3px; float: left;"><?php esc_html_e( 'Description', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
+								<td scope="row"></td>
+								<td class="plugin-title">
+									<strong><?php esc_html_e( 'Description', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
 								<td class="column-description desc">
 									<div class="plugin-description">
 										<textarea name="bp_share_description" class="bp_share_description"></textarea>
@@ -601,8 +601,8 @@ class Buddypress_Share_Admin {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"></th>
-								<td class="plugin-title" style="width: 190px;">
+								<td scope="row"></td>
+								<td class="plugin-title">
 								</td>
 								<td class="add_services_btn_td">
 									<input type="button" class="add_services_btn" name="add_services_btn" value="<?php esc_html_e( 'Add Services', 'buddypress-share' ); ?>">
@@ -612,15 +612,12 @@ class Buddypress_Share_Admin {
 						</tbody>
 					</table><!--END: add_share_services table-->
 					<br/>
-					<table cellspacing="0" class="widefat fixed plugins">
+					<table cellspacing="0" class="widefat plugins">
 						<thead>
 							<tr>
-								<th class="manage-column column-cb check-column" id="cb"
-									scope="col">&nbsp;</th>
-								<th class="manage-column column-name" id="name" scope="col"
-									style="width: 190px;"><?php esc_html_e( 'Social Sites', 'buddypress-share' ); ?></th>
-								<th class="manage-column column-description" id=
-									"description" scope="col"><?php esc_html_e( 'Description', 'buddypress-share' ); ?></th>
+								<th class="manage-column column-cb check-column" id="cb" scope="col">&nbsp;</th>
+								<th class="manage-column column-name" id="name" scope="col"><?php esc_html_e( 'Social Sites', 'buddypress-share' ); ?></th>
+								<th class="manage-column column-description" id="description" scope="col"><?php esc_html_e( 'Description', 'buddypress-share' ); ?></th>
 								<th class="manage-column column-services-action" id="services-action" scope="col"><?php esc_html_e( 'Action', 'buddypress-share' ); ?></th>
 							</tr>
 						</thead>
@@ -633,12 +630,12 @@ class Buddypress_Share_Admin {
 
 								?>
 									<tr class="bp-share-services-row" id="<?php echo 'tr_' . esc_attr( $service_key ); ?>" data-pos-index="<?php echo esc_attr( $count ); ?>" data-key="<?php echo 'chb_' . esc_attr( $service_key ); ?>">
-										<th scope="row" id="bp_share_chb" class="bp-share-td">
+										<td scope="row" id="bp_share_chb" class="bp-share-td">
 											<input type="checkbox" name="<?php echo 'chb_' . esc_attr( $service_key ); ?>" value="1" <?php	echo ( 1 === $social_options[ $service_key ][ 'chb_' . $service_key ] ) ? 'checked="checked"' : ''; ?>
 											/>
-										</th>
-										<td class="bp-share-title bp-share-td" style="width: 190px;">
-											<strong style="margin-top: 3px;"><i class="<?php echo esc_attr( $social_option['service_icon'] ); ?> fa-lg"></i> <?php echo esc_html( $social_option['service_name'] ); ?></strong>
+										</td>
+										<td class="bp-share-title bp-share-td">
+											<strong><i class="<?php echo esc_attr( $social_option['service_icon'] ); ?> fa-lg"></i> <?php echo esc_html( $social_option['service_name'] ); ?></strong>
 											<div class="row-actions-visible"></div>
 										</td>
 										<td class="bp-share-column-description desc bp-share-td">

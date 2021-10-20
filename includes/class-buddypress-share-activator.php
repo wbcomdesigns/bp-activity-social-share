@@ -307,6 +307,10 @@ class Buddypress_Share_Activator {
 				update_site_option( 'bp_share_services_extra', $extra_option_new, $deprecated, $autoload );
 
 			}
+
+			if ( get_site_option( 'bp_share_all_services_disable' ) === false ) {
+				update_site_option( 'bp_share_all_services_disable', 'enable' );
+			}
 		}
 
 	}

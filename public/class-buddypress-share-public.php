@@ -108,8 +108,8 @@ class Buddypress_Share_Public {
 	 * @since    1.0.0
 	 */
 	public function bp_activity_share_button_dis() {
-		$all_services = get_site_option( 'bp_share_all_services_disable' );
-		if ( is_user_logged_in() && $all_services ) {
+		$all_services = get_site_option( 'bp_share_all_services_disable' );		
+		if ( is_user_logged_in() && 'enable' === $all_services ) {
 			add_action( 'bp_activity_entry_meta', array( $this, 'bp_share_activity_filter' ) );
 		}
 	}

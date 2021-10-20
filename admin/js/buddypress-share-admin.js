@@ -91,13 +91,13 @@ jQuery(function () {
 		jQuery('.bp_share_settings_section_callback_class input:checked').each(function () {
 			selected_extras.push(jQuery(this).attr('name'));
 		});
-
 		var data = {
 			'action': 'bp_share_chb_services_ajax',
 			'active_chb_array': selected,
 			'active_chb_extras': selected_extras,
 			'nonce': my_ajax_object.nonce
 		};
+
 		// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 		jQuery.post(my_ajax_object.ajax_url, data, function (response) {
 			location.reload();

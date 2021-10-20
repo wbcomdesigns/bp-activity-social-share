@@ -1522,21 +1522,14 @@ p.error_service_description {
 
 .service_delete {
     display: table-cell;
-    vertical-align: middle !important;
 }
 
 .bp-share-column-description.desc {
     display: table-cell;
-    vertical-align: middle;
 }
 
 .bp-share-title {
     display: table-cell;
-    vertical-align: middle !important;
-}
-
-.widefat .bp-share-td {
-    vertical-align: middle !important;
 }
 
 .bp-share-services-extra .bp_share_settings_section_callback_class {

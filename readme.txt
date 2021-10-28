@@ -108,9 +108,9 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 
 == Changelog ==
 = 3.1.0 =
-* Fix: (#80) Removed unnecessary inline style
-* Fix: (#80) Update backend UI and removed unnecessary inline style
-* Fix: (#79) Fixed hide share button if services are not enable
+* Fix: (#80) Removed unnecessary inline-style
+* Fix: (#80) Update backend UI and remove unnecessary inline-style
+* Fix: (#79) Fixed hide share button if services are not enabled
 * Fix: (#78) Fixed plugin redirect to page and display error
 * Fix: (#71) Managed share button UI with kleo
 * Fix: Fixed add new social link and sortable links

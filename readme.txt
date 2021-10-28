@@ -4,8 +4,8 @@ Contributors: vapvarun,wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: buddypress,activity,share
 Requires at least: 4.0
-Tested up to: 5.7.3
-Stable tag: 3.0.0
+Tested up to: 5.8.1
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,15 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 3. The screenshot shows FAQ(s) related to BuddyPress Activity Social Share plugin and corresponds to screenshot-3.(jpg|jpeg|gif).
 
 == Changelog ==
+= 3.1.0 =
+* Fix: (#80) Removed unnecessary inline style
+* Fix: (#80) Update backend UI and removed unnecessary inline style
+* Fix: (#79) Fixed hide share button if services are not enable
+* Fix: (#78) Fixed plugin redirect to page and display error
+* Fix: (#71) Managed share button UI with kleo
+* Fix: Fixed add new social link and sortable links
+* Fix: Implemented sortable social links functionality
+
 = 3.0.0 =
 * Fix: Updated backend UI
 

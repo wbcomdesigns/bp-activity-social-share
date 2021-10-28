@@ -138,8 +138,8 @@ class Buddypress_Share_Options_Page {
 		}
 		?>
 			<div class="wrap">
-                            <hr class="wp-header-end">
-                            <div class="wbcom-wrap">
+							<hr class="wp-header-end">
+							<div class="wbcom-wrap">
 				<div class="bpss-header">
 				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 					<h1 class="wbcom-plugin-heading">
@@ -154,20 +154,20 @@ class Buddypress_Share_Options_Page {
 				do_settings_sections( $tab );
 				?>
 				</div>
-                            </div>
+							</div>
 			</div>
 			<?php
 	}
 
 	public function bpas_plugin_settings_tabs( $current ) {
 		$bpas_tabs = array(
-			'bpas_welcome' => esc_html__( 'Welcome', 'buddypress-share' ),
+			'bpas_welcome'          => esc_html__( 'Welcome', 'buddypress-share' ),
 			'bpas_general_settings' => esc_html__( 'General Settings', 'buddypress-share' ),
 		);
 		$tab_html  = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 		foreach ( $bpas_tabs as $bpas_tab => $bpas_name ) {
 			$class     = ( $bpas_tab === $current ) ? 'nav-tab-active' : '';
-			$tab_html .= '<li><a class="nav-tab ' . esc_attr( $class ) . '" href="admin.php?page=buddypress-share&tab=' .  $bpas_tab  . '">' . esc_html( $bpas_name ) . '</a></li>';
+			$tab_html .= '<li><a class="nav-tab ' . esc_attr( $class ) . '" href="admin.php?page=buddypress-share&tab=' . $bpas_tab . '">' . esc_html( $bpas_name ) . '</a></li>';
 		}
 		$tab_html .= '</div></ul></div>';
 		echo $tab_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -188,9 +188,9 @@ class Buddypress_Share_Options_Page {
 				break;
 		}
 	}
-	
-	public function bpas_welcome_section() {		
-		
+
+	public function bpas_welcome_section() {
+
 		if ( file_exists( BP_ACTIVITY_SHARE_PLUGIN_PATH . 'admin/bp-welcome-page.php' ) ) {
 			require_once BP_ACTIVITY_SHARE_PLUGIN_PATH . 'admin/bp-welcome-page.php';
 		}
@@ -361,7 +361,6 @@ class Buddypress_Share_Options_Page {
 		$service_faw         = isset( $_POST['service_faw'] ) ? sanitize_text_field( wp_unslash( $_POST['service_faw'] ) ) : '';
 		$service_key         = $service_value = isset( $_POST['service_value'] ) ? sanitize_text_field( wp_unslash( $_POST['service_value'] ) ) : '';
 		$service_description = isset( $_POST['service_description'] ) ? sanitize_text_field( wp_unslash( $_POST['service_description'] ) ) : '';
-
 		$option_name             = 'bp_share_services';
 		$html_view_arr           = array();
 		$html_view               = '';
@@ -509,7 +508,6 @@ class Buddypress_Share_Options_Page {
 	 */
 	public function bp_share_chb_services_ajax() {
 		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) ) {
-
 			$option_name      = 'bp_share_services';
 			$active_services  = isset( $_POST['active_chb_array'] ) ? wp_unslash( $_POST['active_chb_array'] ) : array();
 			$extras_options   = isset( $_POST['active_chb_extras'] ) ? wp_unslash( $_POST['active_chb_extras'] ) : array();
@@ -525,7 +523,7 @@ class Buddypress_Share_Options_Page {
 			update_site_option( 'bp_share_services_extra', $extra_option_new );
 			$services = get_site_option( 'bp_share_services' );
 			if ( ! empty( $services ) ) {
-				if ( ! empty( $active_services ) ) {
+				if ( ! empty( $active_services ) ) {		
 					foreach ( $services as $service_key => $value ) {
 						if ( in_array( 'chb_' . $service_key, $active_services ) ) {
 							$services[ $service_key ][ 'chb_' . $service_key ] = 1;
@@ -535,7 +533,7 @@ class Buddypress_Share_Options_Page {
 							update_site_option( $option_name, $services );
 						}
 					}
-				} else {
+				} else {					
 					foreach ( $services as $service_key => $value ) {
 						$services[ $service_key ][ 'chb_' . $service_key ] = 0;
 						update_site_option( $option_name, $services );

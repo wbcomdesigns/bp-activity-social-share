@@ -108,7 +108,7 @@ class Buddypress_Share_Public {
 	 * @since    1.0.0
 	 */
 	public function bp_activity_share_button_dis() {
-		$all_services = get_site_option( 'bp_share_all_services_disable' );		
+		$all_services = get_site_option( 'bp_share_all_services_disable' );
 		if ( is_user_logged_in() && 'enable' === $all_services ) {
 			add_action( 'bp_activity_entry_meta', array( $this, 'bp_share_activity_filter' ) );
 		}
@@ -247,7 +247,7 @@ class Buddypress_Share_Public {
 			}
 
 			$content = explode( '<span', $content );
-			$title   = strip_tags( ent2ncr( trim( convert_chars( $content[0] ) ) ) );
+			$title   = wp_strip_all_tags( ent2ncr( trim( convert_chars( $content[0] ) ) ) );
 
 			if ( ':' === substr( $title, -1 ) ) {
 				$title = substr( $title, 0, -1 );

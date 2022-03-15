@@ -268,7 +268,7 @@ if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 			<div class="notice updated buddypress-share-notice">
 				<div class="buddypress-share-notice-inner">
 					<div class="buddypress-share-notice-icon">
-						<img src="<?php echo esc_url(BP_ACTIVITY_SHARE_PLUGIN_URL . 'admin/images/bp_social_share.png'); ?>" alt="<?php echo esc_attr__( 'BuddyPress Activity Social Share', 'buddypress-share' ); ?>" />
+						<img src="<?php echo esc_url( BP_ACTIVITY_SHARE_PLUGIN_URL . 'admin/images/bp_social_share.png' ); ?>" alt="<?php echo esc_attr__( 'BuddyPress Activity Social Share', 'buddypress-share' ); ?>" />
 					</div>
 					<div class="buddypress-share-notice-content">
 						<h3><?php echo esc_html__( 'Are you enjoying BuddyPress Activity Social Share?', 'buddypress-share' ); ?></h3>
@@ -293,7 +293,7 @@ if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 		public function set_no_bug() {
 
 			// Bail out if not on correct page.
-			if ( ! isset( $_GET['_wpnonce'] ) || ( ! wp_verify_nonce( $_GET['_wpnonce'], 'buddypress-share-feedback-nounce' ) || ! is_admin() || ! isset( $_GET[ $this->nobug_option ] ) || ! current_user_can( 'manage_options' ) ) ) {
+			if ( ! isset( $_GET['_wpnonce'] ) || ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'buddypress-share-feedback-nounce' ) || ! is_admin() || ! isset( $_GET[ $this->nobug_option ] ) || ! current_user_can( 'manage_options' ) ) ) {
 				return;
 			}
 

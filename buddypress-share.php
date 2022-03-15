@@ -110,9 +110,9 @@ function bp_activity_share_check_config() {
 	}
 
 	$network_plugins = get_site_option( 'active_sitewide_plugins', array() );
-	// No Network plugins
+	// No Network plugins.
 	if ( empty( $network_plugins ) ) {
-		// Looking for BuddyPress and bp-activity plugin
+		// Looking for BuddyPress and bp-activity plugin.
 		$check[] = $bp->basename;
 	}
 	$check[] = BP_ACTIVITY_SHARE_PLUGIN_BASENAME;
@@ -120,14 +120,14 @@ function bp_activity_share_check_config() {
 	$network_active = array_diff( $check, array_keys( $network_plugins ) );
 
 	// If result is 1, your plugin is network activated
-	// and not BuddyPress or vice & versa. Config is not ok
+	// and not BuddyPress or vice & versa. Config is not ok.
 	if ( count( $network_active ) == 1 ) {
 		$config['network_status'] = false;
 	}
 	// We need to know if the plugin is network activated to choose the right
 	// notice ( admin or network_admin ) to display the warning message.
 	$config['network_active'] = isset( $network_plugins[ BP_ACTIVITY_SHARE_PLUGIN_BASENAME ] );
-	// if BuddyPress config is different than bp-activity plugin
+	// if BuddyPress config is different than bp-activity plugin.
 	if ( ! $config['blog_status'] || ! $config['network_status'] ) {
 		$warnings = array();
 		if ( ! bp_core_do_network_admin() && ! $config['blog_status'] ) {
@@ -164,7 +164,6 @@ function bpshare_requires_buddypress() {
 	if ( ! class_exists( 'BuddyPress' ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		add_action( 'admin_notices', 'bpshare_required_plugin_admin_notice' );
-		unset( $_GET['activate'] );
 	}
 }
 
@@ -186,9 +185,6 @@ function bpshare_required_plugin_admin_notice() {
 		'<strong>' . esc_html( $bp_plugin ) . '</strong>'
 	);
 	echo '</p></div>';
-	if ( isset( $_GET['activate'] ) ) {
-		unset( $_GET['activate'] );
-	}
 }
 
 
@@ -197,10 +193,10 @@ function bpshare_required_plugin_admin_notice() {
  */
 
 add_action( 'activated_plugin', 'bpshare_activation_redirect_settings' );
-function bpshare_activation_redirect_settings( $plugin ){
-	if (  class_exists( 'BuddyPress' ) ) {
-		if( $plugin == plugin_basename( __FILE__ ) ) {
-			wp_redirect( admin_url( 'admin.php?page=buddypress-share' ) ) ;
+function bpshare_activation_redirect_settings( $plugin ) {
+	if ( class_exists( 'BuddyPress' ) ) {
+		if ( $plugin == plugin_basename( __FILE__ ) ) {
+			wp_redirect( admin_url( 'admin.php?page=buddypress-share' ) );
 			exit;
 		}
 	}

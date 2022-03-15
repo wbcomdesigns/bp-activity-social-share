@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -97,8 +96,8 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bp_share_plugin_options() {
-		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'bpas_welcome';
-		// admin check
+		$tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpas_welcome';
+		// admin check.
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'buddypress-share' ) );
 		}
@@ -120,7 +119,7 @@ class Buddypress_Share_Admin {
 				do_settings_sections( $tab );
 				?>
 				</div>
-							</div>
+				</div>
 			</div>
 			<?php
 	}
@@ -173,7 +172,7 @@ class Buddypress_Share_Admin {
 					);
 					update_site_option( $option_name, $new_service );
 				} else {
-					$new_value = array(
+					$new_value        = array(
 						"chb_$service_value"  => 1,
 						'service_name'        => "$service_name",
 						'service_icon'        => "$service_faw",
@@ -246,8 +245,8 @@ class Buddypress_Share_Admin {
 		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) ) {
 
 			$option_name      = 'bp_share_services';
-			$active_services  = isset( $_POST['active_chb_array'] ) ? wp_unslash( $_POST['active_chb_array'] ) : array();
-			$extras_options   = isset( $_POST['active_chb_extras'] ) ? wp_unslash( $_POST['active_chb_extras'] ) : array();
+			$active_services  = isset( $_POST['active_chb_array'] ) ? map_deep( wp_unslash( $_POST['active_chb_array'] ), 'sanitize_text_field' ) : array();
+			$extras_options   = isset( $_POST['active_chb_extras'] ) ? map_deep( wp_unslash( $_POST['active_chb_extras'] ), 'sanitize_text_field' ) : array();
 			$extra_option_new = array();
 
 			if ( ! empty( $extras_options ) ) {
@@ -291,8 +290,11 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bp_share_delete_user_services_ajax() {
+		if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp_share_nonce' ) ) {
+			exit();
+		}
 		$option_name   = 'bp_share_services';
-		$service_array = filter_var_array( $_POST['service_array'], FILTER_SANITIZE_STRING );
+		$service_array = ( isset( $_POST['service_array'] ) ) ? map_deep( wp_unslash( $_POST['service_array'] ), 'sanitize_text_field' ) : array();
 		$services      = get_site_option( $option_name );
 		if ( ! empty( $service_array ) ) {
 			foreach ( $service_array as $service_array_key => $service_array_value ) {
@@ -325,7 +327,7 @@ class Buddypress_Share_Admin {
 		if ( isset( $options_key ) && $options_key != '' ) {
 			?>
 			<script>
-				var customOptions = '<?php echo json_encode( $options_key ); ?>';
+				var customOptions = '<?php echo wp_json_encode( $options_key ); ?>';
 				var optionObj = jQuery.parseJSON(customOptions);
 				var select = document.getElementById("social_services_selector_id");
 				for (index in optionObj) {
@@ -351,7 +353,7 @@ class Buddypress_Share_Admin {
 							selected.push(jQuery(this).val());
 						}
 					});
-					var all_options = '<?php echo json_encode( $services_options_key ); ?>';
+					var all_options = '<?php echo wp_json_encode( $services_options_key ); ?>';
 					var all_options = jQuery.parseJSON(all_options);
 					var difference = [];
 
@@ -366,9 +368,10 @@ class Buddypress_Share_Admin {
 						var data = {
 							'action': 'bp_share_delete_user_services_ajax',
 							'service_array': difference,
+							'nonce': <?php echo esc_html( wp_create_nonce( 'bp_share_nonce' ) ); ?>,
 						};
 						// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-						jQuery.post('<?php echo admin_url( 'admin-ajax.php' ); ?>', data, function (response) {
+						jQuery.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data, function (response) {
 							//                            console.log(response);
 						});
 					}
@@ -415,7 +418,7 @@ class Buddypress_Share_Admin {
 	public function bp_share_delete_services_ajax() {
 		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) ) {
 			$option_name  = 'bp_share_services';
-			$service_name = isset( $_POST['service_name'] ) ? wp_unslash( $_POST['service_name'] ) : array();
+			$service_name = isset( $_POST['service_name'] ) ? sanitize_text_field( wp_unslash( $_POST['service_name'] ) ) : '';
 			$services     = get_site_option( $option_name );
 			if ( ! empty( $services ) ) {
 				foreach ( $services as $service_key => $value ) {
@@ -481,7 +484,7 @@ class Buddypress_Share_Admin {
 			if ( ! isset( $_POST['sorted_data'] ) ) {
 				exit;
 			}
-			$sorts        = wp_unslash( $_POST['sorted_data'] );
+			$sorts        = map_deep( wp_unslash( $_POST['sorted_data'] ), 'sanitize_text_field' );
 			$services     = get_site_option( 'bp_share_services' );
 			$count        = 0;
 			$new_settings = array();
@@ -509,7 +512,7 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bpas_include_admin_setting_tabs( $bpas_tab ) {
-		$bpas_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'bpas_welcome';
+		$bpas_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpas_welcome';
 		switch ( $bpas_tab ) {
 			case 'bpas_welcome':
 				$this->bpas_welcome_section();
@@ -524,7 +527,7 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * welcome template
+	 * Welcome template
 	 *
 	 * @since    1.0.0
 	 */

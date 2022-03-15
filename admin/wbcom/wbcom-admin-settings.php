@@ -431,25 +431,25 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				<nav id="wb_admin_nav">
 					<ul>
 						<li class="wb_admin_nav_item <?php echo esc_attr( $settings_active ); ?>">
-							<a href="<?php echo get_admin_url() . 'admin.php?page=wbcomplugins'; ?>" id="wb_admin_nav_trigger_settings">
+							<a href="<?php echo esc_url( get_admin_url() ) . 'admin.php?page=wbcomplugins'; ?>" id="wb_admin_nav_trigger_settings">
 								<i class="fa fa-sliders"></i>
 								<h4><?php esc_html_e( 'Settings', 'buddypress-share' ); ?></h4>
 							</a>
 						</li>
 						<li class="wb_admin_nav_item <?php echo esc_attr( $plugin_active ); ?>">
-							<a href="<?php echo get_admin_url() . 'admin.php?page=wbcom-plugins-page'; ?>" id="wb_admin_nav_trigger_extensions">
+							<a href="<?php echo esc_url( get_admin_url() ) . 'admin.php?page=wbcom-plugins-page'; ?>" id="wb_admin_nav_trigger_extensions">
 								<i class="fa fa-th"></i>
 								<h4><?php esc_html_e( 'Our Plugins', 'buddypress-share' ); ?></h4>
 							</a>
 						</li>
 						<li class="wb_admin_nav_item <?php echo esc_attr( $theme_active ); ?>">
-							<a href="<?php echo get_admin_url() . 'admin.php?page=wbcom-themes-page'; ?>" id="wb_admin_nav_trigger_themes">
+							<a href="<?php echo esc_url( get_admin_url() ) . 'admin.php?page=wbcom-themes-page'; ?>" id="wb_admin_nav_trigger_themes">
 								<i class="fa fa-magic"></i>
 								<h4><?php esc_html_e( 'Our Themes', 'buddypress-share' ); ?></h4>
 							</a>
 						</li>
 						<li class="wb_admin_nav_item <?php echo esc_attr( $support_active ); ?>">
-							<a href="<?php echo get_admin_url() . 'admin.php?page=wbcom-support-page'; ?>" id="wb_admin_nav_trigger_support">
+							<a href="<?php echo esc_url( get_admin_url() ) . 'admin.php?page=wbcom-support-page'; ?>" id="wb_admin_nav_trigger_support">
 								<i class="fa fa-question-circle"></i>
 								<h4><?php esc_html_e( 'Support', 'buddypress-share' ); ?></h4>
 							</a>

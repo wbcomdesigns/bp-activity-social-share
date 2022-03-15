@@ -107,6 +107,9 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 3. The screenshot shows FAQ(s) related to BuddyPress Activity Social Share plugin and corresponds to screenshot-3.(jpg|jpeg|gif).
 
 == Changelog ==
+= 3.2.1 =
+* Fix: PHPCS fixes
+
 = 3.2.0 =
 * Fix: Install Free plugin from WordPress Wrapper
 

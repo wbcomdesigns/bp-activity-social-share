@@ -1,35 +1,24 @@
 <?php
 /**
-
  * Define the internationalization functionality
-
  * Loads and defines the internationalization files for this plugin
-
  * so that it is ready for translation.
  *
  * @link       http://wbcomdesigns.com
-
  * @since      1.0.0
  *
  * @package    Buddypress_Share
-
  * @subpackage Buddypress_Share/includes
  */
 
 /**
-
  * Define the internationalization functionality.
-
  * Loads and defines the internationalization files for this plugin
-
  * so that it is ready for translation.
  *
  * @since      1.0.0
-
  * @package    Buddypress_Share
-
  * @subpackage Buddypress_Share/includes
-
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
 class Buddypress_Share_i18n {
@@ -50,7 +39,14 @@ class Buddypress_Share_i18n {
 
 	}
 
-	function load_plugin_textdomain( $domain, $deprecated = false, $plugin_rel_path = false ) {
+	/**
+	 * Load text domain.
+	 *
+	 * @param  string  $domain Domain.
+	 * @param  boolean $deprecated Deprecated arguments.
+	 * @param  string  $plugin_rel_path Plugin Path.
+	 */
+	public function load_plugin_textdomain( $domain, $deprecated = false, $plugin_rel_path = false ) {
 
 		/**
 

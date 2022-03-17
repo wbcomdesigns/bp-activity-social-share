@@ -40,7 +40,6 @@ define( 'BP_ACTIVITY_SHARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
  * @author   Wbcom Designs
  * @since    1.0.0
  */
-
 function activate_buddypress_share() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-share-activator.php';
 	Buddypress_Share_Activator::activate();
@@ -60,7 +59,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-share.php';
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bp_activity_share_plugin_actions', 10, 2 );
 
 /**
- * @desc Adds the Settings link to the plugin activate/deactivate page
+ * Adds the Settings link to the plugin activate/deactivate page.
+ *
+ * @param string $links An array of plugin action links.
+ * @param string $file Path to the plugin file relative to the plugins directory.
  */
 function bp_activity_share_plugin_actions( $links, $file ) {
 	if ( class_exists( 'BuddyPress' ) ) {
@@ -79,7 +81,6 @@ function bp_activity_share_plugin_actions( $links, $file ) {
  *
  * @since    1.0.0
  */
-
 function run_buddypress_share() {
 
 	$plugin = new Buddypress_Share();
@@ -91,12 +92,16 @@ function run_buddypress_share() {
  * Check plugin requirement on plugins loaded
  * this plugin requires buddypress to be installed and active
  */
-add_action( 'bp_loaded', 'bpshare_plugin_init' );
 function bpshare_plugin_init() {
 	if ( bp_activity_share_check_config() ) {
 		run_buddypress_share();
 	}
 }
+add_action( 'bp_loaded', 'bpshare_plugin_init' );
+
+/**
+ * BP Activity share check config.
+ */
 function bp_activity_share_check_config() {
 	global $bp;
 
@@ -145,12 +150,18 @@ function bp_activity_share_check_config() {
 	return true;
 }
 
+/**
+ * Blog status admin notice.
+ */
 function bpshare_same_blog() {
 	echo '<div class="error"><p>'
 	. esc_html__( 'BuddyPress Activity Social Share requires to be activated on the blog where BuddyPress is activated.', 'buddypress-share' )
 	. '</p></div>';
 }
 
+/**
+ * Network status admin notice.
+ */
 function bpshare_same_network_config() {
 	echo '<div class="error"><p>'
 	. esc_html__( 'BuddyPress Activity Social Share and BuddyPress need to share the same network configuration.', 'buddypress-share' )
@@ -189,15 +200,18 @@ function bpshare_required_plugin_admin_notice() {
 
 
 /**
- * redirect to plugin settings page after activated
+ * Redirect to plugin settings page after activated.
+ *
+ * @since  1.0.0
+ *
+ * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
-
-add_action( 'activated_plugin', 'bpshare_activation_redirect_settings' );
 function bpshare_activation_redirect_settings( $plugin ) {
 	if ( class_exists( 'BuddyPress' ) ) {
-		if ( $plugin == plugin_basename( __FILE__ ) ) {
-			wp_redirect( admin_url( 'admin.php?page=buddypress-share' ) );
+		if ( plugin_basename( __FILE__ ) === $plugin ) {
+			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-share' ) );
 			exit;
 		}
 	}
 }
+add_action( 'activated_plugin', 'bpshare_activation_redirect_settings' );

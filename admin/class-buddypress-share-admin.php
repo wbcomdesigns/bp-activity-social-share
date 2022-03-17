@@ -56,6 +56,8 @@ class Buddypress_Share_Admin {
 	 * Register the stylesheets for the admin area.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param string $hook Plugin page name.
 	 */
 	public function enqueue_styles( $hook ) {
 		if ( 'wb-plugins_page_buddypress-share' !== $hook ) {
@@ -71,6 +73,8 @@ class Buddypress_Share_Admin {
 	 * Register the JavaScript for the admin area.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param string $hook Plugin page name.
 	 */
 	public function enqueue_scripts( $hook ) {
 		wp_enqueue_script( 'jquery-ui-sortable' );
@@ -141,7 +145,7 @@ class Buddypress_Share_Admin {
 			$tab_html .= '<li><a class="nav-tab ' . esc_attr( $class ) . '" href="admin.php?page=buddypress-share&tab=' . $bpas_tab . '">' . esc_html( $bpas_name ) . '</a></li>';
 		}
 		$tab_html .= '</div></ul></div>';
-		echo $tab_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post( $tab_html );
 		$this->bpas_include_admin_setting_tabs( $current );
 	}
 
@@ -214,7 +218,7 @@ class Buddypress_Share_Admin {
 		?>
 		<input type='checkbox' name='bp_share_services_open'
 		<?php
-		if ( isset( $extra_options['bp_share_services_open'] ) && $extra_options['bp_share_services_open'] === 1 ) {
+		if ( isset( $extra_options['bp_share_services_open'] ) && 1 === $extra_options['bp_share_services_open'] ) {
 			echo 'checked="checked"'; }
 		?>
 		value='1'>
@@ -235,7 +239,7 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * bp_share_chb_services_ajax.
+	 * BP share services ajax.
 	 *
 	 * @access public
 	 * @author   Wbcom Designs
@@ -283,7 +287,7 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * bp_share_delete_user_services_ajax.
+	 * BP share delete services ajax.
 	 *
 	 * @access public
 	 * @author   Wbcom Designs
@@ -310,11 +314,14 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * bp_share_add_options.
+	 * BP share add admin options.
 	 *
 	 * @access public
 	 * @author   Wbcom Designs
 	 * @since    1.0.0
+	 *
+	 * @param string $activity_url Activity URL.
+	 * @param string $activity_title Activity Title.
 	 */
 	public function bp_share_add_options( $activity_url, $activity_title ) {
 		$services = apply_filters( 'bp_share_add_services', $services = array(), $activity_url = '', $activity_title = '' );
@@ -324,7 +331,7 @@ class Buddypress_Share_Admin {
 				$options_key[ 'bp_share_' . strtolower( $key ) ] = $key;
 			}
 		}
-		if ( isset( $options_key ) && $options_key != '' ) {
+		if ( isset( $options_key ) && '' !== $options_key ) {
 			?>
 			<script>
 				var customOptions = '<?php echo wp_json_encode( $options_key ); ?>';
@@ -387,6 +394,10 @@ class Buddypress_Share_Admin {
 	 * @access public
 	 * @author   Wbcom Designs
 	 * @since    1.0.0
+	 *
+	 * @param string $services BP Share Services.
+	 * @param string $activity_url Activity URL.
+	 * @param string $activity_title Activity Title.
 	 */
 	public function bp_share_user_added_services( $services, $activity_url, $activity_title ) {
 		$user_services = apply_filters( 'bp_share_add_services', $services, $activity_url, $activity_title );

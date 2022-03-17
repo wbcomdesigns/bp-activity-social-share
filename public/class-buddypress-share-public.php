@@ -120,12 +120,12 @@ class Buddypress_Share_Public {
 	 * @access public
 	 * @since    1.0.0
 	 */
-	function bp_share_activity_filter() {
+	public function bp_share_activity_filter() {
 		$service        = get_site_option( 'bp_share_services' );
 		$extra_options  = get_site_option( 'bp_share_services_extra' );
 		$activity_type  = bp_get_activity_type();
 		$activity_link  = bp_get_activity_thread_permalink();
-		$activity_title = bp_get_activity_feed_item_title(); // use for description : bp_get_activity_feed_item_description()
+		$activity_title = bp_get_activity_feed_item_title(); // use for description : bp_get_activity_feed_item_description().
 		$plugin_path    = plugins_url();
 		if ( ! is_user_logged_in() ) {
 			echo '<div class = "activity-meta" >';
@@ -204,6 +204,11 @@ class Buddypress_Share_Public {
 			}
 	}
 
+	/**
+	 * Displays the language attributes for the ‘html’ tag.
+	 *
+	 * @param  string $output The type of HTML document. Accepts 'xhtml' or 'html'.
+	 */
 	public function bp_share_doctype_opengraph( $output ) {
 		return $output . '
     xmlns:og="http://opengraphprotocol.org/schema/"
@@ -212,8 +217,6 @@ class Buddypress_Share_Public {
 
 	/**
 	 * Share activity with og meta values
-	 *
-	 * @return
 	 */
 	public function bp_share_opengraph() {
 		global $bp, $post;
@@ -282,7 +285,7 @@ class Buddypress_Share_Public {
 				}
 			}
 
-			// Youzer media support
+			// Youzer media support.
 			if ( class_exists( 'Youzer' ) ) {
 				$media_ids = bp_activity_get_meta( $activity_obj->id, 'yz_attachments', true );
 				if ( ! empty( $media_ids ) ) {

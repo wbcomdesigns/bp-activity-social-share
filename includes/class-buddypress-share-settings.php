@@ -8,6 +8,7 @@
  * @package    Buddypress_Share
  * @subpackage Buddypress_Share/admin
  */
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -18,7 +19,6 @@
  * @subpackage Buddypress_Share/admin
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
-
 class Buddypress_Share_Options_Page {
 
 	/**
@@ -53,7 +53,7 @@ class Buddypress_Share_Options_Page {
 	}
 
 	/**
-	 * function for add plugin menu.
+	 * Function for add plugin menu.
 	 *
 	 * @access public
 	 * @author  Wbcom Designs
@@ -103,7 +103,7 @@ class Buddypress_Share_Options_Page {
 		?>
 		<input type='checkbox' name='bp_share_services_open'
 		<?php
-		if ( isset( $extra_options['bp_share_services_open'] ) && $extra_options['bp_share_services_open'] === 1 ) {
+		if ( isset( $extra_options['bp_share_services_open'] ) && 1 === $extra_options['bp_share_services_open'] ) {
 			echo 'checked="checked"'; }
 		?>
 		value='1'>
@@ -159,6 +159,12 @@ class Buddypress_Share_Options_Page {
 			<?php
 	}
 
+	/**
+	 * Tab listing
+	 *
+	 * @param current $current the current tab.
+	 * @since    1.0.0
+	 */
 	public function bpas_plugin_settings_tabs( $current ) {
 		$bpas_tabs = array(
 			'bpas_welcome'          => esc_html__( 'Welcome', 'buddypress-share' ),
@@ -170,10 +176,16 @@ class Buddypress_Share_Options_Page {
 			$tab_html .= '<li><a class="nav-tab ' . esc_attr( $class ) . '" href="admin.php?page=buddypress-share&tab=' . $bpas_tab . '">' . esc_html( $bpas_name ) . '</a></li>';
 		}
 		$tab_html .= '</div></ul></div>';
-		echo $tab_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post( $tab_html );
 		$this->bpas_include_admin_setting_tabs( $current );
 	}
 
+	/**
+	 * Tab listing
+	 *
+	 * @param bpas_tab $bpas_tab the current tab.
+	 * @since    1.0.0
+	 */
 	public function bpas_include_admin_setting_tabs( $bpas_tab ) {
 		$bpas_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpas_welcome';
 		switch ( $bpas_tab ) {
@@ -189,12 +201,23 @@ class Buddypress_Share_Options_Page {
 		}
 	}
 
+	/**
+	 * Welcome template
+	 *
+	 * @since    1.0.0
+	 */
 	public function bpas_welcome_section() {
 
 		if ( file_exists( BP_ACTIVITY_SHARE_PLUGIN_PATH . 'admin/bp-welcome-page.php' ) ) {
 			require_once BP_ACTIVITY_SHARE_PLUGIN_PATH . 'admin/bp-welcome-page.php';
 		}
 	}
+
+	/**
+	 * Social service settig template
+	 *
+	 * @since    1.0.0
+	 */
 	public function bpas_general_setting_section() {
 		?>
 		<div class="wbcom-tab-content">
@@ -474,7 +497,7 @@ class Buddypress_Share_Options_Page {
 	}
 
 	/**
-	 * bp_share_delete_user_services_ajax.
+	 * BP share delete services ajax.
 	 *
 	 * @access public
 	 * @author   Wbcom Designs
@@ -500,7 +523,7 @@ class Buddypress_Share_Options_Page {
 	}
 
 	/**
-	 * bp_share_chb_services_ajax.
+	 * BP share services ajax.
 	 *
 	 * @access public
 	 * @author   Wbcom Designs
@@ -545,11 +568,14 @@ class Buddypress_Share_Options_Page {
 	}
 
 	/**
-	 * Bp_share_add_options.
+	 * BP share add admin options.
 	 *
 	 * @access public
 	 * @author   Wbcom Designs
 	 * @since    1.0.0
+	 *
+	 * @param string $activity_url Activity URL.
+	 * @param string $activity_title Activity Title.
 	 */
 	public function bp_share_add_options( $activity_url, $activity_title ) {
 		$services = apply_filters( 'bp_share_add_services', $services = array(), $activity_url = '', $activity_title = '' );
@@ -559,7 +585,7 @@ class Buddypress_Share_Options_Page {
 				$options_key[ 'bp_share_' . strtolower( $key ) ] = $key;
 			}
 		}
-		if ( isset( $options_key ) && $options_key != '' ) {
+		if ( isset( $options_key ) && '' !== $options_key ) {
 			?>
 			<script>
 				var customOptions = '<?php echo wp_json_encode( $options_key ); ?>';
@@ -622,6 +648,10 @@ class Buddypress_Share_Options_Page {
 	 * @access public
 	 * @author   Wbcom Designs
 	 * @since    1.0.0
+	 *
+	 * @param string $services BP Share Services.
+	 * @param string $activity_url Activity URL.
+	 * @param string $activity_title Activity Title.
 	 */
 	public function bp_share_user_added_services( $services, $activity_url, $activity_title ) {
 		$user_services = apply_filters( 'bp_share_add_services', $services, $activity_url, $activity_title );

@@ -1,50 +1,33 @@
 <?php
-
-
-
 /**
-
- * Fired during plugin activation
- *
- * @link       http://wbcomdesigns.com
-
- * @since      1.0.0
- *
- * @package    Buddypress_Share
-
- * @subpackage Buddypress_Share/includes
- */
-
-
-
-/**
-
  * Fired during plugin activation.
-
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
-
+ *
  * @package    Buddypress_Share
-
  * @subpackage Buddypress_Share/includes
-
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
 
+/**
+ * Fired during plugin activation.
+ * This class defines all code necessary to run during the plugin's activation.
+ *
+ * @since      1.0.0
+ *
+ * @package    Buddypress_Share
+ * @subpackage Buddypress_Share/includes
+ * @author     Wbcom Designs <admin@wbcomdesigns.com>
+ */
 class Buddypress_Share_Activator {
 
-
-
 	/**
-
 	 * Short Description. (use period)
-
-	 * Long Description.
+	 *  Long Description.
 	 *
-	 * @since    1.0.0
+	 *  @since    1.0.0
 	 */
-
 	public static function activate() {
 
 		if ( class_exists( 'BuddyPress' ) ) {
@@ -117,18 +100,6 @@ class Buddypress_Share_Activator {
 
 						),
 
-						// "bp_share_google_plus" => array(
-
-						// "chb_bp_share_google_plus" => 1,
-
-						// "service_name" => esc_html__( 'Google Plus', 'buddypress-share' ),
-
-						// "service_icon" => "fa fa-google-plus",
-
-						// "service_description" => esc_html__( 'Google Plus is an interest-based social network that is owned and operated by Google.', 'buddypress-share' )
-
-						// ),
-
 					);
 
 					update_site_option( 'bp_share_services', $new_service_non_empty );
@@ -185,18 +156,6 @@ class Buddypress_Share_Activator {
 						'service_description'  => esc_html__( 'Enable this option to copy activity.', 'buddypress-share' ),
 					);
 
-					// $google_plus = array(
-
-					// "chb_bp_share_google_plus" => 1,
-
-					// "service_name" => esc_html__( 'Google Plus', 'buddypress-share' ),
-
-					// "service_icon" => "fa fa-google-plus",
-
-					// "service_description" => esc_html__( 'Google Plus is an interest-based social network that is owned and operated by Google.', 'buddypress-share' )
-
-					// );
-
 					foreach ( $services as $key => $value ) {
 
 						$services['bp_share_facebook'] = $facebook;
@@ -208,8 +167,6 @@ class Buddypress_Share_Activator {
 						$services['bp_share_whatsapp'] = $whatsapp;
 
 						$services['bp_copy_activity'] = $copy_activity;
-
-						// $services['bp_share_google_plus'] = $google_plus;
 
 					}
 

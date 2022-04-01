@@ -27,11 +27,12 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-define( 'BP_SHARE', 'buddypress-share' );
-define( 'BP_ACTIVITY_SHARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'BP_ACTIVITY_SHARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-define( 'BP_ACTIVITY_SHARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-
+if ( ! defined( 'BP_SHARE' ) ) {
+	define( 'BP_SHARE', 'buddypress-share' );
+	define( 'BP_ACTIVITY_SHARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+	define( 'BP_ACTIVITY_SHARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+	define( 'BP_ACTIVITY_SHARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+}
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-buddypress-share-activator.php
@@ -41,6 +42,10 @@ define( 'BP_ACTIVITY_SHARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
  * @since    1.0.0
  */
 function activate_buddypress_share() {
+	if ( in_array( 'buddypress-activity-social-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		deactivate_plugins( 'buddypress-activity-social-share/buddypress-share.php' );
+	}
+	
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-share-activator.php';
 	Buddypress_Share_Activator::activate();
 }
@@ -51,7 +56,9 @@ register_activation_hook( __FILE__, 'activate_buddypress_share' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-share.php';
+if ( ! class_exists( 'Buddypress_Share' ) ) {
+	require plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-share.php';
+}
 
 /**
  * Adding setting link on plugin listing page
@@ -176,6 +183,12 @@ function bpshare_requires_buddypress() {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		add_action( 'admin_notices', 'bpshare_required_plugin_admin_notice' );
 	}
+	
+	if ( in_array( 'buddypress-activity-social-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+		add_action( 'admin_notices', 'bpshare_pro_plugin_activate_notice' );
+		unset( $_GET['activate'] );
+	}
 }
 
 add_action( 'admin_init', 'bpshare_requires_buddypress' );
@@ -199,6 +212,21 @@ function bpshare_required_plugin_admin_notice() {
 }
 
 
+function bpshare_pro_plugin_activate_notice() {
+	$bpquotes_plugin = esc_html__( 'BuddyPress Activity Social Share pro', 'buddypress-share' );
+	$bp_plugin       = esc_html__( 'BuddyPress', 'buddypress-share' );
+	echo '<div class="error"><p>';
+	printf(
+	/* translators: 1: Name of the plugin 2: Name of the dependent plugin */
+		esc_html__( '%1$s plugin has already been activated. So, you can\'t use the free version plugin with the pro version plugin.', 'buddypress-share' ),
+		'<strong>' . esc_html( $bpquotes_plugin ) . '</strong>'
+	);
+	echo '</p></div>';
+	if ( isset( $_GET['activate'] ) ) {
+		unset( $_GET['activate'] );
+	}
+}
+
 /**
  * Redirect to plugin settings page after activated.
  *
@@ -207,6 +235,9 @@ function bpshare_required_plugin_admin_notice() {
  * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
 function bpshare_activation_redirect_settings( $plugin ) {
+	if ( in_array( 'buddypress-activity-social-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		return;
+	}
 	if ( class_exists( 'BuddyPress' ) ) {
 		if ( plugin_basename( __FILE__ ) === $plugin ) {
 			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-share' ) );

@@ -42,7 +42,7 @@ if ( ! defined( 'BP_SHARE' ) ) {
  * @since    1.0.0
  */
 function activate_buddypress_share() {
-	if ( in_array( 'buddypress-activity-social-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		deactivate_plugins( 'buddypress-activity-social-share/buddypress-share.php' );
 	}
 	
@@ -184,7 +184,7 @@ function bpshare_requires_buddypress() {
 		add_action( 'admin_notices', 'bpshare_required_plugin_admin_notice' );
 	}
 	
-	if ( in_array( 'buddypress-activity-social-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		add_action( 'admin_notices', 'bpshare_pro_plugin_activate_notice' );
 		unset( $_GET['activate'] );
@@ -235,7 +235,7 @@ function bpshare_pro_plugin_activate_notice() {
  * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
 function bpshare_activation_redirect_settings( $plugin ) {
-	if ( in_array( 'buddypress-activity-social-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		return;
 	}
 	if ( class_exists( 'BuddyPress' ) ) {

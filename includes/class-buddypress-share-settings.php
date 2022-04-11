@@ -325,7 +325,7 @@ class Buddypress_Share_Options_Page {
 										</div>
 									</td>
 								<?php if ( 'bp_copy_activity' !== $service_key ) : ?>
-									<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="<?php echo esc_attr( $service_key ); ?>"><i class="fa fa-window-close"></i></p></td>
+									<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="<?php echo esc_attr( $service_key ); ?>"><i class="fa fa-times"></i></p></td>
 								<?php endif; ?>
 								</tr>
 								<?php
@@ -414,7 +414,7 @@ class Buddypress_Share_Options_Page {
 					$html_view .= '<div class="active second plugin-version-author-uri">';
 					$html_view .= '</div>';
 					$html_view .= '</td>';
-					$html_view .= '<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="' . $service_key . '"><i class="fa fa-window-close"></i></p></td>';
+					$html_view .= '<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="' . $service_key . '"><i class="fa fa-times"></i></p></td>';
 					$html_view .= '</tr>';
 				} else {
 					$new_value = array(
@@ -448,7 +448,7 @@ class Buddypress_Share_Options_Page {
 					$html_view .= '<div class="active second plugin-version-author-uri">';
 					$html_view .= '</div>';
 					$html_view .= '</td>';
-					$html_view .= '<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="' . $service_key . '"><i class="fa fa-window-close"></i></p></td>';
+					$html_view .= '<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="' . $service_key . '"><i class="fa fa-times"></i></p></td>';
 					$html_view .= '</tr>';
 				}
 			} else {

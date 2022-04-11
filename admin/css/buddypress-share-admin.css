@@ -7,6 +7,35 @@
 
 /* Layout helpers
 ----------------------------------*/
+.wbcom-admin-settings-page h2,
+.bp_share_admin_title_section h3 {
+    padding: 18px 25px;
+    font-size: 15px;
+    background: #2094F3;
+    color: #fff;
+    margin: 0 -15px 20px;
+}
+.wbcom-welcome-main-wrapper,
+.wbcom-dashboard-wrapper-admin{
+    position: relative;
+    font-size: 15px;
+    background: #f6f6f6;
+    padding: 0 15px 15px;
+    margin: 25px 0;
+}
+.wbcom-welcome-support-info {
+    box-shadow: none;
+}
+.wbcom-welcome-support-info .button-primary {
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+.wbcom-welcome-support-info .three-col p {
+    min-height: 70px;
+}
+.bp-share-services-extra h2 {
+    border-top: 20px solid #fff;
+}
 
 .ui-helper-hidden {
     display: none;
@@ -1460,32 +1489,29 @@ a.ui-button:active,
 }
 
 .add_services_btn {
-    background-color: #4CAF50;
-    /* Green */
-    border: none;
+    background-color: #1983da;
     color: white;
-    padding: 5px 7px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px;
-    -webkit-transition-duration: 0.4s;
-    /* Safari */
-    transition-duration: 0.4s;
+    border: 2px solid #1983da;
+    padding: 8px 20px;
+    margin:0 0 20px;
     cursor: pointer;
-    float: left;
+    transition: all 0.3s;
+    border-radius: 5px;
 }
-
-.add_services_btn {
-    background-color: white;
-    color: black;
-    border: 2px solid #555555;
-}
-
 .add_services_btn:hover {
-    background-color: #555555;
-    color: white;
+    background-color: #fff;
+    color: #1983da;
+}
+td.service_delete.bp-share-td i.fa.fa-times {
+    background: red;
+    color: #fff !important;
+    font-weight: normal;
+    padding: 3px;
+    width: 15px;
+    border-radius: 50px;
+    height: 15px;
+    display: inline-block;
+    line-height: 15px;
 }
 
 p.error_service_selector {

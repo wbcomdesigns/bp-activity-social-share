@@ -109,6 +109,7 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 == Changelog ==
 = 3.3.0 =
 * Fix: (#87) Hide copy option in social sites dropdown
+* Fix: PHPCS fixes
 
 = 3.2.1 =
 * Fix: PHPCS fixes

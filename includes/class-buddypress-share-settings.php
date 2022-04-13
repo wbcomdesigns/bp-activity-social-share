@@ -173,7 +173,7 @@ class Buddypress_Share_Options_Page {
 		$tab_html  = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 		foreach ( $bpas_tabs as $bpas_tab => $bpas_name ) {
 			$class     = ( $bpas_tab === $current ) ? 'nav-tab-active' : '';
-			$tab_html .= '<li><a class="nav-tab ' . esc_attr( $class ) . '" href="admin.php?page=buddypress-share&tab=' . $bpas_tab . '">' . esc_html( $bpas_name ) . '</a></li>';
+			$tab_html .= '<li><a class="nav-tab ' . esc_attr( $class ) . '" href="admin.php?page=buddypress-share&tab=' . esc_attr( $bpas_tab ) . '">' . esc_html( $bpas_name ) . '</a></li>';
 		}
 		$tab_html .= '</div></ul></div>';
 		echo wp_kses_post( $tab_html );

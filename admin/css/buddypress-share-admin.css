@@ -1598,3 +1598,7 @@ td.bp-share-title {
 .bp_share_social_list .ui-sortable-handle {
     cursor: move;
 }
+
+.nav-tab-wrapper ul li a#bpas_general_settings:before {
+    content: "\f111";
+}

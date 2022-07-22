@@ -70,6 +70,22 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
+	 * Hide all notices from the setting page.
+	 *
+	 * @return void
+	 */
+	public function wbcom_hide_all_admin_notices_from_setting_page() {
+		$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'buddypress-share' );
+		$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
+
+		if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
+			remove_all_actions( 'admin_notices' );
+			remove_all_actions( 'all_admin_notices' );
+		}
+
+	}
+
+	/**
 	 * Register the JavaScript for the admin area.
 	 *
 	 * @since    1.0.0
@@ -244,7 +260,7 @@ class Buddypress_Share_Admin {
 	 */
 	public function bp_share_settings_section_callback() {
 		echo '<div class="bp_share_settings_section_callback_class">';
-		esc_html_e( 'Default is set to open window in popup. If this option is disabled then services open in new tab instead popup.  ', 'buddypress-share' );
+		echo '<div class="title-bp-share-view">'; esc_html_e( 'Default is set to open window in popup. If this option is disabled then services open in new tab instead popup.  ', 'buddypress-share' ); echo'</div>';
 	}
 
 	/**
@@ -577,17 +593,15 @@ class Buddypress_Share_Admin {
 						<div class="wbcom-admin-title-section">
 							<h3><?php esc_html_e( 'Add Social Services', 'buddypress-share' ); ?></h3>
 						</div>
-						<table cellspacing="0" class="add_share_services widefat plugins">
+						<table cellspacing="0" class="add_share_services add_share_services_list_wrap widefat plugins">
 							<thead>
 								<tr>
-									<th class="manage-column column-cb check-column" id="cb" scope="col">&nbsp;</th>
 									<th class="manage-column column-name" id="name" scope="col" style="width: 190px;"><?php esc_html_e( 'Component', 'buddypress-share' ); ?></th>
 									<th class="manage-column column-select_services" id="select_services" scope="col"><?php esc_html_e( 'Select Service', 'buddypress-share' ); ?></th>
 								</tr>
 							</thead>
 							<tbody id="the-list">
 								<tr>
-									<td scope="row"></td>
 									<td class="plugin-title">
 										<strong><?php esc_html_e( 'Social Sites', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
 									<td class="column-description desc">
@@ -610,7 +624,6 @@ class Buddypress_Share_Admin {
 									</td>
 								</tr>
 								<tr>
-									<td scope="row"></td>
 									<td class="plugin-title">
 										<strong><?php esc_html_e( 'Font Awesome Icon Class', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
 									<td class="column-faw-icon desc">
@@ -621,7 +634,6 @@ class Buddypress_Share_Admin {
 									</td>
 								</tr>
 								<tr>
-									<td scope="row"></td>
 									<td class="plugin-title">
 										<strong><?php esc_html_e( 'Description', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
 									<td class="column-description desc">
@@ -632,7 +644,6 @@ class Buddypress_Share_Admin {
 									</td>
 								</tr>
 								<tr>
-									<td scope="row"></td>
 									<td class="plugin-title">
 									</td>
 									<td class="add_services_btn_td">
@@ -642,8 +653,8 @@ class Buddypress_Share_Admin {
 								</tr>
 							</tbody>
 						</table><!--END: add_share_services table-->
-						<br/>
-						<table cellspacing="0" class="widefat plugins">
+						
+						<table cellspacing="0" class="add_share_services_list_wrap widefat plugins">
 							<thead>
 								<tr>
 									<th class="manage-column column-cb check-column" id="cb" scope="col">&nbsp;</th>
@@ -677,7 +688,7 @@ class Buddypress_Share_Admin {
 												</div>
 											</td>
 										<?php if ( 'bp_copy_activity' !== $service_key ) : ?>
-											<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="<?php echo esc_attr( $service_key ); ?>"><i class="fa fa-window-close"></i></p></td>
+											<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="<?php echo esc_attr( $service_key ); ?>"><i class="fa fa-close"></i></p></td>
 										<?php endif; ?>
 										</tr>
 										<?php

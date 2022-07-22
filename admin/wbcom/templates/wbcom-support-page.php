@@ -9,8 +9,7 @@
 	<div class="wbcom-wrap wbcom-plugin-wrapper">
 		<div class="wbcom_admin_header-wrapper">
 			<div id="wb_admin_plugin_name">
-				<?php esc_html_e( 'BuddyPress Activity Social Share', 'buddypress-share' ); ?>
-				<span><?php printf( __( 'Version %s', 'buddypress-share' ), BP_SHARE_VERSION ); ?></span>
+				<?php esc_html_e( 'Help & Support', 'buddypress-share' ); ?>
 			</div>
 			<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 		</div>      

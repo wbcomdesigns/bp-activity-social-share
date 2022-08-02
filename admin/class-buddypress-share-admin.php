@@ -584,7 +584,7 @@ class Buddypress_Share_Admin {
 		<div class="wbcom-tab-content">
 			<div class="wbcom-wrapper-admin">
 				<div class="wbcom-admin-title-section">
-					<h3><?php esc_html_e( 'General Settings', 'bp-member-reviews' ); ?></h3>
+					<h3><?php esc_html_e( 'General Settings', 'buddypress-share' ); ?></h3>
 				</div>
 				<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
 					<form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" id="bp_share_form">

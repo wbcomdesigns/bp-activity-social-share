@@ -557,9 +557,12 @@ class Buddypress_Share_Admin {
 	public function bpas_general_setting_section() {
 		?>
 		<div class="wbcom-tab-content">
-			<form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" id="bp_share_form">
-			<?php wp_nonce_field( 'update-options' ); ?>
+			<div class="wbcom-dashboard-wrapper-admin">
+				<div class="bp_share_admin_title_section">		
 					<h3><?php esc_html_e( 'Add Social Services', 'buddypress-share' ); ?></h3>
+				</div>
+			<form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" id="bp_share_form">
+			<?php wp_nonce_field( 'update-options' ); ?>					
 					<table cellspacing="0" class="add_share_services widefat plugins">
 						<thead>
 							<tr>
@@ -660,7 +663,7 @@ class Buddypress_Share_Admin {
 											</div>
 										</td>
 									<?php if ( 'bp_copy_activity' !== $service_key ) : ?>
-										<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="<?php echo esc_attr( $service_key ); ?>"><i class="fa fa-window-close"></i></p></td>
+										<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="<?php echo esc_attr( $service_key ); ?>"><i class="fa fa-times"></i></p></td>
 									<?php endif; ?>
 									</tr>
 									<?php
@@ -702,6 +705,7 @@ class Buddypress_Share_Admin {
 				</p>
 			</form>
 				<?php do_action( 'bp_share_add_services_options', $arg1 = '', $arg2 = '' ); ?>
+		</div>
 		</div>
 		<?php
 	}

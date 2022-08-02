@@ -28,6 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 if ( ! defined( 'BP_SHARE' ) ) {
+	define( 'BP_SHARE_VERSION', '3.3.0' );
 	define( 'BP_SHARE', 'buddypress-share' );
 	define( 'BP_ACTIVITY_SHARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 	define( 'BP_ACTIVITY_SHARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -45,7 +46,7 @@ function activate_buddypress_share() {
 	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		deactivate_plugins( 'buddypress-activity-social-share/buddypress-share.php' );
 	}
-	
+
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-share-activator.php';
 	Buddypress_Share_Activator::activate();
 }
@@ -183,7 +184,7 @@ function bpshare_requires_buddypress() {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		add_action( 'admin_notices', 'bpshare_required_plugin_admin_notice' );
 	}
-	
+
 	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		add_action( 'admin_notices', 'bpshare_pro_plugin_activate_notice' );

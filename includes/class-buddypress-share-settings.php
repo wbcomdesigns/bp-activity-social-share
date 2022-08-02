@@ -120,7 +120,7 @@ class Buddypress_Share_Options_Page {
 	 */
 	public function bp_share_settings_section_callback() {
 		echo '<div class="bp_share_settings_section_callback_class">';
-		esc_html_e( 'Default is set to open window in popup. If this option is disabled then services open in new tab instead popup.  ', 'buddypress-share' );
+		echo '<div class="title-bp-share-view">'; esc_html_e( 'Default is set to open window in popup. If this option is disabled then services open in new tab instead popup.  ', 'buddypress-share' ); echo '</div>';
 	}
 
 	/**
@@ -227,14 +227,12 @@ class Buddypress_Share_Options_Page {
 					<table cellspacing="0" class="add_share_services widefat fixed plugins">
 						<thead>
 							<tr>
-								<th class="manage-column column-cb check-column" id="cb" scope="col">&nbsp;</th>
 								<th class="manage-column column-name" id="name" scope="col" style="width: 190px;"><?php esc_html_e( 'Component', 'buddypress-share' ); ?></th>
 								<th class="manage-column column-select_services" id="select_services" scope="col"><?php esc_html_e( 'Select Service', 'buddypress-share' ); ?></th>
 							</tr>
 						</thead>
 						<tbody id="the-list">
 							<tr>
-								<th scope="row"></th>
 								<td class="plugin-title" style="width: 190px;">
 									<strong style="margin-top: 3px; float: left;"><?php esc_html_e( 'Social Sites', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
 								<td class="column-description desc">
@@ -257,7 +255,6 @@ class Buddypress_Share_Options_Page {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"></th>
 								<td class="plugin-title" style="width: 190px;">
 									<strong style="margin-top: 3px; float: left;"><?php esc_html_e( 'Font Awesome Icon Class', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
 								<td class="column-faw-icon desc">
@@ -268,7 +265,6 @@ class Buddypress_Share_Options_Page {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"></th>
 								<td class="plugin-title" style="width: 190px;">
 									<strong style="margin-top: 3px; float: left;"><?php esc_html_e( 'Description', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
 								<td class="column-description desc">
@@ -279,7 +275,6 @@ class Buddypress_Share_Options_Page {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"></th>
 								<td class="plugin-title" style="width: 190px;">
 								</td>
 								<td class="add_services_btn_td">
@@ -293,8 +288,6 @@ class Buddypress_Share_Options_Page {
 					<table cellspacing="0" class="widefat fixed plugins">
 						<thead>
 							<tr>
-								<th class="manage-column column-cb check-column" id="cb"
-									scope="col">&nbsp;</th>
 								<th class="manage-column column-name" id="name" scope="col"
 									style="width: 190px;"><?php esc_html_e( 'Social Sites', 'buddypress-share' ); ?></th>
 								<th class="manage-column column-description" id=

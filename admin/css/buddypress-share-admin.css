@@ -7,35 +7,61 @@
 
 /* Layout helpers
 ----------------------------------*/
-.wbcom-admin-settings-page h2,
-.bp_share_admin_title_section h3 {
-    padding: 18px 25px;
-    font-size: 15px;
-    background: #2094F3;
-    color: #fff;
-    margin: 0 -15px 20px;
+.wbcom-admin-option-wrap.wbcom-admin-option-wrap-view table.add_share_services_list_wrap.widefat.plugins,
+.bp-share-services-extra .bp_share_settings_section_callback_class {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 5px 5px 20px rgba(32, 53, 85, 0.10);
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-bottom: 25px;
 }
-.wbcom-welcome-main-wrapper,
-.wbcom-dashboard-wrapper-admin{
-    position: relative;
-    font-size: 15px;
-    background: #f6f6f6;
-    padding: 0 15px 15px;
-    margin: 25px 0;
+.wbcom-admin-option-wrap.wbcom-admin-option-wrap-view table.add_share_services_list_wrap.widefat.plugins th{
+    border-color:#ddd;
+    padding: 15px 20px;
 }
-.wbcom-welcome-support-info {
+.wbcom-admin-option-wrap.wbcom-admin-option-wrap-view #the-list td.plugin-title,
+.wbcom-admin-option-wrap.wbcom-admin-option-wrap-view #the-list td.desc,
+.wbcom-admin-option-wrap.wbcom-admin-option-wrap-view #the-list .bp-share-td{
+    padding: 15px 20px 0;
+}
+table.add_share_services td.add_services_btn_td,
+.title-bp-share-view{
+    padding: 15px 20px;
+}
+
+select#social_services_selector_id,
+table.add_share_services td input[type="text"] {
+    max-width: 100%;
+    margin: 5px 0;
+    border-radius: 8px;
     box-shadow: none;
+    height: 40px;
+    background-color: #F4F5F7;
+    border-color: #e2e2e2;
+    width: 100%;
 }
-.wbcom-welcome-support-info .button-primary {
-    padding: 5px 20px;
-    border-radius: 5px;
+p.service_delete_icon i.fa.fa-close {
+    background: red;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 100px;
+    color: #fff;
 }
-.wbcom-welcome-support-info .three-col p {
-    min-height: 70px;
+.wbcom-admin-option-wrap.wbcom-admin-option-wrap-view #the-list .bp-share-td strong {
+    color: #4fb745;
 }
-.bp-share-services-extra h2 {
-    border-top: 20px solid #fff;
-}
+
+.plugin-description p{
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+}   
 
 .ui-helper-hidden {
     display: none;
@@ -1489,29 +1515,25 @@ a.ui-button:active,
 }
 
 .add_services_btn {
-    background-color: #1983da;
+    background-color: #4CAF50;
+    border: none;
     color: white;
-    border: 2px solid #1983da;
-    padding: 8px 20px;
-    margin:0 0 20px;
-    cursor: pointer;
-    transition: all 0.3s;
-    border-radius: 5px;
-}
-.add_services_btn:hover {
-    background-color: #fff;
-    color: #1983da;
-}
-td.service_delete.bp-share-td i.fa.fa-times {
-    background: red;
-    color: #fff !important;
-    font-weight: normal;
-    padding: 3px;
-    width: 15px;
-    border-radius: 50px;
-    height: 15px;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
     display: inline-block;
-    line-height: 15px;
+    font-size: 15px;
+    margin: 0;
+    font-weight: 500;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.add_services_btn:hover {
+    background-color: #333;
+    color: white;
 }
 
 p.error_service_selector {
@@ -1558,17 +1580,6 @@ p.error_service_description {
     display: table-cell;
 }
 
-.bp-share-services-extra .bp_share_settings_section_callback_class {
-    background: #fff;
-    border: 1px solid #e5e5e5;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
-    border-spacing: 0;
-    clear: both;
-    margin: 0;
-    padding: 8px 20px;
-}
-
 .bpss-extra-actions {
     float: right;
 }
@@ -1586,7 +1597,7 @@ p.error_service_description {
 }
 
 .bp-share-services-extra {
-    margin-top: 2rem;
+    margin-top:1.5rem;
 }
 
 .bp-share-services-extra>h2 {
@@ -1596,7 +1607,14 @@ p.error_service_description {
 .faw_class_input,
 .bp_share_description {
     width: 100%;
+    max-width: 100%;
     margin: 5px 0;
+    border-radius: 8px;
+    box-shadow: none;
+    height: 80px;
+    background-color: #F4F5F7;
+    border-color: #e2e2e2;
+    width: 100%;
 }
 
 .wp-core-ui select.social_services_selector {
@@ -1623,4 +1641,8 @@ td.bp-share-title {
 
 .bp_share_social_list .ui-sortable-handle {
     cursor: move;
+}
+
+.nav-tab-wrapper ul li a#bpas_general_settings:before {
+    content: "\f111";
 }

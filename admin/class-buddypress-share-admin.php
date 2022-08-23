@@ -60,9 +60,9 @@ class Buddypress_Share_Admin {
 	 * @param string $hook Plugin page name.
 	 */
 	public function enqueue_styles( $hook ) {
-		if ( 'wb-plugins_page_buddypress-share' !== $hook ) {
-			return;
-		}
+		// if ( 'wb-plugins_page_buddypress-share' !== $hook ) {
+		// 	return;
+		// }
 		if ( ! wp_style_is( 'font-awesome', 'enqueued' ) ) {
 			wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', array(), $this->version, 'all' );
 		}

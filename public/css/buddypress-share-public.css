@@ -139,8 +139,8 @@ body:not(.logged-in).bp-nouveau #buddypress .activity-list .activity-item .activ
 }
 
 .bp-nouveau .activity-list .activity-item .activity-meta .bp-share-button::before {
-    content: "\f237";
-    font-family: 'dashicons';
+    content: "\f237"!important;
+    font-family: 'dashicons'!important;
     font-size: initial;
     margin-right: 3px;
 }

@@ -1653,7 +1653,23 @@ td.bp-share-title {
     content: "\f111";
 }
 
-.wbcom-wrap .notice.notice-error.is-dismissible.learndash-license-is-dismissible,
-#wpwrap .notice.notice-error {
+.wb-plugins_page_buddypress-share .update-nag,
+.wb-plugins_page_buddypress-share .updated,
+.wb-plugins_page_buddypress-share .error,
+.wb-plugins_page_buddypress-share .notice-error,
+.wb-plugins_page_buddypress-share .is-dismissible {
+    display: none !important;
+}
+
+.wb-plugins_page_wbcom-support-page .update-nag,
+.wb-plugins_page_wbcom-support-page .updated,
+.wb-plugins_page_wbcom-support-page .error,
+.wb-plugins_page_wbcom-support-page .notice-error,
+.wb-plugins_page_wbcom-support-page .is-dismissible,
+.wb-plugins_page_wbcom-plugins-page .update-nag,
+.wb-plugins_page_wbcom-plugins-page .updated,
+.wb-plugins_page_wbcom-plugins-page .error,
+.wb-plugins_page_wbcom-plugins-page .notice-error,
+.wb-plugins_page_wbcom-plugins-page .is-dismissible {
     display: none !important;
 }

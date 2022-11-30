@@ -1628,12 +1628,12 @@ p.error_service_description {
     margin: 5px 0;
 }
 
-td.plugin-title {
-    display: inline-block;
+.add_share_services  td.plugin-title {
+    display: inline-block; 
     margin: 5px 0;
 }
 
-td.plugin-title strong {
+.add_share_services  td.plugin-title strong {
     display: inline;
 }
 

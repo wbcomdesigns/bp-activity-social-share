@@ -166,7 +166,6 @@ jQuery(function() {
                     },
                     success: function(res) {
                         var obj = jQuery(ui.draggable);
-                        console.log(obj);
                         if (obj != null) {
                             obj[0].lastChild.remove();
                             var $list = jQuery('ul', ' #drag_social_icon').length ? jQuery('ul', '#drag_social_icon') : jQuery("#drag_social_icon").append('<li class="socialicon ui-draggable">' + get_icon_name + '</li>');

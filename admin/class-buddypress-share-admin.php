@@ -605,15 +605,15 @@ class Buddypress_Share_Admin {
 							$get_social_value = get_option( 'wss_admin_social_icon_value' );
 						if ( empty( $get_social_value['Facebook'] ) ) {
 							?>
-							<li class="socialicon" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['Twitter'] ) ) { ?>
-							<li class="socialicon" name="icon_twitter"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_gmail" name="icon_gmail"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['Gmail'] ) ) { ?>
-							<li class="socialicon" name="icon_gmail"><?php esc_html_e( 'Gmail', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_gmail" name="icon_gmail"><?php esc_html_e( 'Gmail', 'wbcom-social-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['WhatsApp'] ) ) { ?>
-							<li class="socialicon" name="icon_whatsapp"><?php esc_html_e( 'WhatsApp', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_whatsapp" name="icon_whatsapp"><?php esc_html_e( 'WhatsApp', 'wbcom-social-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['LinkedIn'] ) ) { ?>
-							<li class="socialicon" name="icon_linkedin"><?php esc_html_e( 'LinkedIn', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_linkedin" name="icon_linkedin"><?php esc_html_e( 'LinkedIn', 'wbcom-social-share' ); ?></li>
 							<?php } ?>
 						</ul>
 						<ul id="drag_icon_ul">
@@ -622,15 +622,15 @@ class Buddypress_Share_Admin {
 						$get_social_value = get_option( 'wss_admin_social_icon_value' );
 						if ( ! empty( $get_social_value['Facebook'] ) ) {
 							?>
-							<li class="socialicon" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['Twitter'] ) ) { ?>
-							<li class="socialicon" name="icon_twitter"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_twitter" name="icon_twitter"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['Gmail'] ) ) { ?>
-							<li class="socialicon" name="icon_gmail"><?php esc_html_e( 'Gmail', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_gmail" name="icon_gmail"><?php esc_html_e( 'Gmail', 'wbcom-social-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['WhatsApp'] ) ) { ?>
-							<li class="socialicon" name="icon_whatsapp"><?php esc_html_e( 'WhatsApp', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_whatsapp" name="icon_whatsapp"><?php esc_html_e( 'WhatsApp', 'wbcom-social-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['LinkedIn'] ) ) { ?>
-							<li class="socialicon" name="icon_linkedin"><?php esc_html_e( 'LinkedIn', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_linkedin" name="icon_linkedin"><?php esc_html_e( 'LinkedIn', 'wbcom-social-share' ); ?></li>
 						<?php } ?>
 						</ul>
 						</section>

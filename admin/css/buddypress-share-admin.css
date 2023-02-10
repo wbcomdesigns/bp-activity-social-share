@@ -7,7 +7,9 @@
 
 /* Layout helpers
 ----------------------------------*/
-
+.social_icon_section .ui-droppable h3 {
+    margin-top: 0;
+}
 .wbcom-admin-option-wrap.wbcom-admin-option-wrap-view table.add_share_services_list_wrap.widefat.plugins,
 .bp-share-services-extra .bp_share_settings_section_callback_class {
     background: #fff;
@@ -1683,9 +1685,45 @@ td.bp-share-title {
     display: flex;
     cursor: move;
     background: #fafaff;
-    justify-content: space-between;
     align-items: center;
+    gap: 15px;
+    font-weight: bold;
+    transition: all 0.3s;
 }
+
+.socialicon:hover {
+    box-shadow: 0 0px 20px #dedede;
+}
+
+.socialicon:before {
+    display: flex;
+    font-size: 18px;
+    font-family: dashicons;
+    line-height: normal;
+    font-weight: 400;
+    align-items: center;
+    width: 32px;
+    border-radius: 100px;
+    background: #eee;
+    height: 32px;
+    justify-content: center;
+}
+.socialicon.icon_facebook:before{
+    content: "\f305";
+}
+.socialicon.icon_twitter:before{
+    content: "\f301";
+}
+.socialicon.icon_gmail:before{
+    content: "\f465";
+}
+.socialicon.icon_whatsapp:before{
+    content: "\f19a";
+}
+.socialicon.icon_linkedin:before{
+    content: "\f18d";
+}
+
 
 .social_icon_section {
     width: 100%;

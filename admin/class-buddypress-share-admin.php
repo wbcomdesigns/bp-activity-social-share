@@ -94,6 +94,8 @@ class Buddypress_Share_Admin {
 	 */
 	public function enqueue_scripts( $hook ) {
 		wp_enqueue_script( 'jquery-ui-sortable' );
+		wp_enqueue_script( 'jquery-ui-draggable' );
+		wp_enqueue_script( 'jquery-ui-droppable' );
 		if ( 'wb-plugins_page_buddypress-share' !== $hook ) {
 			return;
 		}
@@ -582,122 +584,60 @@ class Buddypress_Share_Admin {
 	public function bpas_general_setting_section() {
 		?>
 		<div class="wbcom-tab-content">
-			<div class="wbcom-wrapper-admin">
 				<div class="wbcom-admin-title-section">
 					<h3><?php esc_html_e( 'General Settings', 'buddypress-share' ); ?></h3>
 				</div>
 				<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
-					<form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" id="bp_share_form">
-					<?php wp_nonce_field( 'update-options' ); ?>
-					<div class="form-table">
-						<div class="wbcom-admin-title-section">
-							<h3><?php esc_html_e( 'Add Social Services', 'buddypress-share' ); ?></h3>
-						</div>
-						<table cellspacing="0" class="add_share_services add_share_services_list_wrap widefat plugins">
-							<thead>
-								<tr>
-									<th class="manage-column column-name" id="name" scope="col" style="width: 190px;"><?php esc_html_e( 'Component', 'buddypress-share' ); ?></th>
-									<th class="manage-column column-select_services" id="select_services" scope="col"><?php esc_html_e( 'Select Service', 'buddypress-share' ); ?></th>
-								</tr>
-							</thead>
-							<tbody id="the-list">
-								<tr>
-									<td class="plugin-title">
-										<strong><?php esc_html_e( 'Social Sites', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
-									<td class="column-description desc">
-										<div class="plugin-description">
-											<select name="social_services_selector" id="social_services_selector_id" class="social_services_selector">
-												<option value="">-<?php esc_html_e( 'select', 'buddypress-share' ); ?>-</option>
-												<option value="bp_share_facebook"><?php esc_html_e( 'Facebook', 'buddypress-share' ); ?></option>
-												<option value="bp_share_twitter"><?php esc_html_e( 'Twitter', 'buddypress-share' ); ?></option>
-												<option value="bp_share_pinterest"><?php esc_html_e( 'Pinterest', 'buddypress-share' ); ?></option>
-												<option value="bp_share_linkedin"><?php esc_html_e( 'Linkedin', 'buddypress-share' ); ?></option>
-												<option value="bp_share_reddit"><?php esc_html_e( 'Reddit', 'buddypress-share' ); ?></option>
-												<option value="bp_share_wordpress"><?php esc_html_e( 'WordPress', 'buddypress-share' ); ?></option>
-												<option value="bp_share_pocket"><?php esc_html_e( 'Pocket', 'buddypress-share' ); ?></option>
-												<option value="bp_share_email"><?php esc_html_e( 'Email', 'buddypress-share' ); ?></option>
-												<option value="bp_share_whatsapp"><?php esc_html_e( 'Whatsapp', 'buddypress-share' ); ?></option>
-												<option value="bp_copy_activity" style="display: none"><?php esc_html_e( 'Copy', 'buddypress-share' ); ?></option>
-											</select>
-										</div>
-										<p class="error_service error_service_selector"><?php esc_html_e( 'This field is required!', 'buddypress-share' ); ?></p>
-									</td>
-								</tr>
-								<tr>
-									<td class="plugin-title">
-										<strong><?php esc_html_e( 'Font Awesome Icon Class', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
-									<td class="column-faw-icon desc">
-										<div class="plugin-faw-icon">
-											<input class="faw_class_input" name="faw_class_input" type="text">
-											<p class="error_service error_service_faw-icon"><?php esc_html_e( 'This field is required!', 'buddypress-share' ); ?></p>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="plugin-title">
-										<strong><?php esc_html_e( 'Description', 'buddypress-share' ); ?></strong><span class="bp_share_req">*</span></td>
-									<td class="column-description desc">
-										<div class="plugin-description">
-											<textarea name="bp_share_description" class="bp_share_description"></textarea>
-											<p class="error_service error_service_description"><?php esc_html_e( 'This field is required!', 'buddypress-share' ); ?></p>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="plugin-title">
-									</td>
-									<td class="add_services_btn_td">
-										<input type="button" class="add_services_btn" name="add_services_btn" value="<?php esc_html_e( 'Add Services', 'buddypress-share' ); ?>">
-										<p class="spint_action"><i class="fa fa-cog fa-spin fa-3x fa-fw"></i></p>
-									</td>
-								</tr>
-							</tbody>
-						</table><!--END: add_share_services table-->
-						
-						<table cellspacing="0" class="add_share_services_list_wrap widefat plugins">
-							<thead>
-								<tr>
-									<th class="manage-column column-cb check-column" id="cb" scope="col">&nbsp;</th>
-									<th class="manage-column column-name" id="name" scope="col"><?php esc_html_e( 'Social Sites', 'buddypress-share' ); ?></th>
-									<th class="manage-column column-description" id="description" scope="col"><?php esc_html_e( 'Description', 'buddypress-share' ); ?></th>
-									<th class="manage-column column-services-action" id="services-action" scope="col"><?php esc_html_e( 'Action', 'buddypress-share' ); ?></th>
-								</tr>
-							</thead>
-							<tbody id="the-list" class="bp_share_social_list">
-							<?php
-							$social_options = get_site_option( 'bp_share_services' );
-							if ( ! empty( $social_options ) ) {
-								$count = 0;
-								foreach ( $social_options as $service_key => $social_option ) {
-
-									?>
-										<tr class="bp-share-services-row" id="<?php echo 'tr_' . esc_attr( $service_key ); ?>" data-pos-index="<?php echo esc_attr( $count ); ?>" data-key="<?php echo 'chb_' . esc_attr( $service_key ); ?>">
-											<td scope="row" id="bp_share_chb" class="bp-share-td">
-												<input type="checkbox" name="<?php echo 'chb_' . esc_attr( $service_key ); ?>" value="1" <?php	echo ( 1 === $social_options[ $service_key ][ 'chb_' . $service_key ] ) ? 'checked="checked"' : ''; ?>
-												/>
-											</td>
-											<td class="bp-share-title bp-share-td">
-												<strong><i class="<?php echo esc_attr( $social_option['service_icon'] ); ?> fa-lg"></i> <?php echo esc_html( $social_option['service_name'] ); ?></strong>
-												<div class="row-actions-visible"></div>
-											</td>
-											<td class="bp-share-column-description desc bp-share-td">
-												<div class="plugin-description">
-													<p><?php echo esc_html( $social_option['service_description'] ); ?></p>
-												</div>
-												<div class="active second plugin-version-author-uri">
-												</div>
-											</td>
-										<?php if ( 'bp_copy_activity' !== $service_key ) : ?>
-											<td class="service_delete bp-share-td"><p class="service_delete_icon" data-bind="<?php echo esc_attr( $service_key ); ?>"><i class="fa fa-close"></i></p></td>
-										<?php endif; ?>
-										</tr>
-										<?php
-										$count++;
-								}
-							}
+					<div class="save-option-message"></div>
+					<div class="option-not-save-message"></div>
+					<form method="post" action="options.php" id="wss_form_data">
+						 <div class="wbcom-settings-section-wrap">
+					<div class="wbcom-settings-section-options-heading">
+						<label for="wbcom-social-share">
+							<?php esc_html_e( 'Enable Sharing Sites', 'wbcom-social-share' ); ?>
+						</label>
+					 </div>
+					 <div class="wbcom-settings-section-options">
+						<section class="social_icon_section">
+						<ul id="drag_social_icon">
+						<h3>Disable</h3>
+						<?php
+							$get_social_value = get_option( 'wss_admin_social_icon_value' );
+						if ( empty( $get_social_value['Facebook'] ) ) {
 							?>
-							</tbody>
-						</table><!--END:social options table-->
+							<li class="socialicon" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
+							<?php } if ( empty( $get_social_value['Twitter'] ) ) { ?>
+							<li class="socialicon" name="icon_twitter"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
+							<?php } if ( empty( $get_social_value['Gmail'] ) ) { ?>
+							<li class="socialicon" name="icon_gmail"><?php esc_html_e( 'Gmail', 'wbcom-social-share' ); ?></li>
+							<?php } if ( empty( $get_social_value['WhatsApp'] ) ) { ?>
+							<li class="socialicon" name="icon_whatsapp"><?php esc_html_e( 'WhatsApp', 'wbcom-social-share' ); ?></li>
+							<?php } if ( empty( $get_social_value['LinkedIn'] ) ) { ?>
+							<li class="socialicon" name="icon_linkedin"><?php esc_html_e( 'LinkedIn', 'wbcom-social-share' ); ?></li>
+							<?php } ?>
+						</ul>
+						<ul id="drag_icon_ul">
+							<h3>Enable</h3>
+						<?php
+						$get_social_value = get_option( 'wss_admin_social_icon_value' );
+						if ( ! empty( $get_social_value['Facebook'] ) ) {
+							?>
+							<li class="socialicon" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
+						<?php } if ( ! empty( $get_social_value['Twitter'] ) ) { ?>
+							<li class="socialicon" name="icon_twitter"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
+						<?php } if ( ! empty( $get_social_value['Gmail'] ) ) { ?>
+							<li class="socialicon" name="icon_gmail"><?php esc_html_e( 'Gmail', 'wbcom-social-share' ); ?></li>
+						<?php } if ( ! empty( $get_social_value['WhatsApp'] ) ) { ?>
+							<li class="socialicon" name="icon_whatsapp"><?php esc_html_e( 'WhatsApp', 'wbcom-social-share' ); ?></li>
+						<?php } if ( ! empty( $get_social_value['LinkedIn'] ) ) { ?>
+							<li class="socialicon" name="icon_linkedin"><?php esc_html_e( 'LinkedIn', 'wbcom-social-share' ); ?></li>
+						<?php } ?>
+						</ul>
+						</section>
+						</div>
+						</div>
+						
+					
 						<div class="bp-share-services-extra">
 								<?php
 								do_settings_sections( 'bp_share_services_extra' );
@@ -731,9 +671,56 @@ class Buddypress_Share_Admin {
 					</form>
 				</div>
 				<?php do_action( 'bp_share_add_services_options', $arg1 = '', $arg2 = '' ); ?>
-			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * This function is for that save social icon values in database
+	 **/
+	public function wss_social_icons() {
+		$nonce = ! empty( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'bp_share_nonce' ) ) {
+			$error = new WP_Error( '001', 'Sorry, your nonce did not verify.', 'Some information' );
+			wp_send_json_error( $error );
+		}
+		$success                = isset( $_POST['term_name'] ) ? sanitize_text_field( wp_unslash( $_POST['term_name'] ) ) : '';
+		$icon_value             = array();
+		$wss_admin_icon_setting = get_option( 'wss_admin_social_icon_value' );
+		if ( empty( $wss_admin_icon_setting ) ) {
+			$icon_value[ $success ] = $success;
+			$update_drag_value      = update_option( 'wss_admin_social_icon_value', $icon_value );
+		} else {
+			$new_icon_value[ $success ] = $success;
+			$merge                      = array_merge( $wss_admin_icon_setting, $new_icon_value );
+			$update_drag_value          = update_option( 'wss_admin_social_icon_value', $merge );
+		}
+		if ( $update_drag_value ) {
+			wp_send_json_success();
+		} else {
+			wp_send_json_error();
+		}
+	}
+
+	/**
+	 * This function is for that remove social icon when drag social icon in disable section
+	 **/
+	public function wss_social_remove_icons() {
+		$nonce = ! empty( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'bp_share_nonce' ) ) {
+			$error = new WP_Error( '001', 'Sorry, your nonce did not verify.', 'Some information' );
+			wp_send_json_error( $error );
+		}
+		$success_icon_val      = isset( $_POST['icon_name'] ) ? sanitize_text_field( wp_unslash( $_POST['icon_name'] ) ) : '';
+		$icon_value_array      = array();
+		$wss_admin_icon_remove = get_option( 'wss_admin_social_icon_value' );
+		foreach ( $wss_admin_icon_remove as $key => $value ) {
+			if ( $key === $success_icon_val ) {
+				unset( $wss_admin_icon_remove[ $key ] );
+				update_option( 'wss_admin_social_icon_value', $wss_admin_icon_remove );
+			}
+		}
+		die;
 	}
 
 }

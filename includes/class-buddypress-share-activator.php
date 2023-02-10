@@ -268,6 +268,13 @@ class Buddypress_Share_Activator {
 			if ( get_site_option( 'bp_share_all_services_disable' ) === false ) {
 				update_site_option( 'bp_share_all_services_disable', 'enable' );
 			}
+
+			$wss_admin_social_icon_value = get_option( 'wss_admin_social_icon_value' );
+			$social_icon_default         = array(
+				'Facebook' => 'Facebook',
+				'Twitter'  => 'Twitter',
+			);
+			update_option( 'wss_admin_social_icon_value', $social_icon_default );
 		}
 
 	}

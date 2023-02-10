@@ -717,10 +717,14 @@ class Buddypress_Share_Admin {
 		foreach ( $wss_admin_icon_remove as $key => $value ) {
 			if ( $key === $success_icon_val ) {
 				unset( $wss_admin_icon_remove[ $key ] );
-				update_option( 'wss_admin_social_icon_value', $wss_admin_icon_remove );
+				$update_drag_value = update_option( 'wss_admin_social_icon_value', $wss_admin_icon_remove );
 			}
 		}
-		die;
+		if ( $update_drag_value ) {
+			wp_send_json_success();
+		} else {
+			wp_send_json_error();
+		}
 	}
 
 }

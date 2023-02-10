@@ -114,67 +114,68 @@ jQuery(function() {
         });
     });
 
-    // jQuery(function() {
-    function bpas_drag_drop_social_icon() {
-        var $drag_social_icon = jQuery(".social_icon_section > ul");
-        jQuery("li", $drag_social_icon).draggable({
-            revert: "invalid",
-            helper: "clone"
-        });
-    }
+    jQuery(function() {
+        function bpas_drag_drop_social_icon() {
+            var $drag_social_icon = jQuery(".social_icon_section > ul");
+            jQuery("li", $drag_social_icon).draggable({
+                revert: "invalid",
+                helper: "clone"
+            });
+        }
 
-    jQuery("#drag_icon_ul").droppable({
-        accept: ".social_icon_section > #drag_social_icon > li",
-        drop: function(event, ui) {
-            var name = jQuery(ui.draggable).text();
-            jQuery(ui.draggable).remove();
-            jQuery.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                data: {
-                    action: 'wss_social_icons',
-                    term_name: name,
-                    nonce: my_ajax_object.nonce
-                },
-                success: function(res) {
-                    if (res.success) {
+        jQuery("#drag_icon_ul").droppable({
+            accept: ".social_icon_section > #drag_social_icon > li",
+            drop: function(event, ui) {
+                var name = jQuery(ui.draggable).text();
+                jQuery(ui.draggable).remove();
+                jQuery.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'wss_social_icons',
+                        term_name: name,
+                        nonce: my_ajax_object.nonce
+                    },
+                    success: function(res) {
+                        if (res.success) {
+                            var obj = jQuery(ui.draggable);
+                            if (obj != null) {
+                                obj[0].lastChild.remove();
+                                var $list = jQuery('ul', ' #drag_icon_ul').length ? jQuery('ul', '#drag_icon_ul') : jQuery("#drag_icon_ul").append('<li class="socialicon ui-draggable">' + name + '</li>');
+                            }
+                            bpas_drag_drop_social_icon();
+
+                        }
+                    }
+                });
+            }
+        });
+
+        jQuery("#drag_social_icon").droppable({
+            accept: ".social_icon_section > #drag_icon_ul > li",
+            drop: function(event, ui) {
+                var get_icon_name = jQuery(ui.draggable).text();
+                jQuery(ui.draggable).remove();
+                jQuery.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'wss_social_remove_icons',
+                        icon_name: get_icon_name,
+                        nonce: my_ajax_object.nonce
+                    },
+                    success: function(res) {
                         var obj = jQuery(ui.draggable);
+                        console.log(obj);
                         if (obj != null) {
                             obj[0].lastChild.remove();
-                            var $list = jQuery('ul', ' #drag_icon_ul').length ? jQuery('ul', '#drag_icon_ul') : jQuery("#drag_icon_ul").append('<li class="socialicon ui-draggable">' + name + '</li>');
+                            var $list = jQuery('ul', ' #drag_social_icon').length ? jQuery('ul', '#drag_social_icon') : jQuery("#drag_social_icon").append('<li class="socialicon ui-draggable">' + get_icon_name + '</li>');
                         }
                         bpas_drag_drop_social_icon();
-
                     }
-                }
-            });
-        }
+                });
+            }
+        });
     });
-
-    jQuery("#drag_social_icon").droppable({
-        accept: ".social_icon_section > #drag_icon_ul > li",
-        drop: function(event, ui) {
-            var get_icon_name = jQuery(ui.draggable).text();
-            jQuery(ui.draggable).remove();
-            jQuery.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                data: {
-                    action: 'wss_social_remove_icons',
-                    icon_name: get_icon_name,
-                    nonce: my_ajax_object.nonce
-                },
-                success: function(res) {
-                    var obj = $(ui.draggable);
-                    if (obj != null) {
-                        obj[0].lastChild.remove();
-                        var $list = jQuery('ul', ' #drag_social_icon').length ? jQuery('ul', '#drag_social_icon') : jQuery("#drag_social_icon").append('<li class="socialicon ui-draggable">' + get_icon_name + '</li>');
-                    }
-                    bpas_drag_drop_social_icon();
-                }
-            });
-        }
-    });
-    // });
 
 })(jQuery);

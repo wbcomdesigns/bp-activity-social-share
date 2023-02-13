@@ -1708,19 +1708,19 @@ td.bp-share-title {
     height: 32px;
     justify-content: center;
 }
-.socialicon.icon_facebook:before{
+.socialicon.icon_Facebook:before{
     content: "\f305";
 }
-.socialicon.icon_twitter:before{
+.socialicon.icon_Twitter:before{
     content: "\f301";
 }
-.socialicon.icon_gmail:before{
+.socialicon.icon_Gmail:before{
     content: "\f465";
 }
-.socialicon.icon_whatsapp:before{
+.socialicon.icon_WhatsApp:before{
     content: "\f19a";
 }
-.socialicon.icon_linkedin:before{
+.socialicon.icon_LinkedIn:before{
     content: "\f18d";
 }
 

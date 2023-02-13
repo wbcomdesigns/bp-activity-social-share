@@ -141,7 +141,8 @@
                             var obj = jQuery(ui.draggable);
                             if (obj != null) {
                                 obj[0].lastChild.remove();
-                                var $list = jQuery('ul', ' #drag_icon_ul').length ? jQuery('ul', '#drag_icon_ul') : jQuery("#drag_icon_ul").append('<li class="socialicon ui-draggable">' + name + '</li>');
+                                var socialclass = 'icon_' + name;
+                                var $list = jQuery('ul', ' #drag_icon_ul').length ? jQuery('ul', '#drag_icon_ul') : jQuery("#drag_icon_ul").append('<li class="socialicon ui-draggable '+ socialclass +' ">' + name + '</li>');
                             }
                             bpas_drag_drop_social_icon();
 
@@ -168,7 +169,8 @@
                         var obj = jQuery(ui.draggable);
                         if (obj != null) {
                             obj[0].lastChild.remove();
-                            var $list = jQuery('ul', ' #drag_social_icon').length ? jQuery('ul', '#drag_social_icon') : jQuery("#drag_social_icon").append('<li class="socialicon ui-draggable">' + get_icon_name + '</li>');
+                            var socialclass = 'icon_' + get_icon_name;
+                            var $list = jQuery('ul', ' #drag_social_icon').length ? jQuery('ul', '#drag_social_icon') : jQuery("#drag_social_icon").append('<li class="socialicon ui-draggable '+ socialclass +'">' + get_icon_name + '</li>');
                         }
                         bpas_drag_drop_social_icon();
                     }

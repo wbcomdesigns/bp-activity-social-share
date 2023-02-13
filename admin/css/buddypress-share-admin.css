@@ -1714,10 +1714,13 @@ td.bp-share-title {
 .socialicon.icon_Twitter:before{
     content: "\f301";
 }
-.socialicon.icon_Gmail:before{
+.socialicon.icon_E-mail:before,
+.icon_Gmail:before{
     content: "\f465";
 }
-.socialicon.icon_WhatsApp:before{
+.socialicon.icon_WhatsApp:before,
+.socialicon.icon_Whatsapp:before,
+.icon_WhatAapp:before {
     content: "\f19a";
 }
 .socialicon.icon_LinkedIn:before{

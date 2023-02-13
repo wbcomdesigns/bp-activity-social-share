@@ -1,4 +1,4 @@
-jQuery(function() {
+(function ($) {
 
     jQuery(document).on('click', '.add_services_btn', function() {
         jQuery('.error_service').hide();

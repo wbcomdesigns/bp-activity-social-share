@@ -608,7 +608,7 @@ class Buddypress_Share_Admin {
 							<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['Twitter'] ) ) { ?>
 							<li class="socialicon icon_Twitter" name="icon_gmail"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
-							<?php } if ( empty( $get_social_value['Gmail'] ) ) { ?>
+							<?php } if ( empty( $get_social_value['E-mail'] ) ) { ?>
 							<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'wbcom-social-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['WhatsApp'] ) ) { ?>
 							<li class="socialicon icon_WhatAapp" name="icon_whatsapp"><?php esc_html_e( 'WhatsApp', 'wbcom-social-share' ); ?></li>
@@ -625,7 +625,7 @@ class Buddypress_Share_Admin {
 							<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['Twitter'] ) ) { ?>
 							<li class="socialicon icon_Twitter" name="icon_twitter"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
-						<?php } if ( ! empty( $get_social_value['Gmail'] ) ) { ?>
+						<?php } if ( ! empty( $get_social_value['E-mail'] ) ) { ?>
 							<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'wbcom-social-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['WhatsApp'] ) ) { ?>
 							<li class="socialicon icon_WhatsApp" name="icon_whatsapp"><?php esc_html_e( 'WhatsApp', 'wbcom-social-share' ); ?></li>

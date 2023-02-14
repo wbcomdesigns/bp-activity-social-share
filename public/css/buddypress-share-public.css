@@ -76,23 +76,23 @@ a.bp-share.has-popup {
     border-radius: 2px;
 }
 
-.bp-share .fa-facebook {
+.bp-share .dashicons-facebook-alt {
     color: #3B5998;
 }
 
-.bp-share .fa-twitter {
+.bp-share .dashicons-twitter {
     color: #1DA1F2;
 }
 
-.bp-share .fa-linkedin {
+.bp-share .dashicons-linkedin {
     color: #007BB6;
 }
 
-.bp-share .fa-google-plus {
-    color: #DF4B37;
+.bp-share .dashicons-whatsapp {
+    color: #46bd00;
 }
 
-.bp-share .fa-envelope {
+.bp-share .dashicons-email {
     color: #AD0000;
 }
 

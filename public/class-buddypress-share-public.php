@@ -156,7 +156,7 @@ class Buddypress_Share_Public {
 			if ( isset( $social_service ) && ! empty( $social_service['WhatsApp'] ) ) {
 				echo '<a class="bp-share" id="bp_whatsapp_share" href="https://api.whatsapp.com/send?text=' . esc_url( $activity_link ) . '&image_sharer=1"><span class="dashicons dashicons-whatsapp"></span></a>';
 			}
-			if ( isset( $social_service ) && ! empty( $social_service['Gmail'] ) ) {
+			if ( isset( $social_service ) && ! empty( $social_service['E-mail'] ) ) {
 				$email = 'mailto:?subject=' . esc_url( $activity_link ) . '&body=Check out this site: ' . esc_html( $activity_title ) . '" title="Share by Email';
 				echo '<a class="bp-share" id="bp_email_share" href="' . esc_url( $email ) . '"><span class="dashicons dashicons-email"></span></a>';
 			}

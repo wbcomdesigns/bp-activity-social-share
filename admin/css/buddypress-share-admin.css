@@ -1711,6 +1711,18 @@ td.bp-share-title {
 .socialicon.icon_Facebook:before{
     content: "\f305";
 }
+.socialicon.icon_Pinterest:before{
+    content: "\f192";
+}
+.socialicon.icon_Reddit:before{
+    content: "\f195";
+}
+.socialicon.icon_WordPress:before{
+    content: "\f120";
+}
+.socialicon.icon_Pocket:before{
+    content: "\f347";
+}
 .socialicon.icon_Twitter:before{
     content: "\f301";
 }

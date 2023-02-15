@@ -150,6 +150,25 @@ class Buddypress_Share_Public {
 				$twitter_title = urlencode( html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' ) );
 				echo '<a class="bp-share" id="bp_twitter_share"  href="https://twitter.com/share?url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-twitter"></span></a>';
 			}
+			if ( isset( $social_service ) && ! empty( $social_service['Pinterest'] ) ) {
+				$media = '';
+				$video = '';
+				echo '<a class="bp-share" id="bp_pinterest_share"  href="https://pinterest.com/pin/create/bookmarklet/?media=' . esc_url( $media ) . '&url=' . esc_url( $activity_link ) . '&is_video=' . esc_url( $video ) . '&description=' . esc_html( $activity_title ) .  '"><span class="dashicons dashicons-pinterest
+				"></span></a>';
+			}
+			if ( isset( $social_service ) && ! empty( $social_service['Reddit'] ) ) {
+				echo '<a class="bp-share" id="bp_reddit_share"  href="http://reddit.com/submit?url=' . esc_url( $activity_link ) . '&title=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-reddit"></span></a>';
+			}
+			if ( isset( $social_service ) && ! empty( $social_service['WordPress'] ) ) {
+				$description = '';
+				$img         = '';
+				echo '<a class="bp-share" id="bp_wordpress_share"  href="https://wordpress.com/wp-admin/press-this.php?u=' . esc_url( $activity_link ) . '&t=' . esc_html( $activity_title ) . '&s=' . esc_url( $description ) . '&i= ' . esc_url( $img ) . ' "><span class="dashicons dashicons-wordpress"></span></a>';
+			}
+			if ( isset( $social_service ) && ! empty( $social_service['Pocket'] ) ) {
+				$description = '';
+				$img         = '';
+				echo '<a class="bp-share" id="bp_pocket_share"  href="https://getpocket.com/save?url=' . esc_url( $activity_link ) . '&title=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-arrow-down-alt2"></span></a>';
+			}
 			if ( isset( $social_service ) && ! empty( $social_service['LinkedIn'] ) ) {
 				echo '<a class="bp-share" id="bp_linkedin_share" href="http://www.linkedin.com/shareArticle?mini=true&url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-linkedin"></span></a>';
 			}

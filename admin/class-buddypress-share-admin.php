@@ -602,7 +602,7 @@ class Buddypress_Share_Admin {
 						<ul id="drag_social_icon">
 						<h3>Disable</h3>
 						<?php
-							$get_social_value = get_option( 'wss_admin_social_icon_value' );
+							$get_social_value = get_site_option( 'bp_share_services' );
 						if ( empty( $get_social_value['Facebook'] ) ) {
 							?>
 							<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
@@ -627,7 +627,7 @@ class Buddypress_Share_Admin {
 						<ul id="drag_icon_ul">
 							<h3>Enable</h3>
 						<?php
-						$get_social_value = get_option( 'wss_admin_social_icon_value' );
+						$get_social_value = get_site_option( 'bp_share_services' );
 						if ( ! empty( $get_social_value['Facebook'] ) ) {
 							?>
 							<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
@@ -702,14 +702,14 @@ class Buddypress_Share_Admin {
 		}
 		$success                = isset( $_POST['term_name'] ) ? sanitize_text_field( wp_unslash( $_POST['term_name'] ) ) : '';
 		$icon_value             = array();
-		$wss_admin_icon_setting = get_option( 'wss_admin_social_icon_value' );
+		$wss_admin_icon_setting = get_site_option( 'bp_share_services' );
 		if ( empty( $wss_admin_icon_setting ) ) {
 			$icon_value[ $success ] = $success;
-			$update_drag_value      = update_option( 'wss_admin_social_icon_value', $icon_value );
+			$update_drag_value      = update_site_option( 'bp_share_services', $icon_value );
 		} else {
 			$new_icon_value[ $success ] = $success;
 			$merge                      = array_merge( $wss_admin_icon_setting, $new_icon_value );
-			$update_drag_value          = update_option( 'wss_admin_social_icon_value', $merge );
+			$update_drag_value          = update_site_option( 'bp_share_services', $merge );
 		}
 		if ( $update_drag_value ) {
 			wp_send_json_success();
@@ -731,11 +731,11 @@ class Buddypress_Share_Admin {
 		// echo $success_icon_val;
 		// die;
 		$icon_value_array      = array();
-		$wss_admin_icon_remove = get_option( 'wss_admin_social_icon_value' );
+		$wss_admin_icon_remove = get_site_option( 'bp_share_services' );
 		foreach ( $wss_admin_icon_remove as $key => $value ) {
 			if ( $key === $success_icon_val ) {
 				unset( $wss_admin_icon_remove[ $key ] );
-				$update_drag_value = update_option( 'wss_admin_social_icon_value', $wss_admin_icon_remove );
+				$update_drag_value = update_site_option( 'bp_share_services', $wss_admin_icon_remove );
 			}
 		}
 		if ( $update_drag_value ) {

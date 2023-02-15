@@ -29,205 +29,36 @@ class Buddypress_Share_Activator {
 	 *  @since    1.0.0
 	 */
 	public static function activate() {
-
 		if ( class_exists( 'BuddyPress' ) ) {
-
 			if ( get_site_option( 'bp_share_services' ) !== false ) {
-
 				$services = get_site_option( 'bp_share_services' );
-
 				if ( empty( $services ) ) {
-
-					$new_service_non_empty = array(
-
-						'bp_share_facebook' => array(
-
-							'chb_bp_share_facebook' => 1,
-
-							'service_name'          => esc_html__( 'Facebook', 'buddypress-share' ),
-
-							'service_icon'          => 'fa fa-facebook',
-
-							'service_description'   => esc_html__( 'Facebook is an American for-profit corporation and online social media and social networking service based in Menlo Park, California, United States.', 'buddypress-share' ),
-
-						),
-
-						'bp_share_twitter'  => array(
-
-							'chb_bp_share_twitter' => 1,
-
-							'service_name'         => esc_html__( 'Twitter', 'buddypress-share' ),
-
-							'service_icon'         => 'fa fa-twitter',
-
-							'service_description'  => esc_html__( 'Twitter is an online news and social networking service where users post and read short 140-character messages called \'tweets\'. Registered users can post and read tweets, but those who are unregistered can only read them.', 'buddypress-share' ),
-
-						),
-
-						'bp_share_linkedin' => array(
-
-							'chb_bp_share_linkedin' => 1,
-
-							'service_name'          => esc_html__( 'Linkedin', 'buddypress-share' ),
-
-							'service_icon'          => 'fa fa-linkedin',
-
-							'service_description'   => esc_html__( 'LinkedIn is a business and employment-oriented social networking service that operates via websites.', 'buddypress-share' ),
-
-						),
-
-						'bp_share_whatsapp' => array(
-
-							'chb_bp_share_whatsapp' => 1,
-
-							'service_name'          => esc_html__( 'Whatsapp', 'buddypress-share' ),
-
-							'service_icon'          => 'fa fa-whatsapp',
-
-							'service_description'   => esc_html__( 'WhatsApp Messenger, or simply WhatsApp, is an American freeware, cross-platform messaging and Voice over IP (VoIP) service owned by Facebook, Inc.', 'buddypress-share' ),
-
-						),
-
-						'bp_copy_activity'  => array(
-
-							'chb_bp_copy_activity' => 0,
-
-							'service_name'         => esc_html__( 'Copy Activity', 'buddypress-share' ),
-
-							'service_icon'         => 'fa fa-copy',
-
-							'service_description'  => esc_html__( 'Enable this option to copy activity.', 'buddypress-share' ),
-
-						),
-
-					);
-
-					update_site_option( 'bp_share_services', $new_service_non_empty );
-
+					$bp_share_social_icon_default = array(
+							'Facebook' => 'Facebook',
+							'Twitter'  => 'Twitter',
+							'LinkedIn'  => 'LinkedIn',
+							'WhatsApp'  => 'WhatsApp',
+						);
+					update_site_option( 'bp_share_services', $bp_share_social_icon_default );
 				} else {
+						$services['Facebook'] = 'Facebook';
 
-					$facebook = array(
+						$services['Twitter'] = 'Twitter';
 
-						'chb_bp_share_facebook' => 1,
+						$services['LinkedIn'] = 'LinkedIn';
 
-						'service_name'          => esc_html__( 'Facebook', 'buddypress-share' ),
-
-						'service_icon'          => 'fa fa-facebook',
-
-						'service_description'   => esc_html__( 'Facebook is an American for-profit corporation and online social media and social networking service based in Menlo Park, California, United States.', 'buddypress-share' ),
-
-					);
-
-					$twitter = array(
-
-						'chb_bp_share_twitter' => 1,
-
-						'service_name'         => esc_html__( 'Twitter', 'buddypress-share' ),
-
-						'service_icon'         => 'fa fa-twitter',
-
-						'service_description'  => esc_html__( 'Twitter is an online news and social networking service where users post and read short 140-character messages called \'tweets\'. Registered users can post and read tweets, but those who are unregistered can only read them.', 'buddypress-share' ),
-
-					);
-
-					$linkedin = array(
-
-						'chb_bp_share_linkedin' => 1,
-
-						'service_name'          => esc_html__( 'Linkedin', 'buddypress-share' ),
-
-						'service_icon'          => 'fa fa-linkedin',
-
-						'service_description'   => esc_html__( 'LinkedIn is a business and employment-oriented social networking service that operates via websites.', 'buddypress-share' ),
-
-					);
-
-					$whatsapp = array(
-						'chb_bp_share_whatsapp' => 1,
-						'service_name'          => esc_html__( 'Whatsapp', 'buddypress-share' ),
-						'service_icon'          => 'fa fa-whatsapp',
-						'service_description'   => esc_html__( 'WhatsApp Messenger, or simply WhatsApp, is an American freeware, cross-platform messaging and Voice over IP (VoIP) service owned by Facebook, Inc.', 'buddypress-share' ),
-					);
-
-					$copy_activity = array(
-						'chb_bp_copy_activity' => 0,
-						'service_name'         => esc_html__( 'Copy Activity', 'buddypress-share' ),
-						'service_icon'         => 'fa fa-copy',
-						'service_description'  => esc_html__( 'Enable this option to copy activity.', 'buddypress-share' ),
-					);
-
-					foreach ( $services as $key => $value ) {
-
-						$services['bp_share_facebook'] = $facebook;
-
-						$services['bp_share_twitter'] = $twitter;
-
-						$services['bp_share_linkedin'] = $linkedin;
-
-						$services['bp_share_whatsapp'] = $whatsapp;
-
-						$services['bp_copy_activity'] = $copy_activity;
-
-					}
+						$services['WhatsApp'] = 'WhatsApp';
 
 					update_site_option( 'bp_share_services', $services );
 
 				}
-			} else {
-
-				$new_service_empty = array(
-
-					'bp_share_facebook' => array(
-
-						'chb_bp_share_facebook' => 1,
-
-						'service_name'          => esc_html__( 'Facebook', 'buddypress-share' ),
-
-						'service_icon'          => 'fa fa-facebook',
-
-						'service_description'   => esc_html__( 'Facebook is an American for-profit corporation and online social media and social networking service based in Menlo Park, California, United States.', 'buddypress-share' ),
-
-					),
-
-					'bp_share_twitter'  => array(
-
-						'chb_bp_share_twitter' => 1,
-
-						'service_name'         => esc_html__( 'Twitter', 'buddypress-share' ),
-
-						'service_icon'         => 'fa fa-twitter',
-
-						'service_description'  => esc_html__( 'Twitter is an online news and social networking service where users post and read short 140-character messages called \'tweets\'. Registered users can post and read tweets, but those who are unregistered can only read them.', 'buddypress-share' ),
-
-					),
-
-					'bp_share_linkedin' => array(
-
-						'chb_bp_share_linkedin' => 1,
-
-						'service_name'          => esc_html__( 'Linkedin', 'buddypress-share' ),
-
-						'service_icon'          => 'fa fa-linkedin',
-
-						'service_description'   => esc_html__( 'LinkedIn is a business and employment-oriented social networking service that operates via websites.', 'buddypress-share' ),
-
-					),
-
-					'bp_share_whatsapp' => array(
-						'chb_bp_share_whatsapp' => 1,
-						'service_name'          => esc_html__( 'Whatsapp', 'buddypress-share' ),
-						'service_icon'          => 'fa fa-whatsapp',
-						'service_description'   => esc_html__( 'WhatsApp Messenger, or simply WhatsApp, is an American freeware, cross-platform messaging and Voice over IP (VoIP) service owned by Facebook, Inc.', 'buddypress-share' ),
-
-					),
-
-					'bp_copy_activity'  => array(
-						'chb_bp_copy_activity' => 0,
-						'service_name'         => esc_html__( 'Copy Activity', 'buddypress-share' ),
-						'service_icon'         => 'fa fa-copy',
-						'service_description'  => esc_html__( 'Enable this option to copy activity.', 'buddypress-share' ),
-					),
-				);
+			}else {
+				$bp_share_social_icon_default = array(
+							'Facebook' => 'Facebook',
+							'Twitter'  => 'Twitter',
+							'LinkedIn'  => 'LinkedIn',
+							'WhatsApp'  => 'WhatsApp',
+						);
 
 				// The option hasn't been added yet. We'll add it with $autoload set to 'no'.
 
@@ -235,7 +66,7 @@ class Buddypress_Share_Activator {
 
 				$autoload = 'no';
 
-				update_site_option( 'bp_share_services', $new_service_empty, $deprecated, $autoload );
+				update_site_option( 'bp_share_services', $bp_share_social_icon_default, $deprecated, $autoload );
 
 			}
 
@@ -268,13 +99,6 @@ class Buddypress_Share_Activator {
 			if ( get_site_option( 'bp_share_all_services_disable' ) === false ) {
 				update_site_option( 'bp_share_all_services_disable', 'enable' );
 			}
-
-			$wss_admin_social_icon_value = get_option( 'wss_admin_social_icon_value' );
-			$social_icon_default         = array(
-				'Facebook' => 'Facebook',
-				'Twitter'  => 'Twitter',
-			);
-			update_option( 'wss_admin_social_icon_value', $social_icon_default );
 		}
 
 	}

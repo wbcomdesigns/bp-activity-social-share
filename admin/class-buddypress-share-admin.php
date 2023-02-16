@@ -301,12 +301,6 @@ class Buddypress_Share_Admin {
 						}
 					}
 					update_site_option( 'bp_share_all_services_disable', 'enable' );
-				} else {
-					foreach ( $services as $service_key => $value ) {
-						$services[ $service_key ][ 'chb_' . $service_key ] = 0;
-						update_site_option( $option_name, $services );
-					}
-					update_site_option( 'bp_share_all_services_disable', 'disable' );
 				}
 			}
 		}

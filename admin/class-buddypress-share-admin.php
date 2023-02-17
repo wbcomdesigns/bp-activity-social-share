@@ -86,6 +86,15 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
+	 * Function to add admin register settings for plugin.
+	 *
+	 * @since    1.0.0
+	 */
+	public function bpas_icon_color_register_setting() {
+		register_setting( 'bpas_icon_color_settings', 'bpas_icon_color_settings' );
+	}
+
+	/**
 	 * Register the JavaScript for the admin area.
 	 *
 	 * @since    1.0.0
@@ -165,6 +174,7 @@ class Buddypress_Share_Admin {
 		$bpas_tabs = array(
 			'bpas_welcome'          => esc_html__( 'Welcome', 'buddypress-share' ),
 			'bpas_general_settings' => esc_html__( 'General Settings', 'buddypress-share' ),
+			'bpas_icon_color_settings' => esc_html__( 'Icon Color Settings', 'buddypress-share' ),
 		);
 		$tab_html  = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 		foreach ( $bpas_tabs as $bpas_tab => $bpas_name ) {
@@ -552,6 +562,9 @@ class Buddypress_Share_Admin {
 			case 'bpas_general_settings':
 				$this->bpas_general_setting_section();
 				break;
+			case 'bpas_icon_color_settings':
+				$this->bpas_icon_color_setting_section();
+				break;
 			default:
 				$this->bpas_welcome_section();
 				break;
@@ -684,6 +697,13 @@ class Buddypress_Share_Admin {
 				<?php do_action( 'bp_share_add_services_options', $arg1 = '', $arg2 = '' ); ?>
 		</div>
 		<?php
+	}
+
+
+	public function bpas_icon_color_setting_section(){
+		if ( file_exists( BP_ACTIVITY_SHARE_PLUGIN_PATH . 'admin/bp-icon-color-page.php' ) ) {
+			require_once BP_ACTIVITY_SHARE_PLUGIN_PATH . 'admin/bp-icon-color-page.php';
+		}
 	}
 
 	/**

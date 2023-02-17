@@ -1757,3 +1757,31 @@ td.bp-share-title {
     border-radius: 10px;
     margin: 0 1%;
 }
+
+.wbcom-settings-section-options input.notes_icon_hex_color_show {
+    height: auto;
+    border-radius: 5px;
+    padding: 0 5px;
+    max-width: 80px !important;
+}
+.Button-Color-Option{
+    display: flex;
+    margin: 0;
+    align-items: center;
+}
+.wp-picker-container .wp-color-result.button {
+    min-height: 30px;
+    margin: 0 6px 6px 0;
+    padding: 0 0 0 30px;
+    font-size: 11px;
+}
+.wp-color-result-text {
+    background: #f6f7f7;
+    border-radius: 0 2px 2px 0;
+    border-left: 1px solid #c3c4c7;
+    color: #50575e;
+    display: block;
+    line-height: 2.54545455;
+    padding: 0 6px;
+    text-align: center;
+}

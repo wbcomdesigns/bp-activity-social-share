@@ -1817,3 +1817,6 @@ ul.wb-social-icon-color-option {
 .wbcom-admin-option-wrap.wb-activity-share-color-icons .wbcom-settings-section-wrap {
     overflow: inherit;
 }
+.wbcom-wrap .notice {
+    display: none !important;
+}

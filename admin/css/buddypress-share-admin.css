@@ -1655,6 +1655,9 @@ td.bp-share-title {
 .nav-tab-wrapper ul li a#bpas_general_settings:before {
     content: "\f111";
 }
+.nav-tab-wrapper ul li a#bpas_icon_color_settings:before {
+    content: "\f131";
+}
 
 .wb-plugins_page_buddypress-share .update-nag,
 .wb-plugins_page_buddypress-share .updated,

@@ -1,4 +1,6 @@
 <?php
+wp_enqueue_script( 'wp-color-picker' );
+wp_enqueue_style( 'wp-color-picker' );
 $bpas_icon_color_settings = get_option( 'bpas_icon_color_settings' );
 ?>
 <div class="wbcom-tab-content">
@@ -74,8 +76,7 @@ $bpas_icon_color_settings = get_option( 'bpas_icon_color_settings' );
 										<input type="text"  class="bp_share_wordpress" name="bpas_icon_color_settings[bpas_whatsapp_bg_color]"  value="<?php echo isset( $bpas_icon_color_settings['bpas_whatsapp_bg_color'] ) ? $bpas_icon_color_settings['bpas_whatsapp_bg_color'] : '';?>">
 										<label>
 											<small><?php esc_html_e( 'Whatsapp Icon Color', 'bp-resume-manager' ); ?></small>
-										</label>
-									wordpress
+										</label>						
 								</ul>
 							</div>	
 							<?php submit_button(); ?>			

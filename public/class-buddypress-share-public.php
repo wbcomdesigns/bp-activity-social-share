@@ -382,7 +382,7 @@ class Buddypress_Share_Public {
 			}
 			?>
 			}
-			#bp_whatsapp_share span{
+			#bp_whatsapp_share .dashicons-whatsapp{
 			<?php
 			if ( ! empty( $bpas_whatsapp_bg_color ) ) {
 				echo "color:$bpas_whatsapp_bg_color" . ';';

@@ -249,16 +249,23 @@ function bpshare_activation_redirect_settings( $plugin ) {
 add_action( 'activated_plugin', 'bpshare_activation_redirect_settings' );
 
 add_action( 'admin_init', 'bp_share_default_option' );
-	function bp_share_default_option(){
-		$services = get_site_option( 'bp_share_services' );
-		$get_flag = get_site_option( 'bp_share_flag' );
-			if( '' !== $services && '' == $get_flag   ){
-					$bp_share_social_icon_default = array();
-					foreach($services as $get_key => $get_val){						
-						$service_name = $get_val['service_name'];
-						$bp_share_social_icon_default[$get_val['service_name']] = $get_val['service_name'];						
-					}
-					update_site_option( 'bp_share_services', $bp_share_social_icon_default );
-					update_site_option( 'bp_share_flag', 1 );
-				}
+function bp_share_default_option() {
+	$services = get_site_option( 'bp_share_services' );
+	$get_flag = get_site_option( 'bp_share_flag' );
+
+	if ( '' !== $services && '' == $get_flag ) {
+		$flag_check                   = false;
+		$bp_share_social_icon_default = array();
+		foreach ( $services as $get_key => $get_val ) {
+			if ( isset( $get_val['service_name'] ) && ! empty( $get_val['service_name'] ) ) {
+				$flag_check   = true;
+				$service_name = $get_val['service_name'];
+				$bp_share_social_icon_default[ $get_val['service_name'] ] = $get_val['service_name'];
+			}
+		}
+		if ( $flag_check ) {
+			update_site_option( 'bp_share_services', $bp_share_social_icon_default );
+			update_site_option( 'bp_share_flag', 1 );
+		}
 	}
+}

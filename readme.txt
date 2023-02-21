@@ -4,8 +4,8 @@ Contributors: vapvarun,wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: buddypress,activity,share
 Requires at least: 4.0
-Tested up to: 6.0.1
-Stable tag: 3.3.0
+Tested up to: 6.1.1
+Stable tag: 3.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,14 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 3. The screenshot shows FAQ(s) related to BuddyPress Activity Social Share plugin and corresponds to screenshot-3.(jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.4.0 =
+* Fixed: (#111) Added Yozify media support for og meta
+* Fixed: Fixed php fatal error on plugin activation
+* Fixed: (#122) Icon Color Settings UI
+* Fixed: Update color setting tab icon
+* Fixed: Added color library and icon color default option
+
 = 3.3.1 =
 * Fixed: Updated Admin wrapper
 

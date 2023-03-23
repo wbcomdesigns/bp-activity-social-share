@@ -318,7 +318,7 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * BP share delete services ajax. 
+	 * BP share delete services ajax.
 	 *
 	 * @access public
 	 * @author   Wbcom Designs
@@ -589,7 +589,7 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bpas_general_setting_section() {
-		$services = get_site_option( 'bp_share_services' );	
+		$services = get_site_option( 'bp_share_services' );
 		?>
 		<div class="wbcom-tab-content">
 				<div class="wbcom-admin-title-section">
@@ -601,8 +601,8 @@ class Buddypress_Share_Admin {
 					<form method="post" action="options.php" id="wss_form_data">
 						 <div class="wbcom-settings-section-wrap">
 					<div class="wbcom-settings-section-options-heading">
-						<label for="wbcom-social-share">
-							<?php esc_html_e( 'Enable Sharing Sites', 'wbcom-social-share' ); ?>
+						<label for="buddypress-share">
+							<?php esc_html_e( 'Enable Sharing Sites', 'buddypress-share' ); ?>
 						</label>
 					 </div>
 					 <div class="wbcom-settings-section-options">
@@ -613,23 +613,23 @@ class Buddypress_Share_Admin {
 							$get_social_value = get_site_option( 'bp_share_services' );
 						if ( empty( $get_social_value['Facebook'] ) ) {
 							?>
-							<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'buddypress-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['Twitter'] ) ) { ?>
-							<li class="socialicon icon_Twitter" name="icon_gmail"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Twitter" name="icon_gmail"><?php esc_html_e( 'Twitter', 'buddypress-share' ); ?></li>
 							<?php }  if ( empty( $get_social_value['Pinterest'] ) ) {?>
-							<li class="socialicon icon_Pinterest" name="icon_Pinterest"><?php esc_html_e( 'Pinterest', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Pinterest" name="icon_Pinterest"><?php esc_html_e( 'Pinterest', 'buddypress-share' ); ?></li>
 							 <?php } if ( empty( $get_social_value['Linkedin'] ) ) { ?>
-								<li class="socialicon icon_LinkedIn" name="icon_linkedin"><?php esc_html_e( 'Linkedin', 'wbcom-social-share' ); ?></li>
+								<li class="socialicon icon_LinkedIn" name="icon_linkedin"><?php esc_html_e( 'Linkedin', 'buddypress-share' ); ?></li>
 							<?php }  if ( empty( $get_social_value['Reddit'] ) ) { ?>
-								<li class="socialicon icon_Reddit" name="icon_reddit"><?php esc_html_e( 'Reddit', 'wbcom-social-share' ); ?></li>
+								<li class="socialicon icon_Reddit" name="icon_reddit"><?php esc_html_e( 'Reddit', 'buddypress-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['WordPress'] ) ) { ?>
-								<li class="socialicon icon_WordPress" name="icon_wordpress"><?php esc_html_e( 'WordPress', 'wbcom-social-share' ); ?></li>
+								<li class="socialicon icon_WordPress" name="icon_wordpress"><?php esc_html_e( 'WordPress', 'buddypress-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['Pocket'] ) ) { ?>
-								<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'wbcom-social-share' ); ?></li>
+								<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'buddypress-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['E-mail'] ) ) { ?>
-							<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'buddypress-share' ); ?></li>
 							<?php } if ( empty( $get_social_value['Whatsapp'] ) ) { ?>
-							<li class="socialicon icon_WhatAapp" name="icon_whatsapp"><?php esc_html_e( 'Whatsapp', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_WhatAapp" name="icon_whatsapp"><?php esc_html_e( 'Whatsapp', 'buddypress-share' ); ?></li>
 							<?php } ?>
 						</ul>
 						<ul id="drag_icon_ul">
@@ -638,30 +638,30 @@ class Buddypress_Share_Admin {
 						$get_social_value = get_site_option( 'bp_share_services' );
 						if ( ! empty( $get_social_value['Facebook'] ) ) {
 							?>
-							<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'buddypress-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['Twitter'] ) ) { ?>
-							<li class="socialicon icon_Twitter" name="icon_twitter"><?php esc_html_e( 'Twitter', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Twitter" name="icon_twitter"><?php esc_html_e( 'Twitter', 'buddypress-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['Pinterest'] ) ) {?>
-							<li class="socialicon icon_Pinterest" name="icon_Pinterest"><?php esc_html_e( 'Pinterest', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Pinterest" name="icon_Pinterest"><?php esc_html_e( 'Pinterest', 'buddypress-share' ); ?></li>
 						 <?php } if ( ! empty( $get_social_value['Linkedin'] ) ) { ?>
-							<li class="socialicon icon_LinkedIn" name="icon_linkedin"><?php esc_html_e( 'Linkedin', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_LinkedIn" name="icon_linkedin"><?php esc_html_e( 'Linkedin', 'buddypress-share' ); ?></li>
 						<?php }  if ( ! empty( $get_social_value['Reddit'] ) ) { ?>
-							<li class="socialicon icon_Reddit" name="icon_reddit"><?php esc_html_e( 'Reddit', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Reddit" name="icon_reddit"><?php esc_html_e( 'Reddit', 'buddypress-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['WordPress'] ) ) { ?>
-							<li class="socialicon icon_WordPress" name="icon_wordpress"><?php esc_html_e( 'WordPress', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_WordPress" name="icon_wordpress"><?php esc_html_e( 'WordPress', 'buddypress-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['Pocket'] ) ) { ?>
-							<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'buddypress-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['E-mail'] ) ) { ?>
-							<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'buddypress-share' ); ?></li>
 						<?php } if ( ! empty( $get_social_value['Whatsapp'] ) ) { ?>
-							<li class="socialicon icon_WhatsApp" name="icon_whatsapp"><?php esc_html_e( 'Whatsapp', 'wbcom-social-share' ); ?></li>
+							<li class="socialicon icon_WhatsApp" name="icon_whatsapp"><?php esc_html_e( 'Whatsapp', 'buddypress-share' ); ?></li>
 						<?php } ?>
 						</ul>
 						</section>
 						</div>
 						</div>
-						
-					
+
+
 						<div class="bp-share-services-extra">
 								<?php
 								do_settings_sections( 'bp_share_services_extra' );

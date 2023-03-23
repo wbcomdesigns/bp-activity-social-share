@@ -379,7 +379,7 @@ class Buddypress_Share_Options_Page {
 		$html_view_arr           = array();
 		$html_view               = '';
 		$html_view_arr['status'] = false;
-		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) ) {
+		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) && current_user_can( 'manage_options' ) ) {
 			if ( get_site_option( $option_name ) !== false ) {
 				$services = get_site_option( $option_name );
 				if ( empty( $services ) ) {
@@ -472,7 +472,7 @@ class Buddypress_Share_Options_Page {
 	 * @since    1.0.0
 	 */
 	public function bp_share_delete_services_ajax() {
-		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) ) {
+		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) && current_user_can( 'manage_options' ) ) {
 			$option_name  = 'bp_share_services';
 			$service_name = isset( $_POST['service_name'] ) ? sanitize_text_field( wp_unslash( $_POST['service_name'] ) ) : '';
 			$services     = get_site_option( $option_name );
@@ -497,7 +497,7 @@ class Buddypress_Share_Options_Page {
 	 * @since    1.0.0
 	 */
 	public function bp_share_delete_user_services_ajax() {
-		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) ) {
+		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) && current_user_can( 'manage_options' )  ) {
 			$option_name   = 'bp_share_services';
 			$service_array = ( isset( $_POST['service_array'] ) ) ? map_deep( wp_unslash( $_POST['service_array'] ), 'sanitize_text_field' ) : array();
 			$services      = get_site_option( $option_name );
@@ -523,7 +523,7 @@ class Buddypress_Share_Options_Page {
 	 * @since    1.0.0
 	 */
 	public function bp_share_chb_services_ajax() {
-		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) ) {
+		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) && current_user_can( 'manage_options' ) ) {
 			$option_name      = 'bp_share_services';
 			$active_services  = isset( $_POST['active_chb_array'] ) ? map_deep( wp_unslash( $_POST['active_chb_array'] ), 'sanitize_text_field' ) : array();
 			$extras_options   = isset( $_POST['active_chb_extras'] ) ? map_deep( wp_unslash( $_POST['active_chb_extras'] ), 'sanitize_text_field' ) : array();

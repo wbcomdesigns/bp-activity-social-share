@@ -601,7 +601,7 @@ class Buddypress_Share_Admin {
 					<form method="post" action="options.php" id="wss_form_data">
 						 <div class="wbcom-settings-section-wrap">
 					<div class="wbcom-settings-section-options-heading">
-						<label for="buddypress-share">
+						<label for="wbcom-social-share">
 							<?php esc_html_e( 'Enable Sharing Sites', 'buddypress-share' ); ?>
 						</label>
 					 </div>

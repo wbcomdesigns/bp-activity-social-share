@@ -17,7 +17,7 @@ $bpas_icon_color_settings = get_option( 'bpas_icon_color_settings' );
 						?>
 						 <div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
-								<label for="buddypress-share">
+								<label for="wbcom-social-share">
 									<?php esc_html_e( 'Sharing Icon Color', 'buddypress-share' ); ?>
 								</label>
 							</div>

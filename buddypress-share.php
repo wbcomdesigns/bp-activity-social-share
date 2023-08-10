@@ -188,7 +188,7 @@ function bpshare_requires_buddypress() {
 	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		add_action( 'admin_notices', 'bpshare_pro_plugin_activate_notice' );
-		unset( $_GET['activate'] );
+		unset( $_GET['activate'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 }
 
@@ -223,8 +223,9 @@ function bpshare_pro_plugin_activate_notice() {
 		'<strong>' . esc_html( $bpquotes_plugin ) . '</strong>'
 	);
 	echo '</p></div>';
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	if ( isset( $_GET['activate'] ) ) {
-		unset( $_GET['activate'] );
+		unset( $_GET['activate'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 }
 
@@ -239,14 +240,14 @@ function bpshare_activation_redirect_settings( $plugin ) {
 	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		return;
 	}
-	
+
 	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) ) {
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-share' ) );
 			exit;
 		}
 	}
-	
+
 }
 add_action( 'activated_plugin', 'bpshare_activation_redirect_settings' );
 

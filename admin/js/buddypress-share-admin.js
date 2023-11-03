@@ -105,14 +105,23 @@
         return false;
     });
 
-    /*drag-drop*/
     jQuery(function() {
-        var $drag_social_icon = jQuery(".social_icon_section > ul");
-        jQuery("li", $drag_social_icon).draggable({
-            revert: "invalid",
-            helper: "clone"
+        jQuery("#drag_social_icon").sortable({
+        cursor: "move",
+        });
+        jQuery("#drag_icon_ul").sortable({
+          cursor: "move",
         });
     });
+
+    /*drag-drop*/
+    // jQuery(function() {
+    //     var $drag_social_icon = jQuery(".social_icon_section > ul");
+    //     jQuery("li", $drag_social_icon).draggable({
+    //         revert: "invalid",
+    //         helper: "clone"
+    //     });
+    // });
 
     jQuery(function() {
         function bpas_drag_drop_social_icon() {

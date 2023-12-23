@@ -259,52 +259,6 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * BP share delete services ajax.
-	 *
-	 * @access public
-	 * @author   Wbcom Designs
-	 * @since    1.0.0
-	 */
-	public function bp_share_delete_user_services_ajax() {
-		// Verify nonce for security
-		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'bp_share_nonce')) {
-			wp_send_json_error('Invalid nonce.'); // Sending a JSON error response
-			exit();
-		}
-
-		// Check user capability
-		if (!current_user_can('manage_options')) {
-			wp_send_json_error('Insufficient permissions.'); // Sending a JSON error response
-			exit();
-		}
-
-		$option_name   = 'bp_share_services';
-		$service_array = (isset($_POST['service_array'])) ? map_deep(wp_unslash($_POST['service_array']), 'sanitize_text_field') : array();
-		$services      = get_site_option($option_name);
-		$service_updated = false;
-
-		// Process the services for deletion
-		if (!empty($service_array)) {
-			foreach ($service_array as $service_array_value) {
-				if (isset($services[$service_array_value])) {
-					unset($services[$service_array_value]);
-					$service_updated = true;
-				}
-			}
-		}
-
-		// Update the option if changes were made
-		if ($service_updated) {
-			update_site_option($option_name, $services);
-			wp_send_json_success('Services updated successfully.');
-		} else {
-			wp_send_json_error('No services updated.');
-		}
-
-		exit();
-	}
-
-	/**
 	 * BP share add admin options.
 	 *
 	 * @access public
@@ -341,31 +295,6 @@ class Buddypress_Share_Admin {
 					$selected[] = $key;
 				}
 				echo '<script>var allOptions = ' . wp_json_encode($selected) . ';</script>';
-			?>
-				<script>
-					jQuery(document).ready(function($) {
-						var difference = $.grep(allOptions, function(el) {
-							return $('#social_services_selector_id option[value="' + el + '"]').length === 0;
-						});
-
-						if (difference.length !== 0) {
-							$.each(difference, function(index, option) {
-								$('#tr_' + option).remove();
-							});
-
-							var data = {
-								'action': 'bp_share_delete_user_services_ajax',
-								'service_array': difference,
-								'nonce': <?php echo wp_json_encode(wp_create_nonce('bp_share_nonce')); ?>
-							};
-
-							$.post(ajaxurl, data, function(response) {
-								// Handle response
-							});
-						}
-					});
-				</script>
-		<?php
 			}
 		}
 	}

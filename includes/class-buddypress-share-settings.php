@@ -497,23 +497,38 @@ class Buddypress_Share_Options_Page {
 	 * @since    1.0.0
 	 */
 	public function bp_share_delete_user_services_ajax() {
-		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) && current_user_can( 'manage_options' )  ) {
-			$option_name   = 'bp_share_services';
-			$service_array = ( isset( $_POST['service_array'] ) ) ? map_deep( wp_unslash( $_POST['service_array'] ), 'sanitize_text_field' ) : array();
-			$services      = get_site_option( $option_name );
-			if ( ! empty( $service_array ) ) {
-				foreach ( $service_array as $service_array_key => $service_array_value ) {
-					foreach ( $services as $service_key => $value ) {
-						if ( $service_key == $service_array_value ) {
-							unset( $services[ $service_key ] );
-							update_site_option( $option_name, $services );
-						}
+		// Check for POST request, nonce, and user capability
+		if (!empty($_POST) && check_admin_referer('bp_share_nonce', 'nonce') && current_user_can('manage_options')) {
+			$option_name = 'bp_share_services';
+			$service_array = isset($_POST['service_array']) ? map_deep(wp_unslash($_POST['service_array']), 'sanitize_text_field') : array();
+			$services = get_site_option($option_name);
+			$service_updated = false;
+
+			// Process and update services
+			if (!empty($service_array) && is_array($services)) {
+				foreach ($service_array as $service) {
+					if (array_key_exists($service, $services)) {
+						unset($services[$service]);
+						$service_updated = true;
 					}
+				}
+
+				if ($service_updated) {
+					update_site_option($option_name, $services);
 				}
 			}
 		}
-		die();
+
+		// Send an appropriate response
+		if (isset($service_updated) && $service_updated) {
+			wp_send_json_success('Services updated successfully.');
+		} else {
+			wp_send_json_error('No services updated or invalid request.');
+		}
+
+		exit();
 	}
+
 
 	/**
 	 * BP share services ajax.

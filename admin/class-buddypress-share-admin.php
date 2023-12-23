@@ -188,63 +188,6 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * Display already inserted services.
-	 *
-	 * @access public
-	 * @author  Wbcom Designs
-	 * @since    1.0.0
-	 */
-	public function bp_share_insert_services_ajax() {
-		$service_name        = isset($_POST['service_name']) ? sanitize_text_field(wp_unslash($_POST['service_name'])) : '';
-		$service_faw         = isset($_POST['service_faw']) ? sanitize_text_field(wp_unslash($_POST['service_faw'])) : '';
-		$service_key         = $service_value = isset($_POST['service_value']) ? sanitize_text_field(wp_unslash($_POST['service_value'])) : '';
-		$service_description = isset($_POST['service_description']) ? sanitize_text_field(wp_unslash($_POST['service_description'])) : '';
-		$option_name         = 'bp_share_services';
-		if (!empty($_POST) && check_admin_referer('bp_share_nonce', 'nonce') && current_user_can('manage_options')) {
-			if (get_site_option($option_name) !== false) {
-				$services = get_site_option($option_name);
-				if (empty($services)) {
-					$new_service = array(
-						"$service_value" => array(
-							"chb_$service_value"  => 1,
-							'service_name'        => "$service_name",
-							'service_icon'        => "$service_faw",
-							'service_description' => "$service_description",
-						),
-					);
-					update_site_option($option_name, $new_service);
-				} else {
-					$new_value        = array(
-						"chb_$service_value"  => 1,
-						'service_name'        => "$service_name",
-						'service_icon'        => "$service_faw",
-						'service_description' => "$service_description",
-					);
-					$bp_copy_activity = $services['bp_copy_activity'];
-					unset($services['bp_copy_activity']);
-					$services[$service_value]   = $new_value;
-					$services['bp_copy_activity'] = $bp_copy_activity;
-					update_site_option($option_name, $services);
-				}
-			} else {
-				$new_service = array(
-					"$service_value" => array(
-						"chb_$service_value"  => 1,
-						'service_name'        => "$service_name",
-						'service_icon'        => "$service_faw",
-						'service_description' => "$service_description",
-					),
-				);
-				// The option hasn't been added yet. We'll add it with $autoload set to 'no'.
-				$deprecated = null;
-				$autoload   = 'no';
-				update_site_option($option_name, $new_service, $deprecated, $autoload);
-			}
-		}
-		die();
-	}
-
-	/**
 	 * Intialize setting to show share in popup or new page.
 	 *
 	 * @access public

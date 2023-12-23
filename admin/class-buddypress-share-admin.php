@@ -258,47 +258,6 @@ class Buddypress_Share_Admin {
 		wp_die(); // Use wp_die() instead of die() for AJAX handlers in WordPress
 	}
 
-	/**
-	 * BP share add admin options.
-	 *
-	 * @access public
-	 * @author   Wbcom Designs
-	 * @since    1.0.0
-	 *
-	 * @param string $activity_url Activity URL.
-	 * @param string $activity_title Activity Title.
-	 */
-	public function bp_share_add_options($activity_url, $activity_title) {
-		$services = apply_filters('bp_share_add_services', array(), $activity_url, $activity_title);
-		$options_key = array();
-
-		if (!empty($services)) {
-			foreach ($services as $key => $value) {
-				$options_key['bp_share_' . strtolower($key)] = $key;
-			}
-			echo '<script>var customOptions = ' . wp_json_encode($options_key) . ';</script>';
-		?>
-			<script>
-				var optionObj = JSON.parse(customOptions);
-				var select = document.getElementById("social_services_selector_id");
-				for (var index in optionObj) {
-					select.options[select.options.length] = new Option(optionObj[index], index);
-				}
-			</script>
-			<?php
-		} else {
-			$services_options_key = get_site_option('bp_share_services', array());
-			$selected = array();
-
-			if (!empty($services_options_key)) {
-				foreach ($services_options_key as $key => $value) {
-					$selected[] = $key;
-				}
-				echo '<script>var allOptions = ' . wp_json_encode($selected) . ';</script>';
-			}
-		}
-	}
-
 
 	/**
 	 * Bp_share_user_added_services.

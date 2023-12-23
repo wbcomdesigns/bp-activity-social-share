@@ -410,48 +410,6 @@ class Buddypress_Share_Options_Page {
 	}
 
 	/**
-	 * BP share add admin options.
-	 *
-	 * @access public
-	 * @author   Wbcom Designs
-	 * @since    1.0.0
-	 *
-	 * @param string $activity_url Activity URL.
-	 * @param string $activity_title Activity Title.
-	 */
-	public function bp_share_add_options( $activity_url, $activity_title ) {
-		$services = apply_filters( 'bp_share_add_services', $services = array(), $activity_url = '', $activity_title = '' );
-		if ( ! empty( $services ) ) {
-			$options_key = array();
-			foreach ( $services as $key => $value ) {
-				$options_key[ 'bp_share_' . strtolower( $key ) ] = $key;
-			}
-		}
-		if ( isset( $options_key ) && '' !== $options_key ) {
-			?>
-			<script>
-				var customOptions = '<?php echo wp_json_encode( $options_key ); ?>';
-				var optionObj = jQuery.parseJSON(customOptions);
-				var select = document.getElementById("social_services_selector_id");
-				for (index in optionObj) {
-					select.options[select.options.length] = new Option(optionObj[index], index);
-				}
-			</script>
-			<?php
-		} else {
-			$services = get_site_option( 'bp_share_services' );
-			if ( ! empty( $services ) ) {
-				$services_options_key = array();
-				foreach ( $services as $key => $value ) {
-					$services_options_key[] = $key;
-				}
-			}
-			if ( ! empty( $services_options_key ) ) {
-			}
-		}
-	}
-
-	/**
 	 * Bp_share_user_added_services.
 	 *
 	 * @access public

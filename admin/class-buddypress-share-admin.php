@@ -258,34 +258,6 @@ class Buddypress_Share_Admin {
 		wp_die(); // Use wp_die() instead of die() for AJAX handlers in WordPress
 	}
 
-
-	/**
-	 * Bp_share_user_added_services.
-	 *
-	 * @access public
-	 * @author   Wbcom Designs
-	 * @since    1.0.0
-	 *
-	 * @param string $services BP Share Services.
-	 * @param string $activity_url Activity URL.
-	 * @param string $activity_title Activity Title.
-	 */
-	public function bp_share_user_added_services($services, $activity_url, $activity_title)
-	{
-		$user_services = apply_filters('bp_share_add_services', $services, $activity_url, $activity_title);
-		$service = get_site_option('bp_share_services', array());
-
-		if (!empty($user_services) && !empty($service)) {
-			foreach ($user_services as $key => $value) {
-				$service_key = 'bp_share_' . strtolower($key);
-				if (isset($service[$service_key]) && !empty($service[$service_key]['chb_' . $service_key])) {
-					echo '<a target="_blank" class="bp-share" href="' . esc_url($value) . '" rel="' . esc_attr($service_key) . '">';
-					echo '<span class="fa-stack fa-lg"><i class="' . esc_attr($service[$service_key]['service_icon']) . '"></i></span></a>';
-				}
-			}
-		}
-	}
-
 	/**
 	 * Intialize plugin admin settings.
 	 *

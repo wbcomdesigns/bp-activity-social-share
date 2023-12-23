@@ -408,35 +408,4 @@ class Buddypress_Share_Options_Page {
 		}
 		die();
 	}
-
-	/**
-	 * Bp_share_user_added_services.
-	 *
-	 * @access public
-	 * @author   Wbcom Designs
-	 * @since    1.0.0
-	 *
-	 * @param string $services BP Share Services.
-	 * @param string $activity_url Activity URL.
-	 * @param string $activity_title Activity Title.
-	 */
-	public function bp_share_user_added_services( $services, $activity_url, $activity_title ) {
-		$user_services = apply_filters( 'bp_share_add_services', $services, $activity_url, $activity_title );
-		$service       = get_site_option( 'bp_share_services' );
-		if ( ! empty( $user_services ) ) {
-			$options_values = array();
-			foreach ( $user_services as $key => $value ) {
-				$options_values[ 'bp_share_' . strtolower( $key ) ] = $value;
-			}
-			if ( ! empty( $service ) ) {
-				foreach ( $options_values as $options_key => $options_value ) {
-					foreach ( $service as $key => $value ) {
-						if ( isset( $key ) && $key == $options_key && $value[ 'chb_' . $key ] == 1 ) {
-							echo '<a target="blank" class="bp-share" href="' . esc_url( $options_value ) . '" rel="' . esc_attr( $options_key ) . '"><span class="fa-stack fa-lg"><i class="' . esc_attr( $value['service_icon'] ) . '"></i></span></a>';
-						}
-					}
-				}
-			}
-		}
-	}
 }

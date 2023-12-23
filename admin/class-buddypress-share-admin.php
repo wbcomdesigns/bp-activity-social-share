@@ -399,32 +399,6 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * Ajax Call when delete any inserted services.
-	 *
-	 * @access public
-	 * @author   Wbcom Designs
-	 * @since    1.0.0
-	 */
-	public function bp_share_delete_services_ajax()
-	{
-		if (!empty($_POST) && check_admin_referer('bp_share_nonce', 'nonce') && current_user_can('manage_options')) {
-			$option_name  = 'bp_share_services';
-			$service_name = isset($_POST['service_name']) ? sanitize_text_field(wp_unslash($_POST['service_name'])) : '';
-			$services     = get_site_option($option_name);
-			if (!empty($services)) {
-				foreach ($services as $service_key => $value) {
-					if ($service_key == $service_name) {
-						unset($services[$service_key]);
-						update_site_option($option_name, $services);
-						echo esc_html($service_key);
-					}
-				}
-			}
-		}
-		die();
-	}
-
-	/**
 	 * Intialize plugin admin settings.
 	 *
 	 * @access public

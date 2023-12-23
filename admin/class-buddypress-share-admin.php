@@ -284,8 +284,7 @@ class Buddypress_Share_Admin {
 	 * @author   Wbcom Designs
 	 * @since    1.0.0
 	 */
-	public
-	function bp_share_chb_services_ajax() {
+	public function bp_share_chb_services_ajax() {
 		if (!empty($_POST) && check_admin_referer('bp_share_nonce', 'nonce') && current_user_can('manage_options')) {
 			$option_name      = 'bp_share_services';
 			$active_services  = isset($_POST['active_chb_array']) ? map_deep(wp_unslash($_POST['active_chb_array']), 'sanitize_text_field') : array();

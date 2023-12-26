@@ -2,18 +2,18 @@
 
 Contributors: vapvarun,wbcomdesigns
 Donate link: https://wbcomdesigns.com
-Tags: buddypress,activity,share
+Tags: buddypress, activity, share
 Requires at least: 4.0
 Tested up to: 6.4.2
 Stable tag: 3.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
- A free WordPress plugin is available that enables easy sharing of BuddyPress activities across major social media platforms such as Facebook, Twitter and LinkedIn. 
+ A free WordPress plugin enables easy sharing of BuddyPress activities across major social media platforms such as Facebook, Twitter, and LinkedIn. 
 
 == Description ==
 
-The BuddyPress Activity Social Share plugin enables users to share their activities on social networks.
+The BuddyPress Activity, Social Share plugin enables users to share their activities on social networks.
 
 [vimeo https://vimeo.com/556645144 ]
 
@@ -63,7 +63,7 @@ This section describes how to install the plugin and get it working.
 
 5. Enjoy
 
-If you need additional help you can contact us for [Custom Development](https://wbcomdesigns.com/hire-us/).
+If you need more help, please contact us for [Custom Development](https://wbcomdesigns.com/hire-us/).
 
 
 == Frequently Asked Questions ==
@@ -75,13 +75,13 @@ Yes, this plugin requires the BuddyPress plugin.
 Yes, it will consider bb-media files for og-images.
 
 = Is it compatible with rtMedia? =
-Yes, it works for rtmedia media activities and attached media are used for og-images.
+Yes, it works for rtMedia media activities, and attached media are used for og-images.
 
 = How to add social service? =
 In the plugin general setting tab, you can see settings Add Social Services. Here, you can add a new service.
 
-= How To remove Social Services from the front end Share option? =
-In the plugin general settings tab, you can see all service listings. Here you can remove service.
+= How do you remove Social Services from the front-end Share option? =
+In the plugin general settings tab, you can see all service listings. Here, you can remove the service.
 
 = Where Do I Ask for Support? =
 Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to the plugin and Buddypress.
@@ -89,9 +89,9 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 
 == Screenshots ==
 
-1. The screenshot shows Social Share button & services for logged-in users added by plugin related to BuddyPress Activity Social Share plugin and corresponds to screenshot-1.(jpg|jpeg|gif).
+1. The screenshot shows the Social Share button & services for logged-in users added by a plugin related to the BuddyPress Activity Social Share plugin and corresponds to screenshot-1.(jpg|jpeg|gif).
 
-2. BuddyPress Activity Social Share admin setting page View : It is the screen that shows admin settings at BuddyPress Activity Social Share under General tab and corresponds to screenshot-2.(png|jpg|jpeg|gif).
+2. BuddyPress Activity Social Share admin setting page View: The screen shows admin settings at BuddyPress Activity Social Share under the General tab and corresponds to screenshot-2.(png|jpg|jpeg|gif).
 
 3. The screenshot shows FAQ(s) related to BuddyPress Activity Social Share plugin and corresponds to screenshot-3.(jpg|jpeg|gif).
 
@@ -124,8 +124,8 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 * Fix: (#80) Update backend UI and remove unnecessary inline-style
 * Fix: (#79) Fixed hide share button if services are not enabled
 * Fix: (#78) Fixed plugin redirect to page and display error
-* Fix: (#71) Managed share button UI with kleo
-* Fix: Fixed add new social link and sortable links
+* Fix: (#71) Managed share button UI with Kleo
+* Fix: Fixed adding new social links and sortable links
 * Fix: Implemented sortable social links functionality
 
 = 3.0.0 =
@@ -135,7 +135,7 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 * Fix - Fixed social site and remove social site options
 
 = 2.8.0 =
-* Fix - Fixed missed esacping functions
+* Fix - Fixed missed escaping functions
 * Fix - Renamed plugin Title
 
 = 2.7.0 =
@@ -157,8 +157,8 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 * Fix - update BuddyPress activation condition
 
 = 2.2.1 =
-* Fix - Removed Google+ Option as this is no more working. #39
-* Fix - Nouveau - improved UI of share button. #49
+* Fix - Removed Google+ Option as this is no longer working. #39
+* Fix - Nouveau - Improve the UI of the share button. #49
 
 = 2.2.0 =
 * Fix - Removed font-awesome 5.0 #37
@@ -171,7 +171,7 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 * Fix - Compatibility with BuddyPress 4.3.0. #33
 
 = 2.0.0 =
-* Enhancement - Improve Backend UI where you can manage all wbcom plugin's settings at one place. #31
+* Enhancement - Improve the Backend UI so you can manage all the wbcom plugin's settings in one place. #31
 
 = 1.2.2 =
 * Fix - Compatibility with BuddyPress 4.1.0. #29
@@ -196,15 +196,15 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 
 = 1.0.4 =
 * Fixed missing thumbnail after share activity post.
-* Fix - Remove glitch on click of share icon.
-* Enhancement - Provide filter to change 'Share' button text.
-* Enhancement - Provide filter to add new social service' in front end.
-* Enhancement - Change view of social share button icons.
-* Enhancement - Added post content for activity share on facebook and google plus.
+* Fix - Remove the glitch by clicking the share icon.
+* Enhancement - Provide a filter to change the 'Share' button text.
+* Enhancement - Provide a filter to add new social services' in the front end.
+* Enhancement - Change the view of social share button icons.
+* Enhancement - I added post content for activity sharing on Facebook and Google Plus.
 
 = 1.0.3 =
 * Fix - Translation Fixes
-* Enhancement - Enable sharing for logged out users
+* Enhancement - Enable sharing for logged-out users
 * Enhancement - Allow to add more social icons
 
 = 1.0.2 =

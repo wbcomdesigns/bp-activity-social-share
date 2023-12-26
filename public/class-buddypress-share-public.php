@@ -233,7 +233,7 @@ class Buddypress_Share_Public
 				$og_image           = null;
 				$activity_permalink = null;
 				$activity_obj       = new BP_Activity_Activity($bp->current_action);
-				$activity_link  	= $activities_template->activity->primary_link . bp_get_activity_slug() . '/' . $activities_template->activity->id . '/';
+				$activity_link  	= bp_activity_get_permalink($bp->current_action);
 				preg_match_all('/(src|width|height)=("[^"]*")/', $activity_obj->content, $result);
 
 				if (isset($result[2]) && !empty($result[2])) {

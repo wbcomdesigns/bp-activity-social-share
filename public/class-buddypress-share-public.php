@@ -233,7 +233,7 @@ class Buddypress_Share_Public
 				$og_image           = null;
 				$activity_permalink = null;
 				$activity_obj       = new BP_Activity_Activity($bp->current_action);
-				$activity_permalink = bp_activity_get_permalink($bp->current_action);
+				$activity_link  	= $activities_template->activity->primary_link . bp_get_activity_slug() . '/' . $activities_template->activity->id . '/';
 				preg_match_all('/(src|width|height)=("[^"]*")/', $activity_obj->content, $result);
 
 				if (isset($result[2]) && !empty($result[2])) {
@@ -309,7 +309,7 @@ class Buddypress_Share_Public
 			?>
 				<!-- Existing Open Graph Meta Tags for Facebook -->
 				<meta property="og:type" content="article" />
-				<meta property="og:url" content="<?php echo esc_url($activity_permalink); ?>" />
+				<meta property="og:url" content="<?php echo esc_url($activity_link); ?>" />
 				<meta property="og:title" content="<?php echo esc_html($title); ?>" />
 				<meta property="og:description" content="<?php echo esc_html($activity_content); ?>" />
 				<meta property="og:image" content="<?php echo esc_url($og_image); ?>" />
@@ -319,7 +319,7 @@ class Buddypress_Share_Public
 
 				<!-- Additional Meta Tags for Twitter Card -->
 				<meta name="twitter:card" content="<?php echo esc_url($og_image); ?>" /> <!-- Use 'summary_large_image' for large image with title and description, or 'summary' for smaller image -->
-				<meta name="twitter:url" content="<?php echo esc_url($activity_permalink); ?>" />
+				<meta name="twitter:url" content="<?php echo esc_url($activity_link); ?>" />
 				<meta name="twitter:title" content="<?php echo esc_html($title); ?>" />
 				<meta name="twitter:description" content="<?php echo esc_html($activity_content); ?>" />
 				<meta name="twitter:image" content="<?php echo esc_url($og_image); ?>" />

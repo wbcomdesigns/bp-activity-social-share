@@ -14,7 +14,7 @@
  * Plugin Name:       Wbcom Designs - BuddyPress Activity Social Share
  * Plugin URI:        https://www.wbcomdesigns.com
  * Description:       This plugin will add an extended feature to the big name “BuddyPress” that will allow to share Activity “Post Updates” to the social sites.
- * Version:           3.5.0
+ * Version:           3.5.1
  * Author:            Wbcom Designs<admin@wbcomdesigns.com>
  * Author URI:        https://www.wbcomdesigns.com
  * License:           GPL-2.0+
@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 if ( ! defined( 'BP_SHARE' ) ) {
-	define( 'BP_SHARE_VERSION', '3.5.0' );
+	define( 'BP_SHARE_VERSION', '3.5.1' );
 	define( 'BP_SHARE', 'buddypress-share' );
 	define( 'BP_ACTIVITY_SHARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 	define( 'BP_ACTIVITY_SHARE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -74,7 +74,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bp_activity_s
  * Adds the Settings link to the plugin activate/deactivate page.
  *
  * @param string $links An array of plugin action links.
- * @param string $file Path to the plugin file relative to the plugins directory.
+ * @param string $file Path to the plugin file relative to the plugin directory.
  */
 function bp_activity_share_plugin_actions( $links, $file ) {
 	if ( class_exists( 'BuddyPress' ) ) {
@@ -133,11 +133,11 @@ function bp_activity_share_check_config() {
 		$check[] = $bp->basename;
 	}
 	$check[] = BP_ACTIVITY_SHARE_PLUGIN_BASENAME;
-	// Are they active on the network ?
+	// Are they active on the network?
 	$network_active = array_diff( $check, array_keys( $network_plugins ) );
 
-	// If result is 1, your plugin is network activated
-	// and not BuddyPress or vice & versa. Config is not ok.
+	// If the result is 1, your plugin is network-activated
+	// and not BuddyPress or vice & versa. The config is not ok.
 	if ( count( $network_active ) == 1 ) {
 		$config['network_status'] = false;
 	}

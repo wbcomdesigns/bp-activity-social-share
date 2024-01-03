@@ -249,6 +249,12 @@ class Buddypress_Share_Admin {
 				$checkbox_key = 'chb_' . $service_key;
 				$new_status = in_array($checkbox_key, $active_services) ? 1 : 0;
 
+				// Ensure that $value is an array before attempting to modify it
+				if (!is_array($value)) {
+					// If $value is not an array, initialize it as one
+					$value = array();
+				}
+
 				// Check if the status has changed to avoid unnecessary updates
 				if (!isset($value[$checkbox_key]) || $value[$checkbox_key] !== $new_status) {
 					$value[$checkbox_key] = $new_status;

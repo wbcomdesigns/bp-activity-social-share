@@ -580,28 +580,39 @@ class Buddypress_Share_Admin {
 	/**
 	 * This function is for that remove social icon when drag social icon in disable section
 	 **/
-	public function wss_social_remove_icons()
-	{
-		$nonce = !empty($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
-		if (!wp_verify_nonce($nonce, 'bp_share_nonce') && !current_user_can('manage_options')) {
+	public function wss_social_remove_icons() {
+		// Sanitize and retrieve nonce from POST data
+		$nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+
+		// Verify nonce for security and check user capabilities
+		if (!wp_verify_nonce($nonce, 'bp_share_nonce') || !current_user_can('manage_options')) {
+			// Send a JSON error response if nonce verification fails or user lacks required capabilities
 			$error = new WP_Error('001', 'Sorry, your nonce did not verify.', 'Some information');
 			wp_send_json_error($error);
 		}
-		$success_icon_val      = isset($_POST['icon_name']) ? sanitize_text_field(wp_unslash($_POST['icon_name'])) : '';
-		// echo $success_icon_val;
-		// die;
-		$icon_value_array      = array();
+
+		// Sanitize and retrieve the icon name from POST data
+		$icon_name = isset($_POST['icon_name']) ? sanitize_text_field(wp_unslash($_POST['icon_name'])) : '';
+
+		// Retrieve current icon settings
 		$wss_admin_icon_remove = get_site_option('bp_share_services');
-		foreach ($wss_admin_icon_remove as $key => $value) {
-			if ($key === $success_icon_val) {
-				unset($wss_admin_icon_remove[$key]);
-				$update_drag_value = update_site_option('bp_share_services', $wss_admin_icon_remove);
-			}
+
+		// Initialize update flag
+		$update_drag_value = false;
+
+		// Check and remove the specified icon from the settings
+		if (isset($wss_admin_icon_remove[$icon_name])) {
+			unset($wss_admin_icon_remove[$icon_name]);
+			// Update the site option and set the flag to true
+			$update_drag_value = update_site_option('bp_share_services', $wss_admin_icon_remove);
 		}
+
+		// Send a JSON success or error response based on whether the update occurred
 		if ($update_drag_value) {
 			wp_send_json_success();
 		} else {
 			wp_send_json_error();
 		}
 	}
+
 }

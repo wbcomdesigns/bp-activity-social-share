@@ -533,30 +533,39 @@ class Buddypress_Share_Admin {
 	/**
 	 * This function is for that save social icon values in database
 	 **/
-	public function wss_social_icons()
-	{
-		$nonce = !empty($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
-		if (!wp_verify_nonce($nonce, 'bp_share_nonce') && !current_user_can('manage_options')) {
+	public function wss_social_icons() {
+		// Sanitize and retrieve nonce from POST data
+		$nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+
+		// Verify nonce and user capabilities
+		if (!wp_verify_nonce($nonce, 'bp_share_nonce') || !current_user_can('manage_options')) {
+			// Send a JSON error response if nonce verification fails or user lacks required capabilities
 			$error = new WP_Error('001', 'Sorry, your nonce did not verify.', 'Some information');
 			wp_send_json_error($error);
 		}
-		$success                = isset($_POST['term_name']) ? sanitize_text_field(wp_unslash($_POST['term_name'])) : '';
-		$icon_value             = array();
+
+		// Sanitize and retrieve 'term_name' from POST data
+		$term_name = isset($_POST['term_name']) ? sanitize_text_field(wp_unslash($_POST['term_name'])) : '';
+
+		// Retrieve current icon settings
 		$wss_admin_icon_setting = get_site_option('bp_share_services');
-		if (empty($wss_admin_icon_setting)) {
-			$icon_value[$success] = $success;
-			$update_drag_value      = update_site_option('bp_share_services', $icon_value);
-		} else {
-			$new_icon_value[$success] = $success;
-			$merge                      = array_merge($wss_admin_icon_setting, $new_icon_value);
-			$update_drag_value          = update_site_option('bp_share_services', $merge);
-		}
-		if ($update_drag_value) {
+
+		// Prepare new icon value
+		$new_icon_value = array($term_name => $term_name);
+
+		// Merge new icon value with existing settings or initialize if not set
+		$updated_icon_setting = is_array($wss_admin_icon_setting)
+			? array_merge($wss_admin_icon_setting, $new_icon_value)
+			: $new_icon_value;
+
+		// Update the site option and handle the response
+		if (update_site_option('bp_share_services', $updated_icon_setting)) {
 			wp_send_json_success();
 		} else {
 			wp_send_json_error();
 		}
 	}
+
 
 	/**
 	 * This function is for that remove social icon when drag social icon in disable section

@@ -228,35 +228,45 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bp_share_chb_services_ajax() {
+		// Check if the request is a POST, verify the nonce, and confirm user capabilities
 		if (!empty($_POST) && check_admin_referer('bp_share_nonce', 'nonce') && current_user_can('manage_options')) {
-			$option_name      = 'bp_share_services';
-			$active_services  = isset($_POST['active_chb_array']) ? map_deep(wp_unslash($_POST['active_chb_array']), 'sanitize_text_field') : array();
-			$extras_options   = isset($_POST['active_chb_extras']) ? map_deep(wp_unslash($_POST['active_chb_extras']), 'sanitize_text_field') : array();
-			$extra_option_new = array();
+			$option_name = 'bp_share_services';
 
-			$extra_option_new['bp_share_services_open'] = in_array('bp_share_services_open', $extras_options) ? 1 : 0;
+			// Sanitize and retrieve active services and extra options from POST data
+			$active_services = isset($_POST['active_chb_array']) ? map_deep(wp_unslash($_POST['active_chb_array']), 'sanitize_text_field') : array();
+			$extras_options = isset($_POST['active_chb_extras']) ? map_deep(wp_unslash($_POST['active_chb_extras']), 'sanitize_text_field') : array();
+
+			// Update extra options setting
+			$extra_option_new = array('bp_share_services_open' => in_array('bp_share_services_open', $extras_options) ? 1 : 0);
 			update_site_option('bp_share_services_extra', $extra_option_new);
 
+			// Retrieve current services and initialize update flag
 			$services = get_site_option($option_name, array());
 			$service_updated = false;
 
+			// Iterate through each service and update its status
 			foreach ($services as $service_key => &$value) {
 				$checkbox_key = 'chb_' . $service_key;
-				if (in_array($checkbox_key, $active_services)) {
-					$value[$checkbox_key] = 1;
-				} else {
-					$value[$checkbox_key] = 0;
+				$new_status = in_array($checkbox_key, $active_services) ? 1 : 0;
+
+				// Check if the status has changed to avoid unnecessary updates
+				if (!isset($value[$checkbox_key]) || $value[$checkbox_key] !== $new_status) {
+					$value[$checkbox_key] = $new_status;
+					$service_updated = true;
 				}
-				$service_updated = true;
 			}
 
+			// Update the service options if there's any change
 			if ($service_updated) {
 				update_site_option($option_name, $services);
 				update_site_option('bp_share_all_services_disable', 'enable');
 			}
 		}
-		wp_die(); // Use wp_die() instead of die() for AJAX handlers in WordPress
+
+		// Terminate the execution for AJAX requests in a WordPress-friendly way
+		wp_die();
 	}
+
 
 	/**
 	 * Intialize plugin admin settings.

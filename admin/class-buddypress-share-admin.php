@@ -304,32 +304,50 @@ class Buddypress_Share_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function bp_share_sort_social_links_ajax()
-	{
-		if (isset($_POST['nonce']) && !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'bp_share_nonce') && current_user_can('manage_options')) {
+	public function bp_share_sort_social_links_ajax() {
+		// Verify nonce for security and check user capabilities
+		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'bp_share_nonce') || !current_user_can('manage_options')) {
+			// Exit if the nonce is not set, invalid, or the user doesn't have the right capabilities
 			exit();
-		} else {
-			if (!isset($_POST['sorted_data'])) {
-				exit;
-			}
-			$sorts        = map_deep(wp_unslash($_POST['sorted_data']), 'sanitize_text_field');
-			$services     = get_site_option('bp_share_services');
-			$count        = 0;
-			$new_settings = array();
-			foreach ($services as $key => $service) {
-				foreach ($sorts as $srt) {
-					if ('chb_bp_copy_activity' !== $srt['key']) {
-						if ((int) $count === (int) $srt['newIndex']) {
-							$setting_key                  = str_replace('chb_', '', $srt['key']);
-							$new_settings[$setting_key] = $services[$setting_key];
-						}
+		}
+
+		// Check if sorted data is set in POST
+		if (!isset($_POST['sorted_data'])) {
+			// Exit if no sorted data is provided
+			exit();
+		}
+
+		// Sanitize and retrieve the sorted data from POST
+		$sorts = map_deep(wp_unslash($_POST['sorted_data']), 'sanitize_text_field');
+
+		// Retrieve current services settings
+		$services = get_site_option('bp_share_services');
+
+		// Initialize variables
+		$count = 0;
+		$new_settings = array();
+
+		// Reorder services based on sorted data
+		foreach ($services as $key => $service) {
+			foreach ($sorts as $srt) {
+				// Skip 'bp_copy_activity' from sorting
+				if ('chb_bp_copy_activity' !== $srt['key']) {
+					if ((int) $count === (int) $srt['newIndex']) {
+						$setting_key = str_replace('chb_', '', $srt['key']);
+						$new_settings[$setting_key] = $services[$setting_key];
 					}
 				}
-				$count++;
 			}
-			$new_settings['bp_copy_activity'] = $services['bp_copy_activity'];
-			update_site_option('bp_share_services', $new_settings);
+			$count++;
 		}
+
+		// Ensure 'bp_copy_activity' remains in the settings
+		$new_settings['bp_copy_activity'] = $services['bp_copy_activity'];
+
+		// Update the services settings with new order
+		update_site_option('bp_share_services', $new_settings);
+
+		// Exit the function
 		exit();
 	}
 

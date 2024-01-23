@@ -122,12 +122,14 @@ class Buddypress_Share_Public {
 	 * @since    1.0.0
 	 */
 	public function bp_share_activity_filter() {
+		global $activities_template;
 		$social_service = get_site_option( 'bp_share_services' );
 		$extra_options  = get_site_option( 'bp_share_services_extra' );
 		$activity_type  = bp_get_activity_type();
 		$activity_link  = bp_get_activity_thread_permalink();
 		$activity_title = bp_get_activity_feed_item_title(); // use for description : bp_get_activity_feed_item_description().
 		$plugin_path    = plugins_url();
+		$mail_subject 	= strip_tags( $activities_template->activity->action );
 		if ( ! is_user_logged_in() ) {
 			echo '<div class = "activity-meta" >';
 		}
@@ -177,7 +179,7 @@ class Buddypress_Share_Public {
 					echo '<a class="bp-share" id="bp_whatsapp_share" href="https://api.whatsapp.com/send?text=' . esc_url( $activity_link ) . '&image_sharer=1"><span class="dashicons dashicons-whatsapp"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['E-mail'] ) ) {
-					$email = 'mailto:?subject=' . esc_html( $activity_title ) . '&body=Check out this site: ' . esc_url( $activity_title ) . '" title="Share by Email';
+					$email = 'mailto:?subject=' . esc_html( $mail_subject ) . '&body=Checkout this activity: ' . esc_url( $activity_link ) . '"';
 					echo '<a class="bp-share" id="bp_email_share" href="' . esc_url( $email ) . '"><span class="dashicons dashicons-email"></span></a>';
 				}
 			} else {

@@ -21,6 +21,17 @@
     margin: 2px;
 }
 
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter:before {
+    content: "";
+    background-image: url("../images/twitter-x-line.svg");
+    background-size: 17px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
 .activity ul li .activity-meta .service-buttons a.bp-share:hover {
     background: none !important;
     color: #686868 !important;

@@ -1,14 +1,14 @@
-# Copyright (C) 2023
+# Copyright (C) 2024
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-26 19:14:01+00:00\n"
+"POT-Creation-Date: 2024-01-24 09:23:33+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Varun Dubey\n"
 "Language-Team: Wbcom Designs\n"
 "Language: en\n"
@@ -134,7 +134,6 @@ msgid "Send Feedback"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:133
-#: includes/class-buddypress-share-settings.php:137
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
@@ -152,107 +151,90 @@ msgid "Version %s"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:176
-#: includes/class-buddypress-share-settings.php:170
 msgid "Welcome"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:177
-#: admin/class-buddypress-share-admin.php:385
-#: includes/class-buddypress-share-settings.php:171
+#: admin/class-buddypress-share-admin.php:415
 msgid "General Settings"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:219
-#: includes/class-buddypress-share-settings.php:123
+#: admin/class-buddypress-share-admin.php:221
 msgid ""
 "Default is set to open window in popup. If this option is disabled then "
 "services open in new tab instead popup.  "
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:273
-#: includes/class-buddypress-share-settings.php:81
+#: admin/class-buddypress-share-admin.php:290
 msgid "Extra Options"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:279
-#: includes/class-buddypress-share-settings.php:87
+#: admin/class-buddypress-share-admin.php:296
 msgid "Open as popup window"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:296
-#: includes/class-buddypress-share-settings.php:64
+#: admin/class-buddypress-share-admin.php:312
 msgid "WB Plugins"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:297
-#: includes/class-buddypress-share-settings.php:65
+#: admin/class-buddypress-share-admin.php:313
 msgid "General"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:299
-#: includes/class-buddypress-share-settings.php:67
+#: admin/class-buddypress-share-admin.php:315
 msgid "BuddyPress Share"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:394
+#: admin/class-buddypress-share-admin.php:424
 msgid "Enable Sharing Sites"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:405
-#: admin/class-buddypress-share-admin.php:438
-#: includes/class-buddypress-share-settings.php:242
+#: admin/class-buddypress-share-admin.php:435
+#: admin/class-buddypress-share-admin.php:484
 msgid "Facebook"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:408
-#: admin/class-buddypress-share-admin.php:441
-#: includes/class-buddypress-share-settings.php:243
+#: admin/class-buddypress-share-admin.php:440
+#: admin/class-buddypress-share-admin.php:489
 msgid "Twitter"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:411
-#: admin/class-buddypress-share-admin.php:444
-#: includes/class-buddypress-share-settings.php:244
+#: admin/class-buddypress-share-admin.php:445
+#: admin/class-buddypress-share-admin.php:494
 msgid "Pinterest"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:414
-#: admin/class-buddypress-share-admin.php:447
-#: includes/class-buddypress-share-settings.php:245
+#: admin/class-buddypress-share-admin.php:450
+#: admin/class-buddypress-share-admin.php:499
 msgid "Linkedin"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:417
-#: admin/class-buddypress-share-admin.php:450
-#: includes/class-buddypress-share-settings.php:246
+#: admin/class-buddypress-share-admin.php:455
+#: admin/class-buddypress-share-admin.php:504
 msgid "Reddit"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:420
-#: admin/class-buddypress-share-admin.php:453
-#: includes/class-buddypress-share-settings.php:247
+#: admin/class-buddypress-share-admin.php:460
+#: admin/class-buddypress-share-admin.php:509
 msgid "WordPress"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:423
-#: admin/class-buddypress-share-admin.php:456
-#: includes/class-buddypress-share-settings.php:248
+#: admin/class-buddypress-share-admin.php:465
+#: admin/class-buddypress-share-admin.php:514
 msgid "Pocket"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:426
-#: admin/class-buddypress-share-admin.php:459
+#: admin/class-buddypress-share-admin.php:470
+#: admin/class-buddypress-share-admin.php:519
 msgid "E-mail"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:429
-#: admin/class-buddypress-share-admin.php:462
-#: includes/class-buddypress-share-settings.php:250
+#: admin/class-buddypress-share-admin.php:475
+#: admin/class-buddypress-share-admin.php:524
 msgid "Whatsapp"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:497
-#: includes/class-buddypress-share-settings.php:358
+#: admin/class-buddypress-share-admin.php:559
 msgid "Save Changes"
 msgstr ""
 
@@ -356,7 +338,6 @@ msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:29
 #: admin/wbcom/templates/wbcom-license-page.php:41
-#: includes/class-buddypress-share-settings.php:295
 msgid "Action"
 msgstr ""
 
@@ -919,58 +900,6 @@ msgstr ""
 msgid ""
 "%1$s plugin has already been activated. So, you can't use the free version "
 "plugin with the pro version plugin."
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:146
-msgid "BuddyPress Activity Social Share Settings"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:226
-msgid "Add Social Services"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:230
-msgid "Component"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:231
-msgid "Select Service"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:237
-#: includes/class-buddypress-share-settings.php:292
-msgid "Social Sites"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:241
-msgid "select"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:249
-msgid "Email"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:251
-msgid "Copy"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:254
-#: includes/class-buddypress-share-settings.php:263
-#: includes/class-buddypress-share-settings.php:273
-msgid "This field is required!"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:259
-msgid "Font Awesome Icon Class"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:269
-#: includes/class-buddypress-share-settings.php:294
-msgid "Description"
-msgstr ""
-
-#: includes/class-buddypress-share-settings.php:281
-msgid "Add Services"
 msgstr ""
 
 #: public/class-buddypress-share-public.php:140

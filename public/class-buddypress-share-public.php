@@ -130,9 +130,6 @@ class Buddypress_Share_Public {
 		$activity_title = bp_get_activity_feed_item_title(); // use for description : bp_get_activity_feed_item_description().
 		$plugin_path    = plugins_url();
 		$mail_subject 	= strip_tags( $activities_template->activity->action );
-		if ( ! is_user_logged_in() ) {
-			echo '<div class = "activity-meta" >';
-		}
 
 		$updated_text = apply_filters( 'bpas_share_button_text_override', 'Share' );
 		if ( isset( $updated_text ) ) {
@@ -142,7 +139,7 @@ class Buddypress_Share_Public {
 		<div class="bp-share-btn generic-button">
 			<a class="button item-button bp-secondary-action bp-share-button" rel="nofollow"><span><?php esc_html_e( 'Share', 'buddypress-share' ); ?></span></a>
 		</div>
-		</div>
+		
 		<div class="service-buttons <?php echo esc_html( $activity_type ); ?>" style="display: none;">
 			<?php
 			if ( ! empty( $social_service ) ) {
@@ -188,35 +185,32 @@ class Buddypress_Share_Public {
 			do_action( 'bp_share_user_services', $social_service = array(), $activity_link, $activity_title );
 			?>
 		</div>
-		<div>
-			<script>
-				jQuery(document).ready(function() {
-					var pop_active = '<?php echo isset( $extra_options['bp_share_services_open'] ) ? esc_html( $extra_options['bp_share_services_open'] ) : ''; ?>';
-					if (pop_active == 1) {
-						jQuery('.bp-share').addClass('has-popup');
-					}
-				});
-			</script>
-			<?php
-			if ( ! is_user_logged_in() ) {
-				echo '</div>';
-			}
+
+		<script>
+			jQuery(document).ready(function() {
+				var pop_active = '<?php echo isset( $extra_options['bp_share_services_open'] ) ? esc_html( $extra_options['bp_share_services_open'] ) : ''; ?>';
+				if (pop_active == 1) {
+					jQuery('.bp-share').addClass('has-popup');
+				}
+			});
+		</script>
+		<?php
 	}
 
-		/**
-		 * Displays the language attributes for the ‘html’ tag.
-		 *
-		 * @param  string $output The type of HTML document. Accepts 'xhtml' or 'html'.
-		 */
+	/**
+	 * Displays the language attributes for the ‘html’ tag.
+	 *
+	 * @param  string $output The type of HTML document. Accepts 'xhtml' or 'html'.
+	 */
 	public function bp_share_doctype_opengraph( $output ) {
 		return $output . '
     xmlns:og="http://opengraphprotocol.org/schema/"
     xmlns:fb="http://www.facebook.com/2008/fbml"';
 	}
 
-		/**
-		 * Share activity with og meta values
-		 */
+	/**
+	 * Share activity with og meta values
+	 */
 	public function bp_share_opengraph() {
 		global $bp, $post;
 		if ( ( bp_is_active( 'activity' ) && bp_is_current_component( 'activity' ) && ! empty( $bp->current_action ) && is_numeric( $bp->current_action ) && bp_is_single_activity() ) ) {

@@ -32,7 +32,7 @@
     $(document).ready(function () {
 
         $(document).on('click', ".bp-share-button", function (e) {
-            $(this).parent().parent().next(".service-buttons").toggle(500);
+            $(this).parent().next(".service-buttons").toggle(500);
         });
         $(document).on("click", ".bp-share.has-popup", function (e) {
             var display_attr = $(this).attr('attr-display');

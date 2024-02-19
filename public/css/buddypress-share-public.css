@@ -195,13 +195,6 @@ body:not(.logged-in).bp-nouveau #buddypress .activity-list .activity-item .activ
     display: none;
 }
 
-/*Reign Theme*/
-
-.theme-reign-theme .service-buttons {
-    margin-top: 20px;
-    padding-bottom: 0;
-}
-
 
 /*--------------------------------------------------------------
 ## BuddyBoss

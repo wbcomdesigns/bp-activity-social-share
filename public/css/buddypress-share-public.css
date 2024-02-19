@@ -11,20 +11,50 @@
 /*--------------------------------------------------------------
 # Global
 --------------------------------------------------------------*/
+.activity ul li .activity-meta .service-buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-flow: wrap;
+    flex-flow: wrap;
+    background: rgba(0, 0, 0, .02);
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    border-radius: 6px;
+}
 
 .activity ul li .activity-meta .service-buttons a.bp-share {
     background: none !important;
     color: black !important;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     margin: 2px;
+}
+
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 .activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter:before {
     content: "";
     background-image: url("../images/twitter-x-line.svg");
-    background-size: 17px;
+    background-size: 16px;
     background-repeat: no-repeat;
     background-position: center;
     display: block;
@@ -35,12 +65,6 @@
 .activity ul li .activity-meta .service-buttons a.bp-share:hover {
     background: none !important;
     color: #686868 !important;
-}
-
-.activity ul li .activity-meta .service-buttons {
-    background: rgba(0,0,0, .02);
-    flex: 0 0 100%;
-    border-radius: 6px;
 }
 
 a.bp-share .fa {

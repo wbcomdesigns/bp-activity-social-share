@@ -252,8 +252,29 @@ function bpshare_activation_redirect_settings( $plugin ) {
 		}
 	}
 
+	if ( $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate-plugin' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore		
+			set_transient( '_bpshare_is_new_install', true, 30 );
+		}
+	}
+
+
 }
 add_action( 'activated_plugin', 'bpshare_activation_redirect_settings' );
+
+/**
+ * Bpshare_do_activation_redirect
+ *
+ * @return void
+ */
+function bpshare_do_activation_redirect() {
+	if ( get_transient( '_bpshare_is_new_install' ) ) {
+		delete_transient( '_bpshare_is_new_install' );
+		wp_safe_redirect( admin_url( 'admin.php?page=buddypress-share' ) );
+
+	}
+}
+add_action( 'admin_init', 'bpshare_do_activation_redirect' );
 
 add_action( 'admin_init', 'bp_share_default_option' );
 function bp_share_default_option() {

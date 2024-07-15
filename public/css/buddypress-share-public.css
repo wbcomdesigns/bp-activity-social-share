@@ -47,20 +47,21 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
 }
 
 .activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter:before {
-    content: "";
-    background-image: url("../images/twitter-x-line.svg");
-    background-size: 16px;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-    width: 20px;
-    height: 20px;
+    content: none;
+}
+
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter svg {
+    width: 16px;
+    height: 16px;
 }
 
 .activity ul li .activity-meta .service-buttons a.bp-share:hover {
@@ -122,7 +123,7 @@ a.bp-share.has-popup {
 }
 
 .bp-share .dashicons-twitter {
-    color: #1DA1F2;
+    color: #000000;
 }
 
 .bp-share .dashicons-linkedin {

@@ -10,6 +10,7 @@
 .social_icon_section .ui-droppable h3 {
     margin-top: 0;
 }
+
 .wbcom-admin-option-wrap.wbcom-admin-option-wrap-view table.add_share_services_list_wrap.widefat.plugins,
 .bp-share-services-extra .bp_share_settings_section_callback_class {
     background: #fff;
@@ -267,7 +268,6 @@ p.service_delete_icon i.fa.fa-close {
     vertical-align: middle;
     text-align: center;
     -webkit-user-select: none;
-    -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     /* Support: IE <= 11 */
@@ -397,6 +397,7 @@ button.ui-button::-moz-focus-inner {
 .ui-controlgroup-vertical .ui-spinner-input {
     /* Support: IE8 only, Android < 4.4 only */
     width: 75%;
+    width: -webkit-calc(100% - 2.4em);
     width: calc(100% - 2.4em);
 }
 
@@ -952,6 +953,7 @@ button.ui-button::-moz-focus-inner {
 
 .ui-slider.ui-state-disabled .ui-slider-handle,
 .ui-slider.ui-state-disabled .ui-slider-range {
+    -webkit-filter: inherit;
     filter: inherit;
 }
 
@@ -1509,7 +1511,6 @@ a.ui-button:active,
 }
 
 .ui-widget-shadow {
-    -webkit-box-shadow: 0px 0px 5px #666666;
     box-shadow: 0px 0px 5px #666666;
 }
 
@@ -1655,6 +1656,7 @@ td.bp-share-title {
 .nav-tab-wrapper ul li a#bpas_general_settings:before {
     content: "\f111";
 }
+
 .nav-tab-wrapper ul li a#bpas_icon_color_settings:before {
     content: "\f131";
 }
@@ -1685,12 +1687,17 @@ td.bp-share-title {
     padding: 10px 15px;
     margin: 6px 0;
     border: 1px dashed #b5b5b5;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     cursor: move;
     background: #fafaff;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 15px;
     font-weight: bold;
+    -webkit-transition: all 0.3s;
     transition: all 0.3s;
 }
 
@@ -1699,62 +1706,82 @@ td.bp-share-title {
 }
 
 .socialicon:before {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     font-size: 18px;
     font-family: dashicons;
     line-height: normal;
     font-weight: 400;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     width: 32px;
     border-radius: 100px;
     background: #eee;
     height: 32px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 }
-.socialicon.icon_Facebook:before{
+
+.socialicon.icon_Facebook:before {
     content: "\f305";
 }
-.socialicon.icon_Pinterest:before{
+
+.socialicon.icon_Pinterest:before {
     content: "\f192";
 }
-.socialicon.icon_Reddit:before{
+
+.socialicon.icon_Reddit:before {
     content: "\f195";
 }
-.socialicon.icon_WordPress:before{
+
+.socialicon.icon_WordPress:before {
     content: "\f120";
 }
-.socialicon.icon_Pocket:before{
+
+.socialicon.icon_Pocket:before {
     content: "\f15f";
 }
-.socialicon.icon_Twitter:before{
+
+.socialicon.icon_Twitter:before {
     content: "\f301";
 }
-.socialicon.icon_Twitter:before{
+
+.socialicon.icon_Twitter:before {
     content: "";
     background-image: url("../images/twitter-x-line.svg");
     background-size: 16px;
     background-repeat: no-repeat;
     background-position: center;
 }
+
 .socialicon.icon_E-mail:before,
-.icon_Gmail:before{
+.icon_Gmail:before {
     content: "\f465";
 }
+
 .socialicon.icon_WhatsApp:before,
 .socialicon.icon_Whatsapp:before,
 .icon_WhatAapp:before {
     content: "\f19a";
 }
-.socialicon.icon_LinkedIn:before{
+
+.socialicon.icon_LinkedIn:before {
     content: "\f18d";
 }
 
-
 .social_icon_section {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    margin: 0 -1%;
+    margin: 0;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    gap: 20px;
 }
 
 #drag_social_icon,
@@ -1763,9 +1790,9 @@ td.bp-share-title {
     border: 1px solid #e3e2ec;
     background: #fff;
     box-shadow: 0 10px 20px #f5f5f6;
-    width: 48%;
+    width: 100%;
     border-radius: 10px;
-    margin: 0 1%;
+    margin: 0;
 }
 
 .wbcom-settings-section-options input.notes_icon_hex_color_show {
@@ -1774,28 +1801,39 @@ td.bp-share-title {
     padding: 0 5px;
     max-width: 80px !important;
 }
+
 ul.wb-social-icon-color-option {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
+
 .wb-social-icon-color-option li {
     display: block;
     margin: 10px 0;
     position: relative;
     width: 33%;
 }
+
 .wb-social-icon-color-option li .wp-picker-container.wp-picker-active {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
-.wb-social-icon-color-option li label{
+
+.wb-social-icon-color-option li label {
     display: block;
 }
+
 .wb-social-icon-color-option li .wp-picker-container .wp-color-result.button {
     min-height: 30px;
     margin: 0 6px 6px 0;
     padding: 0 0 0 30px;
     font-size: 11px;
 }
+
 .wb-social-icon-color-option li .wp-color-result-text {
     background: #f6f7f7;
     border-radius: 0 2px 2px 0;
@@ -1806,24 +1844,52 @@ ul.wb-social-icon-color-option {
     padding: 0 6px;
     text-align: center;
 }
+
 .wb-social-icon-color-option li .wp-picker-container.wp-picker-active span.wp-picker-input-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
-.wb-social-icon-color-option li .wp-picker-active span.wp-picker-input-wrap input.wp-color-picker ,
-.wb-social-icon-color-option li .wp-picker-input-wrap .button.wp-picker-clear{
+
+.wb-social-icon-color-option li .wp-picker-active span.wp-picker-input-wrap input.wp-color-picker,
+.wb-social-icon-color-option li .wp-picker-input-wrap .button.wp-picker-clear {
     height: 32px;
     border-radius: 4px;
 }
+
 .wb-social-icon-color-option li .wp-picker-holder {
     position: absolute;
     top: 65px;
     z-index: 999;
     left: 0;
 }
+
 .wbcom-admin-option-wrap.wb-activity-share-color-icons.wbcom-admin-option-wrap-view,
 .wbcom-admin-option-wrap.wb-activity-share-color-icons .wbcom-settings-section-wrap {
     overflow: inherit;
 }
+
 .wbcom-wrap .notice {
     display: none !important;
+}
+
+@media screen and (max-width: 767px) {
+    .social_icon_section {
+        -ms-flex-flow: wrap;
+        flex-flow: wrap;
+    }
+
+    .bp_share_settings_section_callback_class table.form-table tbody td {
+        padding: 20px 20px 0;
+    }
+
+    .wb-social-icon-color-option li {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wb-social-icon-color-option li {
+        width: 100%;
+    }
 }

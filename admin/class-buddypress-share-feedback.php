@@ -81,8 +81,11 @@ if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 		 */
 		public function seconds_to_words( $seconds ) {
 
+			// Convert the input seconds to an integer to avoid float issues.
+			$seconds = intval( $seconds );
+
 			// Get the years.
-			$years = ( intval( $seconds ) / YEAR_IN_SECONDS ) % 100;
+			$years = intval( $seconds / YEAR_IN_SECONDS ) % 100;
 			if ( $years > 1 ) {
 				/* translators: Number of years */
 				return sprintf( __( '%s years', 'buddypress-share' ), $years );
@@ -91,7 +94,7 @@ if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 			}
 
 			// Get the weeks.
-			$weeks = ( intval( $seconds ) / WEEK_IN_SECONDS ) % 52;
+			$weeks = intval( $seconds / WEEK_IN_SECONDS ) % 52;
 			if ( $weeks > 1 ) {
 				/* translators: Number of weeks */
 				return sprintf( __( '%s weeks', 'buddypress-share' ), $weeks );
@@ -100,7 +103,7 @@ if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 			}
 
 			// Get the days.
-			$days = ( intval( $seconds ) / DAY_IN_SECONDS ) % 7;
+			$days = intval( $seconds / DAY_IN_SECONDS ) % 7;
 			if ( $days > 1 ) {
 				/* translators: Number of days */
 				return sprintf( __( '%s days', 'buddypress-share' ), $days );
@@ -109,7 +112,7 @@ if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 			}
 
 			// Get the hours.
-			$hours = ( intval( $seconds ) / HOUR_IN_SECONDS ) % 24;
+			$hours = intval( $seconds / HOUR_IN_SECONDS ) % 24;
 			if ( $hours > 1 ) {
 				/* translators: Number of hours */
 				return sprintf( __( '%s hours', 'buddypress-share' ), $hours );
@@ -118,7 +121,7 @@ if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 			}
 
 			// Get the minutes.
-			$minutes = ( intval( $seconds ) / MINUTE_IN_SECONDS ) % 60;
+			$minutes = intval( $seconds / MINUTE_IN_SECONDS ) % 60;
 			if ( $minutes > 1 ) {
 				/* translators: Number of minutes */
 				return sprintf( __( '%s minutes', 'buddypress-share' ), $minutes );
@@ -126,14 +129,17 @@ if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 				return __( 'a minute', 'buddypress-share' );
 			}
 
-			// Get the seconds.
-			$seconds = intval( $seconds ) % 60;
+			// Get the remaining seconds.
+			$seconds = $seconds % 60;
 			if ( $seconds > 1 ) {
 				/* translators: Number of seconds */
 				return sprintf( __( '%s seconds', 'buddypress-share' ), $seconds );
 			} elseif ( $seconds > 0 ) {
 				return __( 'a second', 'buddypress-share' );
 			}
+
+			// If no time units were found, return '0 seconds'.
+			return __( '0 seconds', 'buddypress-share' );
 		}
 
 		/**

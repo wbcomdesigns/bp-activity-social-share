@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 09:58:53+00:00\n"
+"POT-Creation-Date: 2024-08-22 10:12:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -138,8 +138,8 @@ msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:148
-#: admin/class-buddypress-share-feedback.php:271
-#: admin/class-buddypress-share-feedback.php:311
+#: admin/class-buddypress-share-feedback.php:277
+#: admin/class-buddypress-share-feedback.php:317
 #: admin/wbcom/templates/wbcom-license-page.php:12 buddypress-share.php:207
 msgid "BuddyPress Activity Social Share"
 msgstr ""
@@ -238,65 +238,69 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:88
+#: admin/class-buddypress-share-feedback.php:91
 #. translators: Number of years
 msgid "%s years"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:90
+#: admin/class-buddypress-share-feedback.php:93
 msgid "a year"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:97
+#: admin/class-buddypress-share-feedback.php:100
 #. translators: Number of weeks
 msgid "%s weeks"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:99
+#: admin/class-buddypress-share-feedback.php:102
 msgid "a week"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:106
+#: admin/class-buddypress-share-feedback.php:109
 #. translators: Number of days
 msgid "%s days"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:108
+#: admin/class-buddypress-share-feedback.php:111
 msgid "a day"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:115
+#: admin/class-buddypress-share-feedback.php:118
 #. translators: Number of hours
 msgid "%s hours"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:117
+#: admin/class-buddypress-share-feedback.php:120
 msgid "an hour"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:124
+#: admin/class-buddypress-share-feedback.php:127
 #. translators: Number of minutes
 msgid "%s minutes"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:126
+#: admin/class-buddypress-share-feedback.php:129
 msgid "a minute"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:133
+#: admin/class-buddypress-share-feedback.php:136
 #. translators: Number of seconds
 msgid "%s seconds"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:135
+#: admin/class-buddypress-share-feedback.php:138
 msgid "a second"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:274
+#: admin/class-buddypress-share-feedback.php:142
+msgid "0 seconds"
+msgstr ""
+
+#: admin/class-buddypress-share-feedback.php:280
 msgid "Are you enjoying BuddyPress Activity Social Share?"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:277
+#: admin/class-buddypress-share-feedback.php:283
 #. translators: 1. Name, 2. Time
 msgid ""
 "We hope you're enjoying %1$s! Could you please do us a BIG favor and give "
@@ -304,11 +308,11 @@ msgid ""
 "motivation?"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:281
+#: admin/class-buddypress-share-feedback.php:287
 msgid "Leave a Review"
 msgstr ""
 
-#: admin/class-buddypress-share-feedback.php:282
+#: admin/class-buddypress-share-feedback.php:288
 msgid "No thanks / I already have"
 msgstr ""
 

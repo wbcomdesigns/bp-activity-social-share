@@ -253,3 +253,22 @@ body.rehub-theme #buddypress div.activity-meta a.bp-share-button:hover span {
     border-radius: 10px;
     margin: 0 1%;
 }
+
+/* Youzify */
+#youzify .activity-meta .bp-share-btn a.bp-share-button{
+    cursor: pointer;
+}
+#youzify .activity-meta .bp-share-btn a.bp-share-button:before {
+    font-size: 18px;
+    content: "\f237" !important;
+    font-family: 'dashicons' !important;
+    margin-right: 5px;
+    display: inline-block;
+}
+#youzify .activity ul li .activity-meta .service-buttons{
+    position: absolute;
+    z-index: 99;
+}
+#youzify .activity ul li .activity-meta .service-buttons a {
+    padding: 0 3px;
+}

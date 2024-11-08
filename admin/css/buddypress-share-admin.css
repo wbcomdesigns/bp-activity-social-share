@@ -1880,6 +1880,7 @@ ul.wb-social-icon-color-option {
     display: none !important;
 }
 
+
 @media screen and (max-width: 767px) {
     .social_icon_section {
         -ms-flex-flow: wrap;

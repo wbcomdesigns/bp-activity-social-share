@@ -4,8 +4,8 @@ Contributors: vapvarun,wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: buddypress, activity, share
 Requires at least: 4.0
-Tested up to: 6.5.0
-Stable tag: 3.5.3
+Tested up to: 6.7.0
+Stable tag: 3.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,18 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 3. The screenshot shows FAQ(s) related to BuddyPress Activity Social Share plugin and corresponds to screenshot-3.(jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.5.4 =
+* Fixed warnings and potential fatal errors in plugin functions to ensure stability.
+* Excluded WhatsApp and Email services from popup behavior for improved user experience.
+* Set default enabled services to Facebook, Twitter, LinkedIn, Email, and WhatsApp.
+* Enhanced Email and WhatsApp sharing links with dynamic site title and URL for better personalization.
+* Fixed issue with activity share icons not displaying correctly.
+* Fixed icon color settings tab responsiveness on mobile devices.
+* Managed Twitter icon color with backend settings.
+* Resolved deprecated warnings for compatibility with the latest standards.
+* Improved backend options responsiveness for better usability.
+
 = 3.5.3 =
 * Fix: Compatibility check with WordPress 6.5.0
 

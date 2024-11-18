@@ -203,7 +203,8 @@ class Buddypress_Share_Public {
 			jQuery(document).ready(function() {
 				var pop_active = '<?php echo isset( $extra_options['bp_share_services_open'] ) ? esc_html( $extra_options['bp_share_services_open'] ) : ''; ?>';
 				if (pop_active == 1) {
-					jQuery('.bp-share').addClass('has-popup');
+					// Add popup class to all share links except WhatsApp and Email
+					jQuery('.bp-share').not('#bp_whatsapp_share, #bp_email_share').addClass('has-popup');
 				}
 			});
 		</script>

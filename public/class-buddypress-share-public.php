@@ -173,12 +173,25 @@ class Buddypress_Share_Public {
 					echo '<a class="bp-share" id="bp_linkedin_share" href="http://www.linkedin.com/shareArticle?mini=true&url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-linkedin"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Whatsapp'] ) ) {
-					echo '<a class="bp-share" id="bp_whatsapp_share" href="https://api.whatsapp.com/send?text=' . esc_url( $activity_link ) . '&image_sharer=1"><span class="dashicons dashicons-whatsapp"></span></a>';
-				}
+					$whatsapp_share_link = 'https://wa.me/?text=' . rawurlencode( $activity_link );
+					echo '<a class="bp-share" id="bp_whatsapp_share" href="' . esc_url( $whatsapp_share_link ) . '"><span class="dashicons dashicons-whatsapp"></span></a>';
+				}				
 				if ( isset( $social_service ) && ! empty( $social_service['E-mail'] ) ) {
-					$email = 'mailto:?subject=' . esc_html( $mail_subject ) . '&body=Checkout this activity: ' . esc_url( $activity_link ) . '"';
+					// Get the site title and URL dynamically
+					$site_title = get_bloginfo( 'name' ); // Fetch the site title
+					$site_url   = home_url();            // Fetch the site URL
+				
+					// Customize the email subject and body
+					$email_subject = 'New Activity on ' . esc_html( $site_title ) . ': ' . esc_html( $mail_subject ); // Dynamic subject
+					$email_body = "Hi,\n\nI wanted to share this activity with you from " . esc_html( $site_title ) . ":\n\n" . esc_url( $activity_link ) . "\n\nYou can explore more activities here: " . esc_url( $site_url ) . "\n\nBest regards,\nThe " . esc_html( $site_title ) . " Team"; // Dynamic body
+				
+					// Create the mailto link
+					$email = 'mailto:?subject=' . rawurlencode( $email_subject ) . '&body=' . rawurlencode( $email_body );
+				
+					// Output the email share button
 					echo '<a class="bp-share" id="bp_email_share" href="' . esc_url( $email ) . '"><span class="dashicons dashicons-email"></span></a>';
 				}
+				
 			} else {
 				esc_html_e( 'Please enable share services!', 'buddypress-share' );
 			}

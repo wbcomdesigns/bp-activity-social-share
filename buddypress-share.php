@@ -62,9 +62,6 @@ if ( ! class_exists( 'Buddypress_Share' ) ) {
 
 }
 
-	require_once __DIR__ . '/vendor/autoload.php';
-	HardG\BuddyPress120URLPolyfills\Loader::init();
-
 /**
  * Adding setting link on plugin listing page
  */

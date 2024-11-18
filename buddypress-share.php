@@ -280,36 +280,41 @@ function bpshare_do_activation_redirect() {
 add_action( 'admin_init', 'bpshare_do_activation_redirect' );
 
 function bpshare_set_default_option() {
-    // Retrieve services and flag.
+    // Retrieve current services and flag.
     $services = get_site_option( 'bp_share_services', array() );
     $get_flag = get_site_option( 'bp_share_flag' );
 
-    // If services exist but flag is not set, initialize defaults.
+    // Correct default structure for services.
+    $default_services = array(
+        'facebook'   => array( 'chb_facebook' => 1 ),  // Enabled
+        'twitter'    => array( 'chb_twitter' => 1 ),   // Enabled
+        'linkedin'   => array( 'chb_linkedin' => 1 ),  // Enabled
+        'email'      => array( 'chb_email' => 1 ),     // Enabled
+        'whatsapp'   => array( 'chb_whatsapp' => 1 ),  // Enabled
+        'pinterest'  => array( 'chb_pinterest' => 0 ), // Disabled
+        'Facebook'   => array( 'chb_Facebook' => 0 ),  // Disabled
+        'Twitter'    => array( 'chb_Twitter' => 0 ),   // Disabled
+        'Linkedin'   => array( 'chb_Linkedin' => 0 ),  // Disabled
+        'Pinterest'  => array( 'chb_Pinterest' => 0 ), // Disabled
+        'E-mail'     => array( 'chb_E-mail' => 1 ),    // Disabled
+        'Whatsapp'   => array( 'chb_Whatsapp' => 0 ),  // Disabled
+    );
+
+    // Merge existing services with defaults only if flag is not set.
     if ( is_array( $services ) && empty( $get_flag ) ) {
-        $bp_share_social_icon_default = array();
+        $services = array_merge( $default_services, $services );
 
-        foreach ( $services as $service ) {
-            if ( ! empty( $service['service_name'] ) ) {
-                $bp_share_social_icon_default[ sanitize_text_field( $service['service_name'] ) ] = sanitize_text_field( $service['service_name'] );
-            }
-        }
-
-        // Save defaults if valid.
-        if ( ! empty( $bp_share_social_icon_default ) ) {
-            update_site_option( 'bp_share_services', $bp_share_social_icon_default );
-            update_site_option( 'bp_share_flag', 1 );
-        }
+        // Save merged defaults.
+        update_site_option( 'bp_share_services', $services );
+        update_site_option( 'bp_share_flag', 1 );
     }
 
-    // Ensure defaults are always initialized.
+    // Initialize with defaults if services are empty.
     if ( empty( $services ) ) {
-        update_site_option( 'bp_share_services', array(
-            'facebook' => 'Facebook',
-            'twitter'  => 'Twitter',
-            'linkedin' => 'LinkedIn',
-        ) );
+        update_site_option( 'bp_share_services', $default_services );
         update_site_option( 'bp_share_flag', 1 );
     }
 }
 add_action( 'admin_init', 'bpshare_set_default_option' );
+
 

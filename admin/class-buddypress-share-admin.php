@@ -465,6 +465,16 @@ class Buddypress_Share_Admin {
 										<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'buddypress-share' ); ?></li>
 										<?php
 									}
+									if ( empty( $get_social_value['Telegram'] ) ) {
+										?>
+										<li class="socialicon icon_Telegram" name="icon_telegram"><?php esc_html_e( 'Telegram', 'buddypress-share' ); ?></li>
+										<?php
+									}
+									if ( empty( $get_social_value['Bluesky'] ) ) {
+										?>
+										<li class="socialicon icon_Bluesky" name="icon_bluesky"><?php esc_html_e( 'Bluesky', 'buddypress-share' ); ?></li>
+										<?php
+									}
 									if ( empty( $get_social_value['E-mail'] ) ) {
 										?>
 										<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'buddypress-share' ); ?></li>
@@ -512,6 +522,16 @@ class Buddypress_Share_Admin {
 									if ( ! empty( $get_social_value['Pocket'] ) ) {
 										?>
 										<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'buddypress-share' ); ?></li>
+										<?php
+									}
+									if ( ! empty( $get_social_value['Telegram'] ) ) {
+										?>
+										<li class="socialicon icon_Telegram" name="icon_telegram"><?php esc_html_e( 'Telegram', 'buddypress-share' ); ?></li>
+										<?php
+									}
+									if ( ! empty( $get_social_value['Bluesky'] ) ) {
+										?>
+										<li class="socialicon icon_Bluesky" name="icon_bluesky"><?php esc_html_e( 'Bluesky', 'buddypress-share' ); ?></li>
 										<?php
 									}
 									if ( ! empty( $get_social_value['E-mail'] ) ) {

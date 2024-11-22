@@ -148,26 +148,36 @@ class Buddypress_Share_Public {
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Twitter'] ) ) {
 					$twitter_title = urlencode( html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' ) );
-					echo '<a class="bp-share" id="bp_twitter_share"  href="https://twitter.com/share?url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 2H1L9.26086 13.0145L1.44995 21.9999H4.09998L10.4883 14.651L16 22H23L14.3917 10.5223L21.8001 2H19.1501L13.1643 8.88578L8 2ZM17 20L5 4H7L19 20H17Z"></path></svg></span></a>';
+					echo '<a class="bp-share" id="bp_twitter_share" href="https://twitter.com/share?url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 2H1L9.26086 13.0145L1.44995 21.9999H4.09998L10.4883 14.651L16 22H23L14.3917 10.5223L21.8001 2H19.1501L13.1643 8.88578L8 2ZM17 20L5 4H7L19 20H17Z"></path></svg></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Pinterest'] ) ) {
 					$media = '';
 					$video = '';
-					echo '<a class="bp-share" id="bp_pinterest_share"  href="https://pinterest.com/pin/create/bookmarklet/?media=' . esc_url( $media ) . '&url=' . esc_url( $activity_link ) . '&is_video=' . esc_url( $video ) . '&description=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-pinterest
+					echo '<a class="bp-share" id="bp_pinterest_share" href="https://pinterest.com/pin/create/bookmarklet/?media=' . esc_url( $media ) . '&url=' . esc_url( $activity_link ) . '&is_video=' . esc_url( $video ) . '&description=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-pinterest
 				"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Reddit'] ) ) {
-					echo '<a class="bp-share" id="bp_reddit_share"  href="http://reddit.com/submit?url=' . esc_url( $activity_link ) . '&title=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-reddit"></span></a>';
+					echo '<a class="bp-share" id="bp_reddit_share" href="http://reddit.com/submit?url=' . esc_url( $activity_link ) . '&title=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-reddit"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['WordPress'] ) ) {
 					$description = '';
 					$img         = '';
-					echo '<a class="bp-share" id="bp_wordpress_share"  href="https://wordpress.com/wp-admin/press-this.php?u=' . esc_url( $activity_link ) . '&t=' . esc_html( $activity_title ) . '&s=' . esc_url( $description ) . '&i= ' . esc_url( $img ) . ' "><span class="dashicons dashicons-wordpress"></span></a>';
+					echo '<a class="bp-share" id="bp_wordpress_share" href="https://wordpress.com/wp-admin/press-this.php?u=' . esc_url( $activity_link ) . '&t=' . esc_html( $activity_title ) . '&s=' . esc_url( $description ) . '&i= ' . esc_url( $img ) . ' "><span class="dashicons dashicons-wordpress"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Pocket'] ) ) {
 					$description = '';
 					$img         = '';
-					echo '<a class="bp-share" id="bp_pocket_share"  href="https://getpocket.com/save?url=' . esc_url( $activity_link ) . '&title=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-arrow-down-alt2"></span></a>';
+					echo '<a class="bp-share" id="bp_pocket_share" href="https://getpocket.com/save?url=' . esc_url( $activity_link ) . '&title=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-arrow-down-alt2"></span></a>';
+				}
+				if ( isset( $social_service ) && ! empty( $social_service['Telegram'] ) ) {
+					$description = '';
+					$img         = '';
+					echo '<a class="bp-share" id="bp_share_telegram" href="https://t.me/share/url?url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-telegram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2.14753 11.8099C7.3949 9.52374 10.894 8.01654 12.6447 7.28833C17.6435 5.20916 18.6822 4.84799 19.3592 4.83606C19.5081 4.83344 19.8411 4.87034 20.0567 5.04534C20.2388 5.1931 20.2889 5.39271 20.3129 5.5328C20.3369 5.6729 20.3667 5.99204 20.343 6.2414C20.0721 9.08763 18.9 15.9947 18.3037 19.1825C18.0514 20.5314 17.5546 20.9836 17.0736 21.0279C16.0283 21.1241 15.2345 20.3371 14.2221 19.6735C12.6379 18.635 11.7429 17.9885 10.2051 16.9751C8.42795 15.804 9.58001 15.1603 10.5928 14.1084C10.8579 13.8331 15.4635 9.64397 15.5526 9.26395C15.5637 9.21642 15.5741 9.03926 15.4688 8.94571C15.3636 8.85216 15.2083 8.88415 15.0962 8.9096C14.9373 8.94566 12.4064 10.6184 7.50365 13.928C6.78528 14.4212 6.13461 14.6616 5.55163 14.649C4.90893 14.6351 3.67265 14.2856 2.7536 13.9869C1.62635 13.6204 0.730432 13.4267 0.808447 12.8044C0.849081 12.4803 1.29544 12.1488 2.14753 11.8099Z"></path></svg></span></a>';
+				}
+				if ( isset( $social_service ) && ! empty( $social_service['Bluesky'] ) ) {
+					$description = '';
+					$img         = '';
+					echo '<a class="bp-share" id="bp_share_bluesky" href="https://bsky.app/intent/compose?text=' . urlencode( 'Check this out! ' . $activity_title . ' ' . $activity_link ) . '"><span class="dashicons dashicons-bluesky"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 11.3884C11.0942 9.62673 8.62833 6.34423 6.335 4.7259C4.13833 3.17506 3.30083 3.4434 2.75167 3.69256C2.11583 3.9784 2 4.95506 2 5.52839C2 6.10339 2.315 10.2367 2.52 10.9276C3.19917 13.2076 5.61417 13.9776 7.83917 13.7309C4.57917 14.2142 1.68333 15.4017 5.48083 19.6292C9.65833 23.9542 11.2058 18.7017 12 16.0392C12.7942 18.7017 13.7083 23.7651 18.4442 19.6292C22 16.0392 19.4208 14.2142 16.1608 13.7309C18.3858 13.9784 20.8008 13.2076 21.48 10.9276C21.685 10.2376 22 6.10256 22 5.52923C22 4.95423 21.8842 3.97839 21.2483 3.6909C20.6992 3.44256 19.8617 3.17423 17.665 4.72423C15.3717 6.34506 12.9058 9.62756 12 11.3884Z"></path></svg></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Linkedin'] ) ) {
 					echo '<a class="bp-share" id="bp_linkedin_share" href="http://www.linkedin.com/shareArticle?mini=true&url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-linkedin"></span></a>';
@@ -342,6 +352,8 @@ class Buddypress_Share_Public {
 		$bpas_reddit_bg_color     = isset( $bpas_icon_color_settings['bpas_reddit_bg_color'] ) ? $bpas_icon_color_settings['bpas_reddit_bg_color'] : '';
 		$bpas_wordpress_bg_color  = isset( $bpas_icon_color_settings['bpas_wordpress_bg_color'] ) ? $bpas_icon_color_settings['bpas_wordpress_bg_color'] : '';
 		$bpas_pocket_bg_color     = isset( $bpas_icon_color_settings['bpas_pocket_bg_color'] ) ? $bpas_icon_color_settings['bpas_pocket_bg_color'] : '';
+		$bpas_telegram_bg_color   = isset( $bpas_icon_color_settings['bpas_telegram_bg_color'] ) ? $bpas_icon_color_settings['bpas_telegram_bg_color'] : '';
+		$bpas_bluesky_bg_color    = isset( $bpas_icon_color_settings['bpas_bluesky_bg_color'] ) ? $bpas_icon_color_settings['bpas_bluesky_bg_color'] : '';
 		$bpas_email_bg_color      = isset( $bpas_icon_color_settings['bpas_email_bg_color'] ) ? $bpas_icon_color_settings['bpas_email_bg_color'] : '';
 		$bpas_whatsapp_bg_color   = isset( $bpas_icon_color_settings['bpas_whatsapp_bg_color'] ) ? $bpas_icon_color_settings['bpas_whatsapp_bg_color'] : '';
 		?>
@@ -399,6 +411,22 @@ class Buddypress_Share_Public {
 				<?php
 				if ( ! empty( $bpas_pocket_bg_color ) ) {
 					echo sprintf( 'color:%s', esc_html( $bpas_pocket_bg_color ) ) . ';';
+				}
+				?>
+				}
+
+				#bp_share_telegram span {
+				<?php
+				if ( ! empty( $bpas_telegram_bg_color ) ) {
+					echo sprintf( 'color:%s', esc_html( $bpas_telegram_bg_color ) ) . ';';
+				}
+				?>
+				}
+
+				#bp_share_bluesky span {
+				<?php
+				if ( ! empty( $bpas_bluesky_bg_color ) ) {
+					echo sprintf( 'color:%s', esc_html( $bpas_bluesky_bg_color ) ) . ';';
 				}
 				?>
 				}

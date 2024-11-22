@@ -43,7 +43,9 @@
     text-decoration: none;
 }
 
-.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter {
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter,
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-bluesky,
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-telegram {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -55,13 +57,21 @@
     justify-content: center;
 }
 
-.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter:before {
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter:before,
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-bluesky:before,
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-telegram:before {
     content: none;
 }
 
 .activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter svg {
     width: 16px;
     height: 16px;
+}
+
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-bluesky svg,
+.activity ul li .activity-meta .service-buttons a.bp-share .dashicons-telegram svg {
+    width: 22px;
+    height: 22px;
 }
 
 .activity ul li .activity-meta .service-buttons a.bp-share:hover {
@@ -152,6 +162,14 @@ a.bp-share.has-popup {
 
 .bp-share .fa-get-pocket {
     color: #EF3E56;
+}
+
+.bp-share .dashicons-bluesky {
+    color: #1185fe;
+}
+
+.bp-share .dashicons-telegram {
+    color: #0088cc;
 }
 
 .bp-list li .generic-button.bp-share-btn,

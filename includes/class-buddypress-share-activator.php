@@ -37,7 +37,7 @@ class Buddypress_Share_Activator {
 					'Linkedin' => 'Linkedin',
 					'Whatsapp' => 'Whatsapp',
 				);
-					update_site_option( 'bp_share_services', $bp_share_social_icon_default );
+				update_site_option( 'bp_share_services', $bp_share_social_icon_default );
 			}
 			if ( get_site_option( 'bpas_icon_color_settings' ) == false ) {
 				$bp_icon_color_default = array(
@@ -48,6 +48,8 @@ class Buddypress_Share_Activator {
 					'bpas_reddit_bg_color'    => '#000000',
 					'bpas_wordpress_bg_color' => '#000000',
 					'bpas_pocket_bg_color'    => '#000000',
+					'bpas_telegram_bg_color'  => '#0088cc',
+					'bpas_bluesky_bg_color'   => '#1185fe',
 					'bpas_email_bg_color'     => '#AD0000',
 					'bpas_whatsapp_bg_color'  => '#46bd00',
 				);

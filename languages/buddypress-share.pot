@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 10:12:21+00:00\n"
+"POT-Creation-Date: 2024-11-22 06:27:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -61,10 +61,18 @@ msgid "Pocket Icon Color"
 msgstr ""
 
 #: admin/bp-icon-color-page.php:70
-msgid "E-mail Icon Color"
+msgid "Telegram Icon Color"
 msgstr ""
 
 #: admin/bp-icon-color-page.php:76
+msgid "Bluesky Icon Color"
+msgstr ""
+
+#: admin/bp-icon-color-page.php:82
+msgid "E-mail Icon Color"
+msgstr ""
+
+#: admin/bp-icon-color-page.php:88
 msgid "Whatsapp Icon Color"
 msgstr ""
 
@@ -140,7 +148,7 @@ msgstr ""
 #: admin/class-buddypress-share-admin.php:148
 #: admin/class-buddypress-share-feedback.php:277
 #: admin/class-buddypress-share-feedback.php:317
-#: admin/wbcom/templates/wbcom-license-page.php:12 buddypress-share.php:207
+#: admin/wbcom/templates/wbcom-license-page.php:12 buddypress-share.php:208
 msgid "BuddyPress Activity Social Share"
 msgstr ""
 
@@ -190,51 +198,61 @@ msgid "Enable Sharing Sites"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:435
-#: admin/class-buddypress-share-admin.php:484
+#: admin/class-buddypress-share-admin.php:494
 msgid "Facebook"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:440
-#: admin/class-buddypress-share-admin.php:489
+#: admin/class-buddypress-share-admin.php:499
 msgid "Twitter"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:445
-#: admin/class-buddypress-share-admin.php:494
+#: admin/class-buddypress-share-admin.php:504
 msgid "Pinterest"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:450
-#: admin/class-buddypress-share-admin.php:499
+#: admin/class-buddypress-share-admin.php:509
 msgid "Linkedin"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:455
-#: admin/class-buddypress-share-admin.php:504
+#: admin/class-buddypress-share-admin.php:514
 msgid "Reddit"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:460
-#: admin/class-buddypress-share-admin.php:509
+#: admin/class-buddypress-share-admin.php:519
 msgid "WordPress"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:465
-#: admin/class-buddypress-share-admin.php:514
+#: admin/class-buddypress-share-admin.php:524
 msgid "Pocket"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:470
-#: admin/class-buddypress-share-admin.php:519
-msgid "E-mail"
+#: admin/class-buddypress-share-admin.php:529
+msgid "Telegram"
 msgstr ""
 
 #: admin/class-buddypress-share-admin.php:475
-#: admin/class-buddypress-share-admin.php:524
+#: admin/class-buddypress-share-admin.php:534
+msgid "Bluesky"
+msgstr ""
+
+#: admin/class-buddypress-share-admin.php:480
+#: admin/class-buddypress-share-admin.php:539
+msgid "E-mail"
+msgstr ""
+
+#: admin/class-buddypress-share-admin.php:485
+#: admin/class-buddypress-share-admin.php:544
 msgid "Whatsapp"
 msgstr ""
 
-#: admin/class-buddypress-share-admin.php:559
+#: admin/class-buddypress-share-admin.php:579
 msgid "Save Changes"
 msgstr ""
 
@@ -870,36 +888,48 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:353 buddypress-share.php:81
+#: admin/wbcom/wbcom-admin-settings.php:353 buddypress-share.php:73
 msgid "Settings"
 msgstr ""
 
-#: buddypress-share.php:152 buddypress-share.php:170
+#: buddypress-share.php:158
 msgid ""
 "BuddyPress Activity Social Share requires to be activated on the blog where "
 "BuddyPress is activated."
 msgstr ""
 
-#: buddypress-share.php:156 buddypress-share.php:179
+#: buddypress-share.php:167
 msgid ""
 "BuddyPress Activity Social Share and BuddyPress need to share the same "
 "network configuration."
 msgstr ""
 
-#: buddypress-share.php:208 buddypress-share.php:222
+#: buddypress-share.php:180
+msgid ""
+"BuddyPress Activity Social Share requires BuddyPress to be installed and "
+"active."
+msgstr ""
+
+#: buddypress-share.php:190
+msgid ""
+"The Pro version is already activated. The free version cannot be used "
+"simultaneously."
+msgstr ""
+
+#: buddypress-share.php:209 buddypress-share.php:223
 msgid "BuddyPress"
 msgstr ""
 
-#: buddypress-share.php:212
+#: buddypress-share.php:213
 #. translators: 1: Name of the plugin 2: Name of the dependent plugin
 msgid "%1$s is ineffective now as it requires %2$s to be installed and active."
 msgstr ""
 
-#: buddypress-share.php:221
+#: buddypress-share.php:222
 msgid "BuddyPress Activity Social Share pro"
 msgstr ""
 
-#: buddypress-share.php:226
+#: buddypress-share.php:227
 #. translators: 1: Name of the plugin 2: Name of the dependent plugin
 msgid ""
 "%1$s plugin has already been activated. So, you can't use the free version "
@@ -910,6 +940,6 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: public/class-buddypress-share-public.php:183
+#: public/class-buddypress-share-public.php:206
 msgid "Please enable share services!"
 msgstr ""

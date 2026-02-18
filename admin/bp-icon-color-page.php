@@ -1,4 +1,6 @@
 <?php
+defined( 'ABSPATH' ) || exit;
+
 wp_enqueue_script( 'wp-color-picker' );
 wp_enqueue_style( 'wp-color-picker' );
 $bpas_icon_color_settings = get_option( 'bpas_icon_color_settings' );

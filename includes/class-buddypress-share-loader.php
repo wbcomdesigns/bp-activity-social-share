@@ -8,6 +8,8 @@
  * @package    Buddypress_Share
  * @subpackage Buddypress_Share/includes
  */
+defined( 'ABSPATH' ) || exit;
+
 
 /**
  * Register all actions and filters for the plugin.

@@ -65,7 +65,7 @@ class Buddypress_Share_Admin {
 		// 	return;
 		// }
 		if ( ! wp_style_is( 'font-awesome', 'enqueued' ) ) {
-			wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'font-awesome', BP_ACTIVITY_SHARE_PLUGIN_URL . 'assets/css/font-awesome.min.css', array(), '4.7.0', 'all' );
 		}
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-share-admin.css', array(), $this->version, 'all' );
 	}
@@ -91,7 +91,44 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bpas_icon_color_register_setting() {
-		register_setting( 'bpas_icon_color_settings', 'bpas_icon_color_settings' );
+		register_setting(
+			'bpas_icon_color_settings',
+			'bpas_icon_color_settings',
+			array(
+				'type'              => 'array',
+				'sanitize_callback' => array( $this, 'bpas_sanitize_icon_color_settings' ),
+			)
+		);
+	}
+
+	/**
+	 * Sanitize icon color settings.
+	 *
+	 * @param mixed $input Raw input.
+	 * @return array Sanitized settings.
+	 */
+	public function bpas_sanitize_icon_color_settings( $input ) {
+		if ( ! is_array( $input ) ) {
+			return array();
+		}
+		$sanitized = array();
+		foreach ( $input as $key => $value ) {
+			$sanitized[ sanitize_text_field( $key ) ] = sanitize_hex_color( $value ) ? sanitize_hex_color( $value ) : sanitize_text_field( $value );
+		}
+		return $sanitized;
+	}
+
+	/**
+	 * Sanitize services extra settings.
+	 *
+	 * @param mixed $input Raw input.
+	 * @return array Sanitized settings.
+	 */
+	public function bpas_sanitize_services_extra( $input ) {
+		if ( ! is_array( $input ) ) {
+			return array();
+		}
+		return array_map( 'sanitize_text_field', $input );
 	}
 
 	/**
@@ -281,7 +318,14 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bp_share_settings_init() {
-		register_setting( 'bp_share_services_extra', 'bp_share_services_extra' );
+		register_setting(
+			'bp_share_services_extra',
+			'bp_share_services_extra',
+			array(
+				'type'              => 'array',
+				'sanitize_callback' => array( $this, 'bpas_sanitize_services_extra' ),
+			)
+		);
 		add_settings_section(
 			'bp_share_extra_options',
 			esc_html__( 'Extra Options', 'buddypress-share' ),

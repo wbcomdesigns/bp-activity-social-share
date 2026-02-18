@@ -8,6 +8,8 @@
  *
  * @package Buddypress_Share
  */
+defined( 'ABSPATH' ) || exit;
+
 
 if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 
@@ -314,7 +316,7 @@ endif;
 new BP_Share_Feedback(
 	array(
 		'slug'       => 'bp_social_share',
-		'name'       => __( 'BuddyPress Activity Social Share', 'buddypress-share' ),
+		'name'       => 'BuddyPress Activity Social Share',
 		'time_limit' => WEEK_IN_SECONDS,
 	)
 );

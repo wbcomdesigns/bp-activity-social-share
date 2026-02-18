@@ -11,6 +11,8 @@
  * @package    Buddypress_Share
  * @subpackage Buddypress_Share/includes
  */
+defined( 'ABSPATH' ) || exit;
+
 
 /**
  * The core plugin class.

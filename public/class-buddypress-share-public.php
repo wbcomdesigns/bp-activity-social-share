@@ -9,6 +9,8 @@
  * @package    Buddypress_Share
  * @subpackage Buddypress_Share/public
  */
+defined( 'ABSPATH' ) || exit;
+
 
 /**
  * The public-facing functionality of the plugin.
@@ -74,7 +76,7 @@ class Buddypress_Share_Public {
 		 * class.
 		 */
 		if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
-			wp_enqueue_style( 'wb-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'wb-font-awesome', BP_ACTIVITY_SHARE_PLUGIN_URL . 'assets/css/font-awesome.min.css', array(), '4.7.0', 'all' );
 		}
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-share-public.css', array(), $this->version, 'all' );
 	}
@@ -129,7 +131,7 @@ class Buddypress_Share_Public {
 		$activity_link  = bp_get_activity_thread_permalink();
 		$activity_title = bp_get_activity_feed_item_title(); // use for description : bp_get_activity_feed_item_description().
 		$plugin_path    = plugins_url();
-		$mail_subject 	= strip_tags( $activities_template->activity->action );
+		$mail_subject 	= wp_strip_all_tags( $activities_template->activity->action );
 
 		$updated_text = apply_filters( 'bpas_share_button_text_override', 'Share' );
 		if ( isset( $updated_text ) ) {

@@ -230,7 +230,7 @@ class Buddypress_Share_Admin {
 		?>
 		<input type='checkbox' name='bp_share_services_open' 
 		<?php
-		if ( isset( $extra_options['bp_share_services_open'] ) && 1 === $extra_options['bp_share_services_open'] ) {
+		if ( isset( $extra_options['bp_share_services_open'] ) && 1 === (int) $extra_options['bp_share_services_open'] ) {
 			echo 'checked="checked"';
 		}
 		?>

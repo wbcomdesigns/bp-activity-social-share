@@ -5,7 +5,7 @@ Donate link: https://wbcomdesigns.com
 Tags: buddypress, activity, share
 Requires at least: 4.0
 Tested up to: 6.9
-Stable tag: 3.5.4
+Stable tag: 3.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,11 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 3. The screenshot shows FAQ(s) related to BuddyPress Activity Social Share plugin and corresponds to screenshot-3.(jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.5.5 =
+* Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files
+* Code Quality: Added phpcs:ignore for legacy file naming and class naming conventions
+* Code Quality: Fixed all Plugin Check errors (0 errors, excluding legacy text domain mismatch)
 
 = 3.5.4 =
 * Fixed warnings and potential fatal errors in plugin functions to ensure stability.

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * Plugin review class.
  * Prompts users to give a review of the plugin on WordPress.org after a period of usage.

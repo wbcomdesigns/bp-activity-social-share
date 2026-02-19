@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy shared file name.
 /**
  * Class to add top header pages of wbcom plugin and additional features.
  *
@@ -378,7 +378,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 	/**
 	 * Instantiate the Wbcom plugin manager.
 	 */
-	function instantiate_wbcom_plugin_manager() {
+	function instantiate_wbcom_plugin_manager() { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 		new Wbcom_Admin_Settings();
 	}
 

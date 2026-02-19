@@ -21,10 +21,10 @@
  * @subpackage Buddypress_Share/includes
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
+// phpcs:ignore PEAR.NamingConventions.ValidClassName.Invalid, Squiz.Commenting.ClassComment.Missing -- Legacy class name; docblock is above.
 class Buddypress_Share_i18n {
 
 	/**
-
 	 * Load the plugin text domain for translation.
 	 *
 	 * @since    1.0.0

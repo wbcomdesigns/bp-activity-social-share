@@ -5,6 +5,7 @@
  * @author   Wbcom Designs
  * @package  BuddyPress_Member_Reviews
  */
+
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
@@ -44,7 +45,6 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				echo esc_html( $display_extention );
 				die;
 			}
-
 		}
 
 		/**
@@ -225,13 +225,12 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			}
 			if ( ! wp_script_is( 'wbcom_admin_setting_js', 'enqueued' ) ) {
 
-				wp_register_script(
-					$handle    = 'wbcom_admin_setting_js',
-					$src       = BP_ACTIVITY_SHARE_PLUGIN_URL . 'admin/wbcom/assets/js/wbcom-admin-setting.js',
-					$deps      = array( 'jquery' ),
-					$ver       = time(),
-					$in_footer = true
-				);
+				$handle    = 'wbcom_admin_setting_js';
+				$src       = BP_ACTIVITY_SHARE_PLUGIN_URL . 'admin/wbcom/assets/js/wbcom-admin-setting.js';
+				$deps      = array( 'jquery' );
+				$ver       = time();
+				$in_footer = true;
+				wp_register_script( $handle, $src, $deps, $ver, $in_footer );
 				wp_localize_script(
 					'wbcom_admin_setting_js',
 					'wbcom_plugin_installer_params',
@@ -247,9 +246,8 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			}
 
 			if ( ! wp_style_is( 'wbcom-admin-setting-css', 'enqueued' ) ) {
-				wp_enqueue_style( 'wbcom-admin-setting-css', BP_ACTIVITY_SHARE_PLUGIN_URL . 'admin/wbcom/assets/css/wbcom-admin-setting.css', [], BP_SHARE_VERSION, 'all' );
+				wp_enqueue_style( 'wbcom-admin-setting-css', BP_ACTIVITY_SHARE_PLUGIN_URL . 'admin/wbcom/assets/css/wbcom-admin-setting.css', array(), BP_SHARE_VERSION, 'all' );
 			}
-
 		}
 
 		/**
@@ -322,8 +320,11 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		 * @access public
 		 */
 		public function wbcom_admin_setting_header_html() {
-			$page          = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'wbcom-themes-page';
-			$plugin_active = $theme_active = $support_active = $settings_active = '';
+			$page            = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'wbcom-themes-page';
+			$plugin_active   = '';
+			$theme_active    = '';
+			$support_active  = '';
+			$settings_active = '';
 			switch ( $page ) {
 				case 'wbcom-plugins-page':
 					$plugin_active = 'is_active';
@@ -372,9 +373,11 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			</div>
 			<?php
 		}
-
 	}
 
+	/**
+	 * Instantiate the Wbcom plugin manager.
+	 */
 	function instantiate_wbcom_plugin_manager() {
 		new Wbcom_Admin_Settings();
 	}

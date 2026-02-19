@@ -1,4 +1,10 @@
 <?php
+/**
+ * Icon color settings page template.
+ *
+ * @package BuddyPress_Activity_Social_Share
+ */
+
 defined( 'ABSPATH' ) || exit;
 
 wp_enqueue_script( 'wp-color-picker' );

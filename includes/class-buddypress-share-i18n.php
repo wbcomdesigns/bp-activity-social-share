@@ -36,7 +36,6 @@ class Buddypress_Share_i18n {
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages'
 		);
-
 	}
 
 	/**
@@ -88,8 +87,5 @@ class Buddypress_Share_i18n {
 		}
 
 		return load_textdomain( $domain, $path . '/' . $mofile );
-
 	}
-
 }
-

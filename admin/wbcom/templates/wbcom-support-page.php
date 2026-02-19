@@ -1,4 +1,12 @@
-<?php defined( 'ABSPATH' ) || exit; ?>
+<?php
+/**
+ * Wbcom Support page template.
+ *
+ * @package BuddyPress_Activity_Social_Share
+ */
+
+defined( 'ABSPATH' ) || exit;
+?>
 <div class="wrap">
 	<div class="wbcom-bb-plugins-offer-wrapper">
 		<div id="wb_admin_logo">

@@ -8,8 +8,8 @@
  * @package    Buddypress_Share
  * @subpackage Buddypress_Share/includes
  */
-defined( 'ABSPATH' ) || exit;
 
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Register all actions and filters for the plugin.
@@ -53,7 +53,6 @@ class Buddypress_Share_Loader {
 		$this->actions = array();
 
 		$this->filters = array();
-
 	}
 
 	/**
@@ -69,7 +68,6 @@ class Buddypress_Share_Loader {
 	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 
 		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
-
 	}
 
 	/**
@@ -85,7 +83,6 @@ class Buddypress_Share_Loader {
 	public function add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 
 		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
-
 	}
 
 	/**
@@ -119,7 +116,6 @@ class Buddypress_Share_Loader {
 		);
 
 		return $hooks;
-
 	}
 
 	/**
@@ -140,8 +136,5 @@ class Buddypress_Share_Loader {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 
 		}
-
 	}
-
 }
-

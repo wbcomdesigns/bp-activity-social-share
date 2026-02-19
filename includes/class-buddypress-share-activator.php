@@ -30,7 +30,7 @@ class Buddypress_Share_Activator {
 	 */
 	public static function activate() {
 		if ( class_exists( 'BuddyPress' ) ) {
-			if ( get_site_option( 'bp_share_services' ) == false ) {
+			if ( false === get_site_option( 'bp_share_services' ) ) {
 				$bp_share_social_icon_default = array(
 					'Facebook' => 'Facebook',
 					'Twitter'  => 'Twitter',
@@ -39,7 +39,7 @@ class Buddypress_Share_Activator {
 				);
 				update_site_option( 'bp_share_services', $bp_share_social_icon_default );
 			}
-			if ( get_site_option( 'bpas_icon_color_settings' ) == false ) {
+			if ( false === get_site_option( 'bpas_icon_color_settings' ) ) {
 				$bp_icon_color_default = array(
 					'bpas_facebook_bg_color'  => '#3B5998',
 					'bpas_twitter_bg_color'   => '#1DA1F2',
@@ -56,7 +56,5 @@ class Buddypress_Share_Activator {
 					update_site_option( 'bpas_icon_color_settings', $bp_icon_color_default );
 			}
 		}
-
 	}
-
 }

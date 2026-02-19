@@ -11,8 +11,8 @@
  * @package    Buddypress_Share
  * @subpackage Buddypress_Share/includes
  */
-defined( 'ABSPATH' ) || exit;
 
+defined( 'ABSPATH' ) || exit;
 
 /**
  * The core plugin class.
@@ -102,36 +102,36 @@ class Buddypress_Share {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-buddypress-share-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-share-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-buddypress-share-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-share-i18n.php';
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/wbcom/wbcom-admin-settings.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-buddypress-share-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-buddypress-share-admin.php';
 
 		/**
 		 * The class responsible for display admin notice for revirew after 7 days.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-buddypress-share-feedback.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-buddypress-share-feedback.php';
 
 		/**
 		 * The class responsible for defining custom settings
 		 * of the plugin.
 		 */
-		// require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-buddypress-share-settings.php';
+		// Previously: require_once for class-buddypress-share-settings.php.
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-buddypress-share-public.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-buddypress-share-public.php';
 
 		$this->loader = new Buddypress_Share_Loader();
 	}
@@ -234,5 +234,4 @@ class Buddypress_Share {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

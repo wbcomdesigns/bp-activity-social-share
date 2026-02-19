@@ -8,8 +8,8 @@
  *
  * @package Buddypress_Share
  */
-defined( 'ABSPATH' ) || exit;
 
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'BP_Share_Feedback' ) ) :
 

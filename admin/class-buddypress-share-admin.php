@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -61,9 +60,7 @@ class Buddypress_Share_Admin {
 	 * @param string $hook Plugin page name.
 	 */
 	public function enqueue_styles( $hook ) {
-		// if ( 'wb-plugins_page_buddypress-share' !== $hook ) {
-		// 	return;
-		// }
+		// Hook check for admin styles is intentionally disabled.
 		if ( ! wp_style_is( 'font-awesome', 'enqueued' ) ) {
 			wp_enqueue_style( 'font-awesome', BP_ACTIVITY_SHARE_PLUGIN_URL . 'assets/css/font-awesome.min.css', array(), '4.7.0', 'all' );
 		}
@@ -237,7 +234,7 @@ class Buddypress_Share_Admin {
 			echo 'checked="checked"';
 		}
 		?>
-																 value='1'>
+																value='1'>
 		<?php
 	}
 
@@ -264,48 +261,48 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bp_share_chb_services_ajax() {
-		// Check if the request is a POST, verify the nonce, and confirm user capabilities
+		// Check if the request is a POST, verify the nonce, and confirm user capabilities.
 		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) && current_user_can( 'manage_options' ) ) {
 			$option_name = 'bp_share_services';
 
-			// Sanitize and retrieve active services and extra options from POST data
+			// Sanitize and retrieve active services and extra options from POST data.
 			$active_services = isset( $_POST['active_chb_array'] ) ? map_deep( wp_unslash( $_POST['active_chb_array'] ), 'sanitize_text_field' ) : array();
 			$extras_options  = isset( $_POST['active_chb_extras'] ) ? map_deep( wp_unslash( $_POST['active_chb_extras'] ), 'sanitize_text_field' ) : array();
 
-			// Update extra options setting
-			$extra_option_new = array( 'bp_share_services_open' => in_array( 'bp_share_services_open', $extras_options ) ? 1 : 0 );
+			// Update extra options setting.
+			$extra_option_new = array( 'bp_share_services_open' => in_array( 'bp_share_services_open', $extras_options, true ) ? 1 : 0 );
 			update_site_option( 'bp_share_services_extra', $extra_option_new );
 
-			// Retrieve current services and initialize update flag
+			// Retrieve current services and initialize update flag.
 			$services        = get_site_option( $option_name, array() );
 			$service_updated = false;
 
-			// Iterate through each service and update its status
+			// Iterate through each service and update its status.
 			foreach ( $services as $service_key => &$value ) {
 				$checkbox_key = 'chb_' . $service_key;
-				$new_status   = in_array( $checkbox_key, $active_services ) ? 1 : 0;
+				$new_status   = in_array( $checkbox_key, $active_services, true ) ? 1 : 0;
 
-				// Ensure that $value is an array before attempting to modify it
-				if (!is_array($value)) {
-					// If $value is not an array, initialize it as one
+				// Ensure that $value is an array before attempting to modify it.
+				if ( ! is_array( $value ) ) {
+					// If $value is not an array, initialize it as one.
 					$value = array();
 				}
 
-				// Check if the status has changed to avoid unnecessary updates
+				// Check if the status has changed to avoid unnecessary updates.
 				if ( ! isset( $value[ $checkbox_key ] ) || $value[ $checkbox_key ] !== $new_status ) {
 					$value[ $checkbox_key ] = $new_status;
 					$service_updated        = true;
 				}
 			}
 
-			// Update the service options if there's any change
+			// Update the service options if there's any change.
 			if ( $service_updated ) {
 				update_site_option( $option_name, $services );
 				update_site_option( 'bp_share_all_services_disable', 'enable' );
 			}
 		}
 
-		// Terminate the execution for AJAX requests in a WordPress-friendly way
+		// Terminate the execution for AJAX requests in a WordPress-friendly way.
 		wp_die();
 	}
 
@@ -362,32 +359,32 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bp_share_sort_social_links_ajax() {
-		// Verify nonce for security and check user capabilities
+		// Verify nonce for security and check user capabilities.
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp_share_nonce' ) || ! current_user_can( 'manage_options' ) ) {
-			// Exit if the nonce is not set, invalid, or the user doesn't have the right capabilities
+			// Exit if the nonce is not set, invalid, or the user doesn't have the right capabilities.
 			exit();
 		}
 
-		// Check if sorted data is set in POST
+		// Check if sorted data is set in POST.
 		if ( ! isset( $_POST['sorted_data'] ) ) {
-			// Exit if no sorted data is provided
+			// Exit if no sorted data is provided.
 			exit();
 		}
 
-		// Sanitize and retrieve the sorted data from POST
+		// Sanitize and retrieve the sorted data from POST.
 		$sorts = map_deep( wp_unslash( $_POST['sorted_data'] ), 'sanitize_text_field' );
 
-		// Retrieve current services settings
+		// Retrieve current services settings.
 		$services = get_site_option( 'bp_share_services' );
 
-		// Initialize variables
+		// Initialize variables.
 		$count        = 0;
 		$new_settings = array();
 
-		// Reorder services based on sorted data
+		// Reorder services based on sorted data.
 		foreach ( $services as $key => $service ) {
 			foreach ( $sorts as $srt ) {
-				// Skip 'bp_copy_activity' from sorting
+				// Skip 'bp_copy_activity' from sorting.
 				if ( 'chb_bp_copy_activity' !== $srt['key'] ) {
 					if ( (int) $count === (int) $srt['newIndex'] ) {
 						$setting_key                  = str_replace( 'chb_', '', $srt['key'] );
@@ -395,16 +392,16 @@ class Buddypress_Share_Admin {
 					}
 				}
 			}
-			$count++;
+			++$count;
 		}
 
-		// Ensure 'bp_copy_activity' remains in the settings
+		// Ensure 'bp_copy_activity' remains in the settings.
 		$new_settings['bp_copy_activity'] = $services['bp_copy_activity'];
 
-		// Update the services settings with new order
+		// Update the services settings with new order.
 		update_site_option( 'bp_share_services', $new_settings );
 
-		// Exit the function
+		// Exit the function.
 		exit();
 	}
 
@@ -602,13 +599,13 @@ class Buddypress_Share_Admin {
 					if ( ! empty( $social_options ) ) {
 						$social_key_string = '';
 						foreach ( $social_options as $service_key => $social_option ) {
-							if ( count( $social_options ) != 1 ) {
+							if ( count( $social_options ) !== 1 ) {
 								$social_key_string .= $service_key . ',';
 							} else {
 								$social_key_string = $service_key;
 							}
 						}
-						if ( count( $social_options ) != 1 ) {
+						if ( count( $social_options ) !== 1 ) {
 							$social_key_string = rtrim( $social_key_string, ', ' );
 						}
 						?>
@@ -628,6 +625,11 @@ class Buddypress_Share_Admin {
 	}
 
 
+	/**
+	 * Icon color settings section template.
+	 *
+	 * @since 1.0.0
+	 */
 	public function bpas_icon_color_setting_section() {
 		if ( file_exists( BP_ACTIVITY_SHARE_PLUGIN_PATH . 'admin/bp-icon-color-page.php' ) ) {
 			require_once BP_ACTIVITY_SHARE_PLUGIN_PATH . 'admin/bp-icon-color-page.php';
@@ -638,31 +640,31 @@ class Buddypress_Share_Admin {
 	 * This function is for that save social icon values in database
 	 **/
 	public function wss_social_icons() {
-		// Sanitize and retrieve nonce from POST data
+		// Sanitize and retrieve nonce from POST data.
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
-		// Verify nonce and user capabilities
+		// Verify nonce and user capabilities.
 		if ( ! wp_verify_nonce( $nonce, 'bp_share_nonce' ) || ! current_user_can( 'manage_options' ) ) {
-			// Send a JSON error response if nonce verification fails or user lacks required capabilities
+			// Send a JSON error response if nonce verification fails or user lacks required capabilities.
 			$error = new WP_Error( '001', 'Sorry, your nonce did not verify.', 'Some information' );
 			wp_send_json_error( $error );
 		}
 
-		// Sanitize and retrieve 'term_name' from POST data
+		// Sanitize and retrieve 'term_name' from POST data.
 		$term_name = isset( $_POST['term_name'] ) ? sanitize_text_field( wp_unslash( $_POST['term_name'] ) ) : '';
 
-		// Retrieve current icon settings
+		// Retrieve current icon settings.
 		$wss_admin_icon_setting = get_site_option( 'bp_share_services' );
 
-		// Prepare new icon value
+		// Prepare new icon value.
 		$new_icon_value = array( $term_name => $term_name );
 
-		// Merge new icon value with existing settings or initialize if not set
+		// Merge new icon value with existing settings or initialize if not set.
 		$updated_icon_setting = is_array( $wss_admin_icon_setting )
 			? array_merge( $wss_admin_icon_setting, $new_icon_value )
 			: $new_icon_value;
 
-		// Update the site option and handle the response
+		// Update the site option and handle the response.
 		if ( update_site_option( 'bp_share_services', $updated_icon_setting ) ) {
 			wp_send_json_success();
 		} else {
@@ -675,38 +677,37 @@ class Buddypress_Share_Admin {
 	 * This function is for that remove social icon when drag social icon in disable section
 	 **/
 	public function wss_social_remove_icons() {
-		// Sanitize and retrieve nonce from POST data
+		// Sanitize and retrieve nonce from POST data.
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
-		// Verify nonce for security and check user capabilities
+		// Verify nonce for security and check user capabilities.
 		if ( ! wp_verify_nonce( $nonce, 'bp_share_nonce' ) || ! current_user_can( 'manage_options' ) ) {
-			// Send a JSON error response if nonce verification fails or user lacks required capabilities
+			// Send a JSON error response if nonce verification fails or user lacks required capabilities.
 			$error = new WP_Error( '001', 'Sorry, your nonce did not verify.', 'Some information' );
 			wp_send_json_error( $error );
 		}
 
-		// Sanitize and retrieve the icon name from POST data
+		// Sanitize and retrieve the icon name from POST data.
 		$icon_name = isset( $_POST['icon_name'] ) ? sanitize_text_field( wp_unslash( $_POST['icon_name'] ) ) : '';
 
-		// Retrieve current icon settings
+		// Retrieve current icon settings.
 		$wss_admin_icon_remove = get_site_option( 'bp_share_services' );
 
-		// Initialize update flag
+		// Initialize update flag.
 		$update_drag_value = false;
 
-		// Check and remove the specified icon from the settings
+		// Check and remove the specified icon from the settings.
 		if ( isset( $wss_admin_icon_remove[ $icon_name ] ) ) {
 			unset( $wss_admin_icon_remove[ $icon_name ] );
-			// Update the site option and set the flag to true
+			// Update the site option and set the flag to true.
 			$update_drag_value = update_site_option( 'bp_share_services', $wss_admin_icon_remove );
 		}
 
-		// Send a JSON success or error response based on whether the update occurred
+		// Send a JSON success or error response based on whether the update occurred.
 		if ( $update_drag_value ) {
 			wp_send_json_success();
 		} else {
 			wp_send_json_error();
 		}
 	}
-
 }

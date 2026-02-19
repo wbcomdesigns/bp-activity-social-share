@@ -43,7 +43,7 @@ if ( ! defined( 'BP_SHARE' ) ) {
  * @since    1.0.0
  */
 function activate_buddypress_share() {
-	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
 		deactivate_plugins( 'buddypress-activity-social-share/buddypress-share.php' );
 	}
 
@@ -67,13 +67,19 @@ if ( ! class_exists( 'Buddypress_Share' ) ) {
  */
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpshare_add_action_links' );
 
+/**
+ * Add settings link to plugin action links.
+ *
+ * @param array $links Plugin action links.
+ * @return array Modified action links.
+ */
 function bpshare_add_action_links( $links ) {
-    if ( current_user_can( 'manage_options' ) ) {
-        $settings_link = '<a href="' . admin_url( 'admin.php?page=buddypress-share' ) . '">'
-            . esc_html__( 'Settings', 'buddypress-share' ) . '</a>';
-        array_unshift( $links, $settings_link );
-    }
-    return $links;
+	if ( current_user_can( 'manage_options' ) ) {
+		$settings_link = '<a href="' . admin_url( 'admin.php?page=buddypress-share' ) . '">'
+			. esc_html__( 'Settings', 'buddypress-share' ) . '</a>';
+		array_unshift( $links, $settings_link );
+	}
+	return $links;
 }
 
 /**
@@ -89,7 +95,6 @@ function run_buddypress_share() {
 
 	$plugin = new Buddypress_Share();
 	$plugin->run();
-
 }
 
 /**
@@ -97,9 +102,9 @@ function run_buddypress_share() {
  * this plugin requires buddypress to be installed and active
  */
 function bpshare_plugin_init() {
-    if ( class_exists( 'BuddyPress' ) && bp_activity_share_check_config() ) {
-        run_buddypress_share();
-    }
+	if ( class_exists( 'BuddyPress' ) && bp_activity_share_check_config() ) {
+		run_buddypress_share();
+	}
 }
 add_action( 'bp_loaded', 'bpshare_plugin_init' );
 
@@ -107,47 +112,47 @@ add_action( 'bp_loaded', 'bpshare_plugin_init' );
  * BP Activity share check config.
  */
 function bp_activity_share_check_config() {
-    global $bp;
+	global $bp;
 
-    if ( ! isset( $bp ) || ! is_object( $bp ) ) {
-        return false;
-    }
+	if ( ! isset( $bp ) || ! is_object( $bp ) ) {
+		return false;
+	}
 
-    $config = array(
-        'blog_status'    => false,
-        'network_active' => false,
-        'network_status' => true,
-    );
+	$config = array(
+		'blog_status'    => false,
+		'network_active' => false,
+		'network_status' => true,
+	);
 
-    if ( get_current_blog_id() == bp_get_root_blog_id() ) {
-        $config['blog_status'] = true;
-    }
+	if ( get_current_blog_id() === bp_get_root_blog_id() ) {
+		$config['blog_status'] = true;
+	}
 
-    $network_plugins = (array) get_site_option( 'active_sitewide_plugins', array() );
-    $check = array( BP_ACTIVITY_SHARE_PLUGIN_BASENAME );
+	$network_plugins = (array) get_site_option( 'active_sitewide_plugins', array() );
+	$check           = array( BP_ACTIVITY_SHARE_PLUGIN_BASENAME );
 
-    if ( isset( $bp->basename ) ) {
-        $check[] = $bp->basename;
-    }
+	if ( isset( $bp->basename ) ) {
+		$check[] = $bp->basename;
+	}
 
-    $network_active = array_diff( $check, array_keys( $network_plugins ) );
+	$network_active = array_diff( $check, array_keys( $network_plugins ) );
 
-    if ( count( $network_active ) === 1 ) {
-        $config['network_status'] = false;
-    }
+	if ( count( $network_active ) === 1 ) {
+		$config['network_status'] = false;
+	}
 
-    $config['network_active'] = isset( $network_plugins[ BP_ACTIVITY_SHARE_PLUGIN_BASENAME ] );
+	$config['network_active'] = isset( $network_plugins[ BP_ACTIVITY_SHARE_PLUGIN_BASENAME ] );
 
-    if ( ! $config['blog_status'] || ! $config['network_status'] ) {
-        if ( ! bp_core_do_network_admin() && ! $config['blog_status'] ) {
-            add_action( 'admin_notices', 'bpshare_same_blog' );
-        }
-        if ( bp_core_do_network_admin() && ! $config['network_status'] ) {
-            add_action( 'admin_notices', 'bpshare_same_network_config' );
-        }
-        return false;
-    }
-    return true;
+	if ( ! $config['blog_status'] || ! $config['network_status'] ) {
+		if ( ! bp_core_do_network_admin() && ! $config['blog_status'] ) {
+			add_action( 'admin_notices', 'bpshare_same_blog' );
+		}
+		if ( bp_core_do_network_admin() && ! $config['network_status'] ) {
+			add_action( 'admin_notices', 'bpshare_same_network_config' );
+		}
+		return false;
+	}
+	return true;
 }
 
 /**
@@ -172,29 +177,35 @@ function bpshare_same_network_config() {
  *  Check if buddypress activate.
  */
 function bpshare_requires_buddypress() {
-    if ( ! class_exists( 'BuddyPress' ) ) {
-        deactivate_plugins( plugin_basename( __FILE__ ) );
+	if ( ! class_exists( 'BuddyPress' ) ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
 
-        add_action( 'admin_notices', function() {
-            echo '<div class="error"><p>'
-                . esc_html__( 'BuddyPress Activity Social Share requires BuddyPress to be installed and active.', 'buddypress-share' )
-                . '</p></div>';
-        });
-    }
+		add_action(
+			'admin_notices',
+			function () {
+				echo '<div class="error"><p>'
+				. esc_html__( 'BuddyPress Activity Social Share requires BuddyPress to be installed and active.', 'buddypress-share' )
+				. '</p></div>';
+			}
+		);
+	}
 
-    if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-        deactivate_plugins( plugin_basename( __FILE__ ) );
+	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
 
-        add_action( 'admin_notices', function() {
-            echo '<div class="error"><p>'
-                . esc_html__( 'The Pro version is already activated. The free version cannot be used simultaneously.', 'buddypress-share' )
-                . '</p></div>';
-        });
+		add_action(
+			'admin_notices',
+			function () {
+				echo '<div class="error"><p>'
+				. esc_html__( 'The Pro version is already activated. The free version cannot be used simultaneously.', 'buddypress-share' )
+				. '</p></div>';
+			}
+		);
 
-        if ( isset( $_GET['activate'] ) ) {
-            unset( $_GET['activate'] );
-        }
-    }
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
+		}
+	}
 }
 add_action( 'admin_init', 'bpshare_requires_buddypress' );
 
@@ -218,6 +229,9 @@ function bpshare_required_plugin_admin_notice() {
 }
 
 
+/**
+ * Display admin notice when pro plugin is already active.
+ */
 function bpshare_pro_plugin_activate_notice() {
 	$bpquotes_plugin = esc_html__( 'BuddyPress Activity Social Share pro', 'buddypress-share' );
 	$bp_plugin       = esc_html__( 'BuddyPress', 'buddypress-share' );
@@ -242,23 +256,22 @@ function bpshare_pro_plugin_activate_notice() {
  * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
 function bpshare_activation_redirect_settings( $plugin ) {
-	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
 		return;
 	}
 
 	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) ) {
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_REQUEST['action'] ) && 'activate' === $_REQUEST['action'] && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] === $plugin ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-share' ) );
 			exit;
 		}
 	}
 
-	if ( $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) ) {
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate-plugin' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore		
+	if ( isset( $_REQUEST['plugin'] ) && $plugin === $_REQUEST['plugin'] && class_exists( 'Buddypress' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_REQUEST['action'] ) && 'activate-plugin' === $_REQUEST['action'] && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] === $plugin ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			set_transient( '_bpshare_is_new_install', true, 30 );
 		}
 	}
-
 }
 add_action( 'activated_plugin', 'bpshare_activation_redirect_settings' );
 
@@ -268,53 +281,54 @@ add_action( 'activated_plugin', 'bpshare_activation_redirect_settings' );
  * @return void
  */
 function bpshare_do_activation_redirect() {
-    if ( get_transient( '_bpshare_is_new_install' ) ) {
-        delete_transient( '_bpshare_is_new_install' );
+	if ( get_transient( '_bpshare_is_new_install' ) ) {
+		delete_transient( '_bpshare_is_new_install' );
 
-        if ( ! headers_sent() && current_user_can( 'manage_options' ) ) {
-            wp_safe_redirect( admin_url( 'admin.php?page=buddypress-share' ) );
-            exit;
-        }
-    }
+		if ( ! headers_sent() && current_user_can( 'manage_options' ) ) {
+			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-share' ) );
+			exit;
+		}
+	}
 }
 add_action( 'admin_init', 'bpshare_do_activation_redirect' );
 
+/**
+ * Set default options for social share services.
+ */
 function bpshare_set_default_option() {
-    // Retrieve current services and flag.
-    $services = get_site_option( 'bp_share_services', array() );
-    $get_flag = get_site_option( 'bp_share_flag' );
+	// Retrieve current services and flag.
+	$services = get_site_option( 'bp_share_services', array() );
+	$get_flag = get_site_option( 'bp_share_flag' );
 
-    // Correct default structure for services.
-    $default_services = array(
-        'facebook'   => array( 'chb_facebook' => 1 ),  // Enabled
-        'twitter'    => array( 'chb_twitter' => 1 ),   // Enabled
-        'linkedin'   => array( 'chb_linkedin' => 1 ),  // Enabled
-        'email'      => array( 'chb_email' => 1 ),     // Enabled
-        'whatsapp'   => array( 'chb_whatsapp' => 1 ),  // Enabled
-        'pinterest'  => array( 'chb_pinterest' => 0 ), // Disabled
-        'Facebook'   => array( 'chb_Facebook' => 0 ),  // Disabled
-        'Twitter'    => array( 'chb_Twitter' => 0 ),   // Disabled
-        'Linkedin'   => array( 'chb_Linkedin' => 0 ),  // Disabled
-        'Pinterest'  => array( 'chb_Pinterest' => 0 ), // Disabled
-        'E-mail'     => array( 'chb_E-mail' => 1 ),    // Disabled
-        'Whatsapp'   => array( 'chb_Whatsapp' => 0 ),  // Disabled
-    );
+	// Correct default structure for services.
+	$default_services = array(
+		'facebook'  => array( 'chb_facebook' => 1 ),  // Enabled.
+		'twitter'   => array( 'chb_twitter' => 1 ),   // Enabled.
+		'linkedin'  => array( 'chb_linkedin' => 1 ),  // Enabled.
+		'email'     => array( 'chb_email' => 1 ),     // Enabled.
+		'whatsapp'  => array( 'chb_whatsapp' => 1 ),  // Enabled.
+		'pinterest' => array( 'chb_pinterest' => 0 ), // Disabled.
+		'Facebook'  => array( 'chb_Facebook' => 0 ),  // Disabled.
+		'Twitter'   => array( 'chb_Twitter' => 0 ),   // Disabled.
+		'Linkedin'  => array( 'chb_Linkedin' => 0 ),  // Disabled.
+		'Pinterest' => array( 'chb_Pinterest' => 0 ), // Disabled.
+		'E-mail'    => array( 'chb_E-mail' => 1 ),    // Disabled.
+		'Whatsapp'  => array( 'chb_Whatsapp' => 0 ),  // Disabled.
+	);
 
-    // Merge existing services with defaults only if flag is not set.
-    if ( is_array( $services ) && empty( $get_flag ) ) {
-        $services = array_merge( $default_services, $services );
+	// Merge existing services with defaults only if flag is not set.
+	if ( is_array( $services ) && empty( $get_flag ) ) {
+		$services = array_merge( $default_services, $services );
 
-        // Save merged defaults.
-        update_site_option( 'bp_share_services', $services );
-        update_site_option( 'bp_share_flag', 1 );
-    }
+		// Save merged defaults.
+		update_site_option( 'bp_share_services', $services );
+		update_site_option( 'bp_share_flag', 1 );
+	}
 
-    // Initialize with defaults if services are empty.
-    if ( empty( $services ) ) {
-        update_site_option( 'bp_share_services', $default_services );
-        update_site_option( 'bp_share_flag', 1 );
-    }
+	// Initialize with defaults if services are empty.
+	if ( empty( $services ) ) {
+		update_site_option( 'bp_share_services', $default_services );
+		update_site_option( 'bp_share_flag', 1 );
+	}
 }
 add_action( 'admin_init', 'bpshare_set_default_option' );
-
-

@@ -5,7 +5,7 @@ Donate link: https://wbcomdesigns.com
 Tags: buddypress, activity, share
 Requires at least: 4.0
 Tested up to: 6.9
-Stable tag: 3.5.5
+Stable tag: 3.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,12 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 3. The screenshot shows FAQ(s) related to BuddyPress Activity Social Share plugin and corresponds to screenshot-3.(jpg|jpeg|gif).
 
 == Changelog ==
+
+= 3.5.6 =
+* UX: Rebuilt the admin settings screen on the modern Wbcom card-panel layout (sidebar navigation, branded header, WB Plugins hub). Settings, options, and saved data are unchanged.
+* Fix: Removed the broken "Our Themes" admin page (its template was missing and the page rendered empty).
+* Security: Removed the legacy nonce-only shared-wrapper AJAX handler.
+* Code Quality: Removed the inline color-picker script from the Icon Colors page (now enqueued).
 
 = 3.5.5 =
 * Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files

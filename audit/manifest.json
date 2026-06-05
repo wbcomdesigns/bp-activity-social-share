@@ -1,0 +1,146 @@
+{
+  "$schema": "https://wpmediaverse.com/schemas/wp-plugin-manifest-v2.json",
+  "plugin": {
+    "slug": "buddypress-activity-social-share",
+    "name": "Wbcom Designs - BuddyPress Activity Social Share",
+    "version": "3.5.5",
+    "namespace": "(global functions + Buddypress_Share_* classes; no PHP namespace)",
+    "main_file": "buddypress-share.php",
+    "text_domain": "buddypress-share",
+    "extends": null,
+    "extension_hook_consumed": null,
+    "extension_hook_fired": null,
+    "pro_counterpart": "buddypress-activity-share-pro",
+    "requires": "BuddyPress (class_exists BuddyPress + bp_loaded)",
+    "size_class": "small (19 PHP files)"
+  },
+  "rest": { "namespace": null, "endpoints": [] },
+  "ajax": [
+    { "action": "bp_share_chb_services_ajax", "handler": "admin/class-buddypress-share-admin.php::Buddypress_Share_Admin::bp_share_chb_services_ajax", "nonce": "bp_share_nonce (check_admin_referer)", "capability": "manage_options", "nopriv": false, "purpose": "Save enabled/disabled social services + popup option" },
+    { "action": "bp_share_sort_social_links_ajax", "handler": "admin/class-buddypress-share-admin.php::Buddypress_Share_Admin::bp_share_sort_social_links_ajax", "nonce": "bp_share_nonce (wp_verify_nonce)", "capability": "manage_options", "nopriv": false, "purpose": "Persist drag-sort order of social icons" },
+    { "action": "wss_social_icons", "handler": "admin/class-buddypress-share-admin.php::Buddypress_Share_Admin::wss_social_icons", "nonce": "bp_share_nonce (wp_verify_nonce)", "capability": "manage_options", "nopriv": false, "purpose": "Add a social icon to the enabled set (drag to enable)" },
+    { "action": "wss_social_remove_icons", "handler": "admin/class-buddypress-share-admin.php::Buddypress_Share_Admin::wss_social_remove_icons", "nonce": "bp_share_nonce (wp_verify_nonce)", "capability": "manage_options", "nopriv": false, "purpose": "Remove a social icon from the enabled set (drag to disable)" },
+    { "action": "wbcom_addons_cards", "handler": "admin/wbcom/wbcom-admin-settings.php::Wbcom_Admin_Settings::wbcom_addons_cards_links", "nonce": "wbcom_admin_setting_nonce (wp_verify_nonce)", "capability": "NONE (nonce only, no current_user_can)", "nopriv": false, "purpose": "Echo back the display_extension POST value for the addons/themes cards UI on shared wbcom pages" }
+  ],
+  "admin_pages": [
+    { "title": "WB Plugins", "slug": "wbcomplugins", "parent": null, "capability": "manage_options", "type": "menu", "icon": "dashicons-lightbulb", "position": 59, "callback": "Buddypress_Share_Admin::bp_share_plugin_options", "source": "admin/class-buddypress-share-admin.php:350", "registered_on": "bp_core_admin_hook() (network admin_menu or admin_menu), guarded by empty($GLOBALS['admin_page_hooks']['wbcomplugins'])" },
+    { "title": "General", "slug": "wbcomplugins", "parent": "wbcomplugins", "capability": "manage_options", "type": "submenu", "callback": "(none — duplicates parent)", "source": "admin/class-buddypress-share-admin.php:351" },
+    { "title": "BuddyPress Share", "slug": "buddypress-share", "parent": "wbcomplugins", "capability": "manage_options", "type": "submenu", "callback": "Buddypress_Share_Admin::bp_share_plugin_options", "source": "admin/class-buddypress-share-admin.php:353", "note": "THIS is the plugin settings page (admin.php?page=buddypress-share). Tabs: bpas_welcome, bpas_general_settings, bpas_icon_color_settings." },
+    { "title": "Our Plugins", "slug": "wbcom-plugins-page", "parent": "wbcomplugins", "capability": "manage_options", "type": "submenu", "callback": "Wbcom_Admin_Settings::wbcom_plugins_submenu_page_callback", "source": "admin/wbcom/wbcom-admin-settings.php:260", "registered_on": "admin_menu @999" },
+    { "title": "Our Themes", "slug": "wbcom-themes-page", "parent": "wbcomplugins", "capability": "manage_options", "type": "submenu", "callback": "Wbcom_Admin_Settings::wbcom_themes_submenu_page_callback", "source": "admin/wbcom/wbcom-admin-settings.php:268", "registered_on": "admin_menu @999", "BUG": "callback includes templates/wbcom-themes-page.php which DOES NOT EXIST — broken page" },
+    { "title": "Support", "slug": "wbcom-support-page", "parent": "wbcomplugins", "capability": "manage_options", "type": "submenu", "callback": "Wbcom_Admin_Settings::wbcom_support_submenu_page_callback", "source": "admin/wbcom/wbcom-admin-settings.php:276", "registered_on": "admin_menu @999" }
+  ],
+  "settings": [
+    { "key": "bp_share_services", "group": "options.php (page_options hidden field, not Settings API)", "storage": "site_option", "type": "array", "default": "{Facebook,Twitter,Linkedin,Whatsapp} on activation; richer default map in bpshare_set_default_option()", "controls": "Which social networks show on the activity share button + their order", "read_at": ["public/class-buddypress-share-public.php:113,127", "admin/class-buddypress-share-admin.php:449,470,529,598,657,694"], "written_at": ["includes/class-buddypress-share-activator.php:40", "buddypress-share.php:324,330", "admin/class-buddypress-share-admin.php:300,402,668,703"] },
+    { "key": "bp_share_services_extra", "group": "bp_share_services_extra (Settings API)", "storage": "site_option", "type": "array", "default": "(none)", "controls": "bp_share_services_open = open share targets as popup (1) vs new tab (0)", "read_at": ["admin/class-buddypress-share-admin.php:229", "public/class-buddypress-share-public.php:128,310"], "written_at": ["admin/class-buddypress-share-admin.php:274"] },
+    { "key": "bpas_icon_color_settings", "group": "bpas_icon_color_settings (Settings API, register_setting)", "storage": "option (get_option/update_option, NOT site_option)", "type": "array", "default": "per-network hex map set on activation", "controls": "Custom hex color per social icon, emitted as inline <style> in wp_head", "read_at": ["public/class-buddypress-share-public.php:346", "admin/bp-icon-color-page.php:12"], "written_at": ["includes/class-buddypress-share-activator.php:56", "Settings API save"] },
+    { "key": "bp_share_flag", "group": "(internal flag)", "storage": "site_option", "type": "int", "default": "unset -> 1 after first default merge", "controls": "Guards one-time default-services merge in bpshare_set_default_option()", "read_at": ["buddypress-share.php:301"], "written_at": ["buddypress-share.php:325,331"] },
+    { "key": "bp_share_all_services_disable", "group": "(internal flag)", "storage": "site_option", "type": "string", "default": "(unset)", "controls": "Set to 'enable' when services are updated via AJAX; not read anywhere in free", "read_at": [], "written_at": ["admin/class-buddypress-share-admin.php:301"], "note": "WRITE-ONLY in free build — never read (likely Pro-consumed or dead)" },
+    { "key": "bp_social_share_activation_date", "group": "(feedback)", "storage": "site_option", "type": "int (timestamp)", "default": "time() on first admin_init", "controls": "Review-nag timing", "read_at": ["admin/class-buddypress-share-feedback.php:155,172"], "written_at": ["admin/class-buddypress-share-feedback.php:152"] },
+    { "key": "bp_social_share_no_bug", "group": "(feedback)", "storage": "site_option", "type": "bool", "default": "(unset)", "controls": "Dismiss review nag permanently", "read_at": ["admin/class-buddypress-share-feedback.php:151"], "written_at": ["admin/class-buddypress-share-feedback.php:308"] },
+    { "key": "_bpshare_is_new_install", "group": "(transient)", "storage": "transient", "type": "bool", "default": "(unset)", "controls": "One-shot activation redirect to settings page", "read_at": ["buddypress-share.php:284"], "written_at": ["buddypress-share.php:272,285(delete)"] }
+  ],
+  "shortcodes": [
+    { "tag": "wbcom_admin_setting_header", "handler": "admin/wbcom/wbcom-admin-settings.php::Wbcom_Admin_Settings::wbcom_admin_setting_header_html", "attrs": [], "scope": "admin-only (rendered inside settings page header)" }
+  ],
+  "blocks": [],
+  "post_types": [],
+  "taxonomies": [],
+  "tables": [],
+  "capabilities": [
+    { "cap": "manage_options", "default_roles": ["administrator"], "registered_at": "(WP core)", "enforced_at": ["buddypress-share.php:77,287", "admin/class-buddypress-share-admin.php:166,265,363,647,684,350,351,353", "admin/wbcom/wbcom-admin-settings.php:264,272,280", "admin/class-buddypress-share-feedback.php:304"], "enforcement_count": 14, "meta": false, "requires_context": "none" }
+  ],
+  "services": [],
+  "hooks_fired": [
+    { "name": "bp_share_add_services_options", "type": "action", "args_count": 2, "args_signature": ["string $arg1=''", "string $arg2=''"], "where": "admin/class-buddypress-share-admin.php:622", "consumed_by": [], "note": "Pro extension point; args passed as named-default assignments (arg1='' / arg2='') which is unusual but valid PHP" },
+    { "name": "bp_share_user_services", "type": "action", "args_count": 3, "args_signature": ["array $social_service=array()", "string $activity_link", "string $activity_title"], "where": "public/class-buddypress-share-public.php:202", "consumed_by": [], "note": "Pro extension point to append extra share targets on the frontend button" },
+    { "name": "wbcom_add_header_menu", "type": "action", "args_count": 0, "args_signature": [], "where": "admin/wbcom/wbcom-admin-settings.php:370", "consumed_by": [], "note": "Lets companion plugins add tabs to shared Wbcom admin header" },
+    { "name": "wbcom_add_plugin_license_code", "type": "action", "args_count": 0, "args_signature": [], "where": "admin/wbcom/templates/wbcom-license-page.php", "consumed_by": [], "note": "License-page extension point (Pro)" },
+    { "name": "bpas_share_button_text_override", "type": "filter", "args_count": 1, "args_signature": ["string $text='Share'"], "where": "public/class-buddypress-share-public.php:135", "consumed_by": [], "note": "Override the 'Share' button label" }
+  ],
+  "interactivity": [],
+  "ui_activation": [
+    { "selector": ".service-buttons", "default_hidden_by": "public/class-buddypress-share-public.php:144 (inline style=\"display:none\")", "active_modifier": "(jQuery toggle in buddypress-share-public.js on .bp-share-button click)", "php_fallback": false, "note": "Share targets are hidden until JS toggles them; no PHP/no-JS fallback" }
+  ],
+  "static_analysis": {
+    "dead_listeners": [],
+    "cap_context_mismatches": [],
+    "extensibility_gaps": [],
+    "js_only_activation": [
+      { "selector": ".service-buttons", "default_hidden_by": "public/class-buddypress-share-public.php:144", "php_fallback": false }
+    ],
+    "rest_hang_risks": [],
+    "visual_required_no_enforcement": [],
+    "grid_track_overflow_risks": [],
+    "hook_signature_drift": [],
+    "adapter_undefined_calls": [],
+    "registry_bypasses": [],
+    "suppressed_baseline_inventory": { "stub_class_missing": { "count": 0, "action": "n/a" }, "stub_const_missing": { "count": 0, "action": "n/a" }, "undef_var_risk": { "count": 1, "action": "admin/class-buddypress-share-admin.php:622 uses $arg1=''/$arg2='' inline-assignment in do_action call — works but is a code smell" }, "real_type_debt": { "count": 0, "action": "n/a" }, "phpcs_excludes": { "count": 0, "action": "n/a (no phpcs.xml present)" } },
+    "registry_strategy": [],
+    "missing_template_includes": [
+      { "menu_slug": "wbcom-themes-page", "include": "admin/wbcom/templates/wbcom-themes-page.php", "where": "admin/wbcom/wbcom-admin-settings.php:303", "verdict": "real_bug", "detail": "Submenu 'Our Themes' is registered and its callback include()s a template file that does not exist in the repo. Visiting the page emits a PHP warning and renders empty." }
+    ]
+  },
+  "buddypress_integration": {
+    "enabled_when": "class_exists('BuddyPress') && bp_activity_share_check_config(); booted on bp_loaded",
+    "manager": "Buddypress_Share (includes/class-buddypress-share.php) via Buddypress_Share_Loader",
+    "sub_classes": ["Buddypress_Share_Admin", "Buddypress_Share_Public", "Buddypress_Share_i18n", "Buddypress_Share_Activator", "BP_Share_Feedback", "Wbcom_Admin_Settings"],
+    "frontend_hook": "bp_activity_entry_meta (share button injected per activity), wp_head (OpenGraph + icon color CSS), language_attributes (OG namespaces)"
+  },
+  "frontend_assets": {
+    "js": [
+      { "handle": "buddypress-share", "src": "public/js/buddypress-share-public.js", "deps": ["jquery"], "where": "public/class-buddypress-share-public.php:103" }
+    ],
+    "css": [
+      { "handle": "wb-font-awesome", "src": "assets/css/font-awesome.min.css", "ver": "4.7.0" },
+      { "handle": "buddypress-share", "src": "public/css/buddypress-share-public.css" }
+    ]
+  },
+  "admin_assets": {
+    "js": [
+      { "handle": "buddypress-share", "src": "admin/js/buddypress-share-admin.js", "deps": ["jquery"], "localized": "my_ajax_object {ajax_url, nonce:bp_share_nonce}", "only_on_hook": "wb-plugins_page_buddypress-share", "where": "admin/class-buddypress-share-admin.php:145" },
+      { "handle": "wbcom_admin_setting_js", "src": "admin/wbcom/assets/js/wbcom-admin-setting.js", "deps": ["jquery"], "localized": "wbcom_plugin_installer_params {ajax_url, nonce:wbcom_admin_setting_nonce}", "ver": "time() (cache-busting via timestamp — not ideal)", "where": "admin/wbcom/wbcom-admin-settings.php:233" }
+    ],
+    "css": [
+      { "handle": "font-awesome", "src": "assets/css/font-awesome.min.css", "ver": "4.7.0" },
+      { "handle": "buddypress-share", "src": "admin/css/buddypress-share-admin.css" },
+      { "handle": "wbcom-admin-setting-css", "src": "admin/wbcom/assets/css/wbcom-admin-setting.css" }
+    ],
+    "also_enqueued": ["jquery-ui-sortable", "jquery-ui-draggable", "jquery-ui-droppable", "wp-color-picker"]
+  },
+  "cron": [],
+  "wp_cli": [],
+  "storage_drivers": [],
+  "security": {
+    "uploads_gate": "n/a",
+    "signing_entry_points": [],
+    "always_sign_filter": null,
+    "rate_limit_middleware": null,
+    "ajax_auth_model": "All admin AJAX nonce=bp_share_nonce + current_user_can('manage_options') EXCEPT wbcom_addons_cards (nonce-only, no cap check)",
+    "uninstall_guard": "uninstall.php guards WP_UNINSTALL_PLUGIN (but performs NO option cleanup — leaves bp_share_* options behind)"
+  },
+  "ci_guards": { "script": null, "url_emission_regex": null, "storage_internal_marker": null, "phpstan_level": null },
+  "coding_rules": [],
+  "build_commands": { "release": "grunt (gruntfile.js present)", "ci_local": null },
+  "category_sources": {
+    "ajax": ["includes/class-buddypress-share.php", "admin/**/*.php"],
+    "admin_pages": ["admin/**/*.php"],
+    "settings": ["admin/**/*.php", "public/**/*.php", "includes/**/*.php", "buddypress-share.php"],
+    "shortcodes": ["admin/wbcom/wbcom-admin-settings.php"],
+    "hooks_fired": ["**/*.php"],
+    "capabilities": ["**/*.php"],
+    "frontend_assets": ["public/**/*.php"],
+    "admin_assets": ["admin/**/*.php"],
+    "buddypress_integration": ["includes/class-buddypress-share.php", "public/**/*.php"]
+  },
+  "generated": {
+    "at": "2026-06-05T00:00:00+00:00",
+    "from": "wp-plugin-onboard skill",
+    "branch": "3.5.5",
+    "schema_version": "v2.2",
+    "scan_scope": "fallback_defaults",
+    "scan_path": ".",
+    "php_file_count": 19,
+    "notes": "Small WordPress-Plugin-Boilerplate plugin using a loader-registry (Buddypress_Share_Loader) instead of direct add_action. AJAX handlers are registered through the loader (wp_ajax_*) not via raw add_action, so a naive add_action grep undercounts; this manifest enumerates from the loader's define_admin_hooks(). No REST/blocks/CPT/tax/cron/tables. wppqa nonce-no-cap at wbcom-admin-settings.php:43 triaged: real-but-low-impact (admin-only nonce action that only echoes back a sanitized POST string)."
+  }
+}

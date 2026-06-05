@@ -103,20 +103,10 @@ $bpas_icon_color_settings = get_option( 'bpas_icon_color_settings' );
 						</form>
 					</div>
 				</div>
-
-
-<script>
-jQuery(document).ready(function( ) {
-	jQuery(".bp_share_facebook").wpColorPicker();
-	jQuery(".bp_share_twitter").wpColorPicker();
-	jQuery(".bp_share_pinterest").wpColorPicker();
-	jQuery(".bp_share_linkedin").wpColorPicker();
-	jQuery(".bp_share_raddit").wpColorPicker();
-	jQuery(".bp_share_wordpress").wpColorPicker();
-	jQuery(".bp_share_pocket").wpColorPicker();
-	jQuery(".bp_share_telegram").wpColorPicker();
-	jQuery(".bp_share_bluesky").wpColorPicker();
-	jQuery(".bp_share_email").wpColorPicker();
-	jQuery(".bp_share_wordpress").wpColorPicker();
-});
-</script>
+<?php
+// Note: the wp-color-picker initialisation that previously lived in an
+// inline <script> here has moved to assets/js/admin.js (gate F2 — no
+// inline <script> in PHP). It binds to
+// .wb-social-icon-color-option input[type="text"], which covers every
+// color field rendered above.
+?>

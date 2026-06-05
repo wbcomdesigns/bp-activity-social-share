@@ -110,12 +110,21 @@ class Buddypress_Share {
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-share-i18n.php';
 
-		require_once plugin_dir_path( __DIR__ ) . 'admin/wbcom/wbcom-admin-settings.php';
-
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
+		 * Retained post-migration: it still owns the General + Icon Colors tab
+		 * content renderers, the settings registration, and the AJAX save paths.
+		 * Its menu + enqueue + notice-suppression methods are no longer hooked —
+		 * BPAS_Admin (the card-panel chrome) owns those as of 3.5.6.
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'admin/class-buddypress-share-admin.php';
+
+		/**
+		 * The card-panel admin chrome (menu, page shell, sidebar nav, enqueue).
+		 * Replaces the legacy admin/wbcom/ wrapper. See
+		 * includes/admin/class-bpas-admin.php.
+		 */
+		require_once plugin_dir_path( __DIR__ ) . 'includes/admin/class-bpas-admin.php';
 
 		/**
 		 * The class responsible for display admin notice for revirew after 7 days.
@@ -162,16 +171,25 @@ class Buddypress_Share {
 	private function define_admin_hooks() {
 		$plugin_admin = new Buddypress_Share_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( bp_core_admin_hook(), $plugin_admin, 'bp_share_plugin_menu' );
+		// Settings registration (Settings API) — still owned by the legacy
+		// service. Preserves the bp_share_services_extra + bpas_icon_color_settings
+		// option groups byte-for-byte.
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'bp_share_settings_init' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpas_icon_color_register_setting' );
+
+		// AJAX save paths for the General tab (services enable/disable + sort).
+		// Each verifies bp_share_nonce + current_user_can( 'manage_options' ).
 		$this->loader->add_action( 'wp_ajax_bp_share_chb_services_ajax', $plugin_admin, 'bp_share_chb_services_ajax' );
 		$this->loader->add_action( 'wp_ajax_bp_share_sort_social_links_ajax', $plugin_admin, 'bp_share_sort_social_links_ajax' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
 		$this->loader->add_action( 'wp_ajax_wss_social_icons', $plugin_admin, 'wss_social_icons' );
 		$this->loader->add_action( 'wp_ajax_wss_social_remove_icons', $plugin_admin, 'wss_social_remove_icons' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpas_icon_color_register_setting' );
+
+		// Card-panel admin chrome: menu + page shell + enqueue + notice
+		// suppression. Replaces the legacy enqueue_styles / enqueue_scripts /
+		// bp_share_plugin_menu / wbcom_hide_all_admin_notices_from_setting_page
+		// wiring (those methods on the legacy service are no longer hooked).
+		$panel = new BPAS_Admin( $plugin_admin );
+		$panel->register();
 	}
 
 	/**

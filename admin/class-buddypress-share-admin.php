@@ -10,10 +10,15 @@
  */
 
 /**
- * The admin-specific functionality of the plugin.
+ * Legacy admin service class.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * Post-migration (3.5.6) this class no longer renders the admin chrome
+ * (menu, page, tabs, enqueue) — BPAS_Admin owns that. It is retained
+ * because it still owns the settings registration (Settings API option
+ * groups bp_share_services_extra + bpas_icon_color_settings and their
+ * sanitizers), the General + Icon Colors tab CONTENT renderers, and the
+ * four AJAX save handlers. BPAS_Admin delegates each tab body to the
+ * section renderers here.
  *
  * @package    Buddypress_Share
  * @subpackage Buddypress_Share/admin
@@ -50,36 +55,6 @@ class Buddypress_Share_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-	}
-
-	/**
-	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @param string $hook Plugin page name.
-	 */
-	public function enqueue_styles( $hook ) {
-		// Hook check for admin styles is intentionally disabled.
-		if ( ! wp_style_is( 'font-awesome', 'enqueued' ) ) {
-			wp_enqueue_style( 'font-awesome', BP_ACTIVITY_SHARE_PLUGIN_URL . 'assets/css/font-awesome.min.css', array(), '4.7.0', 'all' );
-		}
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-share-admin.css', array(), $this->version, 'all' );
-	}
-
-	/**
-	 * Hide all notices from the setting page.
-	 *
-	 * @return void
-	 */
-	public function wbcom_hide_all_admin_notices_from_setting_page() {
-		$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'buddypress-share' );
-		$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
-
-		if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
-			remove_all_actions( 'admin_notices' );
-			remove_all_actions( 'all_admin_notices' );
-		}
 	}
 
 	/**
@@ -126,96 +101,6 @@ class Buddypress_Share_Admin {
 			return array();
 		}
 		return array_map( 'sanitize_text_field', $input );
-	}
-
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @param string $hook Plugin page name.
-	 */
-	public function enqueue_scripts( $hook ) {
-		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_script( 'jquery-ui-draggable' );
-		wp_enqueue_script( 'jquery-ui-droppable' );
-		if ( 'wb-plugins_page_buddypress-share' !== $hook ) {
-			return;
-		}
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-share-admin.js', array( 'jquery' ), $this->version, true );
-		wp_localize_script(
-			$this->plugin_name,
-			'my_ajax_object',
-			array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'bp_share_nonce' ),
-			)
-		);
-	}
-
-	/**
-	 * Build the admin options page.
-	 *
-	 * @access public
-	 * @author  Wbcom Designs
-	 * @since    1.0.0
-	 */
-	public function bp_share_plugin_options() {
-		$tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpas_welcome';
-		// admin check.
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'buddypress-share' ) );
-		}
-		?>
-		<div class="wrap">
-			<div class="wbcom-bb-plugins-offer-wrapper">
-				<div id="wb_admin_logo">
-				</div>
-			</div>
-			<div class="wbcom-wrap">
-				<div class="bupr-header">
-					<div class="wbcom_admin_header-wrapper">
-						<div id="wb_admin_plugin_name">
-							<?php esc_html_e( 'BuddyPress Activity Social Share', 'buddypress-share' ); ?>
-							<?php /* translators: %s is replaced with the plugin version */ ?>
-							<span><?php printf( esc_html__( 'Version %s', 'buddypress-share' ), esc_html( BP_SHARE_VERSION ) ); ?></span>
-						</div>
-						<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-					</div>
-				</div>
-				<div class="wbcom-admin-settings-page">
-					<?php
-					settings_errors();
-					$this->bpas_plugin_settings_tabs( $tab );
-					settings_fields( $tab );
-					do_settings_sections( $tab );
-					?>
-				</div>
-			</div>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Tab listing
-	 *
-	 * @param current $current the current tab.
-	 * @since    1.0.0
-	 */
-	public function bpas_plugin_settings_tabs( $current ) {
-		$bpas_tabs = array(
-			'bpas_welcome'             => esc_html__( 'Welcome', 'buddypress-share' ),
-			'bpas_general_settings'    => esc_html__( 'General Settings', 'buddypress-share' ),
-			'bpas_icon_color_settings' => esc_html__( 'Icon Color Settings', 'buddypress-share' ),
-		);
-		$tab_html  = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
-		foreach ( $bpas_tabs as $bpas_tab => $bpas_name ) {
-			$class     = ( $bpas_tab === $current ) ? 'nav-tab-active' : '';
-			$tab_html .= '<li><a class="nav-tab ' . esc_attr( $class ) . '" id="' . esc_attr( $bpas_tab ) . '" href="admin.php?page=buddypress-share&tab=' . esc_attr( $bpas_tab ) . '">' . esc_html( $bpas_name ) . '</a></li>';
-		}
-		$tab_html .= '</div></ul></div>';
-		echo wp_kses_post( $tab_html );
-		$this->bpas_include_admin_setting_tabs( $current );
 	}
 
 	/**
@@ -339,21 +224,6 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * Function for add plugin menu.
-	 *
-	 * @access public
-	 * @author  Wbcom Designs
-	 * @since    1.0.0
-	 */
-	public function bp_share_plugin_menu() {
-		if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-			add_menu_page( esc_html__( 'WB Plugins', 'buddypress-share' ), esc_html__( 'WB Plugins', 'buddypress-share' ), 'manage_options', 'wbcomplugins', array( $this, 'bp_share_plugin_options' ), 'dashicons-lightbulb', 59 );
-			add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'buddypress-share' ), esc_html__( 'General', 'buddypress-share' ), 'manage_options', 'wbcomplugins' );
-		}
-		add_submenu_page( 'wbcomplugins', esc_html__( 'BuddyPress Share', 'buddypress-share' ), esc_html__( 'BuddyPress Share', 'buddypress-share' ), 'manage_options', $this->plugin_name, array( $this, 'bp_share_plugin_options' ) );
-	}
-
-	/**
 	 * Sort social share links in admin
 	 *
 	 * @since    1.0.0
@@ -403,30 +273,6 @@ class Buddypress_Share_Admin {
 
 		// Exit the function.
 		exit();
-	}
-
-	/**
-	 * Tab listing
-	 *
-	 * @param bpas_tab $bpas_tab the current tab.
-	 * @since    1.0.0
-	 */
-	public function bpas_include_admin_setting_tabs( $bpas_tab ) {
-		$bpas_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpas_welcome';
-		switch ( $bpas_tab ) {
-			case 'bpas_welcome':
-				$this->bpas_welcome_section();
-				break;
-			case 'bpas_general_settings':
-				$this->bpas_general_setting_section();
-				break;
-			case 'bpas_icon_color_settings':
-				$this->bpas_icon_color_setting_section();
-				break;
-			default:
-				$this->bpas_welcome_section();
-				break;
-		}
 	}
 
 	/**

@@ -1917,3 +1917,13 @@ ul.wb-social-icon-color-option {
         width: 100%;
     }
 }
+/*--------------------------------------------------------------
+# A11y: restore visible keyboard focus for elements whose legacy
+# jQuery UI reset rules above declare outline: 0.
+--------------------------------------------------------------*/
+.ui-helper-reset:focus-visible,
+.ui-menu:focus-visible,
+.ui-dialog:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}

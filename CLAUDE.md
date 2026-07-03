@@ -20,16 +20,15 @@ All implementation work on this plugin MUST follow the **`/wp-plugin-development
 - Admin: `admin/class-buddypress-share-admin.php`
 - Public: `public/class-buddypress-share-public.php`
 
-## Admin-UI wrapper classification: **OLD**
-- **Wrapper:** OLD — `admin/wbcom/wbcom-admin-settings.php` (class `Wbcom_Admin_Settings`, tab-based shared Wbcom chrome).
-- NOT present: INTERMEDIATE (`includes/shared-admin/class-wbcom-shared-dashboard.php`), NEW (`includes/admin/views/shell.php`).
-- **Plugin settings menu:** parent `wbcomplugins` (top-level `add_menu_page`, registered on `bp_core_admin_hook()` in `Buddypress_Share_Admin::bp_share_plugin_menu`, admin.php:350); plugin settings page slug **`buddypress-share`** (submenu, admin.php:353), tabs `bpas_welcome` / `bpas_general_settings` / `bpas_icon_color_settings`.
-- **Shared wrapper menus** (admin_menu@999, wbcom-admin-settings.php): `wbcom-plugins-page`, `wbcom-themes-page` (BROKEN — template missing), `wbcom-support-page`.
+## Admin-UI wrapper classification: **card-panel (migrated 2026-07-03)**
+- The OLD shared wrapper (`admin/wbcom/wbcom-admin-settings.php`, class `Wbcom_Admin_Settings`) and its `wbcom-plugins-page` / `wbcom-themes-page` / `wbcom-support-page` menus were **deleted** in the card-panel migration (commit `fff4b3d`). `admin/wbcom/` no longer exists.
+- **Plugin settings menu:** parent `wbcomplugins` (registered on `bp_core_admin_hook()` in `Buddypress_Share_Admin::bp_share_plugin_menu`); plugin settings page slug **`buddypress-share`**, tabs `bpas_welcome` / `bpas_general_settings` / `bpas_icon_color_settings`.
+- New admin assets live in `assets/css/admin.css` + `assets/js/admin.js` (bpas-card pattern, design tokens).
 
 ## Important patterns
 - **Hooks go through the loader.** Add new actions/filters in `define_admin_hooks()`/`define_public_hooks()`, not scattered add_action calls.
-- **Options are site_options** (`get_site_option`/`update_site_option`) — EXCEPT `bpas_icon_color_settings` which uses `get_option`/`update_option` (Settings API). Be deliberate about which one.
-- **AJAX auth:** all 4 plugin AJAX handlers pair `bp_share_nonce` + `current_user_can('manage_options')`. The shared-wrapper `wbcom_addons_cards` handler is nonce-only (see Known Issues).
+- **Options are site_options** (`get_site_option`/`update_site_option`) — EXCEPT `bpas_icon_color_settings`, which is read/saved per-site via `get_option`/`update_option` (Settings API) and, since 3.5.6, seeded in BOTH stores at activation (with a `maybe_upgrade()` backfill from the network store). Be deliberate about which one.
+- **AJAX auth:** all 4 plugin AJAX handlers pair `bp_share_nonce` + `current_user_can('manage_options')`. (The nonce-only shared-wrapper `wbcom_addons_cards` handler was removed with the OLD wrapper.)
 - **Free/Pro guard:** several functions bail/deactivate if `buddypress-activity-share-pro` is active. Preserve this when editing bootstrap.
 - **Release build:** `gruntfile.js` present (grunt).
 
@@ -37,16 +36,17 @@ All implementation work on this plugin MUST follow the **`/wp-plugin-development
 - Frontend: `.bp-share-btn`, `.bp-share-button`, `.service-buttons` (display:none until JS toggle), `.bp-share`, `.has-popup`, per-network ids `#bp_facebook_share`, `#bp_twitter_share`, etc.
 - Admin: `#drag_social_icon` / `#drag_icon_ul` (disable/enable lists), `.socialicon`, `.bp_share_option_save`.
 
-## Known issues (from onboarding audit 2026-06-05)
-1. **Broken "Our Themes" admin page** — `wbcom-admin-settings.php:303` `include`s `templates/wbcom-themes-page.php` which does not exist. PHP warning + empty page.
-2. **nonce-no-cap** — `wbcom-admin-settings.php:43` (`wbcom_addons_cards` AJAX) verifies nonce but no `current_user_can()`. Low impact (only echoes a sanitized POST string) but should add a cap check.
-3. **No-JS frontend gap** — `.service-buttons` are `display:none` with no PHP/no-JS fallback; share targets are unreachable without JavaScript.
-4. **Write-only option** — `bp_share_all_services_disable` is written (admin:301) but never read in the free build.
-5. `uninstall.php` performs no option cleanup (leaves `bp_share_*` behind).
+## Known issues
+1. **No-JS frontend gap** — `.service-buttons` are `display:none` with no PHP/no-JS fallback; share targets are unreachable without JavaScript.
+2. **Write-only option** — `bp_share_all_services_disable` is written (admin:301) but never read in the free build.
+3. **Dead confirm scaffolding** — `assets/js/admin.js` wires a `[data-bpas-confirm]` promise-based confirm modal, but no PHP template emits that attribute; the icon-remove control has no client-side confirm. Wire it or remove it.
+
+Resolved (do not re-report): broken "Our Themes" page and the nonce-no-cap `wbcom_addons_cards` AJAX were removed with the OLD wrapper (commit `fff4b3d`, 2026-07-03); `uninstall.php` now cleans all `bp_share_*` / `bpas_*` options from both stores (2026-07-03).
 
 ## Recent changes
 | Date | Type | Description | Files |
 |---|---|---|---|
+| 2026-07-03 | bug-fix | Audit-verdict majors: enqueue version tied to BP_SHARE_VERSION (cache-bust), Twitter static fallback #1DA1F2, icon colors seeded in both option stores + maybe_upgrade backfill (multisite gap), labeled color inputs + :focus-visible, uninstall option cleanup | includes/class-buddypress-share.php, includes/class-buddypress-share-activator.php, public/css/buddypress-share-public.css, admin/bp-icon-color-page.php, admin/css/buddypress-share-admin.css, uninstall.php |
 | 2026-07-03 | bug-fix | Welcome tab rebuilt on bpas-card pattern (was unstyled wbcom-* markup inside 3.5.6 shell) | admin/bp-welcome-page.php, assets/css/admin.css |
 | 2026-07-03 | bug-fix | Dark-mode share icons: brand-color defaults + one-time #000000 remap migration (bp_share_db_version), stale .fa-* selectors replaced with dashicons | includes/class-buddypress-share-activator.php, buddypress-share.php, public/css/buddypress-share-public.css, public/class-buddypress-share-public.php |
 | 2026-06-05 | onboard | Generated audit/ inventory, wppqa baseline, READ-FIRST CLAUDE.md | audit/*, CLAUDE.md |

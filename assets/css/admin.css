@@ -834,6 +834,77 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
+   Welcome tab — intro copy + resource grid
+   ═══════════════════════════════════════════════════════════ */
+
+.bpas-welcome-intro {
+	font-size: 13px;
+	color: var(--bpas-admin-text-2);
+	line-height: 1.6;
+	margin: 0 0 12px;
+	max-width: 760px;
+}
+
+.bpas-welcome-intro:last-child {
+	margin-bottom: 0;
+}
+
+.bpas-welcome-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: var(--bpas-admin-gap-md);
+}
+
+.bpas-welcome-resource {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 20px;
+	background: var(--bpas-admin-surface-1);
+	border: 1px solid var(--bpas-admin-border);
+	border-radius: var(--bpas-admin-radius);
+}
+
+.bpas-welcome-resource__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+	background: var(--bpas-admin-accent-light);
+	color: var(--bpas-admin-accent);
+}
+
+.bpas-welcome-resource__icon .dashicons {
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	color: inherit;
+}
+
+.bpas-welcome-resource__title {
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--bpas-admin-text);
+	margin: 0;
+	line-height: 1.3;
+}
+
+.bpas-welcome-resource__text {
+	font-size: 13px;
+	color: var(--bpas-admin-text-3);
+	line-height: 1.5;
+	margin: 0;
+	flex: 1;
+}
+
+.bpas-welcome-resource .bpas-btn {
+	margin-top: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════
    Responsive — exactly two media blocks per skill Part 7.5
    ═══════════════════════════════════════════════════════════ */
 
@@ -894,6 +965,10 @@
 	}
 
 	.bpas-stats-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.bpas-welcome-grid {
 		grid-template-columns: 1fr;
 	}
 }

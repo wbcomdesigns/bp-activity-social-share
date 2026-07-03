@@ -1,6 +1,10 @@
 <?php
 /**
- * This file is used for rendering and saving plugin welcome settings.
+ * Welcome tab body — rendered inside the card-panel shell
+ * (includes/admin/views/shell.php) by BPAS_Admin::render_tab_body().
+ *
+ * Uses the bpas-card / bpas-btn component vocabulary from
+ * assets/css/admin.css so the tab matches the rest of the chrome.
  *
  * @link       http://wbcomdesigns.com
  * @since      1.0.0
@@ -10,48 +14,67 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-	// Exit if accessed directly.
+	exit; // Exit if accessed directly.
 }
+
+$bpas_welcome_resources = array(
+	array(
+		'icon'   => 'dashicons-book',
+		'title'  => __( 'Documentation', 'buddypress-share' ),
+		'text'   => __( 'We have prepared an extensive guide on BuddyPress Activity Social Share to learn all aspects of the plugin. You will find most of your answers here.', 'buddypress-share' ),
+		'url'    => 'https://docs.wbcomdesigns.com/doc_category/buddypress-activity-social-share/',
+		'button' => __( 'Read Documentation', 'buddypress-share' ),
+	),
+	array(
+		'icon'   => 'dashicons-sos',
+		'title'  => __( 'Support Center', 'buddypress-share' ),
+		'text'   => __( 'We strive to offer the best customer care via our support center. Once your theme is activated, you can ask us for help anytime.', 'buddypress-share' ),
+		'url'    => 'https://wbcomdesigns.com/support/',
+		'button' => __( 'Get Support', 'buddypress-share' ),
+	),
+	array(
+		'icon'   => 'dashicons-admin-comments',
+		'title'  => __( 'Got Feedback?', 'buddypress-share' ),
+		'text'   => __( 'We want to hear about your experience with the plugin. We would also love to hear any suggestions you may have for future updates.', 'buddypress-share' ),
+		'url'    => 'https://wbcomdesigns.com/contact/',
+		'button' => __( 'Send Feedback', 'buddypress-share' ),
+	),
+);
 ?>
-<div class="wbcom-tab-content">
-	<div class="wbcom-welcome-main-wrapper">
-		<div class="wbcom-welcome-head">
-			<p class="wbcom-welcome-description"><?php esc_html_e( 'BuddyPress Activity Social Share plugin allows users to share activity “Post Updates” to their social networking profiles.', 'buddypress-share' ); ?> <br>
-			<?php esc_html_e( 'This plugin adds the option ‘Share’ to BuddyPress Activity in post updates section parallel to the ‘Comment’, ‘Favorite’ and ‘Delete’ option.', 'buddypress-share' ); ?></p>
-		</div><!-- .wbcom-welcome-head -->
+<div class="bpas-card">
+	<div class="bpas-card__head">
+		<h2 class="bpas-card__title"><?php esc_html_e( 'About the Plugin', 'buddypress-share' ); ?></h2>
+	</div>
+	<div class="bpas-card__body">
+		<p class="bpas-welcome-intro">
+			<?php esc_html_e( 'BuddyPress Activity Social Share plugin allows users to share activity “Post Updates” to their social networking profiles.', 'buddypress-share' ); ?>
+		</p>
+		<p class="bpas-welcome-intro">
+			<?php esc_html_e( 'This plugin adds the option ‘Share’ to BuddyPress Activity in post updates section parallel to the ‘Comment’, ‘Favorite’ and ‘Delete’ option.', 'buddypress-share' ); ?>
+		</p>
+	</div>
+</div>
 
-		<div class="wbcom-welcome-content">
-			<div class="wbcom-welcome-support-info">
-				<h3><?php esc_html_e( 'Help &amp; Support Resources', 'buddypress-share' ); ?></h3>
-				<p><?php esc_html_e( 'Here are all the resources you may need to get help from us. Documentation is usually the best place to start. Should you require help anytime, our customer care team is available to assist you at the support center.', 'buddypress-share' ); ?></p>
-
-				<div class="wbcom-support-info-wrap">
-					<div class="wbcom-support-info-widgets">
-						<div class="wbcom-support-inner">
-						<h3><span class="dashicons dashicons-book"></span><?php esc_html_e( 'Documentation', 'buddypress-share' ); ?></h3>
-						<p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Activity Social Share to learn all aspects of the plugin. You will find most of your answers here.', 'buddypress-share' ); ?></p>
-						<a href="<?php echo esc_url( 'https://docs.wbcomdesigns.com/doc_category/buddypress-activity-social-share/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'buddypress-share' ); ?></a>
-						</div>
-					</div>
-
-					<div class="wbcom-support-info-widgets">
-						<div class="wbcom-support-inner">
-						<h3><span class="dashicons dashicons-sos"></span><?php esc_html_e( 'Support Center', 'buddypress-share' ); ?></h3>
-						<p><?php esc_html_e( 'We strive to offer the best customer care via our support center. Once your theme is activated, you can ask us for help anytime.', 'buddypress-share' ); ?></p>
-						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/support/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Get Support', 'buddypress-share' ); ?></a>
-					</div>
-					</div>
-					<div class="wbcom-support-info-widgets">
-						<div class="wbcom-support-inner">
-						<h3><span class="dashicons dashicons-admin-comments"></span><?php esc_html_e( 'Got Feedback?', 'buddypress-share' ); ?></h3>
-						<p><?php esc_html_e( 'We want to hear about your experience with the plugin. We would also love to hear any suggestions you may for future updates.', 'buddypress-share' ); ?></p>
-						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/contact/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Send Feedback', 'buddypress-share' ); ?></a>
-					</div>
-					</div>
+<div class="bpas-card">
+	<div class="bpas-card__head">
+		<h2 class="bpas-card__title"><?php esc_html_e( 'Help & Support Resources', 'buddypress-share' ); ?></h2>
+		<p class="bpas-card__desc"><?php esc_html_e( 'Here are all the resources you may need to get help from us. Documentation is usually the best place to start. Should you require help anytime, our customer care team is available to assist you at the support center.', 'buddypress-share' ); ?></p>
+	</div>
+	<div class="bpas-card__body">
+		<div class="bpas-welcome-grid">
+			<?php foreach ( $bpas_welcome_resources as $bpas_resource ) : ?>
+				<div class="bpas-welcome-resource">
+					<span class="bpas-welcome-resource__icon" aria-hidden="true">
+						<span class="dashicons <?php echo esc_attr( $bpas_resource['icon'] ); ?>"></span>
+					</span>
+					<h3 class="bpas-welcome-resource__title"><?php echo esc_html( $bpas_resource['title'] ); ?></h3>
+					<p class="bpas-welcome-resource__text"><?php echo esc_html( $bpas_resource['text'] ); ?></p>
+					<a href="<?php echo esc_url( $bpas_resource['url'] ); ?>" class="bpas-btn bpas-btn-primary" target="_blank" rel="noopener noreferrer">
+						<?php echo esc_html( $bpas_resource['button'] ); ?>
+						<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'buddypress-share' ); ?></span>
+					</a>
 				</div>
-			</div>
+			<?php endforeach; ?>
 		</div>
-
-	</div><!-- .wbcom-welcome-content -->
-</div><!-- .wbcom-welcome-main-wrapper -->
+	</div>
+</div>

@@ -39,21 +39,30 @@ class Buddypress_Share_Activator {
 				);
 				update_site_option( 'bp_share_services', $bp_share_social_icon_default );
 			}
+			// Seed BOTH stores: the Icon Colors form (options.php) and the
+			// frontend renderer read the per-site option (get_option),
+			// while legacy code reads the network store (get_site_option).
+			// Seeding only the network store left per-site reads empty on
+			// multisite network activation, so no inline icon colors were
+			// emitted and icons fell back to static CSS alone.
+			$bp_icon_color_default = array(
+				'bpas_facebook_bg_color'  => '#3B5998',
+				'bpas_twitter_bg_color'   => '#1DA1F2',
+				'bpas_pinterest_bg_color' => '#E60023',
+				'bpas_linkedin_bg_color'  => '#007BB6',
+				'bpas_reddit_bg_color'    => '#FF4500',
+				'bpas_wordpress_bg_color' => '#21759B',
+				'bpas_pocket_bg_color'    => '#EF3E56',
+				'bpas_telegram_bg_color'  => '#0088cc',
+				'bpas_bluesky_bg_color'   => '#1185fe',
+				'bpas_email_bg_color'     => '#AD0000',
+				'bpas_whatsapp_bg_color'  => '#46bd00',
+			);
 			if ( false === get_site_option( 'bpas_icon_color_settings' ) ) {
-				$bp_icon_color_default = array(
-					'bpas_facebook_bg_color'  => '#3B5998',
-					'bpas_twitter_bg_color'   => '#1DA1F2',
-					'bpas_pinterest_bg_color' => '#E60023',
-					'bpas_linkedin_bg_color'  => '#007BB6',
-					'bpas_reddit_bg_color'    => '#FF4500',
-					'bpas_wordpress_bg_color' => '#21759B',
-					'bpas_pocket_bg_color'    => '#EF3E56',
-					'bpas_telegram_bg_color'  => '#0088cc',
-					'bpas_bluesky_bg_color'   => '#1185fe',
-					'bpas_email_bg_color'     => '#AD0000',
-					'bpas_whatsapp_bg_color'  => '#46bd00',
-				);
-					update_site_option( 'bpas_icon_color_settings', $bp_icon_color_default );
+				update_site_option( 'bpas_icon_color_settings', $bp_icon_color_default );
+			}
+			if ( false === get_option( 'bpas_icon_color_settings' ) ) {
+				update_option( 'bpas_icon_color_settings', $bp_icon_color_default );
 			}
 		}
 	}
@@ -84,6 +93,18 @@ class Buddypress_Share_Activator {
 			'bpas_wordpress_bg_color' => '#21759B',
 			'bpas_pocket_bg_color'    => '#EF3E56',
 		);
+
+		// Backfill: releases up to 3.5.5 network-activated on multisite
+		// seeded only the network store, so per-site get_option() reads
+		// (frontend renderer + Icon Colors form) returned false and no
+		// inline colors were emitted. Copy the network values down before
+		// remapping so both stores exist and get migrated together.
+		if ( false === get_option( 'bpas_icon_color_settings' ) ) {
+			$bpas_network_settings = get_site_option( 'bpas_icon_color_settings' );
+			if ( is_array( $bpas_network_settings ) ) {
+				update_option( 'bpas_icon_color_settings', $bpas_network_settings );
+			}
+		}
 
 		// The Icon Colors form (options.php) saves the regular option,
 		// while activation seeded the site option — migrate both so

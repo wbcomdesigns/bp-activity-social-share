@@ -72,7 +72,7 @@ class Buddypress_Share {
 	public function __construct() {
 
 		$this->plugin_name = 'buddypress-share';
-		$this->version     = '2.0.0';
+		$this->version     = defined( 'BP_SHARE_VERSION' ) ? BP_SHARE_VERSION : '3.5.6';
 
 		$this->load_dependencies();
 		$this->set_locale();

@@ -154,8 +154,7 @@ class Buddypress_Share_Public {
 				if ( isset( $social_service ) && ! empty( $social_service['Pinterest'] ) ) {
 					$media = '';
 					$video = '';
-					echo '<a class="bp-share" id="bp_pinterest_share" href="https://pinterest.com/pin/create/bookmarklet/?media=' . esc_url( $media ) . '&url=' . esc_url( $activity_link ) . '&is_video=' . esc_url( $video ) . '&description=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-pinterest
-				"></span></a>';
+					echo '<a class="bp-share" id="bp_pinterest_share" href="https://pinterest.com/pin/create/bookmarklet/?media=' . esc_url( $media ) . '&url=' . esc_url( $activity_link ) . '&is_video=' . esc_url( $video ) . '&description=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-pinterest"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Reddit'] ) ) {
 					echo '<a class="bp-share" id="bp_reddit_share" href="http://reddit.com/submit?url=' . esc_url( $activity_link ) . '&title=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-reddit"></span></a>';

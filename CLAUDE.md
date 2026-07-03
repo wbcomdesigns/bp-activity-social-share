@@ -47,4 +47,6 @@ All implementation work on this plugin MUST follow the **`/wp-plugin-development
 ## Recent changes
 | Date | Type | Description | Files |
 |---|---|---|---|
+| 2026-07-03 | bug-fix | Welcome tab rebuilt on bpas-card pattern (was unstyled wbcom-* markup inside 3.5.6 shell) | admin/bp-welcome-page.php, assets/css/admin.css |
+| 2026-07-03 | bug-fix | Dark-mode share icons: brand-color defaults + one-time #000000 remap migration (bp_share_db_version), stale .fa-* selectors replaced with dashicons | includes/class-buddypress-share-activator.php, buddypress-share.php, public/css/buddypress-share-public.css, public/class-buddypress-share-public.php |
 | 2026-06-05 | onboard | Generated audit/ inventory, wppqa baseline, READ-FIRST CLAUDE.md | audit/*, CLAUDE.md |

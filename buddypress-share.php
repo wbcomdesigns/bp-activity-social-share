@@ -103,6 +103,8 @@ function run_buddypress_share() {
  */
 function bpshare_plugin_init() {
 	if ( class_exists( 'BuddyPress' ) && bp_activity_share_check_config() ) {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-share-activator.php';
+		Buddypress_Share_Activator::maybe_upgrade();
 		run_buddypress_share();
 	}
 }

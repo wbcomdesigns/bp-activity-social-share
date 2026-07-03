@@ -148,19 +148,19 @@ a.bp-share.has-popup {
     color: #AD0000;
 }
 
-.bp-share .fa-pinterest-p {
-    color: #BD081C;
+.bp-share .dashicons-pinterest {
+    color: #E60023;
 }
 
-.bp-share .fa-reddit-alien {
-    color: #FF4501;
+.bp-share .dashicons-reddit {
+    color: #FF4500;
 }
 
-.bp-share .fa-wordpress {
+.bp-share .dashicons-wordpress {
     color: #21759B;
 }
 
-.bp-share .fa-get-pocket {
+#bp_pocket_share .dashicons {
     color: #EF3E56;
 }
 

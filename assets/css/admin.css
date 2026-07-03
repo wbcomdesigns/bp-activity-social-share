@@ -615,6 +615,29 @@
 	outline-offset: 2px;
 }
 
+/* Anchor buttons: the `.bpas-admin a` link color outranks the
+   single-class variant rules, so re-assert per-variant text colors. */
+.bpas-admin a.bpas-btn-primary,
+.bpas-admin a.bpas-btn-primary:hover,
+.bpas-admin a.bpas-btn-primary:focus {
+	color: #fff;
+}
+
+.bpas-admin a.bpas-btn-secondary,
+.bpas-admin a.bpas-btn-secondary:hover,
+.bpas-admin a.bpas-btn-secondary:focus {
+	color: var(--bpas-admin-text);
+}
+
+.bpas-admin a.bpas-btn-danger {
+	color: var(--bpas-admin-danger);
+}
+
+.bpas-admin a.bpas-btn-danger:hover,
+.bpas-admin a.bpas-btn-danger:focus {
+	color: #fff;
+}
+
 /* ═══════════════════════════════════════════════════════════
    Overview — stat grid
    ═══════════════════════════════════════════════════════════ */

@@ -25,3 +25,51 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+/**
+ * Remove every option the plugin writes, from both stores.
+ *
+ * The plugin persists settings in the network store (update_site_option:
+ * bp_share_services, bp_share_services_extra, bp_share_flag,
+ * bp_share_all_services_disable, bp_share_db_version) AND in the per-site
+ * store (update_option: bpas_icon_color_settings, seeded in both since
+ * 3.5.6). Legacy releases also set bp_social_share_activation_date /
+ * bp_social_share_no_bug. Delete all keys from both stores, and on
+ * multisite from every site, so uninstall leaves nothing behind.
+ */
+$bp_share_option_keys = array(
+	'bp_share_services',
+	'bp_share_services_extra',
+	'bp_share_flag',
+	'bp_share_all_services_disable',
+	'bp_share_db_version',
+	'bpas_icon_color_settings',
+	'bp_social_share_activation_date',
+	'bp_social_share_no_bug',
+);
+
+// Network-level store (get_site_option falls back to options on single site).
+foreach ( $bp_share_option_keys as $bp_share_option_key ) {
+	delete_site_option( $bp_share_option_key );
+}
+
+// Per-site store.
+if ( is_multisite() ) {
+	$bp_share_site_ids = get_sites(
+		array(
+			'fields' => 'ids',
+			'number' => 0,
+		)
+	);
+	foreach ( $bp_share_site_ids as $bp_share_site_id ) {
+		switch_to_blog( $bp_share_site_id );
+		foreach ( $bp_share_option_keys as $bp_share_option_key ) {
+			delete_option( $bp_share_option_key );
+		}
+		restore_current_blog();
+	}
+} else {
+	foreach ( $bp_share_option_keys as $bp_share_option_key ) {
+		delete_option( $bp_share_option_key );
+	}
+}

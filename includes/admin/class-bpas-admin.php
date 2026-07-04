@@ -84,7 +84,28 @@ class BPAS_Admin {
 				'group' => 'settings',
 			),
 		);
-		return apply_filters( 'bpas_admin_tabs', $tabs );
+
+		/**
+		 * Filter the card-panel sidebar tabs.
+		 *
+		 * @since 3.5.6
+		 *
+		 * @param array $tabs Tab descriptors keyed by slug.
+		 */
+		$tabs = apply_filters( 'bpas_admin_tabs', $tabs );
+
+		/*
+		 * Discover — ecosystem cross-promotion (read-only display view).
+		 * Appended AFTER the `bpas_admin_tabs` filter so a peer plugin can
+		 * never accidentally drop it, and so it always sorts last in the nav.
+		 */
+		$tabs['discover'] = array(
+			'label' => __( 'Discover', 'buddypress-share' ),
+			'icon'  => 'dashicons-products',
+			'group' => 'discover',
+		);
+
+		return $tabs;
 	}
 
 	/**
@@ -312,6 +333,12 @@ class BPAS_Admin {
 				break;
 			case 'bpas_icon_color_settings':
 				$service->bpas_icon_color_setting_section();
+				break;
+			case 'discover':
+				$view = BP_ACTIVITY_SHARE_PLUGIN_PATH . 'includes/admin/views/discover.php';
+				if ( file_exists( $view ) ) {
+					include $view;
+				}
 				break;
 			case 'bpas_welcome':
 			default:

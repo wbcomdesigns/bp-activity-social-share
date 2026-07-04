@@ -66,6 +66,7 @@ $bpas_version = defined( 'BP_SHARE_VERSION' ) ? BP_SHARE_VERSION : '';
 				$bpas_printed_groups = array();
 				$bpas_group_labels   = array(
 					'settings' => esc_html__( 'Settings', 'buddypress-share' ),
+					'discover' => esc_html__( 'Explore', 'buddypress-share' ),
 				);
 				foreach ( $bpas_tabs as $bpas_slug => $bpas_tab ) {
 					$bpas_group = isset( $bpas_tab['group'] ) ? $bpas_tab['group'] : 'main';

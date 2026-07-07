@@ -817,46 +817,6 @@
 	background: var(--bpas-admin-danger);
 }
 
-.bpas-confirm-backdrop {
-	position: fixed;
-	inset: 0;
-	background: rgba(15, 23, 42, 0.5);
-	z-index: 100001;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 24px;
-}
-
-.bpas-confirm {
-	background: var(--bpas-admin-white);
-	border-radius: var(--bpas-admin-radius);
-	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-	max-width: 420px;
-	width: 100%;
-	padding: 24px;
-}
-
-.bpas-confirm__title {
-	font-size: 16px;
-	font-weight: 700;
-	margin: 0 0 8px;
-	color: var(--bpas-admin-text);
-}
-
-.bpas-confirm__desc {
-	font-size: 13px;
-	color: var(--bpas-admin-text-3);
-	margin: 0 0 18px;
-	line-height: 1.5;
-}
-
-.bpas-confirm__actions {
-	display: flex;
-	gap: 8px;
-	justify-content: flex-end;
-}
-
 /* ═══════════════════════════════════════════════════════════
    Welcome tab — intro copy + resource grid
    ═══════════════════════════════════════════════════════════ */

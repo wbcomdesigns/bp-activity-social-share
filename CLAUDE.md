@@ -38,10 +38,9 @@ All implementation work on this plugin MUST follow the **`/wp-plugin-development
 
 ## Known issues
 1. **No-JS frontend gap** — `.service-buttons` are `display:none` with no PHP/no-JS fallback; share targets are unreachable without JavaScript.
-2. **Write-only option** — `bp_share_all_services_disable` is written (admin:301) but never read in the free build.
-3. **Dead confirm scaffolding** — `assets/js/admin.js` wires a `[data-bpas-confirm]` promise-based confirm modal, but no PHP template emits that attribute; the icon-remove control has no client-side confirm. Wire it or remove it.
+2. **Write-only option** — `bp_share_all_services_disable` is written by the free build but never read in free. Left in place deliberately: it is most likely a free -> Pro contract seam (Pro reads what free writes). Do NOT delete the write without confirming against `buddypress-activity-share-pro`.
 
-Resolved (do not re-report): broken "Our Themes" page and the nonce-no-cap `wbcom_addons_cards` AJAX were removed with the OLD wrapper (commit `fff4b3d`, 2026-07-03); `uninstall.php` now cleans all `bp_share_*` / `bpas_*` options from both stores (2026-07-03).
+Resolved (do not re-report): broken "Our Themes" page and the nonce-no-cap `wbcom_addons_cards` AJAX were removed with the OLD wrapper (commit `fff4b3d`, 2026-07-03); `uninstall.php` now cleans all `bp_share_*` / `bpas_*` options from both stores (2026-07-03); the dead `[data-bpas-confirm]` confirm-modal scaffolding (JS + CSS + i18n localize) was removed (2026-07-06) - the unused `window.bpasToast` helper was kept as an exported API.
 
 ## Recent changes
 | Date | Type | Description | Files |

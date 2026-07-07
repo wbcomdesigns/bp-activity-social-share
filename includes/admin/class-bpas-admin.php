@@ -206,17 +206,6 @@ class BPAS_Admin {
 			$version,
 			true
 		);
-		wp_localize_script(
-			'bpas-admin',
-			'bpasAdmin',
-			array(
-				'i18n' => array(
-					'confirmContinue' => __( 'Continue', 'buddypress-share' ),
-					'confirmCancel'   => __( 'Cancel', 'buddypress-share' ),
-				),
-			)
-		);
-
 		// Retained content layer for the General tab (drag/drop lists,
 		// AJAX save). Loaded only on our screen, same as before.
 		wp_enqueue_style(

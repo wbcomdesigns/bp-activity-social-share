@@ -183,7 +183,6 @@ class Buddypress_Share_Admin {
 			// Update the service options if there's any change.
 			if ( $service_updated ) {
 				update_site_option( $option_name, $services );
-				update_site_option( 'bp_share_all_services_disable', 'enable' );
 			}
 		}
 

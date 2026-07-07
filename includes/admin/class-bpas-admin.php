@@ -219,9 +219,6 @@ class BPAS_Admin {
 
 		// Retained content layer for the General tab (drag/drop lists,
 		// AJAX save). Loaded only on our screen, same as before.
-		if ( ! wp_style_is( 'font-awesome', 'enqueued' ) ) {
-			wp_enqueue_style( 'font-awesome', BP_ACTIVITY_SHARE_PLUGIN_URL . 'assets/css/font-awesome.min.css', array(), '4.7.0', 'all' );
-		}
 		wp_enqueue_style(
 			'buddypress-share',
 			BP_ACTIVITY_SHARE_PLUGIN_URL . 'admin/css/buddypress-share-admin.css',

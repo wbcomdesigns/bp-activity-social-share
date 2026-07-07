@@ -74,10 +74,15 @@ class Buddypress_Share_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
-			wp_enqueue_style( 'wb-font-awesome', BP_ACTIVITY_SHARE_PLUGIN_URL . 'assets/css/font-awesome.min.css', array(), '4.7.0', 'all' );
-		}
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-share-public.css', array(), $this->version, 'all' );
+
+		// Per-site custom icon colors are injected as :root token overrides
+		// attached to the enqueued stylesheet handle (cacheable, CSP-safe)
+		// instead of a render-blocking inline <style> printed in wp_head.
+		$custom_css = $this->bp_share_icon_custom_color_css();
+		if ( ! empty( $custom_css ) ) {
+			wp_add_inline_style( $this->plugin_name, $custom_css );
+		}
 	}
 
 	/**
@@ -337,114 +342,51 @@ class Buddypress_Share_Public {
 	}
 
 	/**
-	 * Output custom icon colors as inline CSS.
+	 * Build :root token overrides for custom icon colors.
+	 *
+	 * Site owners can override the default brand colors from the Icon
+	 * Colors settings screen. Those values are emitted as CSS custom
+	 * property overrides and attached to the public stylesheet handle
+	 * via wp_add_inline_style() (see enqueue_styles). This replaces the
+	 * legacy render-blocking inline <style> block printed in wp_head,
+	 * which duplicated stylesheet values, bypassed caching, and was
+	 * invisible to CSP style-src rules.
 	 *
 	 * @since 1.0.0
+	 * @return string CSS custom-property override block, or '' when nothing is customized.
 	 */
-	public function bp_share_icon_custom_color() {
-		$bpas_icon_color_settings = get_option( 'bpas_icon_color_settings' );
-		$bpas_facebook_bg_color   = isset( $bpas_icon_color_settings['bpas_facebook_bg_color'] ) ? $bpas_icon_color_settings['bpas_facebook_bg_color'] : '';
-		$bpas_twitter_bg_color    = isset( $bpas_icon_color_settings['bpas_twitter_bg_color'] ) ? $bpas_icon_color_settings['bpas_twitter_bg_color'] : '';
-		$bpas_pinterest_bg_color  = isset( $bpas_icon_color_settings['bpas_pinterest_bg_color'] ) ? $bpas_icon_color_settings['bpas_pinterest_bg_color'] : '';
-		$bpas_linkedin_bg_color   = isset( $bpas_icon_color_settings['bpas_linkedin_bg_color'] ) ? $bpas_icon_color_settings['bpas_linkedin_bg_color'] : '';
-		$bpas_reddit_bg_color     = isset( $bpas_icon_color_settings['bpas_reddit_bg_color'] ) ? $bpas_icon_color_settings['bpas_reddit_bg_color'] : '';
-		$bpas_wordpress_bg_color  = isset( $bpas_icon_color_settings['bpas_wordpress_bg_color'] ) ? $bpas_icon_color_settings['bpas_wordpress_bg_color'] : '';
-		$bpas_pocket_bg_color     = isset( $bpas_icon_color_settings['bpas_pocket_bg_color'] ) ? $bpas_icon_color_settings['bpas_pocket_bg_color'] : '';
-		$bpas_telegram_bg_color   = isset( $bpas_icon_color_settings['bpas_telegram_bg_color'] ) ? $bpas_icon_color_settings['bpas_telegram_bg_color'] : '';
-		$bpas_bluesky_bg_color    = isset( $bpas_icon_color_settings['bpas_bluesky_bg_color'] ) ? $bpas_icon_color_settings['bpas_bluesky_bg_color'] : '';
-		$bpas_email_bg_color      = isset( $bpas_icon_color_settings['bpas_email_bg_color'] ) ? $bpas_icon_color_settings['bpas_email_bg_color'] : '';
-		$bpas_whatsapp_bg_color   = isset( $bpas_icon_color_settings['bpas_whatsapp_bg_color'] ) ? $bpas_icon_color_settings['bpas_whatsapp_bg_color'] : '';
-		?>
-			<style>
-				#bp_facebook_share span {
-				<?php
+	public function bp_share_icon_custom_color_css() {
+		$settings = get_option( 'bpas_icon_color_settings' );
+		if ( empty( $settings ) || ! is_array( $settings ) ) {
+			return '';
+		}
 
-				if ( ! empty( $bpas_facebook_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_facebook_bg_color ) ) . ';';
-				}
-				?>
-				}
+		$map = array(
+			'bpas_facebook_bg_color'  => '--bpas-brand-facebook',
+			'bpas_twitter_bg_color'   => '--bpas-brand-twitter',
+			'bpas_pinterest_bg_color' => '--bpas-brand-pinterest',
+			'bpas_linkedin_bg_color'  => '--bpas-brand-linkedin',
+			'bpas_reddit_bg_color'    => '--bpas-brand-reddit',
+			'bpas_wordpress_bg_color' => '--bpas-brand-wordpress',
+			'bpas_pocket_bg_color'    => '--bpas-brand-pocket',
+			'bpas_telegram_bg_color'  => '--bpas-brand-telegram',
+			'bpas_bluesky_bg_color'   => '--bpas-brand-bluesky',
+			'bpas_email_bg_color'     => '--bpas-brand-email',
+			'bpas_whatsapp_bg_color'  => '--bpas-brand-whatsapp',
+		);
 
-				#bp_twitter_share span {
-				<?php
-				if ( ! empty( $bpas_twitter_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_twitter_bg_color ) ) . ';';
-				}
-				?>
-				}
+		$vars = '';
+		foreach ( $map as $option_key => $css_var ) {
+			if ( empty( $settings[ $option_key ] ) ) {
+				continue;
+			}
+			$color = sanitize_hex_color( $settings[ $option_key ] );
+			if ( empty( $color ) ) {
+				continue;
+			}
+			$vars .= sprintf( '%s:%s;', $css_var, $color );
+		}
 
-				#bp_pinterest_share span {
-				<?php
-				if ( ! empty( $bpas_pinterest_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_pinterest_bg_color ) ) . ';';
-				}
-				?>
-				}
-
-				#bp_linkedin_share span {
-				<?php
-				if ( ! empty( $bpas_linkedin_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_linkedin_bg_color ) ) . ';';
-				}
-				?>
-				}
-
-				#bp_reddit_share span {
-				<?php
-				if ( ! empty( $bpas_reddit_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_reddit_bg_color ) ) . ';';
-				}
-				?>
-				}
-
-				#bp_wordpress_share span {
-				<?php
-				if ( ! empty( $bpas_wordpress_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_wordpress_bg_color ) ) . ';';
-				}
-				?>
-				}
-
-				#bp_pocket_share span {
-				<?php
-				if ( ! empty( $bpas_pocket_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_pocket_bg_color ) ) . ';';
-				}
-				?>
-				}
-
-				#bp_share_telegram span {
-				<?php
-				if ( ! empty( $bpas_telegram_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_telegram_bg_color ) ) . ';';
-				}
-				?>
-				}
-
-				#bp_share_bluesky span {
-				<?php
-				if ( ! empty( $bpas_bluesky_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_bluesky_bg_color ) ) . ';';
-				}
-				?>
-				}
-
-				#bp_email_share span {
-				<?php
-				if ( ! empty( $bpas_email_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_email_bg_color ) ) . ';';
-				}
-				?>
-				}
-
-				#bp_whatsapp_share .dashicons-whatsapp {
-				<?php
-				if ( ! empty( $bpas_whatsapp_bg_color ) ) {
-					echo sprintf( 'color:%s', esc_html( $bpas_whatsapp_bg_color ) ) . ';';
-				}
-				?>
-				}
-			</style>
-		<?php
+		return '' !== $vars ? ':root{' . $vars . '}' : '';
 	}
 }

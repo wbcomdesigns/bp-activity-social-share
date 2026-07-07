@@ -1,15 +1,61 @@
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
-# Global
+# Design tokens (brand + structural)
+# Global service-buttons panel
+# Share anchors + icon sizing
+# Interactive states (hover / focus / disabled)
+# Per-network brand colors (token-driven)
+# Tooltip
+# Share toggle button
 # Themes Specific
     # BuddyBoss
     # Kleo
     # OneCommunity
     # Rehub
+    # Youzify
+# Responsive
+# Dark mode + BuddyX / Reign integration
 --------------------------------------------------------------*/
+
 /*--------------------------------------------------------------
-# Global
+# Design tokens
+#
+# Brand colors are fixed brand identity values (Facebook must read
+# as Facebook blue), overridable per-site through the Icon Colors
+# settings screen, which injects `:root` overrides via
+# wp_add_inline_style() (see class-buddypress-share-public.php).
+# Structural tokens (panel background, ink, focus) flip in dark mode.
+--------------------------------------------------------------*/
+:root {
+    /* Brand identity (overridden by Icon Colors settings) */
+    --bpas-brand-facebook: #3B5998;
+    --bpas-brand-twitter: #1DA1F2;
+    --bpas-brand-linkedin: #007BB6;
+    --bpas-brand-whatsapp: #46BD00;
+    --bpas-brand-email: #AD0000;
+    --bpas-brand-pinterest: #E60023;
+    --bpas-brand-reddit: #FF4500;
+    --bpas-brand-wordpress: #21759B;
+    --bpas-brand-pocket: #EF3E56;
+    --bpas-brand-bluesky: #1185FE;
+    --bpas-brand-telegram: #0088CC;
+
+    /* Structural (dark-mode aware) */
+    --bpas-share-panel-bg: rgba(0, 0, 0, 0.02);
+    --bpas-share-ink: #000000;
+    --bpas-share-ink-hover: #686868;
+    --bpas-share-focus: #2563eb;
+    --bpas-share-tooltip-bg: #444444;
+    --bpas-share-tooltip-fg: #ffffff;
+
+    /* Spacing / radius */
+    --bpas-share-radius: 6px;
+    --bpas-share-gap: 2px;
+}
+
+/*--------------------------------------------------------------
+# Global service-buttons panel
 --------------------------------------------------------------*/
 .activity ul li .activity-meta .service-buttons {
     display: -webkit-box;
@@ -20,16 +66,16 @@
     align-items: center;
     -ms-flex-flow: wrap;
     flex-flow: wrap;
-    background: rgba(0, 0, 0, .02);
+    background: var(--bpas-share-panel-bg);
     -webkit-box-flex: 0;
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
-    border-radius: 6px;
+    border-radius: var(--bpas-share-radius);
 }
 
 .activity ul li .activity-meta .service-buttons a.bp-share {
     background: none !important;
-    color: black !important;
+    color: var(--bpas-share-ink) !important;
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
@@ -39,10 +85,13 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    margin: 2px;
+    margin: var(--bpas-share-gap);
     text-decoration: none;
 }
 
+/*--------------------------------------------------------------
+# Share anchors + icon sizing
+--------------------------------------------------------------*/
 .activity ul li .activity-meta .service-buttons a.bp-share .dashicons-twitter,
 .activity ul li .activity-meta .service-buttons a.bp-share .dashicons-bluesky,
 .activity ul li .activity-meta .service-buttons a.bp-share .dashicons-telegram {
@@ -74,15 +123,6 @@
     height: 22px;
 }
 
-.activity ul li .activity-meta .service-buttons a.bp-share:hover {
-    background: none !important;
-    color: #686868 !important;
-}
-
-a.bp-share .fa {
-    font-family: 'FontAwesome';
-}
-
 a.bp-share.has-popup {
     border-bottom: none;
 }
@@ -95,13 +135,89 @@ a.bp-share.has-popup {
     padding: 10px;
 }
 
+/*--------------------------------------------------------------
+# Interactive states (hover / focus / disabled)
+# UI-006: keyboard focus ring (WCAG 2.1 A). UI-012: disabled state.
+--------------------------------------------------------------*/
+.activity ul li .activity-meta .service-buttons a.bp-share:hover {
+    background: none !important;
+    color: var(--bpas-share-ink-hover) !important;
+}
+
+.service-buttons a.bp-share:focus-visible {
+    outline: 2px solid var(--bpas-share-focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Suppress the outline for mouse clicks, keep it for keyboard. */
+.service-buttons a.bp-share:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.service-buttons a.bp-share[aria-disabled="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+}
+
+/*--------------------------------------------------------------
+# Per-network brand colors (token-driven)
+--------------------------------------------------------------*/
+.bp-share .dashicons-facebook-alt {
+    color: var(--bpas-brand-facebook);
+}
+
+.bp-share .dashicons-twitter {
+    color: var(--bpas-brand-twitter);
+}
+
+.bp-share .dashicons-linkedin {
+    color: var(--bpas-brand-linkedin);
+}
+
+.bp-share .dashicons-whatsapp {
+    color: var(--bpas-brand-whatsapp);
+}
+
+.bp-share .dashicons-email {
+    color: var(--bpas-brand-email);
+}
+
+.bp-share .dashicons-pinterest {
+    color: var(--bpas-brand-pinterest);
+}
+
+.bp-share .dashicons-reddit {
+    color: var(--bpas-brand-reddit);
+}
+
+.bp-share .dashicons-wordpress {
+    color: var(--bpas-brand-wordpress);
+}
+
+#bp_pocket_share .dashicons {
+    color: var(--bpas-brand-pocket);
+}
+
+.bp-share .dashicons-bluesky {
+    color: var(--bpas-brand-bluesky);
+}
+
+.bp-share .dashicons-telegram {
+    color: var(--bpas-brand-telegram);
+}
+
+/*--------------------------------------------------------------
+# Tooltip
+--------------------------------------------------------------*/
 .service-buttons span.tooltiptext {
     position: relative;
     font-size: 13px;
     font-weight: 500;
-    background: #444;
+    background: var(--bpas-share-tooltip-bg);
     border-radius: 4px;
-    color: #fff;
+    color: var(--bpas-share-tooltip-fg);
     line-height: 1.3;
     padding: 7px 15px;
     white-space: nowrap;
@@ -115,9 +231,9 @@ a.bp-share.has-popup {
     content: ' ';
     width: 12px;
     height: 12px;
-    background: #444;
+    background: var(--bpas-share-tooltip-bg);
     position: absolute;
-    left: -5px;
+    inset-inline-start: -5px;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -128,50 +244,9 @@ a.bp-share.has-popup {
     border-radius: 2px;
 }
 
-.bp-share .dashicons-facebook-alt {
-    color: #3B5998;
-}
-
-.bp-share .dashicons-twitter {
-    color: #1DA1F2;
-}
-
-.bp-share .dashicons-linkedin {
-    color: #007BB6;
-}
-
-.bp-share .dashicons-whatsapp {
-    color: #46bd00;
-}
-
-.bp-share .dashicons-email {
-    color: #AD0000;
-}
-
-.bp-share .dashicons-pinterest {
-    color: #E60023;
-}
-
-.bp-share .dashicons-reddit {
-    color: #FF4500;
-}
-
-.bp-share .dashicons-wordpress {
-    color: #21759B;
-}
-
-#bp_pocket_share .dashicons {
-    color: #EF3E56;
-}
-
-.bp-share .dashicons-bluesky {
-    color: #1185fe;
-}
-
-.bp-share .dashicons-telegram {
-    color: #0088cc;
-}
-
+/*--------------------------------------------------------------
+# Share toggle button
+--------------------------------------------------------------*/
 .bp-list li .generic-button.bp-share-btn,
 .bp-share-btn {
     display: inline-block;
@@ -179,7 +254,6 @@ a.bp-share.has-popup {
 
 .bp-nouveau #buddypress .activity-list .activity-item .activity-meta .bp-share-button {
     background: none;
-    /*color: inherit;*/
     font-size: inherit;
     margin: 0;
     padding: 0;
@@ -202,7 +276,7 @@ body:not(.logged-in).bp-nouveau #buddypress .activity-list .activity-item .activ
     content: "\f237" !important;
     font-family: 'dashicons' !important;
     font-size: initial;
-    margin-right: 3px;
+    margin-inline-end: 3px;
 }
 
 .bp-nouveau .button.item-button.bp-secondary-action.bp-share-button {
@@ -217,9 +291,9 @@ body:not(.logged-in).bp-nouveau #buddypress .activity-list .activity-item .activ
 
 
 /*--------------------------------------------------------------
+# Themes Specific
 ## BuddyBoss
 --------------------------------------------------------------*/
-
 .bp-nouveau.buddyboss-theme .activity-list .activity-item .bp-share-button::before {
     content: '\e927';
     font-family: bb-icons;
@@ -229,7 +303,6 @@ body:not(.logged-in).bp-nouveau #buddypress .activity-list .activity-item .activ
 /*--------------------------------------------------------------
 ## Kleo
 --------------------------------------------------------------*/
-
 body.kleo #buddypress .activity-meta a.button.bp-share-button {
     line-height: initial;
 }
@@ -241,7 +314,6 @@ body.kleo #buddypress .activity-meta a.button.bp-share-button {
 /*--------------------------------------------------------------
 ## OneCommunity
 --------------------------------------------------------------*/
-
 body.onecommunity.bp-nouveau #buddypress .activity-list .activity-item .activity-meta .bp-share-button {
     display: block;
     padding: 0 8px;
@@ -254,39 +326,94 @@ body.onecommunity.bp-nouveau .activity-list .activity-item .activity-meta .bp-sh
 /*--------------------------------------------------------------
 ## Rehub
 --------------------------------------------------------------*/
-
 body.rehub-theme #buddypress div.activity-meta a.bp-share-button:hover span {
     background: none;
 }
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-#drag_social_icon,
-#drag_icon_ul {
-    padding: 20px;
-    border: 1px solid #e3e2ec;
-    background: #fff;
-    box-shadow: 0 10px 20px #f5f5f6;
-    width: 48%;
-    border-radius: 10px;
-    margin: 0 1%;
-}
-
-/* Youzify */
-#youzify .activity-meta .bp-share-btn a.bp-share-button{
+/*--------------------------------------------------------------
+## Youzify
+--------------------------------------------------------------*/
+#youzify .activity-meta .bp-share-btn a.bp-share-button {
     cursor: pointer;
 }
+
 #youzify .activity-meta .bp-share-btn a.bp-share-button:before {
     font-size: 18px;
     content: "\f237" !important;
     font-family: 'dashicons' !important;
-    margin-right: 5px;
+    margin-inline-end: 5px;
     display: inline-block;
 }
-#youzify .activity ul li .activity-meta .service-buttons{
+
+#youzify .activity ul li .activity-meta .service-buttons {
     position: absolute;
     z-index: 99;
 }
+
 #youzify .activity ul li .activity-meta .service-buttons a {
     padding: 0 3px;
+}
+
+/*--------------------------------------------------------------
+# Responsive
+# UI-004: the panel had zero breakpoints. Tighten spacing at 640px,
+# switch to a 3-column grid at 480px so 10+ buttons stack in neat
+# rows instead of wrapping uncontrolled.
+--------------------------------------------------------------*/
+@media (max-width: 640px) {
+    .service-buttons {
+        padding: 8px;
+    }
+
+    .service-buttons a {
+        padding: 4px 6px;
+    }
+
+    .activity ul li .activity-meta .service-buttons a.bp-share {
+        margin: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .activity ul li .activity-meta .service-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+    }
+
+    .activity ul li .activity-meta .service-buttons a.bp-share {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+/*--------------------------------------------------------------
+# Dark mode + BuddyX / Reign integration
+# UI-009: share buttons were invisible on dark-mode BuddyX/Reign.
+# Flip structural tokens to dark literals (Reign ships no
+# --bx-color-* custom properties, so var() fallbacks to a theme
+# token are unreliable — literals only). Brand colors stay bright
+# and remain visible against a dark surface.
+--------------------------------------------------------------*/
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bpas-share-panel-bg: rgba(255, 255, 255, 0.05);
+        --bpas-share-ink: #e5e7eb;
+        --bpas-share-ink-hover: #ffffff;
+    }
+}
+
+/* Theme-toggled dark modes set an attribute or body class rather than
+   relying on OS preference. Selectors verified against the shipped theme
+   CSS: BuddyX free + Pro and Reign all use [data-bx-mode="dark"] for the
+   token mode; BuddyX's manual toggle adds body.buddyx-dark-theme (and
+   body.color-scheme-dark in its global sheet). Reign ships no
+   --bx-color-* custom properties, so dark literals are used here rather
+   than var() fallbacks to a theme token. */
+[data-bx-mode="dark"],
+body.buddyx-dark-theme,
+body.color-scheme-dark {
+    --bpas-share-panel-bg: rgba(255, 255, 255, 0.05);
+    --bpas-share-ink: #e5e7eb;
+    --bpas-share-ink-hover: #ffffff;
 }

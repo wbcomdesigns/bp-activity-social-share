@@ -59,7 +59,8 @@
    ═══════════════════════════════════════════════════════════ */
 
 .bpas-admin {
-	margin: 0 20px 0 0;
+	margin: 0;
+	margin-inline-end: 20px;
 	color: var(--bpas-admin-text);
 	font-size: 13px;
 	line-height: 1.5;
@@ -283,7 +284,7 @@
 .bpas-settings-main {
 	flex: 1;
 	min-width: 0;
-	margin-left: var(--bpas-admin-gap-lg);
+	margin-inline-start: var(--bpas-admin-gap-lg);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -526,7 +527,7 @@
 
 .bpas-inline-hint {
 	display: inline-block;
-	margin-left: 8px;
+	margin-inline-start: 8px;
 	color: var(--bpas-admin-text-3);
 	font-size: 12px;
 	font-weight: 400;
@@ -778,7 +779,7 @@
 
 .bpas-toast-host {
 	position: fixed;
-	right: 24px;
+	inset-inline-end: 24px;
 	bottom: 24px;
 	z-index: 100000;
 	display: flex;
@@ -1032,14 +1033,14 @@
 	}
 
 	.bpas-settings-main {
-		margin-left: 0;
+		margin-inline-start: 0;
 		margin-top: var(--bpas-admin-gap-md);
 	}
 }
 
 @media (max-width: 640px) {
 	.bpas-admin {
-		margin-right: 0;
+		margin-inline-end: 0;
 	}
 
 	.bpas-page-header {
@@ -1201,12 +1202,12 @@
 
 /* Restore the dismiss button into the new padding rhythm. */
 .bpas-admin .notice.is-dismissible {
-	padding-right: 38px;
+	padding-inline-end: 38px;
 }
 
 .bpas-admin .notice .notice-dismiss {
 	top: 8px;
-	right: 8px;
+	inset-inline-end: 8px;
 }
 
 /* ════════════════════════════════════════════════
@@ -1265,7 +1266,7 @@
 .bpas-license-meta strong {
 	color: var(--bpas-admin-text);
 	font-weight: 600;
-	margin-right: 4px;
+	margin-inline-end: 4px;
 }
 
 .bpas-license-meta-sep {

@@ -35,11 +35,20 @@
             $(this).parent().next(".service-buttons").toggle(500);
         });
         $(document).on("click", ".bp-share.has-popup", function (e) {
-            var display_attr = $(this).attr('attr-display');
+            var $btn = $(this);
+            var display_attr = $btn.attr('attr-display');
             if ('no-popup' != display_attr) {
                 e.preventDefault();
-                console.log(display_attr);
-                goclicky($(this).attr("href"));
+                goclicky($btn.attr("href"));
+                // Give the share anchor a brief disabled state after the popup
+                // fires: visual feedback for a blocked/duplicate click, guards
+                // against double-open, and is skipped by keyboard navigation.
+                if (!$btn.attr('aria-disabled')) {
+                    $btn.attr('aria-disabled', 'true');
+                    setTimeout(function () {
+                        $btn.removeAttr('aria-disabled');
+                    }, 1000);
+                }
             }
         });
         function FindLeftWindowBoundry() {
@@ -70,7 +79,6 @@
 
         function goclicky(meh) {
 
-            console.log(FindLeftWindowBoundry(), FindTopWindowBoundry());
             var x = screen.width / 2 - 700 / 2 + FindLeftWindowBoundry();
             var y = screen.height / 2 - 450 / 2 + FindTopWindowBoundry();
             window.open(meh, '', 'height=485,width=700,left=' + x + ',top=' + y);

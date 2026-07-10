@@ -395,21 +395,14 @@ body.rehub-theme #buddypress div.activity-meta a.bp-share-button:hover span {
 # token are unreliable — literals only). Brand colors stay bright
 # and remain visible against a dark surface.
 --------------------------------------------------------------*/
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bpas-share-panel-bg: rgba(255, 255, 255, 0.05);
-        --bpas-share-ink: #e5e7eb;
-        --bpas-share-ink-hover: #ffffff;
-    }
-}
-
-/* Theme-toggled dark modes set an attribute or body class rather than
-   relying on OS preference. Selectors verified against the shipped theme
-   CSS: BuddyX free + Pro and Reign all use [data-bx-mode="dark"] for the
-   token mode; BuddyX's manual toggle adds body.buddyx-dark-theme (and
-   body.color-scheme-dark in its global sheet). Reign ships no
-   --bx-color-* custom properties, so dark literals are used here rather
-   than var() fallbacks to a theme token. */
+/* Dark mode is EXPLICIT-ONLY (owner standing decision): it activates on a
+   theme-set attribute or body class, never on OS/system preference
+   (prefers-color-scheme is deliberately NOT used). Selectors verified
+   against the shipped theme CSS: BuddyX free + Pro and Reign all use
+   [data-bx-mode="dark"] for the token mode; BuddyX's manual toggle adds
+   body.buddyx-dark-theme (and body.color-scheme-dark in its global sheet).
+   Reign ships no --bx-color-* custom properties, so dark literals are used
+   here rather than var() fallbacks to a theme token. */
 [data-bx-mode="dark"],
 body.buddyx-dark-theme,
 body.color-scheme-dark {

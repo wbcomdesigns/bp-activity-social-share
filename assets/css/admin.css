@@ -37,6 +37,9 @@
 	--bpas-admin-success-light: #dcfce7;
 	--bpas-admin-warn: #f59e0b;
 	--bpas-admin-warn-light: #fef9c3;
+	--bpas-admin-warn-dark: #777620;
+	--bpas-admin-warn-border: #dad55e;
+	--bpas-admin-warn-surface: #fffa90;
 	--bpas-admin-danger: #dc2626;
 	--bpas-admin-danger-dark: #b91c1c;
 	--bpas-admin-danger-light: #fee2e2;

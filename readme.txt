@@ -3,8 +3,10 @@
 Contributors: vapvarun,wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: buddypress, activity, share
-Requires at least: 4.0
-Tested up to: 6.9
+Requires at least: 5.9
+Tested up to: 7.0
+Requires PHP: 7.4
+Requires Plugins: buddypress
 Stable tag: 3.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -108,11 +110,18 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 
 == Changelog ==
 
-= 3.5.6 =
-* UX: Rebuilt the admin settings screen on the modern Wbcom card-panel layout (sidebar navigation, branded header, WB Plugins hub). Settings, options, and saved data are unchanged.
-* Fix: Removed the broken "Our Themes" admin page (its template was missing and the page rendered empty).
-* Security: Removed the legacy nonce-only shared-wrapper AJAX handler.
-* Code Quality: Removed the inline color-picker script from the Icon Colors page (now enqueued).
+= 3.5.6 - July 2026 =
+
+Rebuilt the admin on the modern card-panel layout, plus a UI-token and RTL readiness pass.
+
+* Improve  - Rebuilt the admin settings screen on the modern Wbcom card-panel layout (sidebar navigation, branded header, WB Plugins hub). Settings and saved data are unchanged.
+* Improve  - Tokenized the remaining hardcoded colors in the legacy admin stylesheet so it matches the card-panel theme.
+* Improve  - Converted all stylesheets to logical properties for full right-to-left (RTL) readiness.
+* Fix      - Removed the broken "Our Themes" admin page (its template was missing and the page rendered empty).
+* Fix      - Removed an OS-level dark-mode rule so dark styling follows the theme's explicit toggle, not the visitor's system setting.
+* Security - Removed the legacy nonce-only shared-wrapper AJAX handler.
+* Dev      - Removed the inline color-picker script from the Icon Colors page (now enqueued).
+* Compat   - Tested up to WordPress 7.0. Declared Requires PHP 7.4 and Requires Plugins: buddypress.
 
 = 3.5.5 =
 * Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files

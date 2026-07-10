@@ -61,7 +61,7 @@ p.service_delete_icon i.fa.fa-close {
 }
 
 .wbcom-admin-option-wrap.wbcom-admin-option-wrap-view #the-list .bp-share-td strong {
-    color: #4fb745;
+    color: var(--bpas-admin-success, #16a34a);
 }
 
 .plugin-description p {
@@ -87,15 +87,15 @@ p.service_delete_icon i.fa.fa-close {
 .ui-state-highlight,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
-    border: 1px solid #dad55e;
-    background: #fffa90;
-    color: #777620;
+    border: 1px solid var(--bpas-admin-warn-border, #dad55e);
+    background: var(--bpas-admin-warn-surface, #fffa90);
+    color: var(--bpas-admin-warn-dark, #777620);
 }
 
 .ui-state-highlight a,
 .ui-widget-content .ui-state-highlight a,
 .ui-widget-header .ui-state-highlight a {
-    color: #777620;
+    color: var(--bpas-admin-warn-dark, #777620);
 }
 
 /**
@@ -110,7 +110,7 @@ p.service_delete_icon i.fa.fa-close {
 .add_services_btn {
     background-color: var(--bpas-admin-success, #4CAF50);
     border: none;
-    color: white;
+    color: var(--bpas-admin-white, #fff);
     padding: 15px 30px;
     text-align: center;
     text-decoration: none;
@@ -126,7 +126,7 @@ p.service_delete_icon i.fa.fa-close {
 
 .add_services_btn:hover {
     background-color: var(--bpas-admin-text, #333);
-    color: white;
+    color: var(--bpas-admin-white, #fff);
 }
 
 p.error_service_selector {
@@ -174,7 +174,7 @@ p.error_service_description {
 }
 
 .bpss-extra-actions {
-    float: right;
+    float: inline-end;
 }
 
 #bpas_faq_accordion {
@@ -416,15 +416,17 @@ ul.wb-social-icon-color-option {
 
 .wb-social-icon-color-option li .wp-picker-container .wp-color-result.button {
     min-height: 30px;
-    margin: 0 6px 6px 0;
-    padding: 0 0 0 30px;
+    margin-block-end: 6px;
+    margin-inline-end: 6px;
+    padding-inline-start: 30px;
     font-size: 11px;
 }
 
 .wb-social-icon-color-option li .wp-color-result-text {
     background: var(--bpas-admin-surface-2, #f6f7f7);
-    border-radius: 0 2px 2px 0;
-    border-left: 1px solid var(--bpas-admin-border-strong, #c3c4c7);
+    border-start-end-radius: 2px;
+    border-end-end-radius: 2px;
+    border-inline-start: 1px solid var(--bpas-admin-border-strong, #c3c4c7);
     color: var(--bpas-admin-text-2, #50575e);
     display: block;
     line-height: 2.54545455;
@@ -448,7 +450,7 @@ ul.wb-social-icon-color-option {
     position: absolute;
     top: 65px;
     z-index: 999;
-    left: 0;
+    inset-inline-start: 0;
 }
 
 .wbcom-admin-option-wrap.wb-activity-share-color-icons.wbcom-admin-option-wrap-view,

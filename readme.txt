@@ -102,11 +102,11 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 
 == Screenshots ==
 
-1. The screenshot shows the Social Share button & services for logged-in users added by a plugin related to the BuddyPress Activity Social Share plugin and corresponds to screenshot-1.(jpg|jpeg|gif).
-
-2. BuddyPress Activity Social Share admin setting page View: The screen shows admin settings at BuddyPress Activity Social Share under the General tab and corresponds to screenshot-2.(png|jpg|jpeg|gif).
-
-3. The screenshot shows FAQ(s) related to BuddyPress Activity Social Share plugin and corresponds to screenshot-3.(jpg|jpeg|gif).
+1. Admin General Settings - Enable or disable each social network and set the popup sharing option.
+2. Admin Icon Colors - Pick a background color for every sharing icon.
+3. Frontend share panel - Social share icons expanded on a BuddyPress activity item (desktop).
+4. Frontend share panel on mobile - Sharing icons laid out in a three-column grid at phone width.
+5. Discover tab - More free community tools from Wbcom Designs.
 
 == Changelog ==
 

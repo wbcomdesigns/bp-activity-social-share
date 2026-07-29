@@ -1,6 +1,6 @@
 # Plugin: Wbcom Designs - BuddyPress Activity Social Share
 
-> **READ FIRST:** [`audit/manifest.json`](audit/manifest.json) is the canonical inventory — 4 AJAX handlers, 6 admin menu entries, 3 user-facing settings + 5 internal options, 1 shortcode, 5 extension hooks. 0 REST / 0 blocks / 0 CPT / 0 taxonomies / 0 cron / 0 custom tables. Use this before grepping. See also [`audit/FEATURE_AUDIT.md`](audit/FEATURE_AUDIT.md), [`audit/CODE_FLOWS.md`](audit/CODE_FLOWS.md), [`audit/ROLE_MATRIX.md`](audit/ROLE_MATRIX.md), and the wppqa baseline at [`audit/wppqa-baseline-2026-06-05/SUMMARY.md`](audit/wppqa-baseline-2026-06-05/SUMMARY.md). Refresh via `/wp-plugin-onboard --refresh` after non-trivial changes.
+> **READ FIRST:** [`audit/manifest.json`](audit/manifest.json) is the canonical inventory — 3 AJAX handlers, 6 admin menu entries, 3 user-facing settings + 5 internal options, 1 shortcode, 5 extension hooks. 0 REST / 0 blocks / 0 CPT / 0 taxonomies / 0 cron / 0 custom tables. Use this before grepping. See also [`audit/FEATURE_AUDIT.md`](audit/FEATURE_AUDIT.md), [`audit/CODE_FLOWS.md`](audit/CODE_FLOWS.md), [`audit/ROLE_MATRIX.md`](audit/ROLE_MATRIX.md), and the wppqa baseline at [`audit/wppqa-baseline-2026-06-05/SUMMARY.md`](audit/wppqa-baseline-2026-06-05/SUMMARY.md). Refresh via `/wp-plugin-onboard --refresh` after non-trivial changes.
 
 ## Development skill (READ for all code work)
 All implementation work on this plugin MUST follow the **`/wp-plugin-development`** skill — the 16 critical admin rules, Part 6 (Admin UI patterns), the 3-layer design tokens, escaping rules, and dev hygiene (no em-dash in i18n, Lucide icons, no inline SVG in new code, WPCS). This is a legacy WordPress-Plugin-Boilerplate plugin; new UI work should move toward the modern card-based admin pattern, not extend the OLD tab wrapper.
@@ -28,7 +28,7 @@ All implementation work on this plugin MUST follow the **`/wp-plugin-development
 ## Important patterns
 - **Hooks go through the loader.** Add new actions/filters in `define_admin_hooks()`/`define_public_hooks()`, not scattered add_action calls.
 - **Options are site_options** (`get_site_option`/`update_site_option`) — EXCEPT `bpas_icon_color_settings`, which is read/saved per-site via `get_option`/`update_option` (Settings API) and, since 3.5.6, seeded in BOTH stores at activation (with a `maybe_upgrade()` backfill from the network store). Be deliberate about which one.
-- **AJAX auth:** all 4 plugin AJAX handlers pair `bp_share_nonce` + `current_user_can('manage_options')`. (The nonce-only shared-wrapper `wbcom_addons_cards` handler was removed with the OLD wrapper.)
+- **AJAX auth:** all 3 plugin AJAX handlers pair `bp_share_nonce` + `current_user_can('manage_options')`, and every one answers with `wp_send_json_success()`/`wp_send_json_error()` — the admin JS relies on that to show a result and to roll back an optimistic drag. (The nonce-only shared-wrapper `wbcom_addons_cards` handler was removed with the OLD wrapper.)
 - **Free/Pro guard:** several functions bail/deactivate if `buddypress-activity-share-pro` is active. Preserve this when editing bootstrap.
 - **Release build:** `gruntfile.js` present (grunt).
 

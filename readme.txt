@@ -118,14 +118,23 @@ Rebuilt the admin on the modern card-panel layout, plus a UI-token and RTL readi
 * Improve  - Rebuilt the General Settings tab on the card layout so its section headings and spacing match the rest of the panel.
 * Improve  - Tokenized the remaining hardcoded colors in the legacy admin stylesheet so it matches the card-panel theme.
 * Improve  - Converted all stylesheets to logical properties for full right-to-left (RTL) readiness.
+* Fix      - Saving settings now shows a confirmation message. A blanket CSS rule was hiding every admin notice on the plugin screens, including the plugin's own "Settings saved." banner.
 * Fix      - The color picker on the Icon Colors tab is no longer clipped by the card edge, so the preset swatches on the last row are reachable.
 * Fix      - Saving General Settings no longer rewrites every stored network entry.
+* Fix      - A failed save now reports the error and puts the icon back, instead of leaving the screen showing a change that was never stored.
+* Fix      - Share links now URL-encode the activity title. Titles containing #, &amp; or non-ASCII characters produced broken or truncated share URLs.
+* Fix      - Twitter cards now declare a card type instead of an image URL, so shared activities render a card again.
+* Fix      - Email shares no longer show &amp;amp; in place of &amp; in the subject and body.
+* Fix      - Corrected a case-sensitive class check that stopped the post-activation redirect from firing on multisite.
+* Fix      - The Pro-active guard now also detects a network-activated Pro on multisite, so free and Pro can no longer run side by side.
 * Fix      - Removed the broken "Our Themes" admin page (its template was missing and the page rendered empty).
 * Fix      - Removed an OS-level dark-mode rule so dark styling follows the theme's explicit toggle, not the visitor's system setting.
 * Fix      - The Disable and Enable column headings are now translatable.
 * Security - Removed the legacy nonce-only shared-wrapper AJAX handler.
 * Dev      - Removed the inline color-picker script from the Icon Colors page (now enqueued).
+* Improve  - The share stylesheet and script no longer load on every page of the site, only where a BuddyPress activity stream is rendered. Also dropped an unused jQuery UI dependency that was loading site-wide.
 * Dev      - Removed the non-functional icon reordering code and its AJAX handler. Sharing icons have always rendered in a fixed order, so the drag-to-reorder gesture never had any effect.
+* Dev      - Removed the unreachable Settings API registration and sanitize callback for the extra options group. The form is saved over AJAX and never reached them.
 * Dev      - Regenerated the translation template against the current source and removed the obsolete en_US translation.
 * Compat   - Tested up to WordPress 7.0. Now requires WordPress 6.5 and PHP 8.0.
 

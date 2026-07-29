@@ -91,19 +91,6 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * Sanitize services extra settings.
-	 *
-	 * @param mixed $input Raw input.
-	 * @return array Sanitized settings.
-	 */
-	public function bpas_sanitize_services_extra( $input ) {
-		if ( ! is_array( $input ) ) {
-			return array();
-		}
-		return array_map( 'sanitize_text_field', $input );
-	}
-
-	/**
 	 * Intialize setting to show share in popup or new page.
 	 *
 	 * @access public
@@ -147,18 +134,19 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bp_share_chb_services_ajax() {
-		// Check if the request is a POST, verify the nonce, and confirm user capabilities.
-		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) && current_user_can( 'manage_options' ) ) {
-			// Sanitize and retrieve the extra options from POST data.
-			$extras_options = isset( $_POST['active_chb_extras'] ) ? map_deep( wp_unslash( $_POST['active_chb_extras'] ), 'sanitize_text_field' ) : array();
-
-			// Update extra options setting.
-			$extra_option_new = array( 'bp_share_services_open' => in_array( 'bp_share_services_open', $extras_options, true ) ? 1 : 0 );
-			update_site_option( 'bp_share_services_extra', $extra_option_new );
+		// Verify the nonce and confirm user capabilities.
+		if ( empty( $_POST ) || ! check_admin_referer( 'bp_share_nonce', 'nonce' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Your changes could not be saved. Please reload the page and try again.', 'buddypress-share' ) ) );
 		}
 
-		// Terminate the execution for AJAX requests in a WordPress-friendly way.
-		wp_die();
+		// Sanitize and retrieve the extra options from POST data.
+		$extras_options = isset( $_POST['active_chb_extras'] ) ? map_deep( wp_unslash( $_POST['active_chb_extras'] ), 'sanitize_text_field' ) : array();
+
+		// Update extra options setting.
+		$extra_option_new = array( 'bp_share_services_open' => in_array( 'bp_share_services_open', $extras_options, true ) ? 1 : 0 );
+		update_site_option( 'bp_share_services_extra', $extra_option_new );
+
+		wp_send_json_success( array( 'message' => __( 'Settings saved.', 'buddypress-share' ) ) );
 	}
 
 
@@ -170,14 +158,17 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bp_share_settings_init() {
-		register_setting(
-			'bp_share_services_extra',
-			'bp_share_services_extra',
-			array(
-				'type'              => 'array',
-				'sanitize_callback' => array( $this, 'bpas_sanitize_services_extra' ),
-			)
-		);
+		/*
+		 * Only the section + field are registered, and only for RENDERING —
+		 * do_settings_sections() draws the Extra Options card body.
+		 *
+		 * There is deliberately no register_setting() here: the General
+		 * Settings form never submits to options.php (the Save button is
+		 * intercepted and posted to bp_share_chb_services_ajax), so a
+		 * registered setting and its sanitize callback would never be reached.
+		 * The AJAX handler builds the option from a fixed key with a boolean
+		 * cast, so the value is sanitised by construction.
+		 */
 		add_settings_section(
 			'bp_share_extra_options',
 			esc_html__( 'Extra Options', 'buddypress-share' ),
@@ -211,7 +202,15 @@ class Buddypress_Share_Admin {
 	 */
 	public function bpas_general_setting_section() {
 		?>
-		<form method="post" action="options.php" id="wss_form_data">
+		<?php
+		/*
+		 * No action attribute: the Save button is intercepted in
+		 * admin/js/buddypress-share-admin.js and posted to
+		 * bp_share_chb_services_ajax. The form element is kept so the controls
+		 * stay grouped and Enter still triggers Save.
+		 */
+		?>
+		<form method="post" id="wss_form_data">
 			<div class="bpas-card">
 				<div class="bpas-card__head">
 					<h2 class="bpas-card__title"><?php esc_html_e( 'Enable Sharing Sites', 'buddypress-share' ); ?></h2>
@@ -354,27 +353,6 @@ class Buddypress_Share_Admin {
 				<?php do_settings_sections( 'bp_share_services_extra' ); ?>
 			</div>
 
-			<!--save the settings-->
-			<input type="hidden" name="action" value="update" />
-			<?php
-			$social_options = get_site_option( 'bp_share_services' );
-			if ( ! empty( $social_options ) ) {
-				$social_key_string = '';
-				foreach ( $social_options as $service_key => $social_option ) {
-					if ( count( $social_options ) !== 1 ) {
-						$social_key_string .= $service_key . ',';
-					} else {
-						$social_key_string = $service_key;
-					}
-				}
-				if ( count( $social_options ) !== 1 ) {
-					$social_key_string = rtrim( $social_key_string, ', ' );
-				}
-				?>
-				<input type="hidden" name="page_options" value="<?php echo esc_attr( $social_key_string ); ?>" />
-				<?php
-			}
-			?>
 			<div class="bpas-save-bar">
 				<input type="submit" class="button button-primary bp_share_option_save" value="<?php esc_attr_e( 'Save Changes', 'buddypress-share' ); ?>" />
 			</div>

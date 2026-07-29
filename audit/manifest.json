@@ -18,8 +18,7 @@
   "ajax": [
     { "action": "bp_share_chb_services_ajax", "handler": "admin/class-buddypress-share-admin.php::Buddypress_Share_Admin::bp_share_chb_services_ajax", "nonce": "bp_share_nonce (check_admin_referer)", "capability": "manage_options", "nopriv": false, "purpose": "Save enabled/disabled social services + popup option" },
     { "action": "wss_social_icons", "handler": "admin/class-buddypress-share-admin.php::Buddypress_Share_Admin::wss_social_icons", "nonce": "bp_share_nonce (wp_verify_nonce)", "capability": "manage_options", "nopriv": false, "purpose": "Add a social icon to the enabled set (drag to enable)" },
-    { "action": "wss_social_remove_icons", "handler": "admin/class-buddypress-share-admin.php::Buddypress_Share_Admin::wss_social_remove_icons", "nonce": "bp_share_nonce (wp_verify_nonce)", "capability": "manage_options", "nopriv": false, "purpose": "Remove a social icon from the enabled set (drag to disable)" },
-    { "action": "wbcom_addons_cards", "handler": "admin/wbcom/wbcom-admin-settings.php::Wbcom_Admin_Settings::wbcom_addons_cards_links", "nonce": "wbcom_admin_setting_nonce (wp_verify_nonce)", "capability": "NONE (nonce only, no current_user_can)", "nopriv": false, "purpose": "Echo back the display_extension POST value for the addons/themes cards UI on shared wbcom pages" }
+    { "action": "wss_social_remove_icons", "handler": "admin/class-buddypress-share-admin.php::Buddypress_Share_Admin::wss_social_remove_icons", "nonce": "bp_share_nonce (wp_verify_nonce)", "capability": "manage_options", "nopriv": false, "purpose": "Remove a social icon from the enabled set (drag to disable)" }
   ],
   "admin_pages": [
     { "title": "WB Plugins", "slug": "wbcomplugins", "parent": null, "capability": "manage_options", "type": "menu", "icon": "dashicons-lightbulb", "position": 59, "callback": "Buddypress_Share_Admin::bp_share_plugin_options", "source": "admin/class-buddypress-share-admin.php:350", "registered_on": "bp_core_admin_hook() (network admin_menu or admin_menu), guarded by empty($GLOBALS['admin_page_hooks']['wbcomplugins'])" },
@@ -116,7 +115,6 @@
     "signing_entry_points": [],
     "always_sign_filter": null,
     "rate_limit_middleware": null,
-    "ajax_auth_model": "All admin AJAX nonce=bp_share_nonce + current_user_can('manage_options') EXCEPT wbcom_addons_cards (nonce-only, no cap check)",
     "uninstall_guard": "uninstall.php guards WP_UNINSTALL_PLUGIN (but performs NO option cleanup — leaves bp_share_* options behind)"
   },
   "ci_guards": { "script": null, "url_emission_regex": null, "storage_internal_marker": null, "phpstan_level": null },

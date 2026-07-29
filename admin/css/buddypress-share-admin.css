@@ -41,13 +41,12 @@
     line-height: 1.5;
 }
 
-.wb-plugins_page_buddypress-share .update-nag,
-.wb-plugins_page_buddypress-share .updated,
-.wb-plugins_page_buddypress-share .error,
-.wb-plugins_page_buddypress-share .notice-error,
-.wb-plugins_page_buddypress-share .is-dismissible {
-    display: none !important;
-}
+/*
+ * Third-party notices are suppressed in PHP by
+ * BPAS_Admin::suppress_foreign_notices() (in_admin_header). Do NOT hide
+ * notices with CSS here: a blanket display:none also swallowed this plugin's
+ * own settings_errors() "Settings saved." banner, so saving gave no feedback.
+ */
 
 .socialicon {
     border-radius: 10px;

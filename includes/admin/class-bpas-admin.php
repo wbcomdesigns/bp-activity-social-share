@@ -230,8 +230,10 @@ class BPAS_Admin {
 			'buddypress-share',
 			'my_ajax_object',
 			array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'bp_share_nonce' ),
+				'ajax_url'   => admin_url( 'admin-ajax.php' ),
+				'nonce'      => wp_create_nonce( 'bp_share_nonce' ),
+				'saved_text' => __( 'Settings saved.', 'buddypress-share' ),
+				'error_text' => __( 'Your changes could not be saved. Please try again.', 'buddypress-share' ),
 			)
 		);
 	}

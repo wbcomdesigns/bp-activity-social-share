@@ -63,18 +63,11 @@ class Buddypress_Share_Public {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Buddypress_Share_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Buddypress_Share_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-share-public.css', array(), $this->version, 'all' );
+		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-share-public.css', array(), $this->version, 'all' );
+
+		if ( $this->should_enqueue_assets() ) {
+			wp_enqueue_style( $this->plugin_name );
+		}
 
 		// Per-site custom icon colors are injected as :root token overrides
 		// attached to the enqueued stylesheet handle (cacheable, CSP-safe)
@@ -93,19 +86,45 @@ class Buddypress_Share_Public {
 	 */
 	public function enqueue_scripts() {
 
+		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-share-public.js', array( 'jquery' ), $this->version, false );
+
+		if ( $this->should_enqueue_assets() ) {
+			wp_enqueue_script( $this->plugin_name );
+		}
+	}
+
+	/**
+	 * Whether the public share assets are needed up-front for this request.
+	 *
+	 * The share button only ever renders inside a BuddyPress activity loop, so
+	 * loading the CSS/JS on every page of the site is waste. This covers the
+	 * common case - a BuddyPress screen - so the stylesheet lands in the head
+	 * with no flash of unstyled buttons.
+	 *
+	 * An activity loop can also appear outside a BP page through a widget,
+	 * block or shortcode. Those cases are handled lazily instead: the render
+	 * method enqueues both handles when it actually outputs a share button, so
+	 * nothing is dropped, it simply prints in the footer. Both assets are
+	 * registered unconditionally so that late enqueue always resolves.
+	 *
+	 * @since 3.5.6
+	 *
+	 * @return bool True when the share assets should load up-front.
+	 */
+	protected function should_enqueue_assets() {
+		$should = function_exists( 'bp_is_active' )
+			&& bp_is_active( 'activity' )
+			&& function_exists( 'is_buddypress' )
+			&& is_buddypress();
+
 		/**
-		 * This function is provided for demonstration purposes only.
+		 * Filter whether the public share CSS/JS is enqueued up-front.
 		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Buddypress_Share_Loader as all of the hooks are defined
-		 * in that particular class.
+		 * @since 3.5.6
 		 *
-		 * The Buddypress_Share_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
+		 * @param bool $should Whether to enqueue the public assets in the head.
 		 */
-		wp_enqueue_script( 'jquery-ui-tooltip' );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-share-public.js', array( 'jquery' ), $this->version, false );
+		return (bool) apply_filters( 'bpas_enqueue_public_assets', $should );
 	}
 
 	/**
@@ -129,6 +148,17 @@ class Buddypress_Share_Public {
 	 */
 	public function bp_share_activity_filter() {
 		global $activities_template;
+
+		/*
+		 * Covers activity loops rendered outside a BuddyPress page (widget,
+		 * block, shortcode), where should_enqueue_assets() correctly declined
+		 * to load up-front. Both handles are registered in enqueue_styles() /
+		 * enqueue_scripts(), so this resolves and simply prints in the footer.
+		 * No-ops when the assets are already enqueued.
+		 */
+		wp_enqueue_style( $this->plugin_name );
+		wp_enqueue_script( $this->plugin_name );
+
 		$social_service = get_site_option( 'bp_share_services' );
 		$extra_options  = get_site_option( 'bp_share_services_extra' );
 		$activity_type  = bp_get_activity_type();
@@ -154,32 +184,28 @@ class Buddypress_Share_Public {
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Twitter'] ) ) {
 					$twitter_title = rawurlencode( html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' ) );
-					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_twitter_share" href="https://twitter.com/share?url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 2H1L9.26086 13.0145L1.44995 21.9999H4.09998L10.4883 14.651L16 22H23L14.3917 10.5223L21.8001 2H19.1501L13.1643 8.88578L8 2ZM17 20L5 4H7L19 20H17Z"></path></svg></span></a>';
+					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_twitter_share" href="https://twitter.com/share?url=' . esc_url( $activity_link ) . '&text=' . rawurlencode( $activity_title ) . '"><span class="dashicons dashicons-twitter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 2H1L9.26086 13.0145L1.44995 21.9999H4.09998L10.4883 14.651L16 22H23L14.3917 10.5223L21.8001 2H19.1501L13.1643 8.88578L8 2ZM17 20L5 4H7L19 20H17Z"></path></svg></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Pinterest'] ) ) {
-					$media = '';
-					$video = '';
-					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_pinterest_share" href="https://pinterest.com/pin/create/bookmarklet/?media=' . esc_url( $media ) . '&url=' . esc_url( $activity_link ) . '&is_video=' . esc_url( $video ) . '&description=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-pinterest"></span></a>';
+					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_pinterest_share" href="https://pinterest.com/pin/create/bookmarklet/?url=' . esc_url( $activity_link ) . '&description=' . rawurlencode( $activity_title ) . '"><span class="dashicons dashicons-pinterest"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Reddit'] ) ) {
-					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_reddit_share" href="http://reddit.com/submit?url=' . esc_url( $activity_link ) . '&title=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-reddit"></span></a>';
+					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_reddit_share" href="http://reddit.com/submit?url=' . esc_url( $activity_link ) . '&title=' . rawurlencode( $activity_title ) . '"><span class="dashicons dashicons-reddit"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['WordPress'] ) ) {
-					$description = '';
-					$img         = '';
-					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_wordpress_share" href="https://wordpress.com/wp-admin/press-this.php?u=' . esc_url( $activity_link ) . '&t=' . esc_html( $activity_title ) . '&s=' . esc_url( $description ) . '&i= ' . esc_url( $img ) . ' "><span class="dashicons dashicons-wordpress"></span></a>';
+					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_wordpress_share" href="https://wordpress.com/wp-admin/press-this.php?u=' . esc_url( $activity_link ) . '&t=' . rawurlencode( $activity_title ) . '"><span class="dashicons dashicons-wordpress"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Pocket'] ) ) {
-					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_pocket_share" href="https://getpocket.com/save?url=' . esc_url( $activity_link ) . '&title=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-arrow-down-alt2"></span></a>';
+					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_pocket_share" href="https://getpocket.com/save?url=' . esc_url( $activity_link ) . '&title=' . rawurlencode( $activity_title ) . '"><span class="dashicons dashicons-arrow-down-alt2"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Telegram'] ) ) {
-					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_share_telegram" href="https://t.me/share/url?url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-telegram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2.14753 11.8099C7.3949 9.52374 10.894 8.01654 12.6447 7.28833C17.6435 5.20916 18.6822 4.84799 19.3592 4.83606C19.5081 4.83344 19.8411 4.87034 20.0567 5.04534C20.2388 5.1931 20.2889 5.39271 20.3129 5.5328C20.3369 5.6729 20.3667 5.99204 20.343 6.2414C20.0721 9.08763 18.9 15.9947 18.3037 19.1825C18.0514 20.5314 17.5546 20.9836 17.0736 21.0279C16.0283 21.1241 15.2345 20.3371 14.2221 19.6735C12.6379 18.635 11.7429 17.9885 10.2051 16.9751C8.42795 15.804 9.58001 15.1603 10.5928 14.1084C10.8579 13.8331 15.4635 9.64397 15.5526 9.26395C15.5637 9.21642 15.5741 9.03926 15.4688 8.94571C15.3636 8.85216 15.2083 8.88415 15.0962 8.9096C14.9373 8.94566 12.4064 10.6184 7.50365 13.928C6.78528 14.4212 6.13461 14.6616 5.55163 14.649C4.90893 14.6351 3.67265 14.2856 2.7536 13.9869C1.62635 13.6204 0.730432 13.4267 0.808447 12.8044C0.849081 12.4803 1.29544 12.1488 2.14753 11.8099Z"></path></svg></span></a>';
+					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_share_telegram" href="https://t.me/share/url?url=' . esc_url( $activity_link ) . '&text=' . rawurlencode( $activity_title ) . '"><span class="dashicons dashicons-telegram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2.14753 11.8099C7.3949 9.52374 10.894 8.01654 12.6447 7.28833C17.6435 5.20916 18.6822 4.84799 19.3592 4.83606C19.5081 4.83344 19.8411 4.87034 20.0567 5.04534C20.2388 5.1931 20.2889 5.39271 20.3129 5.5328C20.3369 5.6729 20.3667 5.99204 20.343 6.2414C20.0721 9.08763 18.9 15.9947 18.3037 19.1825C18.0514 20.5314 17.5546 20.9836 17.0736 21.0279C16.0283 21.1241 15.2345 20.3371 14.2221 19.6735C12.6379 18.635 11.7429 17.9885 10.2051 16.9751C8.42795 15.804 9.58001 15.1603 10.5928 14.1084C10.8579 13.8331 15.4635 9.64397 15.5526 9.26395C15.5637 9.21642 15.5741 9.03926 15.4688 8.94571C15.3636 8.85216 15.2083 8.88415 15.0962 8.9096C14.9373 8.94566 12.4064 10.6184 7.50365 13.928C6.78528 14.4212 6.13461 14.6616 5.55163 14.649C4.90893 14.6351 3.67265 14.2856 2.7536 13.9869C1.62635 13.6204 0.730432 13.4267 0.808447 12.8044C0.849081 12.4803 1.29544 12.1488 2.14753 11.8099Z"></path></svg></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Bluesky'] ) ) {
 					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_share_bluesky" href="https://bsky.app/intent/compose?text=' . rawurlencode( 'Check this out! ' . $activity_title . ' ' . $activity_link ) . '"><span class="dashicons dashicons-bluesky"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 11.3884C11.0942 9.62673 8.62833 6.34423 6.335 4.7259C4.13833 3.17506 3.30083 3.4434 2.75167 3.69256C2.11583 3.9784 2 4.95506 2 5.52839C2 6.10339 2.315 10.2367 2.52 10.9276C3.19917 13.2076 5.61417 13.9776 7.83917 13.7309C4.57917 14.2142 1.68333 15.4017 5.48083 19.6292C9.65833 23.9542 11.2058 18.7017 12 16.0392C12.7942 18.7017 13.7083 23.7651 18.4442 19.6292C22 16.0392 19.4208 14.2142 16.1608 13.7309C18.3858 13.9784 20.8008 13.2076 21.48 10.9276C21.685 10.2376 22 6.10256 22 5.52923C22 4.95423 21.8842 3.97839 21.2483 3.6909C20.6992 3.44256 19.8617 3.17423 17.665 4.72423C15.3717 6.34506 12.9058 9.62756 12 11.3884Z"></path></svg></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Linkedin'] ) ) {
-					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_linkedin_share" href="http://www.linkedin.com/shareArticle?mini=true&url=' . esc_url( $activity_link ) . '&text=' . esc_html( $activity_title ) . '"><span class="dashicons dashicons-linkedin"></span></a>';
+					echo '<a target="_blank" rel="noopener" class="bp-share" id="bp_linkedin_share" href="http://www.linkedin.com/shareArticle?mini=true&url=' . esc_url( $activity_link ) . '&text=' . rawurlencode( $activity_title ) . '"><span class="dashicons dashicons-linkedin"></span></a>';
 				}
 				if ( isset( $social_service ) && ! empty( $social_service['Whatsapp'] ) ) {
 					$whatsapp_share_link = 'https://wa.me/?text=' . rawurlencode( $activity_link );
@@ -190,9 +216,13 @@ class Buddypress_Share_Public {
 					$site_title = get_bloginfo( 'name' ); // Fetch the site title.
 					$site_url   = home_url();            // Fetch the site URL.
 
-					// Customize the email subject and body.
-					$email_subject = 'New Activity on ' . esc_html( $site_title ) . ': ' . esc_html( $mail_subject ); // Dynamic subject.
-					$email_body    = "Hi,\n\nI wanted to share this activity with you from " . esc_html( $site_title ) . ":\n\n" . esc_url( $activity_link ) . "\n\nYou can explore more activities here: " . esc_url( $site_url ) . "\n\nBest regards,\nThe " . esc_html( $site_title ) . ' Team'; // Dynamic body.
+					/*
+					 * Plain text destined for rawurlencode() below — do NOT esc_html()
+					 * here. Escaping first turns & into &amp;, which rawurlencode then
+					 * encodes literally, so the recipient sees "&amp;" in the subject.
+					 */
+					$email_subject = 'New Activity on ' . $site_title . ': ' . $mail_subject; // Dynamic subject.
+					$email_body    = "Hi,\n\nI wanted to share this activity with you from " . $site_title . ":\n\n" . $activity_link . "\n\nYou can explore more activities here: " . $site_url . "\n\nBest regards,\nThe " . $site_title . ' Team'; // Dynamic body.
 
 					// Create the mailto link.
 					$email = 'mailto:?subject=' . rawurlencode( $email_subject ) . '&body=' . rawurlencode( $email_body );
@@ -209,7 +239,7 @@ class Buddypress_Share_Public {
 
 		<script>
 			jQuery(document).ready(function() {
-				var pop_active = '<?php echo isset( $extra_options['bp_share_services_open'] ) ? esc_html( $extra_options['bp_share_services_open'] ) : ''; ?>';
+				var pop_active = <?php echo wp_json_encode( isset( $extra_options['bp_share_services_open'] ) ? (string) $extra_options['bp_share_services_open'] : '' ); ?>;
 				if (pop_active == 1) {
 					// Add popup class to all share links except WhatsApp and Email.
 					jQuery('.bp-share').not('#bp_whatsapp_share, #bp_email_share').addClass('has-popup');
@@ -329,7 +359,7 @@ class Buddypress_Share_Public {
 				<meta property="og:image:height" content="300" />
 
 				<!-- Additional Meta Tags for Twitter Card -->
-				<meta name="twitter:card" content="<?php echo esc_url( $og_image ); ?>" /> <!-- Use 'summary_large_image' for large image with title and description, or 'summary' for smaller image -->
+				<meta name="twitter:card" content="summary_large_image" />
 				<meta name="twitter:url" content="<?php echo esc_url( $activity_link ); ?>" />
 				<meta name="twitter:title" content="<?php echo esc_html( $title ); ?>" />
 				<meta name="twitter:description" content="<?php echo esc_html( $activity_content ); ?>" />

@@ -38,6 +38,34 @@ if ( ! defined( 'BP_SHARE' ) ) {
 	define( 'BP_ACTIVITY_SHARE_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 }
 /**
+ * Whether the Pro plugin is active.
+ *
+ * Checks the per-site active list AND, on multisite, the network-active list.
+ * Checking only `active_plugins` misses a network-activated Pro, which would
+ * let free and Pro run side by side.
+ *
+ * @since 3.5.6
+ *
+ * @return bool True when Pro is active on this site or network-wide.
+ */
+function bpshare_is_pro_active() {
+	$pro_basename = 'buddypress-activity-share-pro/buddypress-share.php';
+
+	if ( in_array( $pro_basename, (array) apply_filters( 'active_plugins', get_option( 'active_plugins', array() ) ), true ) ) {
+		return true;
+	}
+
+	if ( is_multisite() ) {
+		$network_active = get_site_option( 'active_sitewide_plugins', array() );
+		if ( is_array( $network_active ) && isset( $network_active[ $pro_basename ] ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-buddypress-share-activator.php
  *
@@ -46,7 +74,7 @@ if ( ! defined( 'BP_SHARE' ) ) {
  * @since    1.0.0
  */
 function activate_buddypress_share() {
-	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+	if ( bpshare_is_pro_active() ) {
 		deactivate_plugins( 'buddypress-activity-social-share/buddypress-share.php' );
 	}
 
@@ -195,7 +223,7 @@ function bpshare_requires_buddypress() {
 		);
 	}
 
-	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+	if ( bpshare_is_pro_active() ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 
 		add_action(
@@ -261,7 +289,7 @@ function bpshare_pro_plugin_activate_notice() {
  * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
 function bpshare_activation_redirect_settings( $plugin ) {
-	if ( in_array( 'buddypress-activity-share-pro/buddypress-share.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+	if ( bpshare_is_pro_active() ) {
 		return;
 	}
 
@@ -272,7 +300,7 @@ function bpshare_activation_redirect_settings( $plugin ) {
 		}
 	}
 
-	if ( isset( $_REQUEST['plugin'] ) && $plugin === $_REQUEST['plugin'] && class_exists( 'Buddypress' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( isset( $_REQUEST['plugin'] ) && $plugin === $_REQUEST['plugin'] && class_exists( 'BuddyPress' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_REQUEST['action'] ) && 'activate-plugin' === $_REQUEST['action'] && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] === $plugin ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			set_transient( '_bpshare_is_new_install', true, 30 );
 		}

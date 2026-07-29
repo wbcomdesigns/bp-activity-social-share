@@ -15,6 +15,9 @@
  * Plugin URI:        https://www.wbcomdesigns.com
  * Description:       This plugin will add an extended feature to the big name “BuddyPress” that will allow to share Activity “Post Updates” to the social sites.
  * Version:           3.5.6
+ * Requires at least: 6.5
+ * Requires PHP:      8.0
+ * Requires Plugins:  buddypress
  * Author:            Wbcom Designs<admin@wbcomdesigns.com>
  * Author URI:        https://www.wbcomdesigns.com
  * License:           GPL-2.0+

@@ -134,7 +134,8 @@ class Buddypress_Share_Admin {
 	public function bp_share_settings_section_callback() {
 		echo '<div class="bp_share_settings_section_callback_class">';
 		echo '<div class="title-bp-share-view">';
-		esc_html_e( 'Default is set to open window in popup. If this option is disabled then services open in new tab instead popup.  ', 'buddypress-share' );
+		esc_html_e( 'Default is set to open window in popup. If this option is disabled then services open in new tab instead popup.', 'buddypress-share' );
+		echo '</div>';
 		echo '</div>';
 	}
 
@@ -148,42 +149,12 @@ class Buddypress_Share_Admin {
 	public function bp_share_chb_services_ajax() {
 		// Check if the request is a POST, verify the nonce, and confirm user capabilities.
 		if ( ! empty( $_POST ) && check_admin_referer( 'bp_share_nonce', 'nonce' ) && current_user_can( 'manage_options' ) ) {
-			$option_name = 'bp_share_services';
-
-			// Sanitize and retrieve active services and extra options from POST data.
-			$active_services = isset( $_POST['active_chb_array'] ) ? map_deep( wp_unslash( $_POST['active_chb_array'] ), 'sanitize_text_field' ) : array();
-			$extras_options  = isset( $_POST['active_chb_extras'] ) ? map_deep( wp_unslash( $_POST['active_chb_extras'] ), 'sanitize_text_field' ) : array();
+			// Sanitize and retrieve the extra options from POST data.
+			$extras_options = isset( $_POST['active_chb_extras'] ) ? map_deep( wp_unslash( $_POST['active_chb_extras'] ), 'sanitize_text_field' ) : array();
 
 			// Update extra options setting.
 			$extra_option_new = array( 'bp_share_services_open' => in_array( 'bp_share_services_open', $extras_options, true ) ? 1 : 0 );
 			update_site_option( 'bp_share_services_extra', $extra_option_new );
-
-			// Retrieve current services and initialize update flag.
-			$services        = get_site_option( $option_name, array() );
-			$service_updated = false;
-
-			// Iterate through each service and update its status.
-			foreach ( $services as $service_key => &$value ) {
-				$checkbox_key = 'chb_' . $service_key;
-				$new_status   = in_array( $checkbox_key, $active_services, true ) ? 1 : 0;
-
-				// Ensure that $value is an array before attempting to modify it.
-				if ( ! is_array( $value ) ) {
-					// If $value is not an array, initialize it as one.
-					$value = array();
-				}
-
-				// Check if the status has changed to avoid unnecessary updates.
-				if ( ! isset( $value[ $checkbox_key ] ) || $value[ $checkbox_key ] !== $new_status ) {
-					$value[ $checkbox_key ] = $new_status;
-					$service_updated        = true;
-				}
-			}
-
-			// Update the service options if there's any change.
-			if ( $service_updated ) {
-				update_site_option( $option_name, $services );
-			}
 		}
 
 		// Terminate the execution for AJAX requests in a WordPress-friendly way.
@@ -223,58 +194,6 @@ class Buddypress_Share_Admin {
 	}
 
 	/**
-	 * Sort social share links in admin
-	 *
-	 * @since    1.0.0
-	 */
-	public function bp_share_sort_social_links_ajax() {
-		// Verify nonce for security and check user capabilities.
-		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'bp_share_nonce' ) || ! current_user_can( 'manage_options' ) ) {
-			// Exit if the nonce is not set, invalid, or the user doesn't have the right capabilities.
-			exit();
-		}
-
-		// Check if sorted data is set in POST.
-		if ( ! isset( $_POST['sorted_data'] ) ) {
-			// Exit if no sorted data is provided.
-			exit();
-		}
-
-		// Sanitize and retrieve the sorted data from POST.
-		$sorts = map_deep( wp_unslash( $_POST['sorted_data'] ), 'sanitize_text_field' );
-
-		// Retrieve current services settings.
-		$services = get_site_option( 'bp_share_services' );
-
-		// Initialize variables.
-		$count        = 0;
-		$new_settings = array();
-
-		// Reorder services based on sorted data.
-		foreach ( $services as $key => $service ) {
-			foreach ( $sorts as $srt ) {
-				// Skip 'bp_copy_activity' from sorting.
-				if ( 'chb_bp_copy_activity' !== $srt['key'] ) {
-					if ( (int) $count === (int) $srt['newIndex'] ) {
-						$setting_key                  = str_replace( 'chb_', '', $srt['key'] );
-						$new_settings[ $setting_key ] = $services[ $setting_key ];
-					}
-				}
-			}
-			++$count;
-		}
-
-		// Ensure 'bp_copy_activity' remains in the settings.
-		$new_settings['bp_copy_activity'] = $services['bp_copy_activity'];
-
-		// Update the services settings with new order.
-		update_site_option( 'bp_share_services', $new_settings );
-
-		// Exit the function.
-		exit();
-	}
-
-	/**
 	 * Welcome template
 	 *
 	 * @since    1.0.0
@@ -291,181 +210,176 @@ class Buddypress_Share_Admin {
 	 * @since    1.0.0
 	 */
 	public function bpas_general_setting_section() {
-		$services = get_site_option( 'bp_share_services' );
 		?>
-		<div class="wbcom-tab-content">
-			<div class="wbcom-admin-title-section">
-				<h3><?php esc_html_e( 'General Settings', 'buddypress-share' ); ?></h3>
-			</div>
-			<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
-				<div class="save-option-message"></div>
-				<div class="option-not-save-message"></div>
-				<form method="post" action="options.php" id="wss_form_data">
-					<div class="wbcom-settings-section-wrap">
-						<div class="wbcom-settings-section-options-heading">
-							<label for="wbcom-social-share">
-								<?php esc_html_e( 'Enable Sharing Sites', 'buddypress-share' ); ?>
-							</label>
-						</div>
-						<div class="wbcom-settings-section-options">
-							<section class="social_icon_section">
-								<ul id="drag_social_icon">
-									<h3>Disable</h3>
-									<?php
-									$get_social_value = get_site_option( 'bp_share_services' );
-									if ( empty( $get_social_value['Facebook'] ) ) {
-										?>
-										<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['Twitter'] ) ) {
-										?>
-										<li class="socialicon icon_Twitter" name="icon_gmail"><?php esc_html_e( 'Twitter', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['Pinterest'] ) ) {
-										?>
-										<li class="socialicon icon_Pinterest" name="icon_Pinterest"><?php esc_html_e( 'Pinterest', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['Linkedin'] ) ) {
-										?>
-										<li class="socialicon icon_LinkedIn" name="icon_linkedin"><?php esc_html_e( 'Linkedin', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['Reddit'] ) ) {
-										?>
-										<li class="socialicon icon_Reddit" name="icon_reddit"><?php esc_html_e( 'Reddit', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['WordPress'] ) ) {
-										?>
-										<li class="socialicon icon_WordPress" name="icon_wordpress"><?php esc_html_e( 'WordPress', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['Pocket'] ) ) {
-										?>
-										<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['Telegram'] ) ) {
-										?>
-										<li class="socialicon icon_Telegram" name="icon_telegram"><?php esc_html_e( 'Telegram', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['Bluesky'] ) ) {
-										?>
-										<li class="socialicon icon_Bluesky" name="icon_bluesky"><?php esc_html_e( 'Bluesky', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['E-mail'] ) ) {
-										?>
-										<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( empty( $get_social_value['Whatsapp'] ) ) {
-										?>
-										<li class="socialicon icon_WhatAapp" name="icon_whatsapp"><?php esc_html_e( 'Whatsapp', 'buddypress-share' ); ?></li>
-									<?php } ?>
-								</ul>
-								<ul id="drag_icon_ul">
-									<h3>Enable</h3>
-									<?php
-									$get_social_value = get_site_option( 'bp_share_services' );
-									if ( ! empty( $get_social_value['Facebook'] ) ) {
-										?>
-										<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['Twitter'] ) ) {
-										?>
-										<li class="socialicon icon_Twitter" name="icon_twitter"><?php esc_html_e( 'Twitter', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['Pinterest'] ) ) {
-										?>
-										<li class="socialicon icon_Pinterest" name="icon_Pinterest"><?php esc_html_e( 'Pinterest', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['Linkedin'] ) ) {
-										?>
-										<li class="socialicon icon_LinkedIn" name="icon_linkedin"><?php esc_html_e( 'Linkedin', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['Reddit'] ) ) {
-										?>
-										<li class="socialicon icon_Reddit" name="icon_reddit"><?php esc_html_e( 'Reddit', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['WordPress'] ) ) {
-										?>
-										<li class="socialicon icon_WordPress" name="icon_wordpress"><?php esc_html_e( 'WordPress', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['Pocket'] ) ) {
-										?>
-										<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['Telegram'] ) ) {
-										?>
-										<li class="socialicon icon_Telegram" name="icon_telegram"><?php esc_html_e( 'Telegram', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['Bluesky'] ) ) {
-										?>
-										<li class="socialicon icon_Bluesky" name="icon_bluesky"><?php esc_html_e( 'Bluesky', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['E-mail'] ) ) {
-										?>
-										<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'buddypress-share' ); ?></li>
-										<?php
-									}
-									if ( ! empty( $get_social_value['Whatsapp'] ) ) {
-										?>
-										<li class="socialicon icon_WhatsApp" name="icon_whatsapp"><?php esc_html_e( 'Whatsapp', 'buddypress-share' ); ?></li>
-									<?php } ?>
-								</ul>
-							</section>
-						</div>
-					</div>
-
-
-					<div class="bp-share-services-extra">
-						<?php
-						do_settings_sections( 'bp_share_services_extra' );
-						?>
-					</div>
-					<!--save the settings-->
-					<input type="hidden" name="action" value="update" />
-					<?php
-					$social_options = get_site_option( 'bp_share_services' );
-					if ( ! empty( $social_options ) ) {
-						$social_key_string = '';
-						foreach ( $social_options as $service_key => $social_option ) {
-							if ( count( $social_options ) !== 1 ) {
-								$social_key_string .= $service_key . ',';
-							} else {
-								$social_key_string = $service_key;
+		<form method="post" action="options.php" id="wss_form_data">
+			<div class="bpas-card">
+				<div class="bpas-card__head">
+					<h2 class="bpas-card__title"><?php esc_html_e( 'Enable Sharing Sites', 'buddypress-share' ); ?></h2>
+					<p class="bpas-card__desc"><?php esc_html_e( 'Drag a network between the two columns to turn it off or on. Changes save automatically.', 'buddypress-share' ); ?></p>
+				</div>
+				<div class="bpas-card__body">
+					<div class="save-option-message"></div>
+					<div class="option-not-save-message"></div>
+					<section class="social_icon_section">
+						<ul id="drag_social_icon">
+							<h3><?php esc_html_e( 'Disable', 'buddypress-share' ); ?></h3>
+							<?php
+							$get_social_value = get_site_option( 'bp_share_services' );
+							if ( empty( $get_social_value['Facebook'] ) ) {
+								?>
+								<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'buddypress-share' ); ?></li>
+								<?php
 							}
-						}
-						if ( count( $social_options ) !== 1 ) {
-							$social_key_string = rtrim( $social_key_string, ', ' );
-						}
-						?>
-						<input type="hidden" name="page_options" value="<?php echo esc_attr( $social_key_string ); ?>" />
-						<?php
-					}
-					?>
-					<p class="submit">
-						<input type="submit" class="button button-primary bp_share_option_save" value="<?php esc_html_e( 'Save Changes', 'buddypress-share' ); ?>" />
-					</p>
+							if ( empty( $get_social_value['Twitter'] ) ) {
+								?>
+								<li class="socialicon icon_Twitter" name="icon_gmail"><?php esc_html_e( 'Twitter', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( empty( $get_social_value['Pinterest'] ) ) {
+								?>
+								<li class="socialicon icon_Pinterest" name="icon_Pinterest"><?php esc_html_e( 'Pinterest', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( empty( $get_social_value['Linkedin'] ) ) {
+								?>
+								<li class="socialicon icon_LinkedIn" name="icon_linkedin"><?php esc_html_e( 'Linkedin', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( empty( $get_social_value['Reddit'] ) ) {
+								?>
+								<li class="socialicon icon_Reddit" name="icon_reddit"><?php esc_html_e( 'Reddit', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( empty( $get_social_value['WordPress'] ) ) {
+								?>
+								<li class="socialicon icon_WordPress" name="icon_wordpress"><?php esc_html_e( 'WordPress', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( empty( $get_social_value['Pocket'] ) ) {
+								?>
+								<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( empty( $get_social_value['Telegram'] ) ) {
+								?>
+								<li class="socialicon icon_Telegram" name="icon_telegram"><?php esc_html_e( 'Telegram', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( empty( $get_social_value['Bluesky'] ) ) {
+								?>
+								<li class="socialicon icon_Bluesky" name="icon_bluesky"><?php esc_html_e( 'Bluesky', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( empty( $get_social_value['E-mail'] ) ) {
+								?>
+								<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( empty( $get_social_value['Whatsapp'] ) ) {
+								?>
+								<li class="socialicon icon_WhatAapp" name="icon_whatsapp"><?php esc_html_e( 'Whatsapp', 'buddypress-share' ); ?></li>
+							<?php } ?>
+						</ul>
+						<ul id="drag_icon_ul">
+							<h3><?php esc_html_e( 'Enable', 'buddypress-share' ); ?></h3>
+							<?php
+							if ( ! empty( $get_social_value['Facebook'] ) ) {
+								?>
+								<li class="socialicon icon_Facebook" name="icon_facebook"><?php esc_html_e( 'Facebook', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['Twitter'] ) ) {
+								?>
+								<li class="socialicon icon_Twitter" name="icon_twitter"><?php esc_html_e( 'Twitter', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['Pinterest'] ) ) {
+								?>
+								<li class="socialicon icon_Pinterest" name="icon_Pinterest"><?php esc_html_e( 'Pinterest', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['Linkedin'] ) ) {
+								?>
+								<li class="socialicon icon_LinkedIn" name="icon_linkedin"><?php esc_html_e( 'Linkedin', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['Reddit'] ) ) {
+								?>
+								<li class="socialicon icon_Reddit" name="icon_reddit"><?php esc_html_e( 'Reddit', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['WordPress'] ) ) {
+								?>
+								<li class="socialicon icon_WordPress" name="icon_wordpress"><?php esc_html_e( 'WordPress', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['Pocket'] ) ) {
+								?>
+								<li class="socialicon icon_Pocket" name="icon_pocket"><?php esc_html_e( 'Pocket', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['Telegram'] ) ) {
+								?>
+								<li class="socialicon icon_Telegram" name="icon_telegram"><?php esc_html_e( 'Telegram', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['Bluesky'] ) ) {
+								?>
+								<li class="socialicon icon_Bluesky" name="icon_bluesky"><?php esc_html_e( 'Bluesky', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['E-mail'] ) ) {
+								?>
+								<li class="socialicon icon_Gmail" name="icon_gmail"><?php esc_html_e( 'E-mail', 'buddypress-share' ); ?></li>
+								<?php
+							}
+							if ( ! empty( $get_social_value['Whatsapp'] ) ) {
+								?>
+								<li class="socialicon icon_WhatsApp" name="icon_whatsapp"><?php esc_html_e( 'Whatsapp', 'buddypress-share' ); ?></li>
+							<?php } ?>
+						</ul>
+					</section>
+				</div>
 			</div>
-			</form>
-		</div>
-		<?php do_action( 'bp_share_add_services_options', $arg1 = '', $arg2 = '' ); ?>
-		</div>
+
+			<?php
+			/*
+			 * Extra Options renders through the Settings API, so its heading and
+			 * description arrive as siblings of the fields table rather than as
+			 * one .bpas-card__head. admin/css/buddypress-share-admin.css styles
+			 * that h2 + description pair as a single card head band.
+			 */
+			?>
+			<div class="bpas-card bp-share-services-extra">
+				<?php do_settings_sections( 'bp_share_services_extra' ); ?>
+			</div>
+
+			<!--save the settings-->
+			<input type="hidden" name="action" value="update" />
+			<?php
+			$social_options = get_site_option( 'bp_share_services' );
+			if ( ! empty( $social_options ) ) {
+				$social_key_string = '';
+				foreach ( $social_options as $service_key => $social_option ) {
+					if ( count( $social_options ) !== 1 ) {
+						$social_key_string .= $service_key . ',';
+					} else {
+						$social_key_string = $service_key;
+					}
+				}
+				if ( count( $social_options ) !== 1 ) {
+					$social_key_string = rtrim( $social_key_string, ', ' );
+				}
+				?>
+				<input type="hidden" name="page_options" value="<?php echo esc_attr( $social_key_string ); ?>" />
+				<?php
+			}
+			?>
+			<div class="bpas-save-bar">
+				<input type="submit" class="button button-primary bp_share_option_save" value="<?php esc_attr_e( 'Save Changes', 'buddypress-share' ); ?>" />
+			</div>
+		</form>
+		<?php do_action( 'bp_share_add_services_options', '', '' ); ?>
 		<?php
 	}
 

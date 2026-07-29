@@ -16,7 +16,7 @@ wp_enqueue_script( 'wp-color-picker' );
 wp_enqueue_style( 'wp-color-picker' );
 $bpas_icon_color_settings = get_option( 'bpas_icon_color_settings' );
 ?>
-<div class="bpas-card">
+<div class="bpas-card bpas-card--overflow">
 	<div class="bpas-card__head">
 		<h2 class="bpas-card__title"><?php esc_html_e( 'Icon Color Settings', 'buddypress-share' ); ?></h2>
 		<p class="bpas-card__desc"><?php esc_html_e( 'Pick a background color for each sharing icon. Click a swatch to open the color picker.', 'buddypress-share' ); ?></p>

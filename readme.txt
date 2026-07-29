@@ -3,9 +3,9 @@
 Contributors: vapvarun,wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: buddypress, activity, share
-Requires at least: 5.9
+Requires at least: 6.5
 Tested up to: 7.0
-Requires PHP: 7.4
+Requires PHP: 8.0
 Requires Plugins: buddypress
 Stable tag: 3.5.6
 License: GPLv2 or later
@@ -115,13 +115,19 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 Rebuilt the admin on the modern card-panel layout, plus a UI-token and RTL readiness pass.
 
 * Improve  - Rebuilt the admin settings screen on the modern Wbcom card-panel layout (sidebar navigation, branded header, WB Plugins hub). Settings and saved data are unchanged.
+* Improve  - Rebuilt the General Settings tab on the card layout so its section headings and spacing match the rest of the panel.
 * Improve  - Tokenized the remaining hardcoded colors in the legacy admin stylesheet so it matches the card-panel theme.
 * Improve  - Converted all stylesheets to logical properties for full right-to-left (RTL) readiness.
+* Fix      - The color picker on the Icon Colors tab is no longer clipped by the card edge, so the preset swatches on the last row are reachable.
+* Fix      - Saving General Settings no longer rewrites every stored network entry.
 * Fix      - Removed the broken "Our Themes" admin page (its template was missing and the page rendered empty).
 * Fix      - Removed an OS-level dark-mode rule so dark styling follows the theme's explicit toggle, not the visitor's system setting.
+* Fix      - The Disable and Enable column headings are now translatable.
 * Security - Removed the legacy nonce-only shared-wrapper AJAX handler.
 * Dev      - Removed the inline color-picker script from the Icon Colors page (now enqueued).
-* Compat   - Tested up to WordPress 7.0. Declared Requires PHP 7.4 and Requires Plugins: buddypress.
+* Dev      - Removed the non-functional icon reordering code and its AJAX handler. Sharing icons have always rendered in a fixed order, so the drag-to-reorder gesture never had any effect.
+* Dev      - Regenerated the translation template against the current source and removed the obsolete en_US translation.
+* Compat   - Tested up to WordPress 7.0. Now requires WordPress 6.5 and PHP 8.0.
 
 = 3.5.5 =
 * Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files

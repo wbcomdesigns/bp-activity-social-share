@@ -1,46 +1,23 @@
 (function ($) {
 
-    jQuery('.bp_share_social_list').sortable({
-        scrollSpeed: 1,
-        scrollSensitivity: 1,
-    });
-
+    /**
+     * Save Changes — persists the Extra Options checkboxes.
+     *
+     * Enabling/disabling a network is saved immediately by the drag-and-drop
+     * handlers below, so this button only carries the Extra Options state.
+     *
+     * The checkbox lookup is anchored on the Extra Options card rather than on
+     * the section-callback div: do_settings_sections() renders the fields table
+     * as a SIBLING of that callback div, so the card is the element that
+     * actually contains the checkboxes.
+     */
     jQuery(document).on('click', '.button-primary.bp_share_option_save', function() {
-        let sortedList = [];
-        let listLegth = jQuery('tr.bp-share-services-row').length;
-        jQuery('tr.bp-share-services-row').each(function(index, elem) {
-            if (index < listLegth) {
-                let temp = [];
-                let key = jQuery(this).data('key');
-                temp = {
-                    oldIndex: jQuery(this).data('pos-index'),
-                    newIndex: index,
-                    key: key,
-                }
-                sortedList.push(temp);
-            }
-        });
-        jQuery.ajax({
-            url: my_ajax_object.ajax_url,
-            type: 'post',
-            data: { action: 'bp_share_sort_social_links_ajax', 'nonce': my_ajax_object.nonce, 'sorted_data': sortedList },
-            dataType: 'JSON',
-            success: function(response) {
-
-            }
-        });
-        var selected = [];
-        jQuery('#bp_share_chb input:checked').each(function() {
-            selected.push(jQuery(this).attr('name'));
-        });
-
         var selected_extras = [];
-        jQuery('.bp_share_settings_section_callback_class input:checked').each(function() {
+        jQuery('.bp-share-services-extra input[type="checkbox"]:checked').each(function() {
             selected_extras.push(jQuery(this).attr('name'));
         });
         var data = {
             'action': 'bp_share_chb_services_ajax',
-            'active_chb_array': selected,
             'active_chb_extras': selected_extras,
             'nonce': my_ajax_object.nonce
         };
@@ -50,15 +27,6 @@
             location.reload();
         });
         return false;
-    });
-
-    jQuery(function() {
-        jQuery("#drag_social_icon").sortable({
-        cursor: "move",
-        });
-        jQuery("#drag_icon_ul").sortable({
-          cursor: "move",
-        });
     });
 
     /*drag-drop*/

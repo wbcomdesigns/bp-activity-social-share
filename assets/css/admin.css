@@ -303,10 +303,25 @@
 	overflow: hidden;
 }
 
+/*
+ * Cards that host an absolutely-positioned popover (the wp-color-picker on the
+ * Icon Colors tab) must not clip it. `overflow: hidden` on .bpas-card is what
+ * keeps the head band inside the rounded corners, so the modifier restores the
+ * radius on the head itself.
+ */
+.bpas-card--overflow {
+	overflow: visible;
+}
+
 .bpas-card__head {
 	padding: 14px 20px 12px;
 	border-bottom: 1px solid var(--bpas-admin-border);
 	background: var(--bpas-admin-surface-1);
+}
+
+.bpas-card--overflow .bpas-card__head {
+	border-start-start-radius: var(--bpas-admin-radius);
+	border-start-end-radius: var(--bpas-admin-radius);
 }
 
 .bpas-card__title {

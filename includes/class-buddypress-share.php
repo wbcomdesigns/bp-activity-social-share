@@ -180,7 +180,6 @@ class Buddypress_Share {
 		// AJAX save paths for the General tab (services enable/disable + sort).
 		// Each verifies bp_share_nonce + current_user_can( 'manage_options' ).
 		$this->loader->add_action( 'wp_ajax_bp_share_chb_services_ajax', $plugin_admin, 'bp_share_chb_services_ajax' );
-		$this->loader->add_action( 'wp_ajax_bp_share_sort_social_links_ajax', $plugin_admin, 'bp_share_sort_social_links_ajax' );
 		$this->loader->add_action( 'wp_ajax_wss_social_icons', $plugin_admin, 'wss_social_icons' );
 		$this->loader->add_action( 'wp_ajax_wss_social_remove_icons', $plugin_admin, 'wss_social_remove_icons' );
 

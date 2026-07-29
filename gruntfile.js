@@ -48,7 +48,7 @@ module.exports = function ( grunt ) {
 						cwd: '.', // Directory of files to internationalize.
 						domainPath: 'languages/', // Where to save the POT file.
 						exclude: [ 'node_modules/*', 'options/framework/*' ], // List of files or directories to ignore.
-						mainFile: 'index.php', // Main project file.
+						mainFile: 'buddypress-share.php', // Main project file — the plugin header is read from here for Project-Id-Version.
 						potFilename: 'buddypress-share.pot', // Name of the POT file.
 						potHeaders: { // Headers to add to the generated POT file.
 							poedit: true, // Includes common Poedit headers.

@@ -1,13 +1,13 @@
 # Plugin: Wbcom Designs - BuddyPress Activity Social Share
 
-> **READ FIRST:** [`audit/manifest.json`](audit/manifest.json) is the canonical inventory — 5 AJAX handlers, 6 admin menu entries, 3 user-facing settings + 5 internal options, 1 shortcode, 5 extension hooks. 0 REST / 0 blocks / 0 CPT / 0 taxonomies / 0 cron / 0 custom tables. Use this before grepping. See also [`audit/FEATURE_AUDIT.md`](audit/FEATURE_AUDIT.md), [`audit/CODE_FLOWS.md`](audit/CODE_FLOWS.md), [`audit/ROLE_MATRIX.md`](audit/ROLE_MATRIX.md), and the wppqa baseline at [`audit/wppqa-baseline-2026-06-05/SUMMARY.md`](audit/wppqa-baseline-2026-06-05/SUMMARY.md). Refresh via `/wp-plugin-onboard --refresh` after non-trivial changes.
+> **READ FIRST:** [`audit/manifest.json`](audit/manifest.json) is the canonical inventory — 4 AJAX handlers, 6 admin menu entries, 3 user-facing settings + 5 internal options, 1 shortcode, 5 extension hooks. 0 REST / 0 blocks / 0 CPT / 0 taxonomies / 0 cron / 0 custom tables. Use this before grepping. See also [`audit/FEATURE_AUDIT.md`](audit/FEATURE_AUDIT.md), [`audit/CODE_FLOWS.md`](audit/CODE_FLOWS.md), [`audit/ROLE_MATRIX.md`](audit/ROLE_MATRIX.md), and the wppqa baseline at [`audit/wppqa-baseline-2026-06-05/SUMMARY.md`](audit/wppqa-baseline-2026-06-05/SUMMARY.md). Refresh via `/wp-plugin-onboard --refresh` after non-trivial changes.
 
 ## Development skill (READ for all code work)
 All implementation work on this plugin MUST follow the **`/wp-plugin-development`** skill — the 16 critical admin rules, Part 6 (Admin UI patterns), the 3-layer design tokens, escaping rules, and dev hygiene (no em-dash in i18n, Lucide icons, no inline SVG in new code, WPCS). This is a legacy WordPress-Plugin-Boilerplate plugin; new UI work should move toward the modern card-based admin pattern, not extend the OLD tab wrapper.
 
 ## Quick reference
 - **Main file:** `buddypress-share.php`
-- **Version:** `3.5.5`  |  **Branch:** `3.5.5`
+- **Version:** `3.5.6`  |  **Branch:** `3.5.5`
 - **Namespace:** none (global functions + `Buddypress_Share_*` classes)
 - **Text domain:** `buddypress-share`
 - **Extends:** null. **Pro counterpart:** `buddypress-activity-share-pro` (free self-deactivates when Pro is active).
@@ -39,7 +39,7 @@ All implementation work on this plugin MUST follow the **`/wp-plugin-development
 ## Known issues
 1. **No-JS frontend gap** — `.service-buttons` are `display:none` with no PHP/no-JS fallback; share targets are unreachable without JavaScript. (Functional gap, not dead code — separate follow-up.)
 
-Resolved (do not re-report): broken "Our Themes" page and the nonce-no-cap `wbcom_addons_cards` AJAX were removed with the OLD wrapper (commit `fff4b3d`, 2026-07-03); `uninstall.php` now cleans all `bp_share_*` / `bpas_*` options from both stores (2026-07-03); the dead `[data-bpas-confirm]` confirm-modal scaffolding (JS + CSS + i18n localize) was removed (2026-07-06); the write-only `bp_share_all_services_disable` option write was removed (2026-07-07) after confirming both free and Pro treat it as obsolete (Pro's activator `delete_site_option`s it) - `uninstall.php` keeps cleaning the legacy value on existing installs; the unused `window.bpasToast` toast helper (JS + CSS) was removed (2026-07-07).
+Resolved (do not re-report): sharing icons render in a FIXED order in `public/class-buddypress-share-public.php` — the drag-to-reorder gesture, its `bp_share_sort_social_links_ajax` handler, and the `sortable()` inits were removed (2026-07-29) because nothing persisted or consumed an order; re-adding ordering means making the frontend data-driven first. Plugin Check's `TextDomainMismatch` is a local-checkout artifact only (text domain `buddypress-share` matches the wp.org slug; this working copy's folder is named differently). Also: broken "Our Themes" page and the nonce-no-cap `wbcom_addons_cards` AJAX were removed with the OLD wrapper (commit `fff4b3d`, 2026-07-03); `uninstall.php` now cleans all `bp_share_*` / `bpas_*` options from both stores (2026-07-03); the dead `[data-bpas-confirm]` confirm-modal scaffolding (JS + CSS + i18n localize) was removed (2026-07-06); the write-only `bp_share_all_services_disable` option write was removed (2026-07-07) after confirming both free and Pro treat it as obsolete (Pro's activator `delete_site_option`s it) - `uninstall.php` keeps cleaning the legacy value on existing installs; the unused `window.bpasToast` toast helper (JS + CSS) was removed (2026-07-07).
 
 ## Recent changes
 | Date | Type | Description | Files |

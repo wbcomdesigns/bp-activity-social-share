@@ -217,8 +217,6 @@ class Buddypress_Share_Admin {
 					<p class="bpas-card__desc"><?php esc_html_e( 'Drag a network between the two columns to turn it off or on. Changes save automatically.', 'buddypress-share' ); ?></p>
 				</div>
 				<div class="bpas-card__body">
-					<div class="save-option-message"></div>
-					<div class="option-not-save-message"></div>
 					<section class="social_icon_section">
 						<ul id="drag_social_icon">
 							<h3><?php esc_html_e( 'Disable', 'buddypress-share' ); ?></h3>

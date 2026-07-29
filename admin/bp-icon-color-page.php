@@ -22,8 +22,6 @@ $bpas_icon_color_settings = get_option( 'bpas_icon_color_settings' );
 		<p class="bpas-card__desc"><?php esc_html_e( 'Pick a background color for each sharing icon. Click a swatch to open the color picker.', 'buddypress-share' ); ?></p>
 	</div>
 	<div class="bpas-card__body">
-		<div class="save-option-message"></div>
-		<div class="option-not-save-message"></div>
 		<form method="post" action="options.php">
 			<?php
 			settings_fields( 'bpas_icon_color_settings' );

@@ -1,25 +1,45 @@
 (function ($) {
 
     /**
-     * Render a dismissible notice into one of the two message slots that the
-     * General Settings card renders. Both slots are cleared first so a success
-     * never sits underneath a stale error.
+     * Render a save result as a standard WordPress admin notice.
+     *
+     * The Settings API tabs (Icon Colors) get their banner from
+     * settings_errors(), which core places as a direct child of .wrap right
+     * after the .wp-header-end marker, dismissible, with the message in a
+     * <strong>. An AJAX save has to land in the same place with the same
+     * chrome, or the two save paths look like two different products.
+     *
+     * Triggering 'wp-notice-added' hands the element to core's
+     * makeNoticesDismissible(), so the close button and its behaviour come
+     * from WordPress rather than a hand-rolled copy.
      *
      * @param {boolean} ok      Whether the operation succeeded.
      * @param {string}  message Text to display.
      */
     function bpasNotice(ok, message) {
-        var $ok = $('.save-option-message');
-        var $err = $('.option-not-save-message');
+        var $wrap = $('.wrap.bpas-admin');
+        var $anchor = $wrap.find('.wp-header-end');
 
-        $ok.empty();
-        $err.empty();
+        // Only ever one AJAX notice on screen, so a success never sits
+        // underneath a stale error.
+        $wrap.find('.bpas-ajax-notice').remove();
 
-        $(ok ? $ok : $err).html(
-            $('<div/>')
-                .addClass('notice ' + (ok ? 'notice-success' : 'notice-error'))
-                .append($('<p/>').text(message))
-        );
+        var $notice = $('<div/>')
+            .addClass('notice bpas-ajax-notice is-dismissible ' + (ok ? 'notice-success' : 'notice-error'))
+            .append($('<p/>').append($('<strong/>').text(message)));
+
+        if ($anchor.length) {
+            $anchor.after($notice);
+        } else {
+            $wrap.prepend($notice);
+        }
+
+        $(document).trigger('wp-notice-added');
+
+        // The banner sits at the top of the page while the Save button is at
+        // the bottom, so without this the confirmation is off-screen — which
+        // is indistinguishable from no confirmation at all.
+        $('html, body').animate({ scrollTop: 0 }, 200);
     }
 
     /**

@@ -149,6 +149,10 @@
 .bpas-settings-sidebar {
 	width: 240px;
 	flex-shrink: 0;
+	/* Under 1024px the sidebar goes width:100%; without border-box its 1px
+	   borders push 2px past the viewport and the whole admin page scrolls
+	   horizontally on a phone. */
+	box-sizing: border-box;
 	background: var(--bpas-admin-white);
 	border: 1px solid var(--bpas-admin-border);
 	border-radius: var(--bpas-admin-radius);

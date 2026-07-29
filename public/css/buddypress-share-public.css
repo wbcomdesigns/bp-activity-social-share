@@ -37,7 +37,6 @@
     --bpas-brand-pinterest: #E60023;
     --bpas-brand-reddit: #FF4500;
     --bpas-brand-wordpress: #21759B;
-    --bpas-brand-pocket: #EF3E56;
     --bpas-brand-bluesky: #1185FE;
     --bpas-brand-telegram: #0088CC;
 
@@ -194,10 +193,6 @@ a.bp-share.has-popup {
 
 .bp-share .dashicons-wordpress {
     color: var(--bpas-brand-wordpress);
-}
-
-#bp_pocket_share .dashicons {
-    color: var(--bpas-brand-pocket);
 }
 
 .bp-share .dashicons-bluesky {

@@ -53,10 +53,6 @@ $bpas_icon_color_settings = get_option( 'bpas_icon_color_settings' );
 					<input type="text" id="bpas_wordpress_bg_color" class="bp_share_wordpress" name="bpas_icon_color_settings[bpas_wordpress_bg_color]" value="<?php echo isset( $bpas_icon_color_settings['bpas_wordpress_bg_color'] ) ? esc_attr( $bpas_icon_color_settings['bpas_wordpress_bg_color'] ) : ''; ?>">
 				</li>
 				<li>
-					<label for="bpas_pocket_bg_color"><?php esc_html_e( 'Pocket Icon Color', 'buddypress-share' ); ?></label>
-					<input type="text" id="bpas_pocket_bg_color" class="bp_share_pocket" name="bpas_icon_color_settings[bpas_pocket_bg_color]" value="<?php echo isset( $bpas_icon_color_settings['bpas_pocket_bg_color'] ) ? esc_attr( $bpas_icon_color_settings['bpas_pocket_bg_color'] ) : ''; ?>">
-				</li>
-				<li>
 					<label for="bpas_telegram_bg_color"><?php esc_html_e( 'Telegram Icon Color', 'buddypress-share' ); ?></label>
 					<input type="text" id="bpas_telegram_bg_color" class="bp_share_telegram" name="bpas_icon_color_settings[bpas_telegram_bg_color]" value="<?php echo isset( $bpas_icon_color_settings['bpas_telegram_bg_color'] ) ? esc_attr( $bpas_icon_color_settings['bpas_telegram_bg_color'] ) : ''; ?>">
 				</li>

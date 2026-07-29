@@ -133,6 +133,7 @@ Rebuilt the admin on the modern card-panel layout, plus a UI-token and RTL readi
 * Security - Removed the legacy nonce-only shared-wrapper AJAX handler.
 * Dev      - Removed the inline color-picker script from the Icon Colors page (now enqueued).
 * Improve  - The share stylesheet and script no longer load on every page of the site, only where a BuddyPress activity stream is rendered. Also dropped an unused jQuery UI dependency that was loading site-wide.
+* Remove   - Removed Pocket. Mozilla shut the service down in July 2025, so the share link no longer went anywhere. Existing sites have the Pocket option and its saved icon color cleaned up automatically on update. No action needed.
 * Dev      - Removed the non-functional icon reordering code and its AJAX handler. Sharing icons have always rendered in a fixed order, so the drag-to-reorder gesture never had any effect.
 * Dev      - Removed the unreachable Settings API registration and sanitize callback for the extra options group. The form is saved over AJAX and never reached them.
 * Dev      - Regenerated the translation template against the current source and removed the obsolete en_US translation.

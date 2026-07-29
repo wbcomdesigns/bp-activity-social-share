@@ -52,7 +52,6 @@ class Buddypress_Share_Activator {
 				'bpas_linkedin_bg_color'  => '#007BB6',
 				'bpas_reddit_bg_color'    => '#FF4500',
 				'bpas_wordpress_bg_color' => '#21759B',
-				'bpas_pocket_bg_color'    => '#EF3E56',
 				'bpas_telegram_bg_color'  => '#0088cc',
 				'bpas_bluesky_bg_color'   => '#1185fe',
 				'bpas_email_bg_color'     => '#AD0000',
@@ -78,6 +77,11 @@ class Buddypress_Share_Activator {
 	 * colors. Values the site owner customized away from #000000 are
 	 * left untouched.
 	 *
+	 * 3.5.6 also drops Pocket. Mozilla shut the service down in July
+	 * 2025, so the share endpoint no longer resolves. Its stored service
+	 * entry and icon color are removed here; leaving them would keep dead
+	 * keys in both option stores forever now that no UI writes them.
+	 *
 	 * @since 3.5.6
 	 * @return void
 	 */
@@ -87,11 +91,12 @@ class Buddypress_Share_Activator {
 			return;
 		}
 
+		// Pocket was in this remap list up to 3.5.5. It is omitted now: the
+		// key is deleted below, so recoloring it first would be wasted work.
 		$legacy_black_defaults = array(
 			'bpas_pinterest_bg_color' => '#E60023',
 			'bpas_reddit_bg_color'    => '#FF4500',
 			'bpas_wordpress_bg_color' => '#21759B',
-			'bpas_pocket_bg_color'    => '#EF3E56',
 		);
 
 		// Backfill: releases up to 3.5.5 network-activated on multisite
@@ -121,6 +126,12 @@ class Buddypress_Share_Activator {
 					$changed          = true;
 				}
 			}
+			// Pocket is retired: drop its color key from both stores.
+			if ( isset( $settings['bpas_pocket_bg_color'] ) ) {
+				unset( $settings['bpas_pocket_bg_color'] );
+				$changed = true;
+			}
+
 			if ( $changed ) {
 				if ( 'site_option' === $bpas_store ) {
 					update_site_option( 'bpas_icon_color_settings', $settings );
@@ -128,6 +139,14 @@ class Buddypress_Share_Activator {
 					update_option( 'bpas_icon_color_settings', $settings );
 				}
 			}
+		}
+
+		// Drop the retired Pocket service so it stops appearing in the
+		// enable/disable lists and stops being counted as an active network.
+		$bpas_services = get_site_option( 'bp_share_services' );
+		if ( is_array( $bpas_services ) && isset( $bpas_services['Pocket'] ) ) {
+			unset( $bpas_services['Pocket'] );
+			update_site_option( 'bp_share_services', $bpas_services );
 		}
 
 		update_site_option( 'bp_share_db_version', defined( 'BP_SHARE_VERSION' ) ? BP_SHARE_VERSION : '3.5.6' );

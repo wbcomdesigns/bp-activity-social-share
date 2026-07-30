@@ -136,6 +136,7 @@ Rebuilt the admin on the modern card-panel layout, plus a UI-token and RTL readi
 * Remove   - Removed Pocket. Mozilla shut the service down in July 2025, so the share link no longer went anywhere. Existing sites have the Pocket option and its saved icon color cleaned up automatically on update. No action needed.
 * Fix      - The bpas_share_button_text_override filter now actually changes the Share button label. It ran, but its result was never used, so custom labels were silently ignored.
 * Fix      - The bp_share_user_services action now receives the enabled share services. It was passing an empty array, so add-ons hooking it could not tell which networks were switched on.
+* Fix      - The nonce error returned by the icon drag-and-drop handlers is now translatable. It was hardcoded English, so non-English admins saw it untranslated.
 * Dev      - Removed the non-functional icon reordering code and its AJAX handler. Sharing icons have always rendered in a fixed order, so the drag-to-reorder gesture never had any effect.
 * Dev      - Removed the unreachable Settings API registration and sanitize callback for the extra options group. The form is saved over AJAX and never reached them.
 * Dev      - Regenerated the translation template against the current source and removed the obsolete en_US translation.

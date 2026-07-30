@@ -371,7 +371,7 @@ class Buddypress_Share_Admin {
 		// Verify nonce and user capabilities.
 		if ( ! wp_verify_nonce( $nonce, 'bp_share_nonce' ) || ! current_user_can( 'manage_options' ) ) {
 			// Send a JSON error response if nonce verification fails or user lacks required capabilities.
-			$error = new WP_Error( '001', 'Sorry, your nonce did not verify.', 'Some information' );
+			$error = new WP_Error( '001', __( 'Sorry, your nonce did not verify.', 'buddypress-share' ) );
 			wp_send_json_error( $error );
 		}
 
@@ -408,7 +408,7 @@ class Buddypress_Share_Admin {
 		// Verify nonce for security and check user capabilities.
 		if ( ! wp_verify_nonce( $nonce, 'bp_share_nonce' ) || ! current_user_can( 'manage_options' ) ) {
 			// Send a JSON error response if nonce verification fails or user lacks required capabilities.
-			$error = new WP_Error( '001', 'Sorry, your nonce did not verify.', 'Some information' );
+			$error = new WP_Error( '001', __( 'Sorry, your nonce did not verify.', 'buddypress-share' ) );
 			wp_send_json_error( $error );
 		}
 

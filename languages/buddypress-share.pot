@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress Activity Social Share 3.5.6\n"
+"Project-Id-Version: Wbcom Designs - BuddyPress Activity Social Share 3.5.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/buddypress-share\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-29T13:32:18+00:00\n"
+"POT-Creation-Date: 2026-07-30T09:26:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: buddypress-share\n"
@@ -516,6 +516,28 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: public/class-buddypress-share-public.php:231
+#. translators: 1: site title, 2: activity title.
+#: public/class-buddypress-share-public.php:228
+#, php-format
+msgid "New activity on %1$s: %2$s"
+msgstr ""
+
+#. translators: 1: site title, 2: link to the activity, 3: site home page URL. Keep the blank lines, this is the body of a plain-text email.
+#: public/class-buddypress-share-public.php:234
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"I wanted to share this activity with you from %1$s:\n"
+"\n"
+"%2$s\n"
+"\n"
+"You can explore more activities here: %3$s\n"
+"\n"
+"Best regards,\n"
+"The %1$s Team"
+msgstr ""
+
+#: public/class-buddypress-share-public.php:247
 msgid "Please enable share services!"
 msgstr ""

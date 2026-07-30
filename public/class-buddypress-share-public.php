@@ -217,9 +217,25 @@ class Buddypress_Share_Public {
 					 * Plain text destined for rawurlencode() below — do NOT esc_html()
 					 * here. Escaping first turns & into &amp;, which rawurlencode then
 					 * encodes literally, so the recipient sees "&amp;" in the subject.
+					 *
+					 * The body is one string rather than one per line: a translator
+					 * needs the whole message to get the tone and the line breaks
+					 * right, and line-by-line fragments cannot be reordered for
+					 * languages that need it.
 					 */
-					$email_subject = 'New Activity on ' . $site_title . ': ' . $mail_subject; // Dynamic subject.
-					$email_body    = "Hi,\n\nI wanted to share this activity with you from " . $site_title . ":\n\n" . $activity_link . "\n\nYou can explore more activities here: " . $site_url . "\n\nBest regards,\nThe " . $site_title . ' Team'; // Dynamic body.
+					$email_subject = sprintf(
+						/* translators: 1: site title, 2: activity title. */
+						__( 'New activity on %1$s: %2$s', 'buddypress-share' ),
+						$site_title,
+						$mail_subject
+					);
+					$email_body = sprintf(
+						/* translators: 1: site title, 2: link to the activity, 3: site home page URL. Keep the blank lines, this is the body of a plain-text email. */
+						__( "Hi,\n\nI wanted to share this activity with you from %1\$s:\n\n%2\$s\n\nYou can explore more activities here: %3\$s\n\nBest regards,\nThe %1\$s Team", 'buddypress-share' ),
+						$site_title,
+						$activity_link,
+						$site_url
+					);
 
 					// Create the mailto link.
 					$email = 'mailto:?subject=' . rawurlencode( $email_subject ) . '&body=' . rawurlencode( $email_body );

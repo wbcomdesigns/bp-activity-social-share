@@ -53,8 +53,6 @@
   "hooks_fired": [
     { "name": "bp_share_add_services_options", "type": "action", "args_count": 2, "args_signature": ["string $arg1=''", "string $arg2=''"], "where": "admin/class-buddypress-share-admin.php:622", "consumed_by": [], "note": "Pro extension point; args passed as named-default assignments (arg1='' / arg2='') which is unusual but valid PHP" },
     { "name": "bp_share_user_services", "type": "action", "args_count": 3, "args_signature": ["array $social_service=array()", "string $activity_link", "string $activity_title"], "where": "public/class-buddypress-share-public.php:202", "consumed_by": [], "note": "Pro extension point to append extra share targets on the frontend button" },
-    { "name": "wbcom_add_header_menu", "type": "action", "args_count": 0, "args_signature": [], "where": "admin/wbcom/wbcom-admin-settings.php:370", "consumed_by": [], "note": "Lets companion plugins add tabs to shared Wbcom admin header" },
-    { "name": "wbcom_add_plugin_license_code", "type": "action", "args_count": 0, "args_signature": [], "where": "admin/wbcom/templates/wbcom-license-page.php", "consumed_by": [], "note": "License-page extension point (Pro)" },
     { "name": "bpas_share_button_text_override", "type": "filter", "args_count": 1, "args_signature": ["string $text='Share'"], "where": "public/class-buddypress-share-public.php:135", "consumed_by": [], "note": "Override the 'Share' button label" }
   ],
   "interactivity": [],

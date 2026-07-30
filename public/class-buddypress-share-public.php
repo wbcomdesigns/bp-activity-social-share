@@ -167,13 +167,21 @@ class Buddypress_Share_Public {
 		$plugin_path    = plugins_url();
 		$mail_subject   = wp_strip_all_tags( $activities_template->activity->action );
 
-		$updated_text = apply_filters( 'bpas_share_button_text_override', 'Share' );
-		if ( isset( $updated_text ) ) {
-			$share_button_text = $updated_text;
-		}
+		/**
+		 * Filter the label on the Share button.
+		 *
+		 * The default is translated, so a site that only wants the button in
+		 * its own language needs no filter at all - this is for sites that
+		 * want different wording ("Post to", "Send", ...).
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $share_button_text Button label.
+		 */
+		$share_button_text = apply_filters( 'bpas_share_button_text_override', __( 'Share', 'buddypress-share' ) );
 		?>
 		<div class="bp-share-btn generic-button">
-			<a class="button item-button bp-secondary-action bp-share-button" rel="nofollow"><span><?php esc_html_e( 'Share', 'buddypress-share' ); ?></span></a>
+			<a class="button item-button bp-secondary-action bp-share-button" rel="nofollow"><span><?php echo esc_html( $share_button_text ); ?></span></a>
 		</div>
 		
 		<div class="service-buttons <?php echo esc_html( $activity_type ); ?>" style="display: none;">
@@ -246,7 +254,22 @@ class Buddypress_Share_Public {
 			} else {
 				esc_html_e( 'Please enable share services!', 'buddypress-share' );
 			}
-			do_action( 'bp_share_user_services', $social_service = array(), $activity_link, $activity_title );
+			/**
+			 * Fires after the built-in share targets, so an add-on can append
+			 * its own.
+			 *
+			 * Passes the enabled services. Up to 3.5.6 this argument was
+			 * written inline as `$social_service = array()`, which handed every
+			 * consumer an empty array (and clobbered the local variable), so
+			 * nothing could tell which networks were switched on.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @param array  $social_service Enabled share services.
+			 * @param string $activity_link  Permalink of the activity.
+			 * @param string $activity_title Title of the activity.
+			 */
+			do_action( 'bp_share_user_services', $social_service, $activity_link, $activity_title );
 			?>
 		</div>
 

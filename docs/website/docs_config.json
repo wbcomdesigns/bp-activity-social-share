@@ -1,7 +1,15 @@
 {
   "product": "Activity Share for BuddyPress",
-  "slug": "bp-activity-social-share",
-  "pro_slug": "buddypress-activity-share-pro",
-  "version": "3.6.0",
-  "sections": ["getting-started", "settings", "pro", "developer-guide"]
+  "productType": "plugin",
+  "shortId": "bpas",
+  "sections": [
+    { "name": "Getting Started", "folder": "getting-started" },
+    { "name": "Features", "folder": "features" },
+    { "name": "Usage", "folder": "usage" },
+    { "name": "Settings", "folder": "settings" },
+    { "name": "Developer Guide", "folder": "developer-guide" },
+    { "name": "FAQ", "folder": "faq" },
+    { "name": "Troubleshooting", "folder": "troubleshooting" },
+    { "name": "Activity Share Pro", "folder": "pro" }
+  ]
 }

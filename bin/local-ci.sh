@@ -30,6 +30,9 @@ else
 	echo "Pro checkout not found - skipped"
 fi
 
+step "BuddyBoss-safe URLs (bp_members_get_user_url / bp_get_group_url are BuddyPress 12+ only)"
+grep -rn 'bp_members_get_user_url\|bp_get_group_url' --include='*.php' includes templates | grep -v 'includes/functions.php' && bad "use bpas_member_url() / bpas_group_url()"
+
 step "No inline <script>/<style> in PHP"
 grep -rln '<script\|<style' --include='*.php' includes templates && bad "inline script/style"
 

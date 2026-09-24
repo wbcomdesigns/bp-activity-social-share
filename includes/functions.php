@@ -132,6 +132,30 @@ function bpas_enqueue_assets(): void {
 }
 
 /**
+ * A member's profile URL on BuddyPress 12+ and on BuddyBoss / older BuddyPress.
+ *
+ * @param int $user_id Member.
+ */
+function bpas_member_url( int $user_id ): string {
+	if ( function_exists( 'bp_members_get_user_url' ) ) {
+		return (string) bp_members_get_user_url( $user_id );
+	}
+	return function_exists( 'bp_core_get_user_domain' ) ? (string) bp_core_get_user_domain( $user_id ) : '';
+}
+
+/**
+ * A group's URL on BuddyPress 12+ and on BuddyBoss / older BuddyPress.
+ *
+ * @param object $group Group.
+ */
+function bpas_group_url( object $group ): string {
+	if ( function_exists( 'bp_get_group_url' ) ) {
+		return (string) bp_get_group_url( $group );
+	}
+	return function_exists( 'bp_get_group_permalink' ) ? (string) bp_get_group_permalink( $group ) : '';
+}
+
+/**
  * REST namespace shared by Free and Pro.
  */
 function bpas_rest_namespace(): string {

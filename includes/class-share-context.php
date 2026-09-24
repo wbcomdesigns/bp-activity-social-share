@@ -140,14 +140,14 @@ final class Share_Context {
 	 */
 	private static function member( int $id ): ?self {
 		$user = get_userdata( $id );
-		if ( ! $user || ! function_exists( 'bp_members_get_user_url' ) ) {
+		if ( ! $user ) {
 			return null;
 		}
 		return new self(
 			'member',
 			(int) $user->ID,
 			$user,
-			(string) bp_members_get_user_url( $user->ID ),
+			bpas_member_url( (int) $user->ID ),
 			bp_core_get_user_displayname( $user->ID ),
 			'',
 			(string) bp_core_fetch_avatar(
@@ -177,7 +177,7 @@ final class Share_Context {
 			'group',
 			(int) $group->id,
 			$group,
-			(string) bp_get_group_url( $group ),
+			bpas_group_url( $group ),
 			wp_strip_all_tags( (string) $group->name ),
 			self::excerpt( (string) $group->description ),
 			(string) bp_core_fetch_avatar(

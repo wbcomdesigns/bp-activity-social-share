@@ -14,3 +14,5 @@
 *.md
 .DS_Store
 /dist
+/screenshot-*
+/.wordpress-org

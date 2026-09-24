@@ -9,7 +9,7 @@ Stable tag: 3.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Let members and visitors share BuddyPress activity, profiles and groups to Facebook, X, LinkedIn, WhatsApp and more, copy the link, or use the phone's share menu.
+Share BuddyPress activity, profiles and groups to Facebook, X, LinkedIn, WhatsApp and more, copy the link, or use the phone's share menu.
 
 == Description ==
 

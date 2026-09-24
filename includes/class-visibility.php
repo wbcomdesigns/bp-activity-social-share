@@ -52,6 +52,11 @@ final class Visibility {
 		if ( ! empty( $activity->hide_sitewide ) || ! empty( $activity->is_spam ) ) {
 			return false;
 		}
+		// Comments are stored as component 'activity'; their privacy is the root post's.
+		if ( 'activity_comment' === ( $activity->type ?? '' ) && ! empty( $activity->item_id ) ) {
+			$root = new \BP_Activity_Activity( (int) $activity->item_id );
+			return ! empty( $root->id ) && self::activity_is_public( $root );
+		}
 		return 0 === self::private_group_id( $activity );
 	}
 }

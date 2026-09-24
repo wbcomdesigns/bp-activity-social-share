@@ -87,6 +87,15 @@ function bpas_share_context( string $type, int $id ): ?BPAS\Share_Context {
 }
 
 /**
+ * Share context from an activity (or reply) object already loaded - no extra query.
+ *
+ * @param object $activity Activity row from a loop, or BP_Activity_Activity.
+ */
+function bpas_activity_share_context( object $activity ): ?BPAS\Share_Context {
+	return BPAS\Share_Context::from_activity( $activity );
+}
+
+/**
  * Whether the object may be shared outside the community (networks, public link).
  *
  * @param BPAS\Share_Context $ctx Context.
@@ -104,6 +113,15 @@ function bpas_can_share_externally( BPAS\Share_Context $ctx ): bool {
  */
 function bpas_render_share_menu( BPAS\Share_Context $ctx, array $args = array() ): string {
 	return BPAS\Share_Menu::render( $ctx, $args );
+}
+
+/**
+ * Decorative inline SVG from the shared icon set (assets/icons/ui).
+ *
+ * @param string $name Icon name, e.g. 'repeat', 'send', 'users'.
+ */
+function bpas_icon( string $name ): string {
+	return BPAS\Icons::get( $name, 'ui' );
 }
 
 /**

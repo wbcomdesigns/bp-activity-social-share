@@ -13,6 +13,7 @@
 	--bpas-surface: var(--bx-color-bg-elevated, var(--color-theme-white-box, var(--reign-site-sections-bg-color, var(--wp--preset--color--base, #ffffff))));
 	--bpas-surface-hover: var(--bx-color-bg-muted, var(--global-body-lightcolor, var(--reign-site-secondary-bg-color, #f1f5f9)));
 	--bpas-border: var(--bx-color-border, var(--global-border-color, var(--reign-site-border-color, #e2e8f0)));
+	--bpas-on-accent: var(--bx-color-fg-inverse, var(--reign-site-button-text-color, #ffffff));
 	--bpas-backdrop: rgb(15 23 42 / 45%);
 	--bpas-shadow: 0 10px 30px rgb(15 23 42 / 16%);
 	--bpas-radius: var(--bx-radius-md, 12px);

@@ -25,14 +25,14 @@ final class Plugin {
 		}
 
 		if ( class_exists( 'Youzify' ) ) {
-			self::notice( __( 'Activity Share for BuddyPress does not support Youzify and is inactive while Youzify is active.', 'bp-activity-social-share' ) );
+			self::notice( static fn() => __( 'Activity Share for BuddyPress does not support Youzify and is inactive while Youzify is active.', 'bp-activity-social-share' ) );
 			return;
 		}
 
 		if ( self::legacy_pro_active() ) {
 			// Pro 2.x ships its own copy of everything. Stay out of its way and keep
 			// the legacy settings it reads until Pro is updated.
-			self::notice( __( 'Activity Share Pro needs to be updated to version 3.6.0 or newer. Until then, sharing is provided by your current Pro version.', 'bp-activity-social-share' ) );
+			self::notice( static fn() => __( 'Activity Share Pro needs to be updated to version 3.6.0 or newer. Until then, sharing is provided by your current Pro version.', 'bp-activity-social-share' ) );
 			return;
 		}
 
@@ -89,16 +89,17 @@ final class Plugin {
 	}
 
 	/**
-	 * Show a one-line notice to administrators.
+	 * Show a one-line notice to administrators. The message is built inside the
+	 * callback so translations are not loaded before init.
 	 *
-	 * @param string $message Plain text message.
+	 * @param callable $message Returns the plain-text message.
 	 */
-	private static function notice( string $message ): void {
+	private static function notice( callable $message ): void {
 		add_action(
 			'admin_notices',
 			static function () use ( $message ) {
 				if ( current_user_can( 'activate_plugins' ) ) {
-					printf( '<div class="notice notice-warning"><p>%s</p></div>', esc_html( $message ) );
+					printf( '<div class="notice notice-warning"><p>%s</p></div>', esc_html( (string) $message() ) );
 				}
 			}
 		);

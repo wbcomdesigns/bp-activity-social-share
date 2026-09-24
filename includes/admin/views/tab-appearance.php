@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 		<div class="bpas-fields">
 			<div class="bpas-field">
 				<label for="bpas-label"><strong><?php esc_html_e( 'Button label', 'bp-activity-social-share' ); ?></strong></label>
-				<input id="bpas-label" class="regular-text" type="text" name="label" value="<?php echo esc_attr( $settings['label'] ); ?>" placeholder="<?php esc_attr_e( 'Share', 'bp-activity-social-share' ); ?>" />
+				<input id="bpas-label" class="regular-text" type="text" name="label" value="<?php echo esc_attr( $settings['label'] ); ?>" placeholder="<?php echo esc_attr( _x( 'Share', 'button: share this item', 'bp-activity-social-share' ) ); ?>" />
 				<p class="bpas-field__help"><?php esc_html_e( 'Leave empty to use "Share" in each visitor\'s language.', 'bp-activity-social-share' ); ?></p>
 			</div>
 

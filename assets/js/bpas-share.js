@@ -177,7 +177,7 @@
 		if ( copyBtn ) {
 			event.preventDefault();
 			copy( menu.getAttribute( 'data-bpas-url' ) ).then( function () {
-				announce( menu, i18n.copied || 'Link copied' );
+				announce( menu, i18n.copied );
 				copyBtn.classList.add( 'is-copied' );
 				window.setTimeout( function () {
 					copyBtn.classList.remove( 'is-copied' );

@@ -98,7 +98,7 @@
 		document.addEventListener( 'input', function ( event ) {
 			var input = event.target;
 			if ( 'label' === input.name ) {
-				var text = input.value.trim() || i18n.share || 'Share';
+				var text = input.value.trim() || i18n.share;
 				preview.querySelectorAll( '.bpas-share__label, .bpas-share__sheet-title' ).forEach( function ( el ) {
 					el.textContent = text;
 				} );

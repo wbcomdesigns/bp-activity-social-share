@@ -102,6 +102,6 @@ final class Settings {
 	 */
 	public static function label(): string {
 		$label = (string) self::get( 'label', '' );
-		return '' !== $label ? $label : __( 'Share', 'bp-activity-social-share' );
+		return '' !== $label ? $label : _x( 'Share', 'button: share this item', 'bp-activity-social-share' );
 	}
 }

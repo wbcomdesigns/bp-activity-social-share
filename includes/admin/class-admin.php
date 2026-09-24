@@ -169,7 +169,7 @@ final class Admin {
 						'saving' => __( 'Saving...', 'bp-activity-social-share' ),
 						/* translators: 1: network name, 2: position number. */
 						'moved'  => __( '%1$s moved to position %2$d.', 'bp-activity-social-share' ),
-						'share'  => __( 'Share', 'bp-activity-social-share' ),
+						'share'  => _x( 'Share', 'button: share this item', 'bp-activity-social-share' ),
 					),
 				)
 			) . ';',

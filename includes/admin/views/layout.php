@@ -37,7 +37,7 @@ $bpas_group     = null;
 				<span class="bpas-admin__brand-icon" aria-hidden="true"><span class="dashicons dashicons-share"></span></span>
 				<div>
 					<p class="bpas-admin__brand-name"><?php esc_html_e( 'Activity Share', 'bp-activity-social-share' ); ?></p>
-					<p class="bpas-admin__brand-sub"><?php echo esc_html( $bpas_pro ? __( 'Pro', 'bp-activity-social-share' ) : __( 'Plugin', 'bp-activity-social-share' ) ); ?></p>
+					<p class="bpas-admin__brand-sub"><?php echo esc_html( $bpas_pro ? _x( 'Pro', 'edition badge', 'bp-activity-social-share' ) : _x( 'Plugin', 'edition badge', 'bp-activity-social-share' ) ); ?></p>
 				</div>
 			</div>
 			<nav class="bpas-admin__nav" aria-label="<?php esc_attr_e( 'Activity Share settings', 'bp-activity-social-share' ); ?>">

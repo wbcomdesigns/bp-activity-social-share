@@ -157,7 +157,7 @@ final class Networks {
 				'mobile'    => true,
 			),
 			'x'         => array(
-				'label'     => __( 'X', 'bp-activity-social-share' ),
+				'label'     => _x( 'X', 'social network, formerly Twitter', 'bp-activity-social-share' ),
 				'type'      => 'link',
 				'share_url' => 'https://x.com/intent/post?url={url}&text={title}',
 				'icon'      => $brand( 'x' ),

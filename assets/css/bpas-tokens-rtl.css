@@ -14,6 +14,8 @@
 	--bpas-surface-hover: var(--bx-color-bg-muted, var(--global-body-lightcolor, var(--reign-site-secondary-bg-color, #f1f5f9)));
 	--bpas-border: var(--bx-color-border, var(--global-border-color, var(--reign-site-border-color, #e2e8f0)));
 	--bpas-on-accent: var(--bx-color-fg-inverse, var(--reign-site-button-text-color, #ffffff));
+	--bpas-danger: var(--bx-color-error, var(--reign-color-error, #dc2626));
+	--bpas-success: var(--bx-color-success, #16a34a);
 	--bpas-backdrop: rgb(15 23 42 / 45%);
 	--bpas-shadow: 0 10px 30px rgb(15 23 42 / 16%);
 	--bpas-radius: var(--bx-radius-card, var(--reign-global-border-radius, 12px));

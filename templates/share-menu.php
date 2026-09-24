@@ -26,7 +26,7 @@ $bpas_classes = trim( sprintf( 'bpas-share bpas-share--%1$s bpas-share--%2$s %3$
 ?>
 <div class="generic-button bpas-share-wrap bpas-share-wrap--<?php echo esc_attr( $view['position'] ); ?>">
 	<details class="<?php echo esc_attr( $bpas_classes ); ?>" data-bpas-type="<?php echo esc_attr( $bpas_ctx->type ); ?>" data-bpas-id="<?php echo esc_attr( (string) $bpas_ctx->id ); ?>" data-bpas-url="<?php echo esc_url( $bpas_ctx->url ); ?>" data-bpas-title="<?php echo esc_attr( $bpas_ctx->title ); ?>">
-		<summary class="button bp-secondary-action bpas-share__toggle">
+		<summary class="bpas-share__toggle">
 			<?php echo BPAS\Icons::get( 'share-2' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- bundled SVG. ?>
 			<span class="bpas-share__label"><?php echo esc_html( $view['label'] ); ?></span>
 			<?php echo $view['toggle_extra']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by the extension. ?>

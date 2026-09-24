@@ -88,12 +88,68 @@
 		} );
 	}
 
+	/*
+	 * Themes clip action bars and reply lists (overflow: hidden, often as a float clearfix), which
+	 * would cut the menu off. While it is open, unclip those ancestors - never scrolling ones - and
+	 * keep their floats contained with flow-root so nothing moves. Restored on close.
+	 */
+	function unclip( menu ) {
+		( menu.bpasUnclipped || [] ).forEach( function ( el ) {
+			el.classList.remove( 'bpas-unclip', 'bpas-unclip--flow' );
+		} );
+		menu.bpasUnclipped = [];
+		if ( ! menu.open ) {
+			return;
+		}
+		var pageWidth = document.documentElement.clientWidth;
+		for ( var el = menu.parentElement; el && el !== document.body; el = el.parentElement ) {
+			var style = window.getComputedStyle( el );
+			// Page-wide wrappers clip on purpose (to stop sideways scrolling); leave them alone.
+			if ( el.offsetWidth >= pageWidth ) {
+				break;
+			}
+			if ( /hidden|clip/.test( style.overflowX + style.overflowY ) ) {
+				el.classList.add( 'bpas-unclip' );
+				if ( 'block' === style.display ) {
+					el.classList.add( 'bpas-unclip--flow' );
+				}
+				menu.bpasUnclipped.push( el );
+			}
+		}
+	}
+
+	// A dropdown that would open past the screen edge anchors to the other side instead.
+	function keepOnScreen( menu ) {
+		menu.classList.remove( 'bpas-share--flip' );
+		var panel = menu.querySelector( '.bpas-share__panel' );
+		if ( ! menu.open || ! panel || 'absolute' !== window.getComputedStyle( panel ).position ) {
+			return; // Phones use the fixed bottom sheet.
+		}
+		var rect = panel.getBoundingClientRect();
+		var rtl = 'rtl' === window.getComputedStyle( menu ).direction;
+		if ( rtl ? rect.right > document.documentElement.clientWidth - 8 : rect.left < 8 ) {
+			menu.classList.add( 'bpas-share--flip' );
+		}
+	}
+
 	// Only one menu open at a time. `toggle` does not bubble, so capture it.
 	document.addEventListener( 'toggle', function ( event ) {
 		var menu = event.target;
-		if ( menu.matches && menu.matches( 'details.bpas-share' ) && menu.open ) {
-			closeAll( menu );
+		if ( ! menu.matches || ! menu.matches( 'details.bpas-share' ) ) {
+			return;
 		}
+		if ( menu.open ) {
+			closeAll( menu );
+			// BuddyPress collapses long reply threads by adding .bp-hidden to every <li> under
+			// .activity-comments - including our rows when the menu sits on a reply.
+			// It hides them with the class and with jQuery .hide(); our rows never carry inline display.
+			menu.querySelectorAll( '.bpas-share__item' ).forEach( function ( el ) {
+				el.classList.remove( 'bp-hidden' );
+				el.style.removeProperty( 'display' );
+			} );
+		}
+		unclip( menu );
+		keepOnScreen( menu );
 	}, true );
 
 	document.addEventListener( 'click', function ( event ) {

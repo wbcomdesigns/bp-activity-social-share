@@ -61,6 +61,19 @@ final class Share_Context {
 		if ( empty( $activity->id ) || ! function_exists( 'bp_activity_get_permalink' ) ) {
 			return null;
 		}
+		// Content-less system lines ("joined the group", "became friends") have nothing worth sharing;
+		// members and groups are shared from their own headers.
+		$shareable = '' !== trim( wp_strip_all_tags( (string) $activity->content ) )
+			|| in_array( $activity->type, array( 'activity_share', 'post_share', 'new_blog_post' ), true );
+		/**
+		 * Whether an activity item gets the share menu.
+		 *
+		 * @param bool   $shareable Default: it has content, or is a repost or blog post.
+		 * @param object $activity  Activity.
+		 */
+		if ( ! apply_filters( 'bpas_is_shareable_activity', $shareable, $activity ) ) {
+			return null;
+		}
 		return apply_filters( 'bpas_share_context', self::build_activity( $activity ) );
 	}
 

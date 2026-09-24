@@ -65,19 +65,22 @@ final class Admin {
 	}
 
 	/**
-	 * Tabs: Free's two, Pro appends.
+	 * Tabs: Free's two, Pro appends. `icon` is a dashicon class; `group` is the sidebar
+	 * section label (defaults to "Settings"), and a new group starts a new section.
 	 *
-	 * @return array<string,array{label:string,render:callable}>
+	 * @return array<string,array{label:string,render:callable,icon?:string,group?:string}>
 	 */
 	public static function tabs(): array {
 		$tabs = array(
 			'networks'   => array(
 				'label'  => __( 'Networks', 'bp-activity-social-share' ),
 				'render' => array( __CLASS__, 'render_networks' ),
+				'icon'   => 'dashicons-share',
 			),
 			'appearance' => array(
 				'label'  => __( 'Appearance', 'bp-activity-social-share' ),
 				'render' => array( __CLASS__, 'render_appearance' ),
+				'icon'   => 'dashicons-admin-appearance',
 			),
 		);
 		return (array) apply_filters( 'bpas_admin_tabs', $tabs );

@@ -16,12 +16,11 @@
 	position: relative;
 }
 
-/* Toggle: inherits the theme's activity button styles via .button. */
+/* Toggle: inherits the theme's activity button styles (and size) via .button; 44px touch target on phones. */
 .bpas-share__toggle {
 	display: inline-flex;
 	align-items: center;
 	gap: var(--bpas-space-1);
-	min-block-size: var(--bpas-tap);
 	cursor: pointer;
 	list-style: none;
 	user-select: none;
@@ -69,11 +68,11 @@
 }
 
 .bpas-share__sheet-head {
-	display: none;
+	display: none !important;
 }
 
 .bpas-share__list {
-	display: flex;
+	display: flex !important;
 	flex-direction: column;
 	gap: 2px;
 	margin: 0;
@@ -87,14 +86,17 @@
 }
 
 .bpas-share__item--native {
-	display: none;
+	display: none !important;
 }
 
 .bpas-can-native .bpas-share__item--native {
-	display: block;
+	display: block !important;
 }
 
 /*
+ * Structural `display` values above are !important because some themes force
+ * `.member-header-actions * > * { display: block }` on everything in the header bar.
+ *
  * Rows. Theme activity CSS targets `#buddypress .activity-meta a` and `.bp-list li`
  * with ID selectors that no class selector can beat, so the few properties themes
  * overwrite are protected with !important, scoped to our own panel only.
@@ -115,6 +117,7 @@
 	align-items: center;
 	justify-content: flex-start !important;
 	gap: var(--bpas-space-3);
+	box-sizing: border-box !important;
 	inline-size: 100% !important;
 	block-size: auto !important;
 	min-block-size: var(--bpas-tap);
@@ -126,6 +129,7 @@
 	color: var(--bpas-text) !important;
 	font: inherit;
 	font-size: var(--bpas-font-size) !important;
+	font-weight: 500 !important; /* <a> and <button> rows look the same */
 	line-height: 1.2 !important;
 	text-align: start;
 	text-decoration: none !important;
@@ -136,6 +140,49 @@
 /* Toggle text follows the surrounding action bar, not the theme's grey .button colour. */
 .bpas-share .bpas-share__toggle {
 	color: inherit !important;
+}
+
+/*
+ * Member / group header: the theme styles only its own <a>/<button> there (and some
+ * themes force `* > * { display: block }`), so the toggle carries the header button look.
+ */
+.bpas-share--header .bpas-share__toggle {
+	display: inline-flex !important;
+	flex-direction: row !important;
+	padding: 8px 20px !important;
+	background: var(--bpas-accent) !important;
+	border: 1px solid var(--bpas-accent) !important;
+	border-radius: var(--bpas-radius-button) !important;
+	color: var(--bpas-on-accent) !important;
+	font-weight: 600 !important;
+	line-height: 1.3 !important;
+	min-block-size: 0; /* sized like the theme's header buttons beside it */
+}
+
+.bpas-share--header .bpas-share__toggle:hover,
+.bpas-share--header[open] .bpas-share__toggle {
+	filter: brightness(0.92);
+}
+
+/*
+ * Themes clip the header action bar (overflow: hidden as a float clearfix). While our menu
+ * is open, unclip it and keep the floats contained with flow-root so nothing shifts.
+ */
+:has(> .bpas-share-wrap > .bpas-share[open]) {
+	display: flow-root !important;
+	overflow: visible !important;
+}
+
+/* In a header the menu opens under the button, aligned to its start edge. */
+.bpas-share--header .bpas-share__panel {
+	inset-inline-start: 0;
+	inset-inline-end: auto;
+}
+
+.bpas-share--header .bpas-share__toggle .bpas-icon {
+	display: inline-block !important;
+	inline-size: 16px;
+	block-size: 16px;
 }
 
 .bpas-share__link .bpas-icon {
@@ -228,7 +275,8 @@
 	}
 
 	.bpas-share__panel,
-	.bpas-share-wrap--before .bpas-share__panel {
+	.bpas-share-wrap--before .bpas-share__panel,
+	.bpas-share--header .bpas-share__panel {
 		position: fixed;
 		inset-block-start: auto;
 		inset-block-end: 0;
@@ -241,8 +289,12 @@
 		animation: none;
 	}
 
+	.bpas-share__toggle {
+		min-block-size: var(--bpas-tap);
+	}
+
 	.bpas-share__sheet-head {
-		display: flex;
+		display: flex !important;
 		align-items: center;
 		justify-content: space-between;
 		margin-block-end: var(--bpas-space-2);
@@ -250,13 +302,13 @@
 	}
 
 	.bpas-share__list {
-		display: grid;
+		display: grid !important;
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: var(--bpas-space-2);
 	}
 
 	.bpas-share__item--desktop {
-		display: none;
+		display: none !important;
 	}
 
 	.bpas-share__panel .bpas-share__link,

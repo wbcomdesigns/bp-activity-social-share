@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-24T10:10:27+00:00\n"
+"POT-Creation-Date: 2026-09-24T10:31:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-activity-social-share\n"
@@ -45,44 +45,46 @@ msgid "WB Plugins"
 msgstr ""
 
 #: includes/admin/class-admin.php:43
-#: includes/admin/views/layout.php:16
+#: includes/admin/views/layout.php:26
+#: includes/admin/views/layout.php:39
 msgid "Activity Share"
 msgstr ""
 
-#: includes/admin/class-admin.php:75
+#: includes/admin/class-admin.php:76
 #: includes/admin/views/tab-networks.php:16
 msgid "Networks"
 msgstr ""
 
-#: includes/admin/class-admin.php:79
+#: includes/admin/class-admin.php:81
 msgid "Appearance"
 msgstr ""
 
-#: includes/admin/class-admin.php:164
+#: includes/admin/class-admin.php:167
 msgid "Settings saved."
 msgstr ""
 
-#: includes/admin/class-admin.php:165
+#: includes/admin/class-admin.php:168
 msgid "Settings could not be saved. Please try again."
 msgstr ""
 
-#: includes/admin/class-admin.php:166
+#: includes/admin/class-admin.php:169
 msgid "Saving..."
 msgstr ""
 
 #. translators: 1: network name, 2: position number.
-#: includes/admin/class-admin.php:168
+#: includes/admin/class-admin.php:171
 #, php-format
 msgid "%1$s moved to position %2$d."
 msgstr ""
 
-#: includes/admin/class-admin.php:169
+#: includes/admin/class-admin.php:172
 #: includes/admin/views/tab-appearance.php:20
 #: includes/class-settings.php:105
 msgid "Share"
 msgstr ""
 
-#: includes/admin/class-admin.php:183
+#: includes/admin/class-admin.php:186
+#: includes/admin/views/layout.php:46
 msgid "Settings"
 msgstr ""
 
@@ -94,20 +96,44 @@ msgstr ""
 msgid "Open settings"
 msgstr ""
 
-#: includes/admin/views/layout.php:17
-msgid "Choose where members and visitors can share, and how the share menu looks."
+#: includes/admin/views/layout.php:15
+msgid "FAQ"
 msgstr ""
 
-#: includes/admin/views/layout.php:24
-msgid "Activity Share settings"
-msgstr ""
-
-#: includes/admin/views/layout.php:46
+#: includes/admin/views/layout.php:16
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/views/layout.php:47
+#: includes/admin/views/layout.php:17
 msgid "Support"
+msgstr ""
+
+#: includes/admin/views/layout.php:26
+msgid "Activity Share Pro"
+msgstr ""
+
+#: includes/admin/views/layout.php:27
+msgid "Choose where members and visitors can share, and how the share menu looks."
+msgstr ""
+
+#: includes/admin/views/layout.php:40
+msgid "Pro"
+msgstr ""
+
+#: includes/admin/views/layout.php:40
+msgid "Plugin"
+msgstr ""
+
+#: includes/admin/views/layout.php:43
+msgid "Activity Share settings"
+msgstr ""
+
+#: includes/admin/views/layout.php:73
+msgid "Resources"
+msgstr ""
+
+#: includes/admin/views/layout.php:79
+msgid "(opens in a new tab)"
 msgstr ""
 
 #: includes/admin/views/tab-appearance.php:15

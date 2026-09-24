@@ -90,6 +90,11 @@
 	// Live preview on the Appearance tab.
 	var preview = document.querySelector( '[data-bpas-preview]' );
 	if ( preview ) {
+		// Show the menu open so the preview is never an empty box.
+		var previewMenu = preview.querySelector( '.bpas-share' );
+		if ( previewMenu ) {
+			previewMenu.open = true;
+		}
 		document.addEventListener( 'input', function ( event ) {
 			var input = event.target;
 			if ( 'label' === input.name ) {

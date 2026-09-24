@@ -16,7 +16,8 @@
 	--bpas-on-accent: var(--bx-color-fg-inverse, var(--reign-site-button-text-color, #ffffff));
 	--bpas-backdrop: rgb(15 23 42 / 45%);
 	--bpas-shadow: 0 10px 30px rgb(15 23 42 / 16%);
-	--bpas-radius: var(--bx-radius-md, 12px);
+	--bpas-radius: var(--bx-radius-card, var(--reign-global-border-radius, 12px));
+	--bpas-radius-button: var(--bx-radius-button, var(--reign-global-button-radius, 6px));
 	--bpas-space-1: 4px;
 	--bpas-space-2: 8px;
 	--bpas-space-3: 12px;

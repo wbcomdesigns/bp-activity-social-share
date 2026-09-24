@@ -63,7 +63,7 @@ final class Settings {
 	public static function update( array $changes ): array {
 		$old = self::all();
 		$new = self::sanitize( array_merge( $old, $changes ) );
-		update_option( self::OPTION, $new, false );
+		update_option( self::OPTION, $new, true ); // Small and read on every page: autoload (one query for all options).
 		do_action( 'bpas_settings_updated', $new, $old );
 		return $new;
 	}

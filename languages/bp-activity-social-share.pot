@@ -1,0 +1,318 @@
+# Copyright (C) 2026 Wbcom Designs
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Activity Share for BuddyPress 3.6.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-activity-social-share\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-24T09:40:54+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: bp-activity-social-share\n"
+
+#. Plugin Name of the plugin
+#: buddypress-share.php
+msgid "Activity Share for BuddyPress"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: buddypress-share.php
+msgid "https://wbcomdesigns.com/downloads/buddypress-activity-social-share/"
+msgstr ""
+
+#. Description of the plugin
+#: buddypress-share.php
+msgid "Let members and visitors share BuddyPress activity, profiles and groups to social networks, copy the link, or use the phone's share sheet."
+msgstr ""
+
+#. Author of the plugin
+#: buddypress-share.php
+msgid "Wbcom Designs"
+msgstr ""
+
+#. Author URI of the plugin
+#: buddypress-share.php
+msgid "https://wbcomdesigns.com/"
+msgstr ""
+
+#: includes/admin/class-admin.php:41
+#: includes/admin/views/hub.php:17
+msgid "WB Plugins"
+msgstr ""
+
+#: includes/admin/class-admin.php:43
+#: includes/admin/views/layout.php:16
+msgid "Activity Share"
+msgstr ""
+
+#: includes/admin/class-admin.php:75
+#: includes/admin/views/tab-networks.php:16
+msgid "Networks"
+msgstr ""
+
+#: includes/admin/class-admin.php:79
+msgid "Appearance"
+msgstr ""
+
+#: includes/admin/class-admin.php:164
+msgid "Settings saved."
+msgstr ""
+
+#: includes/admin/class-admin.php:165
+msgid "Settings could not be saved. Please try again."
+msgstr ""
+
+#: includes/admin/class-admin.php:166
+msgid "Saving..."
+msgstr ""
+
+#. translators: 1: network name, 2: position number.
+#: includes/admin/class-admin.php:168
+#, php-format
+msgid "%1$s moved to position %2$d."
+msgstr ""
+
+#: includes/admin/class-admin.php:169
+#: includes/admin/views/tab-appearance.php:20
+#: includes/class-settings.php:105
+msgid "Share"
+msgstr ""
+
+#: includes/admin/class-admin.php:183
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/views/hub.php:18
+msgid "Settings for your installed Wbcom Designs plugins."
+msgstr ""
+
+#: includes/admin/views/hub.php:32
+msgid "Open settings"
+msgstr ""
+
+#: includes/admin/views/layout.php:17
+msgid "Choose where members and visitors can share, and how the share menu looks."
+msgstr ""
+
+#: includes/admin/views/layout.php:24
+msgid "Activity Share settings"
+msgstr ""
+
+#: includes/admin/views/layout.php:46
+msgid "Documentation"
+msgstr ""
+
+#: includes/admin/views/layout.php:47
+msgid "Support"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:15
+msgid "Button"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:19
+msgid "Button label"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:21
+msgid "Leave empty to use \"Share\" in each visitor's language."
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:25
+msgid "Position on activity"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:26
+msgid "After the other buttons"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:27
+msgid "Before the other buttons"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:31
+msgid "Icon colours"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:32
+msgid "Each network's own colour"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:33
+msgid "Match my theme"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:40
+msgid "Preview"
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:41
+msgid "This is the real menu your members see. Open it to check the result."
+msgstr ""
+
+#: includes/admin/views/tab-appearance.php:49
+#: includes/admin/views/tab-networks.php:67
+msgid "Save changes"
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:17
+msgid "Tick the networks to show in the share menu. Use the arrows to change their order."
+msgstr ""
+
+#. translators: %s: network name.
+#: includes/admin/views/tab-networks.php:28
+#, php-format
+msgid "Move %s up"
+msgstr ""
+
+#. translators: %s: network name.
+#: includes/admin/views/tab-networks.php:29
+#, php-format
+msgid "Move %s down"
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:34
+msgid "On phones, a \"More options\" button also opens the phone's own share menu (Instagram, Messages, and other apps)."
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:39
+msgid "Who and where"
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:45
+msgid "Visitors can share"
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:46
+msgid "Show the share menu to people who are not logged in, on public posts only."
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:52
+msgid "Share on member profiles"
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:53
+msgid "Adds Share next to the profile header buttons."
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:59
+msgid "Share on public groups"
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:60
+msgid "Private and hidden groups never show outside sharing."
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:73
+msgid "Dismiss"
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:74
+msgid "Want members to repost inside your community?"
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:75
+msgid "Activity Share Pro adds reposting to profiles and groups, sending posts to friends, share buttons on blog posts and other content, and share analytics."
+msgstr ""
+
+#: includes/admin/views/tab-networks.php:76
+msgid "See Activity Share Pro"
+msgstr ""
+
+#: includes/api/class-settings-controller.php:67
+msgid "Authentication required."
+msgstr ""
+
+#: includes/api/class-settings-controller.php:70
+msgid "You are not allowed to change share settings."
+msgstr ""
+
+#: includes/class-assets.php:55
+msgid "Link copied"
+msgstr ""
+
+#: includes/class-assets.php:56
+msgid "Could not copy the link. Press and hold to copy it instead."
+msgstr ""
+
+#: includes/class-networks.php:86
+msgid "A share network with this slug already exists."
+msgstr ""
+
+#: includes/class-networks.php:91
+msgid "Share URLs must start with https://."
+msgstr ""
+
+#: includes/class-networks.php:152
+msgid "Facebook"
+msgstr ""
+
+#: includes/class-networks.php:160
+msgid "X"
+msgstr ""
+
+#: includes/class-networks.php:168
+msgid "LinkedIn"
+msgstr ""
+
+#: includes/class-networks.php:176
+msgid "WhatsApp"
+msgstr ""
+
+#: includes/class-networks.php:184
+msgid "Telegram"
+msgstr ""
+
+#: includes/class-networks.php:192
+msgid "Bluesky"
+msgstr ""
+
+#: includes/class-networks.php:200
+msgid "Reddit"
+msgstr ""
+
+#: includes/class-networks.php:208
+msgid "Pinterest"
+msgstr ""
+
+#: includes/class-networks.php:216
+msgid "Email"
+msgstr ""
+
+#: includes/class-networks.php:224
+msgid "Copy link"
+msgstr ""
+
+#: includes/class-plugin.php:28
+msgid "Activity Share for BuddyPress does not support Youzify and is inactive while Youzify is active."
+msgstr ""
+
+#: includes/class-plugin.php:35
+msgid "Activity Share Pro needs to be updated to version 3.6.0 or newer. Until then, sharing is provided by your current Pro version."
+msgstr ""
+
+#: templates/share-menu.php:35
+msgid "Share options"
+msgstr ""
+
+#: templates/share-menu.php:40
+msgid "Close"
+msgstr ""
+
+#: templates/share-menu.php:62
+msgid "Share by email"
+msgstr ""
+
+#. translators: %s: network name, e.g. Facebook.
+#: templates/share-menu.php:62
+#, php-format
+msgid "Share on %s (opens in a new window)"
+msgstr ""
+
+#: templates/share-menu.php:74
+msgid "More options"
+msgstr ""

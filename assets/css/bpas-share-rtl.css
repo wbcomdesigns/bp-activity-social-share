@@ -1,0 +1,279 @@
+/**
+ * Activity Share - share menu.
+ * Tokens: bpas-tokens.css. Logical properties only (RTL via rtlcss). Two media blocks at the bottom.
+ */
+
+.bpas-share-wrap {
+	position: relative;
+	display: inline-flex;
+}
+
+.bpas-share-wrap--before {
+	order: -1;
+}
+
+.bpas-share {
+	position: relative;
+}
+
+/* Toggle: inherits the theme's activity button styles via .button. */
+.bpas-share__toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--bpas-space-1);
+	min-block-size: var(--bpas-tap);
+	cursor: pointer;
+	list-style: none;
+	user-select: none;
+}
+
+.bpas-share__toggle::-webkit-details-marker,
+.bpas-share__toggle::marker {
+	display: none;
+	content: "";
+}
+
+.bpas-share__toggle:focus-visible,
+.bpas-share__link:focus-visible,
+.bpas-share__close:focus-visible {
+	outline: var(--bpas-focus);
+	outline-offset: 2px;
+}
+
+.bpas-share .bpas-icon {
+	inline-size: var(--bpas-icon);
+	block-size: var(--bpas-icon);
+	flex: none;
+}
+
+/* Panel (desktop dropdown). */
+.bpas-share__panel {
+	position: absolute;
+	inset-block-start: calc(100% + var(--bpas-space-1));
+	inset-inline-end: 0;
+	z-index: var(--bpas-z);
+	min-inline-size: 240px;
+	padding: var(--bpas-space-2);
+	background: var(--bpas-surface);
+	color: var(--bpas-text);
+	border: 1px solid var(--bpas-border) !important;
+	border-radius: var(--bpas-radius) !important;
+	box-shadow: var(--bpas-shadow);
+	font-size: var(--bpas-font-size);
+	text-align: start;
+}
+
+.bpas-share-wrap--before .bpas-share__panel {
+	inset-inline-end: auto;
+	inset-inline-start: 0;
+}
+
+.bpas-share__sheet-head {
+	display: none;
+}
+
+.bpas-share__list {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.bpas-share__item {
+	margin: 0;
+	padding: 0;
+}
+
+.bpas-share__item--native {
+	display: none;
+}
+
+.bpas-can-native .bpas-share__item--native {
+	display: block;
+}
+
+/*
+ * Rows. Theme activity CSS targets `#buddypress .activity-meta a` and `.bp-list li`
+ * with ID selectors that no class selector can beat, so the few properties themes
+ * overwrite are protected with !important, scoped to our own panel only.
+ */
+.bpas-share__panel .bpas-share__item {
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	background: none !important;
+	list-style: none !important;
+}
+
+.bpas-share__panel .bpas-share__link,
+.bpas-share__panel .bpas-share__link:visited,
+.bpas-share__panel .bpas-share__link:hover,
+.bpas-share__panel .bpas-share__link:active {
+	display: flex !important;
+	align-items: center;
+	justify-content: flex-start !important;
+	gap: var(--bpas-space-3);
+	inline-size: 100% !important;
+	block-size: auto !important;
+	min-block-size: var(--bpas-tap);
+	margin: 0 !important;
+	padding: 0 var(--bpas-space-3) !important;
+	border: 0 !important;
+	border-radius: calc(var(--bpas-radius) - 4px) !important;
+	background: transparent !important;
+	color: var(--bpas-text) !important;
+	font: inherit;
+	font-size: var(--bpas-font-size) !important;
+	line-height: 1.2 !important;
+	text-align: start;
+	text-decoration: none !important;
+	box-shadow: none !important;
+	cursor: pointer;
+}
+
+/* Toggle text follows the surrounding action bar, not the theme's grey .button colour. */
+.bpas-share .bpas-share__toggle {
+	color: inherit !important;
+}
+
+.bpas-share__link .bpas-icon {
+	color: var(--bpas-text-muted);
+}
+
+.bpas-share--brand .bpas-share__link .bpas-icon {
+	color: var(--bpas-c, var(--bpas-text));
+}
+
+.bpas-share--theme .bpas-share__link .bpas-icon {
+	color: var(--bpas-accent);
+}
+
+.bpas-share__link[aria-disabled="true"] {
+	opacity: 0.6;
+	cursor: default;
+}
+
+.bpas-share .bpas-share__close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	inline-size: var(--bpas-tap) !important;
+	block-size: var(--bpas-tap) !important;
+	min-inline-size: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	border-radius: 50% !important;
+	background: transparent !important;
+	color: var(--bpas-text-muted) !important;
+	box-shadow: none !important;
+	cursor: pointer;
+}
+
+.bpas-share .screen-reader-text {
+	position: absolute;
+	inline-size: 1px;
+	block-size: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+	.bpas-share__panel .bpas-share__link:hover,
+	.bpas-share .bpas-share__close:hover {
+		background: var(--bpas-surface-hover) !important;
+		color: var(--bpas-text) !important;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+	.bpas-share[open] .bpas-share__panel {
+		animation: bpas-in 120ms ease-out;
+	}
+
+	@keyframes bpas-in {
+
+		from {
+			opacity: 0;
+			transform: translateY(-4px);
+		}
+	}
+}
+
+/* Tablet: nothing changes for the share menu. */
+@media (max-width: 1024px) {
+
+	.bpas-share__panel {
+		min-inline-size: 220px;
+	}
+}
+
+/* Phones: bottom sheet with backdrop; networks as a 4-column grid. */
+@media (max-width: 640px) {
+
+	.bpas-share[open]::before {
+		content: "";
+		position: fixed;
+		inset: 0;
+		z-index: var(--bpas-z);
+		background: var(--bpas-backdrop);
+	}
+
+	.bpas-share__panel,
+	.bpas-share-wrap--before .bpas-share__panel {
+		position: fixed;
+		inset-block-start: auto;
+		inset-block-end: 0;
+		inset-inline: 0;
+		z-index: calc(var(--bpas-z) + 1);
+		max-block-size: 80vh;
+		overflow-y: auto;
+		padding: var(--bpas-space-2) var(--bpas-space-4) calc(var(--bpas-space-4) + env(safe-area-inset-bottom));
+		border-radius: var(--bpas-radius) var(--bpas-radius) 0 0 !important;
+		animation: none;
+	}
+
+	.bpas-share__sheet-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-block-end: var(--bpas-space-2);
+		font-weight: 600;
+	}
+
+	.bpas-share__list {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: var(--bpas-space-2);
+	}
+
+	.bpas-share__item--desktop {
+		display: none;
+	}
+
+	.bpas-share__panel .bpas-share__link,
+	.bpas-share__panel .bpas-share__link:visited,
+	.bpas-share__panel .bpas-share__link:hover,
+	.bpas-share__panel .bpas-share__link:active {
+		flex-direction: column !important;
+		flex-wrap: nowrap !important;
+		justify-content: center !important;
+		gap: var(--bpas-space-1);
+		padding: var(--bpas-space-2) var(--bpas-space-1) !important;
+		font-size: var(--bpas-font-size-sm) !important;
+		text-align: center;
+	}
+
+	.bpas-share .bpas-share__link .bpas-icon {
+		inline-size: 28px;
+		block-size: 28px;
+	}
+}

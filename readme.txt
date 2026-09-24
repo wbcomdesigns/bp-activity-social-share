@@ -1,151 +1,131 @@
-=== Wbcom Designs - BuddyPress Activity Social Share ===
-
-Contributors: vapvarun,wbcomdesigns
-Donate link: https://wbcomdesigns.com
-Tags: buddypress, activity, share
-Requires at least: 6.5
-Tested up to: 7.0
-Requires PHP: 8.0
+=== Activity Share for BuddyPress ===
+Contributors: wbcomdesigns, vapvarun
+Tags: buddypress, share, social share, activity, whatsapp
+Requires at least: 6.7
+Tested up to: 7.1
+Requires PHP: 8.1
 Requires Plugins: buddypress
-Stable tag: 3.5.6
+Stable tag: 3.6.0
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
- A free WordPress plugin enables easy sharing of BuddyPress activities across major social media platforms such as Facebook, Twitter, and LinkedIn. 
+Let members and visitors share BuddyPress activity, profiles and groups to Facebook, X, LinkedIn, WhatsApp and more, copy the link, or use the phone's share menu.
 
 == Description ==
 
-The BuddyPress Activity, Social Share plugin enables users to share their activities on social networks.
+Activity Share for BuddyPress adds a Share button to every activity post, member profile and public group.
 
-[vimeo https://vimeo.com/556645144 ]
+* **Share anywhere:** Facebook, X, LinkedIn, WhatsApp, Telegram, Bluesky, Reddit, Pinterest and email.
+* **Copy link:** one tap copies the link, with a clear "Link copied" message.
+* **Phone share menu:** on phones, "More options" opens the phone's own share menu, so members can share to Instagram, Messages or any installed app.
+* **Visitors can share too:** public posts can be shared by people who are not logged in. You can turn this off.
+* **Private stays private:** activity in private and hidden groups never offers outside sharing.
+* **Looks right on phones:** the menu opens as a bottom sheet with large touch targets.
+* **Fits your theme:** follows your theme's colours and dark mode (BuddyX, BuddyX Pro, Reign and most popular themes), with each network's own colours or your theme's accent.
+* **Good link previews:** posts shared to Facebook, LinkedIn and WhatsApp show the post's own image and text. If an SEO plugin (Yoast, Rank Math, AIOSEO, SEOPress) already adds preview tags, this plugin steps aside.
+* **Accessible:** works with a keyboard and screen readers, and even without JavaScript.
+* **Translation ready**, including right-to-left languages.
 
-[Live demo >](https://bb-free.buddyxtheme.com/)
-[Additional Details >](https://wbcomdesigns.com/downloads/buddypress-activity-social-share/)
+= Settings =
 
-**If you like the plugin functionality, please leave a review to help the plugin grow!**
+Go to **WB Plugins > Activity Share**:
 
-=== THEME - WORDPRESS THEME WITH OUTSTANDING BUDDYPRESS SUPPORT ===
-* [FREE BuddyPress Theme: BuddyX](https://wordpress.org/themes/buddyx/) - Experience BuddyPress in a whole new way with unique layouts, clean code, and easy-to-customize options.
+* **Networks:** tick the networks to show and set their order.
+* **Who and where:** visitors, member profiles, public groups.
+* **Appearance:** button label, position before or after the other activity buttons, network colours or your theme's colours, with a live preview.
 
-#### OUR ADON PLUGINS TO FURTHER IMPROVE YOUR BUDDYPRESS OR BUDDYBOSS PLATFORM COMMUNITY
-Check out free community add-ons by Wbcom Designs:
+= Activity Share Pro =
 
-* **[Wbcom Designs - BuddyPress Member Reviews](https://wordpress.org/plugins/bp-user-profile-reviews/)** Allow members to add ratings or feedback to other community members.
-* **[Wbcom Designs - BuddyPress Group Reviews](https://wordpress.org/plugins/review-buddypress-groups/)** Allow members to add ratings or feedback to BuddyPress groups.
-* **[Wbcom Designs - BuddyPress Activity Social Share](https://wordpress.org/plugins/bp-activity-social-share/)** Allow members to share activities on their social profiles like Facebook, Twitter, What's App, and LinkedIn with OG metadata.
-* **[Wbcom Designs - Private Community with BP Lock](https://wordpress.org/plugins/lock-my-bp/)** A plugin to make your community private and only accessible to logged-in users. It also allows you to keep select pages or the component public.
-* **[Wbcom Designs - BuddyPress Job Manager](https://wordpress.org/plugins/bp-job-manager/)** Allows you to integrate the WP Job Manager plugin into BuddyPress.
-* **[Wbcom Designs - Check-ins for BuddyPress Activity](https://wordpress.org/plugins/bp-check-in/)** Allow members to add their location or post their check-in updates to the activity.
-* **[Wbcom Designs - BuddyPress Favorite Notification](https://wordpress.org/plugins/bp-favorite-notification/)** Allow members to be notified after any like or favorite on their BuddyPress activity.
-* **[Wbcom Designs - Shortcodes & Elementor Widgets For BuddyPress](https://wordpress.org/plugins/shortcodes-for-buddypress/)** It offers shortcodes and elementor widgets for the activity listing, member's directory display, and the group's directory on any post/page.
+[Activity Share Pro](https://wbcomdesigns.com/downloads/buddypress-activity-share-pro/) adds reposting inside your community (to your profile or a group, with a comment), sending posts privately to friends, sharing comment replies, share buttons on blog posts and any content type, share counts, a trending block, share rewards and share analytics.
 
-Check out paid community add-ons by Wbcom Designs:
+= For developers =
 
-* **[Wbcom Designs - BuddyPress Hashtags](https://wbcomdesigns.com/downloads/buddypress-hashtags/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows members to use hashtags in BuddyPress or BuddyBoss Platform activities and bbPress topics.
-* **[Wbcom Designs - BuddyPress Polls](https://wbcomdesigns.com/downloads/buddypress-polls/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)**  It allows you to extend BuddyPress or BuddyBoss Platform Activity for members to publish Polls with various options and works perfectly for individual activities and group activities.
-* **[Wbcom Designs - BuddyPress Quotes](https://wbcomdesigns.com/downloads/buddypress-quotes/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It allows the feature to let members post their activity updates with interactive background selection such as colors and images set by the site administrator to tell a more expressive story.
-* **[Wbcom Designs - BuddyPress Status & Reaction](https://wbcomdesigns.com/downloads/buddypress-status/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow your members to set a status icon and tagline on their profile and offer a big set of icons to react to published activities.
-* **[Wbcom Designs - BuddyPress Profanity](https://wbcomdesigns.com/downloads/buddypress-profanity/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow you to censor content in your community! Easily Censor all the unwanted words in activities' private messages contents by specifying a list of keywords to be filtered.
-* **[Wbcom Designs - BuddyPress Sticky Post](https://wbcomdesigns.com/downloads/buddypress-sticky-post/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows site administrators to prioritize certain activities over others. It lets the admin pin up site-wide and group activities to the top of the activity list.
-* **[Wbcom Designs - BuddyPress Auto Friends](https://wbcomdesigns.com/downloads/buddypress-auto-friends/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow the site admin to select global friends for all his members and add bulk global friends.
-* **[Wbcom Designs - Shortcodes & Elementor Widgets For BuddyPress Pro](https://wordpress.org/plugins/shortcodes-for-buddypress/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It offers shortcodes and elementor widgets with various argument parameters for the activity listing, member's directory display, and the group's directory on any post/page.
+Add your own network in a few lines:
 
+`add_action( 'bpas_register_networks', function () {
+	bpas_register_network( 'mastodon', array(
+		'label'     => 'Mastodon',
+		'share_url' => 'https://mastodonshare.com/?url={url}&text={title}',
+		'icon'      => '<svg ...>...</svg>',
+		'color'     => '#6364FF',
+	) );
+} );`
 
-== More Free Tools from Wbcom Designs ==
-
-Social sharing is how your members carry activity beyond your site and pull new people back in. The more your community has going on, the more there is worth sharing. These free plugins from Wbcom Designs build out that community around the share button: the network itself, discussion spaces, media, directories, and courses.
-
-* **[BuddyNext](https://wbcomdesigns.com/downloads/buddynext/)** - Stand up a complete social network on WordPress with activity feeds, member profiles, and connections.
-* **[Jetonomy](https://wbcomdesigns.com/downloads/jetonomy/)** - Add forums, Q&A, and idea boards that moderate themselves with trust levels and scale past 100,000 topics.
-* **[Mediaverse](https://wbcomdesigns.com/downloads/mediaverse/)** - Give members a photo and video community, with AI moderation to keep the uploads clean.
-* **[Listora](https://wbcomdesigns.com/downloads/listora/)** - Publish searchable directories across ten listing types, from members and businesses to events.
-* **[Learnomy](https://wbcomdesigns.com/downloads/learnomy/)** - Create and sell online courses on your own site with a free, full-featured learning platform.
-
+The new network appears on the Networks screen, ready to switch on. Other hooks: `bpas_share_context`, `bpas_share_menu_items`, `bpas_can_share_externally`, `bpas_share_url`, `bpas_open_graph_enabled`. The share menu template can be overridden in your theme at `bp-activity-social-share/share-menu.php`.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-1. Download the zip file and extract it.
-
-2. Upload `bp-activity-social-share` directory to the `/wp-content/plugins/` directory
-
-3. Activate the plugin through the \'Plugins\' menu.
-
-4. Alternatively, you can use the WordPress Plugins installer from Dashboard->Plugins->Add New to add this plugin
-
-5. Enjoy
-
-If you need more help, don't hesitate to contact us for [Custom Development](https://wbcomdesigns.com/hire-us/).
-
+1. Install and activate BuddyPress.
+2. Install Activity Share for BuddyPress from Plugins > Add New, or upload the zip.
+3. Activate it. Sharing works right away with sensible defaults.
+4. Optional: adjust networks and appearance under WB Plugins > Activity Share.
 
 == Frequently Asked Questions ==
 
-= Do I need to install any additional plugins for this plugin to work properly? =
-Yes, this plugin requires the BuddyPress plugin.
+= Can members share to Instagram, TikTok or YouTube? =
 
-= Is it compatible with the BuddyBoss Platform? =
-Yes, it will consider bb-media files for og-images.
+Those apps do not accept shared links from websites. On phones, members tap "More options" to open the phone's share menu and pick any installed app, including Instagram.
 
-= Is it compatible with rtMedia? =
-Yes, it works for rtMedia media activities, and attached media are used for og-images.
+= Why can't I share to a Facebook Group? =
 
-= How to add social service? =
-In the plugin general setting tab, you can see settings Add Social Services. Here, you can add a new service.
+Facebook's share window lets people pick where to post. Posting to a group depends on the member's own Facebook permissions for that group.
 
-= How do you remove Social Services from the front-end Share option? =
-In the plugin general settings tab, you can see all service listings. Here, you can remove the service.
+= Why don't I see Share on a post in a private group? =
 
-= Where Do I Ask for Support? =
-Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to the plugin and Buddypress.
+Posts in private and hidden groups can only be seen by members, so sharing them to other sites would give everyone else a link they cannot open. Members can still copy the link for other members.
 
+= Can I change the word "Share"? =
+
+Yes. Go to WB Plugins > Activity Share > Appearance and type your own label, or leave it empty to use "Share" in each visitor's language.
+
+= Can I move the Share button? =
+
+Yes. Choose "Before the other buttons" or "After the other buttons" on the Appearance tab.
+
+= How do I stop the plugin from adding link-preview tags? =
+
+It already stops automatically when Yoast, Rank Math, AIOSEO or SEOPress is active. To turn it off in other cases: `add_filter( 'bpas_open_graph_enabled', '__return_false' );`
+
+= Does it work with BuddyBoss? =
+
+It is built for BuddyPress and works with BuddyBoss Platform on a best-effort basis.
+
+= Does it work with Youzify? =
+
+No. Youzify has its own sharing, so this plugin stays inactive while Youzify is active.
 
 == Screenshots ==
 
-1. Admin General Settings - Enable or disable each social network and set the popup sharing option.
-2. Admin Icon Colors - Pick a background color for every sharing icon.
-3. Frontend share panel - Social share icons expanded on a BuddyPress activity item (desktop).
-4. Frontend share panel on mobile - Sharing icons laid out in a three-column grid at phone width.
-5. Discover tab - More free community tools from Wbcom Designs.
+1. The share menu on an activity post.
+2. The share menu as a bottom sheet on a phone.
+3. Networks settings: choose and order networks.
+4. Appearance settings with a live preview.
 
 == Changelog ==
 
-= 3.5.6 - July 2026 =
+= 3.6.0 - September 2026 =
 
-Rebuilt the admin on the modern card-panel layout, plus a UI-token and RTL readiness pass.
+A fresh rebuild: faster, accessible, works for visitors, and fits any theme.
 
-* Improve  - Rebuilt the admin settings screen on the modern Wbcom card-panel layout (sidebar navigation, branded header, WB Plugins hub). Settings and saved data are unchanged.
-* Improve  - Rebuilt the General Settings tab on the card layout so its section headings and spacing match the rest of the panel.
-* Improve  - Tokenized the remaining hardcoded colors in the legacy admin stylesheet so it matches the card-panel theme.
-* Improve  - Converted all stylesheets to logical properties for full right-to-left (RTL) readiness.
-* Fix      - Saving settings now shows a confirmation message. A blanket CSS rule was hiding every admin notice on the plugin screens, including the plugin's own "Settings saved." banner.
-* Fix      - The color picker on the Icon Colors tab is no longer clipped by the card edge, so the preset swatches on the last row are reachable.
-* Fix      - Saving General Settings no longer rewrites every stored network entry.
-* Fix      - A failed save now reports the error and puts the icon back, instead of leaving the screen showing a change that was never stored.
-* Fix      - Share links now URL-encode the activity title. Titles containing #, &amp; or non-ASCII characters produced broken or truncated share URLs.
-* Fix      - Twitter cards now declare a card type instead of an image URL, so shared activities render a card again.
-* Fix      - Email shares no longer show &amp;amp; in place of &amp; in the subject and body.
-* Fix      - Corrected a case-sensitive class check that stopped the post-activation redirect from firing on multisite.
-* Fix      - The Pro-active guard now also detects a network-activated Pro on multisite, so free and Pro can no longer run side by side.
-* Fix      - Removed the broken "Our Themes" admin page (its template was missing and the page rendered empty).
-* Fix      - Removed an OS-level dark-mode rule so dark styling follows the theme's explicit toggle, not the visitor's system setting.
-* Fix      - The Disable and Enable column headings are now translatable.
-* Security - Removed the legacy nonce-only shared-wrapper AJAX handler.
-* Dev      - Removed the inline color-picker script from the Icon Colors page (now enqueued).
-* Improve  - The share stylesheet and script no longer load on every page of the site, only where a BuddyPress activity stream is rendered. Also dropped an unused jQuery UI dependency that was loading site-wide.
-* Remove   - Removed Pocket. Mozilla shut the service down in July 2025, so the share link no longer went anywhere. Existing sites have the Pocket option and its saved icon color cleaned up automatically on update. No action needed.
-* Fix      - The bpas_share_button_text_override filter now actually changes the Share button label. It ran, but its result was never used, so custom labels were silently ignored.
-* Fix      - The bp_share_user_services action now receives the enabled share services. It was passing an empty array, so add-ons hooking it could not tell which networks were switched on.
-* Fix      - The nonce error returned by the icon drag-and-drop handlers is now translatable. It was hardcoded English, so non-English admins saw it untranslated.
-* Dev      - Removed the non-functional icon reordering code and its AJAX handler. Sharing icons have always rendered in a fixed order, so the drag-to-reorder gesture never had any effect.
-* Dev      - Removed the unreachable Settings API registration and sanitize callback for the extra options group. The form is saved over AJAX and never reached them.
-* Dev      - Regenerated the translation template against the current source and removed the obsolete en_US translation.
-* Compat   - Tested up to WordPress 7.0. Now requires WordPress 6.5 and PHP 8.0.
-
-= 3.5.5 =
-* Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files
-* Code Quality: Added phpcs:ignore for legacy file naming and class naming conventions
-* Code Quality: Fixed all Plugin Check errors (0 errors, excluding legacy text domain mismatch)
+* New      - Visitors can share public activity; switch it off under Who and where.
+* New      - Share button on member profiles and public groups.
+* New      - Copy link button with a "Link copied" message.
+* New      - "More options" opens the phone's own share menu (Instagram, Messages and other apps).
+* New      - Telegram, Bluesky and Reddit sharing; X replaces Twitter.
+* New      - Choose the button label, its position, and network colours or your theme's colours, with a live preview.
+* New      - Keyboard-friendly network ordering with up and down buttons.
+* New      - Developers can add their own networks with bpas_register_network().
+* Improve  - The share menu opens as a bottom sheet on phones with large touch targets.
+* Improve  - Follows your theme's colours and dark mode automatically.
+* Improve  - Link previews use the post's own image and step aside when an SEO plugin adds its own.
+* Improve  - Works with a keyboard, screen readers and right-to-left languages, and without JavaScript.
+* Improve  - Translations from translate.wordpress.org now load.
+* Fix      - Networks you turn off no longer appear on activity.
+* Fix      - Saving settings no longer shows an error when nothing changed.
+* Fix      - Posts in private and hidden groups no longer offer sharing to other sites.
+* Fix      - Upgrading to Activity Share Pro no longer causes an activation error.
+* Dev      - Old settings are moved to the new format automatically and the old entries are removed.
+* Compat   - Requires WordPress 6.7 and PHP 8.1. Pair with Activity Share Pro 3.6.0.
 
 = 3.5.4 =
 * Fixed warnings and potential fatal errors in plugin functions to ensure stability.

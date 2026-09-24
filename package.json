@@ -1,23 +1,15 @@
 {
-  "name": "buddypress-share",
-  "version": "3.5.6",
-  "url": "https://github.com/wbcomdesigns/buddypress-activity-social-share/",
-  "license": "GPL-2.0+",
-  "description": "Free WordPress plugin to allow anyone easily share BuddyPress Activites on major social media",
+  "name": "bp-activity-social-share",
+  "version": "3.6.0",
+  "private": true,
+  "description": "Activity Share for BuddyPress - build tooling",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "node bin/build-assets.js"
+  },
   "devDependencies": {
-    "grunt": "^1.4.1",
-    "grunt-checktextdomain": "^1.0.1",
-    "grunt-wp-i18n": "^1.0.3"
-  },
-  "engines": {
-    "node": ">=6.9.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wbcomdesigns/buddypress-activity-social-share/"
-  },
-  "dependencies": {
-    "fix": "^0.0.3",
-    "load-grunt-tasks": "^3.5.2"
+    "clean-css": "^5.3.3",
+    "rtlcss": "^4.3.0",
+    "terser": "^5.31.0"
   }
 }

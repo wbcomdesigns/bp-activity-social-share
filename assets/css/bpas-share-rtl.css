@@ -205,6 +205,27 @@
 	filter: brightness(0.92);
 }
 
+/* Reign moves every header button after the first into its "More options" list: there Share is one more row, like its siblings. */
+.bp_more_options_list .bpas-share--header > .bpas-share__toggle,
+.bp_more_options_list .bpas-share--header[open] > .bpas-share__toggle {
+	display: block !important;
+	inline-size: 100% !important;
+	padding: 10px 14px !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	background: transparent !important;
+	color: var(--reign-site-link-color, var(--bpas-text)) !important;
+	font-size: 13px !important;
+	font-weight: inherit !important;
+	line-height: 1.5 !important;
+	text-align: start !important;
+	filter: none;
+}
+
+.bp_more_options_list .bpas-share--header > .bpas-share__toggle:hover {
+	background: var(--bpas-surface-hover) !important;
+}
+
 /* Set by the script when the menu would open past the screen edge (see keepOnScreen()). */
 .bpas-share--flip .bpas-share__panel {
 	inset-inline-start: 0 !important;

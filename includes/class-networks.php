@@ -131,13 +131,17 @@ final class Networks {
 	 */
 	public static function share_href( array $network, Share_Context $ctx ): string {
 		$url     = (string) apply_filters( 'bpas_share_url', $ctx->url, $network, $ctx );
+		$pattern = (string) $network['share_url'];
 		$replace = array(
 			'{url}'   => rawurlencode( $url ),
 			'{title}' => rawurlencode( $ctx->title ),
 			'{text}'  => rawurlencode( $ctx->text ),
-			'{image}' => rawurlencode( $ctx->image ),
 		);
-		return strtr( (string) $network['share_url'], $replace );
+		// Only networks that take an image (Pinterest) pay for resolving the preview image.
+		if ( str_contains( $pattern, '{image}' ) ) {
+			$replace['{image}'] = rawurlencode( $ctx->preview_image() );
+		}
+		return strtr( $pattern, $replace );
 	}
 
 	/**

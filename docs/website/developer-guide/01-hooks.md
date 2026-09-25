@@ -44,6 +44,8 @@ add_action( 'bpas_share_menu_items', function ( $ctx, $external ) {
 | `bpas_share_toggle_after` | action | `$ctx` | Add markup inside the Share toggle button |
 | `bpas_admin_tabs` | filter | `$tabs` | Add a tab to the admin screen |
 | `bpas_open_graph_enabled` | filter | `$enabled` | Turn link-preview tags on or off |
+| `bpas_preview_image` | filter | `$image, $ctx` | Stand-in link-preview image for an item with no image of its own (default: site icon or logo) |
+| `bpas_activity_post_id` | filter | `$post_id, $activity` | Post behind a blog-post activity, for plugins that store it somewhere other than BuddyPress does |
 | `bpas_enqueue_assets` | filter | `$should` | Load the share assets on a non-BuddyPress page |
 
 ## Pro hooks

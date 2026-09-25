@@ -10,7 +10,7 @@ namespace BPAS;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Prints Open Graph + Twitter card tags on single activity, profiles and public groups.
+ * Prints Open Graph + Twitter card tags on single activity, profiles, public groups and single posts.
  */
 final class Open_Graph {
 
@@ -34,14 +34,15 @@ final class Open_Graph {
 			return;
 		}
 
-		$tags = array(
+		$image = $ctx->preview_image();
+		$tags  = array(
 			'og:type'        => 'member' === $ctx->type ? 'profile' : 'article',
 			'og:title'       => $ctx->title,
 			'og:description' => $ctx->text,
 			'og:url'         => $ctx->url,
-			'og:image'       => $ctx->image,
+			'og:image'       => $image,
 			'og:site_name'   => get_bloginfo( 'name' ),
-			'twitter:card'   => '' !== $ctx->image ? 'summary_large_image' : 'summary',
+			'twitter:card'   => '' !== $image ? 'summary_large_image' : 'summary',
 		);
 
 		foreach ( array_filter( $tags ) as $property => $value ) {
@@ -66,6 +67,10 @@ final class Open_Graph {
 		if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
 			$group = groups_get_current_group();
 			return empty( $group->id ) ? null : Share_Context::for_object( 'group', (int) $group->id );
+		}
+		// Blog-post activities share the post URL, so the post needs the same preview.
+		if ( is_singular() && ! is_front_page() && ! ( function_exists( 'is_buddypress' ) && is_buddypress() ) ) {
+			return Share_Context::for_object( 'post', (int) get_queried_object_id() );
 		}
 		return null;
 	}

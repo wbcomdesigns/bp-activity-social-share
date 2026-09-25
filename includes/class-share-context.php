@@ -96,6 +96,21 @@ final class Share_Context {
 	 * @param object $activity Activity.
 	 */
 	private static function build_activity( object $activity ): self {
+		// A blog-post activity shares the post itself: its live permalink (the stored primary_link
+		// goes stale when the slug changes), title, excerpt and featured image.
+		$post = self::activity_post( $activity );
+		if ( $post ) {
+			return new self(
+				'activity',
+				(int) $activity->id,
+				$activity,
+				(string) get_permalink( $post ),
+				wp_strip_all_tags( get_the_title( $post ) ),
+				self::post_text( $post ),
+				self::post_image( $post )
+			);
+		}
+
 		$title = trim( wp_strip_all_tags( (string) $activity->action ) );
 		if ( '' === $title ) {
 			$title = bp_core_get_user_displayname( (int) $activity->user_id );
@@ -110,6 +125,52 @@ final class Share_Context {
 			self::excerpt( (string) $activity->content ),
 			self::activity_image( $activity )
 		);
+	}
+
+	/**
+	 * The public post behind a blog-post activity, or null.
+	 *
+	 * BuddyPress stores the post ID in secondary_item_id (item_id is the blog); plugins that record
+	 * blog posts under their own component (BuddyPress Member Blog) store it in item_id.
+	 *
+	 * @param object $activity Activity.
+	 */
+	private static function activity_post( object $activity ): ?\WP_Post {
+		$types = array( 'new_blog_post' );
+		if ( function_exists( 'bp_activity_get_post_types_tracking_args' ) ) {
+			$types = array_merge( $types, array_keys( (array) bp_activity_get_post_types_tracking_args() ) );
+		}
+		if ( ! in_array( $activity->type ?? '', $types, true ) ) {
+			return null;
+		}
+		$post_id = in_array( $activity->component ?? '', array( 'blogs', 'activity' ), true )
+			? (int) $activity->secondary_item_id
+			: (int) $activity->item_id;
+		/**
+		 * Post ID behind a blog-post activity.
+		 *
+		 * @param int    $post_id  Detected post ID (0 for none).
+		 * @param object $activity Activity.
+		 */
+		$post = get_post( (int) apply_filters( 'bpas_activity_post_id', $post_id, $activity ) );
+		return ( $post && is_post_publicly_viewable( $post ) ) ? $post : null;
+	}
+
+	/**
+	 * Image for link previews: the object's own image, else a stand-in (site icon or logo).
+	 * Only previews need a picture; everywhere else an empty image means "none".
+	 */
+	public function preview_image(): string {
+		if ( '' !== $this->image ) {
+			return $this->image;
+		}
+		/**
+		 * Stand-in preview image for an object without an image of its own.
+		 *
+		 * @param string        $image Site icon or custom logo URL ('' when neither is set).
+		 * @param Share_Context $ctx   Context.
+		 */
+		return (string) apply_filters( 'bpas_preview_image', self::site_image(), $this );
 	}
 
 	/**
@@ -128,7 +189,7 @@ final class Share_Context {
 			$post,
 			(string) get_permalink( $post ),
 			wp_strip_all_tags( get_the_title( $post ) ),
-			self::excerpt( has_excerpt( $post ) ? $post->post_excerpt : $post->post_content ),
+			self::post_text( $post ),
 			self::post_image( $post )
 		);
 	}
@@ -192,20 +253,17 @@ final class Share_Context {
 	}
 
 	/**
-	 * Featured image, first image in the content, or the site image.
+	 * Featured image, else the first image in the content.
 	 *
 	 * @param \WP_Post $post Post.
 	 */
 	private static function post_image( \WP_Post $post ): string {
 		$url = (string) get_the_post_thumbnail_url( $post, 'large' );
-		if ( '' === $url ) {
-			$url = self::first_image( (string) $post->post_content );
-		}
-		return '' !== $url ? $url : self::site_image();
+		return '' !== $url ? $url : self::first_image( (string) $post->post_content );
 	}
 
 	/**
-	 * Best image for an activity: its own media first, the site image last.
+	 * The activity's own image: BuddyBoss media, an image in the content, or a link preview.
 	 *
 	 * @param object $activity Activity.
 	 */
@@ -236,7 +294,7 @@ final class Share_Context {
 			return esc_url_raw( (string) $preview['image_url'] );
 		}
 
-		return self::site_image();
+		return '';
 	}
 
 	/**
@@ -258,6 +316,18 @@ final class Share_Context {
 		}
 		$logo = (int) get_theme_mod( 'custom_logo' );
 		return $logo ? (string) wp_get_attachment_image_url( $logo, 'full' ) : '';
+	}
+
+	/**
+	 * Post excerpt; nothing for password-protected posts, whose text must not leak into previews.
+	 *
+	 * @param \WP_Post $post Post.
+	 */
+	private static function post_text( \WP_Post $post ): string {
+		if ( '' !== $post->post_password ) {
+			return '';
+		}
+		return self::excerpt( has_excerpt( $post ) ? $post->post_excerpt : $post->post_content );
 	}
 
 	/**

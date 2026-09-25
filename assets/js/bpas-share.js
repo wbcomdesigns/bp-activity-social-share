@@ -118,17 +118,22 @@
 		}
 	}
 
-	// A dropdown that would open past the screen edge anchors to the other side instead.
+	// A dropdown that would open past either screen edge anchors to the other side instead.
 	function keepOnScreen( menu ) {
-		menu.classList.remove( 'bpas-share--flip' );
+		menu.classList.remove( 'bpas-share--flip', 'bpas-share--flip-end' );
 		var panel = menu.querySelector( '.bpas-share__panel' );
 		if ( ! menu.open || ! panel || 'absolute' !== window.getComputedStyle( panel ).position ) {
 			return; // Phones use the fixed bottom sheet.
 		}
 		var rect = panel.getBoundingClientRect();
+		var width = document.documentElement.clientWidth;
 		var rtl = 'rtl' === window.getComputedStyle( menu ).direction;
-		if ( rtl ? rect.right > document.documentElement.clientWidth - 8 : rect.left < 8 ) {
+		var pastStart = rtl ? rect.right > width - 8 : rect.left < 8;
+		var pastEnd = rtl ? rect.left < 8 : rect.right > width - 8;
+		if ( pastStart ) {
 			menu.classList.add( 'bpas-share--flip' );
+		} else if ( pastEnd ) {
+			menu.classList.add( 'bpas-share--flip-end' );
 		}
 	}
 

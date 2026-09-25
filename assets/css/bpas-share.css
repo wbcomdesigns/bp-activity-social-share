@@ -102,6 +102,7 @@
 	inset-inline-end: 0;
 	z-index: var(--bpas-z);
 	min-inline-size: 240px;
+	margin: 0;
 	padding: var(--bpas-space-2);
 	background: var(--bpas-surface);
 	color: var(--bpas-text);
@@ -208,6 +209,11 @@
 .bpas-share--flip .bpas-share__panel {
 	inset-inline-start: 0 !important;
 	inset-inline-end: auto !important;
+}
+
+.bpas-share--flip-end .bpas-share__panel {
+	inset-inline-start: auto !important;
+	inset-inline-end: 0 !important;
 }
 
 /* Set by the script on clipping ancestors while a menu is open (see unclip() in bpas-share.js). */

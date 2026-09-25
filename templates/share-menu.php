@@ -32,14 +32,15 @@ $bpas_classes = trim( sprintf( 'bpas-share bpas-share--%1$s bpas-share--%2$s %3$
 			<?php echo $view['toggle_extra']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by the extension. ?>
 		</summary>
 
-		<div class="bpas-share__panel" role="group" aria-label="<?php esc_attr_e( 'Share options', 'bp-activity-social-share' ); ?>">
-			<div class="bpas-share__sheet-head">
+		<?php // No <div> inside the wrapper: themes that split header buttons on the first </div> (Reign) would cut the menu. ?>
+		<section class="bpas-share__panel" role="group" aria-label="<?php esc_attr_e( 'Share options', 'bp-activity-social-share' ); ?>">
+			<span class="bpas-share__sheet-head">
 				<span class="bpas-share__sheet-title"><?php echo esc_html( $view['label'] ); ?></span>
 				<button type="button" class="bpas-share__close" data-bpas-close>
 					<?php echo BPAS\Icons::get( 'x' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- bundled SVG. ?>
 					<span class="screen-reader-text"><?php esc_html_e( 'Close', 'bp-activity-social-share' ); ?></span>
 				</button>
-			</div>
+			</span>
 
 			<?php echo $view['extra']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by the extension. ?>
 
@@ -79,6 +80,6 @@ $bpas_classes = trim( sprintf( 'bpas-share bpas-share--%1$s bpas-share--%2$s %3$
 			<?php endif; ?>
 
 			<span class="screen-reader-text" role="status" aria-live="polite" data-bpas-status></span>
-		</div>
+		</section>
 	</details>
 </div>

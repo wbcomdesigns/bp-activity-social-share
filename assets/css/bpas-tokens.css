@@ -43,5 +43,6 @@ body.buddyx-dark-theme {
 	--bpas-surface: var(--bx-color-bg-elevated, var(--color-theme-white-box, #1e293b));
 	--bpas-surface-hover: var(--bx-color-bg-muted, #273449);
 	--bpas-border: var(--bx-color-border, var(--global-border-color, #334155));
+	--bpas-success: var(--bx-color-success, #4ade80); /* AA on the dark surface */
 	--bpas-shadow: 0 10px 30px rgb(0 0 0 / 45%);
 }

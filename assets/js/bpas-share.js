@@ -191,9 +191,21 @@
 			event.preventDefault();
 			copy( menu.getAttribute( 'data-bpas-url' ) ).then( function () {
 				announce( menu, i18n.copied );
+				// Sighted members see it too: the row itself reads "Link copied" for two seconds.
+				var name = copyBtn.querySelector( '.bpas-share__name' );
+				if ( name && undefined === copyBtn.bpasLabel ) {
+					copyBtn.bpasLabel = name.textContent;
+				}
+				if ( name ) {
+					name.textContent = i18n.copied;
+				}
 				copyBtn.classList.add( 'is-copied' );
-				window.setTimeout( function () {
+				window.clearTimeout( copyBtn.bpasTimer );
+				copyBtn.bpasTimer = window.setTimeout( function () {
 					copyBtn.classList.remove( 'is-copied' );
+					if ( name ) {
+						name.textContent = copyBtn.bpasLabel;
+					}
 				}, 2000 );
 				emit( menu, 'copy' );
 			}, function () {

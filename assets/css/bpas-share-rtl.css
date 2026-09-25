@@ -226,6 +226,12 @@
 	background: var(--bpas-surface-hover) !important;
 }
 
+/* Copy link confirmation (the label switches to "Link copied" in bpas-share.js). */
+.bpas-share__panel .bpas-share__link.is-copied,
+.bpas-share__panel .bpas-share__link.is-copied .bpas-icon {
+	color: var(--bpas-success) !important;
+}
+
 /* Set by the script when the menu would open past the screen edge (see keepOnScreen()). */
 .bpas-share--flip .bpas-share__panel {
 	inset-inline-start: 0 !important;

@@ -13,8 +13,19 @@
 	margin-inline-start: var(--bpas-space-1);
 }
 
+/*
+ * "Before the other buttons". Themes order action-bar buttons themselves (BuddyX Pro and Reign
+ * give every .generic-button an order), so the owner's choice has to outrank them; a bar that is
+ * not a flex row becomes one so the order applies.
+ */
 .bpas-share-wrap--before {
-	order: -1;
+	order: -1 !important;
+}
+
+:has(> .bpas-share-wrap--before) {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
 }
 
 .bpas-share {

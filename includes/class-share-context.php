@@ -157,6 +157,37 @@ final class Share_Context {
 	}
 
 	/**
+	 * The item's pictures for a rich preview (a private message): its own image first, then the
+	 * images in its content, without repeats of one picture at different sizes.
+	 *
+	 * @param int $limit Maximum number of URLs.
+	 * @return string[] Image URLs.
+	 */
+	public function images( int $limit = 4 ): array {
+		$html = '';
+		if ( 'post' === $this->type ) {
+			$post = $this->object;
+		} elseif ( 'activity' === $this->type ) {
+			$post = self::activity_post( $this->object );
+			$html = $post ? '' : (string) $this->object->content;
+		}
+		if ( ! empty( $post ) && '' === $post->post_password ) {
+			$html = (string) $post->post_content;
+		}
+		preg_match_all( '/<img[^>]+src=["\']([^"\']+)["\']/i', $html, $found );
+
+		$urls = array();
+		foreach ( array_merge( array( $this->image ), $found[1] ) as $url ) {
+			// "photo-1024x768.jpg" and "photo.jpg" are the same picture.
+			$key = preg_replace( '/-\d+x\d+(?=\.\w+$)/', '', strtok( (string) $url, '?' ) );
+			if ( '' !== $url && ! isset( $urls[ $key ] ) ) {
+				$urls[ $key ] = esc_url_raw( $url );
+			}
+		}
+		return array_slice( array_values( $urls ), 0, max( 1, $limit ) );
+	}
+
+	/**
 	 * Image for link previews: the object's own image, else a stand-in (site icon or logo).
 	 * Only previews need a picture; everywhere else an empty image means "none".
 	 */

@@ -61,10 +61,18 @@
 		} ) );
 	}
 
+	// The Clipboard API rejects when permission is denied (embedded frames, strict browsers),
+	// so a rejection falls through to the textarea copy instead of failing outright.
 	function copy( text ) {
 		if ( navigator.clipboard && window.isSecureContext ) {
-			return navigator.clipboard.writeText( text );
+			return navigator.clipboard.writeText( text ).catch( function () {
+				return legacyCopy( text );
+			} );
 		}
+		return legacyCopy( text );
+	}
+
+	function legacyCopy( text ) {
 		return new Promise( function ( resolve, reject ) {
 			var area = document.createElement( 'textarea' );
 			area.value = text;

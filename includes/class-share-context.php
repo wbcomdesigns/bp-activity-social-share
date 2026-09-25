@@ -211,13 +211,7 @@ final class Share_Context {
 			bpas_member_url( (int) $user->ID ),
 			bp_core_get_user_displayname( $user->ID ),
 			'',
-			(string) bp_core_fetch_avatar(
-				array(
-					'item_id' => $user->ID,
-					'type'    => 'full',
-					'html'    => false,
-				)
-			)
+			self::profile_image( 'member', (int) $user->ID )
 		);
 	}
 
@@ -241,15 +235,44 @@ final class Share_Context {
 			bpas_group_url( $group ),
 			wp_strip_all_tags( (string) $group->name ),
 			self::excerpt( (string) $group->description ),
-			(string) bp_core_fetch_avatar(
+			self::profile_image( 'group', (int) $group->id )
+		);
+	}
+
+	/**
+	 * A member's or group's own picture: the uploaded avatar, else the cover image, else ''.
+	 * BuddyPress placeholders (mystery person / group, default Gravatar) never become a preview.
+	 *
+	 * @param string $object 'member' | 'group'.
+	 * @param int    $id     User or group ID.
+	 */
+	private static function profile_image( string $object, int $id ): string {
+		$group      = 'group' === $object;
+		$has_avatar = $group ? bp_get_group_has_avatar( $id ) : bp_get_user_has_avatar( $id );
+		if ( $has_avatar ) {
+			$avatar = (string) bp_core_fetch_avatar(
 				array(
-					'item_id' => $group->id,
-					'object'  => 'group',
+					'item_id' => $id,
+					'object'  => $group ? 'group' : 'user',
 					'type'    => 'full',
 					'html'    => false,
+					'no_grav' => true,
+				)
+			);
+			if ( '' !== $avatar ) {
+				return (string) set_url_scheme( $avatar ); // Previews need an absolute URL, never "//host/...".
+			}
+		}
+		$cover = function_exists( 'bp_attachments_get_attachment' )
+			? (string) bp_attachments_get_attachment(
+				'url',
+				array(
+					'object_dir' => $group ? 'groups' : 'members',
+					'item_id'    => $id,
 				)
 			)
-		);
+			: '';
+		return '' !== $cover ? (string) set_url_scheme( $cover ) : '';
 	}
 
 	/**

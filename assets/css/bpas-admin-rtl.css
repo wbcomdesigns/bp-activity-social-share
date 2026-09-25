@@ -409,10 +409,24 @@
 	background: var(--bpas-a-subtle);
 }
 
-/* The preview menu opens from the button's start edge so it stays inside the card. */
+/* WordPress sizes .regular-text at a fixed 25em (400px), wider than a phone. */
+.bpas-card .regular-text {
+	max-inline-size: 100%;
+}
+
+/*
+ * The preview is part of the page: the open menu sits in the flow and the card grows with it,
+ * so a long network list never runs over Save, and on phones it is not a fixed sheet over wp-admin.
+ */
 .bpas-preview .bpas-share__panel {
-	inset-inline-start: 0;
-	inset-inline-end: auto;
+	position: static !important;
+	inset: auto !important;
+	max-block-size: none !important;
+	margin-block-start: 8px;
+}
+
+.bpas-preview .bpas-share[open]::before {
+	content: none !important;
 }
 
 /* Same 20px rhythm as the cards, so a card after the form (the Pro note) never touches Save. */
@@ -452,7 +466,7 @@
 @media (max-width: 960px) {
 
 	.bpas-admin__layout {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 	}
 
 	.bpas-admin__sidebar {

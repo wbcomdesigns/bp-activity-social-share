@@ -402,7 +402,6 @@
 	flex-wrap: wrap;
 	align-items: flex-start;
 	gap: 8px;
-	min-block-size: 360px;
 	padding: 16px;
 	border: 1px dashed var(--bpas-a-border);
 	border-radius: var(--bpas-a-radius);

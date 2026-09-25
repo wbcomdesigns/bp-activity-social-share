@@ -415,8 +415,9 @@
 	inset-inline-end: auto;
 }
 
+/* Same 20px rhythm as the cards, so a card after the form (the Pro note) never touches Save. */
 .bpas-admin__actions {
-	margin: 0;
+	margin: 0 0 20px;
 }
 
 .bpas-admin__toast {

@@ -243,6 +243,95 @@
 		}
 	} );
 
+	/*
+	 * In an activity action bar, Share takes the look of the theme's own buttons beside it
+	 * (colour, size, weight, padding, border, background), written once as --bpas-bar-* on the
+	 * root and read by .bpas-bar-matched rules. Measured again when the colour scheme changes.
+	 * A bar with no neighbouring button keeps the plugin's own chip.
+	 */
+	var barProps = {
+		color: 'color',
+		'font-size': 'fontSize',
+		'font-weight': 'fontWeight',
+		'line-height': 'lineHeight',
+		padding: 'padding',
+		'border-width': 'borderTopWidth',
+		'border-style': 'borderTopStyle',
+		'border-color': 'borderTopColor',
+		radius: 'borderTopLeftRadius',
+		background: 'backgroundColor'
+	};
+
+	function matchBar() {
+		var wrap = document.querySelector( '.bpas-share-wrap > .bpas-share--activity' );
+		wrap = wrap && wrap.parentElement;
+		if ( ! wrap || ! wrap.parentElement ) {
+			return false;
+		}
+		var ref = null;
+		Array.prototype.some.call( wrap.parentElement.children, function ( el ) {
+			ref = el === wrap ? null : el.querySelector( 'a, button' );
+			return !! ref;
+		} );
+		var root = document.documentElement;
+		if ( ref ) {
+			// Box from the button, text from the element that shows its label (themes style that span).
+			var label = Array.prototype.find.call( ref.querySelectorAll( '*' ), function ( el ) {
+				return ! el.children.length && el.textContent.trim() && el.getClientRects().length;
+			} ) || ref;
+			// Themes animate colours on a scheme switch: read the end values, not a mid-transition frame.
+			var saved = [ ref, label ].map( function ( el ) {
+				var was = el.style.getPropertyValue( 'transition' );
+				el.style.setProperty( 'transition', 'none', 'important' );
+				return was;
+			} );
+			var box = window.getComputedStyle( ref );
+			var text = window.getComputedStyle( label );
+			Object.keys( barProps ).forEach( function ( name ) {
+				var from = /^(color|font-size|font-weight)$/.test( name ) ? text : box;
+				root.style.setProperty( '--bpas-bar-' + name, from[ barProps[ name ] ] );
+			} );
+			root.style.setProperty( '--bpas-bar-height', ref.getBoundingClientRect().height + 'px' );
+			// Neighbours showing only an icon (and maybe a count) at this width: Share does too.
+			// Screen-reader-only words still exist in the DOM, so look for words that actually render.
+			var showsWords = Array.prototype.some.call( ref.querySelectorAll( '*' ), function ( el ) {
+				var rect = el.getBoundingClientRect();
+				return ! el.children.length && /\p{L}/u.test( el.textContent ) && rect.width > 1 && rect.height > 1;
+			} ) || Array.prototype.some.call( ref.childNodes, function ( node ) {
+				return 3 === node.nodeType && /\p{L}/u.test( node.textContent );
+			} );
+			root.classList.toggle( 'bpas-bar-icons', ! showsWords );
+			[ ref, label ].forEach( function ( el, i ) {
+				el.style.setProperty( 'transition', saved[ i ] );
+			} );
+		}
+		root.classList.toggle( 'bpas-bar-matched', !! ref );
+		return true;
+	}
+
+	if ( ! matchBar() ) {
+		// BuddyPress loads the stream by AJAX: match once the first activity arrives.
+		var waitForBar = new window.MutationObserver( function () {
+			if ( matchBar() ) {
+				waitForBar.disconnect();
+			}
+		} );
+		waitForBar.observe( document.body, { childList: true, subtree: true } );
+	}
+	// Themes switch the bar to icons-only on small screens.
+	var resizeTimer;
+	window.addEventListener( 'resize', function () {
+		window.clearTimeout( resizeTimer );
+		resizeTimer = window.setTimeout( matchBar, 150 );
+	} );
+	// Dark-mode toggles change the neighbours' colours.
+	var schemeWatch = new window.MutationObserver( function () {
+		window.requestAnimationFrame( matchBar );
+	} );
+	[ document.documentElement, document.body ].forEach( function ( el ) {
+		schemeWatch.observe( el, { attributes: true, attributeFilter: [ 'class', 'data-theme', 'data-bx-mode' ] } );
+	} );
+
 	document.addEventListener( 'keydown', function ( event ) {
 		if ( 'Escape' !== event.key ) {
 			return;

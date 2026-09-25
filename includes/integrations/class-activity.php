@@ -35,7 +35,7 @@ final class Activity {
 		}
 		$ctx = Share_Context::from_activity( $activity );
 		if ( $ctx ) {
-			echo Share_Menu::render( $ctx ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- template escapes.
+			echo Share_Menu::render( $ctx, array( 'class' => 'bpas-share--activity' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- template escapes.
 		}
 	}
 }

@@ -12,6 +12,7 @@ Plans: `docs/plans/3.6.0-PLAN.md` (product plan, canonical copy shared with Pro)
 - One share menu renderer (`BPAS\Share_Menu` + `templates/share-menu.php`) for every surface.
 - Text domain `bp-activity-social-share`. Every user-facing string translatable, incl. JS strings passed via inline data.
 - No inline `<script>` / `<style>` in PHP; CSS is token-only (`assets/css/bpas-tokens.css` chains the host theme's tokens); logical properties only; two width media blocks (1024 / 640) at the bottom of each file.
+- In an activity action bar the Share toggle copies the look of the theme's neighbouring button (`matchBar()` in `bpas-share.js` writes `--bpas-bar-*`; owner decision 2026-09-25). Everywhere else (headers, bars with no neighbour) it keeps its own chip.
 - The theme-protection block in `bpas-share.css` uses `!important` on purpose: BuddyPress themes style `#buddypress .activity-meta a` with ID selectors. Keep it scoped to `.bpas-share__panel`.
 - Upgrades run from `BPAS\Upgrade` on `init` (never the activation hook). Bump `BPAS_DB_VERSION` with every migration.
 

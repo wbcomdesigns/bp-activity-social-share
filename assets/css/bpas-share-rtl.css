@@ -74,6 +74,41 @@
 	color: var(--bpas-accent) !important;
 }
 
+/* Activity bar: Share looks like the theme's buttons beside it (values measured by matchBar() in bpas-share.js). */
+.bpas-bar-matched .bpas-share--activity > .bpas-share__toggle {
+	display: inline-flex !important;
+	align-items: center;
+	min-block-size: var(--bpas-bar-height) !important; /* same tap area as the neighbours */
+	padding: var(--bpas-bar-padding) !important;
+	border: var(--bpas-bar-border-width) var(--bpas-bar-border-style) var(--bpas-bar-border-color) !important;
+	border-radius: var(--bpas-bar-radius) !important;
+	background: var(--bpas-bar-background) !important;
+	color: var(--bpas-bar-color) !important;
+	font-size: var(--bpas-bar-font-size) !important;
+	font-weight: var(--bpas-bar-font-weight) !important;
+	line-height: var(--bpas-bar-line-height) !important;
+}
+
+.bpas-bar-matched .bpas-share--activity > .bpas-share__toggle:hover,
+.bpas-bar-matched .bpas-share--activity[open] > .bpas-share__toggle {
+	background: var(--bpas-bar-background) !important;
+	color: var(--bpas-accent) !important;
+}
+
+/* Neighbours are icon-only at this width: the label stays for screen readers only. */
+.bpas-bar-icons .bpas-share--activity > .bpas-share__toggle .bpas-share__label {
+	position: absolute !important;
+	inline-size: 1px !important;
+	block-size: 1px !important;
+	overflow: hidden !important;
+	clip-path: inset(50%) !important;
+	white-space: nowrap !important;
+}
+
+.bpas-bar-icons .bpas-share--activity > .bpas-share__toggle .bpas-icon {
+	margin-inline-end: 0 !important;
+}
+
 /* Themes force `* > * { display: block }` in BuddyPress bars; the label stays inline beside its icon. */
 .bpas-share .bpas-share__toggle .bpas-share__label {
 	display: inline !important;
@@ -398,6 +433,11 @@
 	/* 44px touch target; header buttons keep the height of the profile actions beside them. */
 	.bpas-share:not(.bpas-share--header) .bpas-share__toggle {
 		padding-block: 12px !important;
+	}
+
+	/* Blended into the activity bar: same height as the theme's buttons beside it. */
+	.bpas-bar-matched .bpas-share--activity > .bpas-share__toggle {
+		padding: var(--bpas-bar-padding) !important;
 	}
 
 	.bpas-share__sheet-head {

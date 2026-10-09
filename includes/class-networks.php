@@ -124,13 +124,23 @@ final class Networks {
 	}
 
 	/**
+	 * The URL a network shares (Pro swaps in its short link, sites add UTM) - one filter for every row.
+	 *
+	 * @param array         $network Network definition.
+	 * @param Share_Context $ctx     Context.
+	 */
+	public static function share_url( array $network, Share_Context $ctx ): string {
+		return (string) apply_filters( 'bpas_share_url', $ctx->url, $network, $ctx );
+	}
+
+	/**
 	 * Final href for a network and context. Placeholders are always encoded here.
 	 *
 	 * @param array         $network Network definition.
 	 * @param Share_Context $ctx     Context.
 	 */
 	public static function share_href( array $network, Share_Context $ctx ): string {
-		$url     = (string) apply_filters( 'bpas_share_url', $ctx->url, $network, $ctx );
+		$url     = self::share_url( $network, $ctx );
 		$pattern = (string) $network['share_url'];
 		$replace = array(
 			'{url}'   => rawurlencode( $url ),

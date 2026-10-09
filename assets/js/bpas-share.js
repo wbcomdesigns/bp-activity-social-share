@@ -126,14 +126,55 @@
 		}
 	}
 
-	// A dropdown that would open past either screen edge anchors to the other side instead.
+	// Height of fixed / sticky bars stacked at the top of the screen (admin bar, sticky headers) at x.
+	function coveredTop( menu, x ) {
+		var top = 0;
+		for ( var i = 0; i < 4; i++ ) {
+			var bar = null;
+			document.elementsFromPoint( x, top + 1 ).some( function ( el ) {
+				for ( ; el && el !== document.documentElement; el = el.parentElement ) {
+					if ( menu.contains( el ) || el.contains( menu ) ) {
+						return false;
+					}
+					if ( /fixed|sticky/.test( window.getComputedStyle( el ).position ) ) {
+						bar = el;
+						return true;
+					}
+				}
+				return false;
+			} );
+			var bottom = bar ? bar.getBoundingClientRect().bottom : 0;
+			if ( bottom <= top ) {
+				break;
+			}
+			top = bottom;
+		}
+		return top;
+	}
+
+	/*
+	 * A dropdown that would open past either screen edge anchors to the other side instead.
+	 * Too tall for the room below the button: it opens upward when there is more room above,
+	 * and is capped to the side it opens on, so every row stays reachable by scrolling the menu.
+	 */
 	function keepOnScreen( menu ) {
-		menu.classList.remove( 'bpas-share--flip', 'bpas-share--flip-end' );
+		menu.classList.remove( 'bpas-share--flip', 'bpas-share--flip-end', 'bpas-share--up' );
+		menu.style.removeProperty( '--bpas-panel-max' );
 		var panel = menu.querySelector( '.bpas-share__panel' );
 		if ( ! menu.open || ! panel || 'absolute' !== window.getComputedStyle( panel ).position ) {
 			return; // Phones use the fixed bottom sheet.
 		}
 		var rect = panel.getBoundingClientRect();
+		var toggle = menu.querySelector( 'summary' ).getBoundingClientRect();
+		var height = document.documentElement.clientHeight;
+		var below = height - toggle.bottom - 8;
+		var above = toggle.top - coveredTop( menu, toggle.left + toggle.width / 2 ) - 8;
+		if ( rect.height > below ) {
+			var up = above > below;
+			menu.classList.toggle( 'bpas-share--up', up );
+			// Gap between button and panel (--bpas-space-1) is about 4px; keep it out of the cap.
+			menu.style.setProperty( '--bpas-panel-max', Math.max( 120, ( up ? above : below ) - 4 ) + 'px' );
+		}
 		var width = document.documentElement.clientWidth;
 		var rtl = 'rtl' === window.getComputedStyle( menu ).direction;
 		var pastStart = rtl ? rect.right > width - 8 : rect.left < 8;

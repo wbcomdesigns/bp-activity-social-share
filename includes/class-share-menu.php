@@ -71,8 +71,11 @@ final class Share_Menu {
 
 		Assets::enqueue();
 
+		// Copy link and the device share sheet share what every network shares. Private content keeps
+		// its plain permalink: it is for members only, and the short link refuses private items.
 		$view = array(
 			'ctx'          => $ctx,
+			'url'          => $external ? Networks::share_url( Networks::all()['copy'] ?? array( 'type' => 'copy' ), $ctx ) : $ctx->url,
 			'label'        => (string) $args['label'],
 			'position'     => 'before' === $args['position'] ? 'before' : 'after',
 			'colors'       => Settings::get( 'colors' ),

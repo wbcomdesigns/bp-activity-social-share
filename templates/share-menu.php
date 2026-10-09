@@ -8,6 +8,7 @@
  * @package BPAS
  * @var array $view {
  *     @type BPAS\Share_Context $ctx          What is shared.
+ *     @type string             $url          URL Copy link and the device share sheet use (filtered, may be a short link).
  *     @type string             $label        Button label.
  *     @type string             $position     'before' | 'after'.
  *     @type string             $colors       'brand' | 'theme'.
@@ -25,7 +26,7 @@ $bpas_ctx     = $view['ctx'];
 $bpas_classes = trim( sprintf( 'bpas-share bpas-share--%1$s bpas-share--%2$s %3$s', $view['position'], $view['colors'], $view['class'] ) );
 ?>
 <div class="generic-button bpas-share-wrap bpas-share-wrap--<?php echo esc_attr( $view['position'] ); ?>">
-	<details class="<?php echo esc_attr( $bpas_classes ); ?>" data-bpas-type="<?php echo esc_attr( $bpas_ctx->type ); ?>" data-bpas-id="<?php echo esc_attr( (string) $bpas_ctx->id ); ?>" data-bpas-url="<?php echo esc_url( $bpas_ctx->url ); ?>" data-bpas-title="<?php echo esc_attr( $bpas_ctx->title ); ?>">
+	<details class="<?php echo esc_attr( $bpas_classes ); ?>" data-bpas-type="<?php echo esc_attr( $bpas_ctx->type ); ?>" data-bpas-id="<?php echo esc_attr( (string) $bpas_ctx->id ); ?>" data-bpas-url="<?php echo esc_url( $view['url'] ?? $bpas_ctx->url ); ?>" data-bpas-title="<?php echo esc_attr( $bpas_ctx->title ); ?>">
 		<summary class="bpas-share__toggle">
 			<?php echo BPAS\Icons::get( 'share-2' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- bundled SVG. ?>
 			<span class="bpas-share__label"><?php echo esc_html( $view['label'] ); ?></span>

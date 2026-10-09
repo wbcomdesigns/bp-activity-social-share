@@ -289,6 +289,19 @@
 	inset-inline-end: 0 !important;
 }
 
+/* Too tall for the room below: capped (and scrollable), opening upward when there is more room above. */
+.bpas-share__panel {
+	box-sizing: border-box;
+	max-block-size: var(--bpas-panel-max, none);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
+.bpas-share--up .bpas-share__panel {
+	inset-block-start: auto !important;
+	inset-block-end: calc(100% + var(--bpas-space-1)) !important;
+}
+
 /* Set by the script on clipping ancestors while a menu is open (see unclip() in bpas-share.js). */
 .bpas-unclip {
 	overflow: visible !important;

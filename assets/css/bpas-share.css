@@ -295,6 +295,7 @@
 	max-block-size: var(--bpas-panel-max, none);
 	overflow-y: auto;
 	overscroll-behavior: contain;
+	scrollbar-color: var(--bpas-text-muted) transparent; /* follows the light/dark tokens instead of the browser's light default */
 }
 
 .bpas-share--up .bpas-share__panel {

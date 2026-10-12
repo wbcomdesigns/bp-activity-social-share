@@ -34,3 +34,5 @@ require_once BPAS_DIR . 'includes/functions.php';
 BPAS\Autoloader::register( 'BPAS', BPAS_DIR . 'includes' );
 
 add_action( 'plugins_loaded', array( 'BPAS\Plugin', 'boot' ) );
+// Registered here, not in Admin::init(): the activation request ends before plugins_loaded boots the admin.
+add_action( 'activated_plugin', array( 'BPAS\Admin\Admin', 'activation_redirect' ) );

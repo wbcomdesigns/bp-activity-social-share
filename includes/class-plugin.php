@@ -20,8 +20,11 @@ final class Plugin {
 	 * Runs on plugins_loaded.
 	 */
 	public static function boot(): void {
+		// No `Requires Plugins` header: WordPress matches it by folder slug, and BuddyBoss Platform
+		// (folder buddyboss-platform) provides buddypress() too, so the header blocked activation there.
 		if ( ! function_exists( 'buddypress' ) ) {
-			return; // `Requires Plugins: buddypress` normally prevents this.
+			self::notice( static fn() => __( 'Activity Share for BuddyPress needs BuddyPress or BuddyBoss Platform to be active.', 'bp-activity-social-share' ) );
+			return;
 		}
 
 		if ( class_exists( 'Youzify' ) ) {

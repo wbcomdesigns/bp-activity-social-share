@@ -148,6 +148,9 @@
 	inset-inline-end: 0;
 	z-index: var(--bpas-z);
 	min-inline-size: 240px;
+	/* Grow to the longest label (translations, Pro rows like "Repost with comment") instead of wrapping it. */
+	inline-size: max-content;
+	max-inline-size: calc(100vw - 2 * var(--bpas-space-4));
 	margin: 0;
 	padding: var(--bpas-space-2);
 	background: var(--bpas-surface);
@@ -184,6 +187,11 @@
 
 .bpas-share__item--native {
 	display: none !important;
+}
+
+/* One line per row in the dropdown; the phone sheet's tiles wrap again below. */
+.bpas-share__panel .bpas-share__name {
+	white-space: nowrap;
 }
 
 .bpas-can-native .bpas-share__item--native {
@@ -437,6 +445,8 @@
 		inset-block-end: 0;
 		inset-inline: 0;
 		z-index: calc(var(--bpas-z) + 1);
+		inline-size: auto;
+		max-inline-size: none;
 		max-block-size: 80vh;
 		overflow-y: auto;
 		padding: var(--bpas-space-2) var(--bpas-space-4) calc(var(--bpas-space-4) + env(safe-area-inset-bottom));
@@ -483,6 +493,10 @@
 		padding: var(--bpas-space-2) var(--bpas-space-1) !important;
 		font-size: var(--bpas-font-size-sm) !important;
 		text-align: center;
+	}
+
+	.bpas-share__panel .bpas-share__name {
+		white-space: normal;
 	}
 
 	.bpas-share .bpas-share__link .bpas-icon {

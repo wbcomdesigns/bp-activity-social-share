@@ -15,14 +15,19 @@ defined( 'ABSPATH' ) || exit;
 final class Share_Context {
 
 	/**
+	 * Smallest side, in pixels, Facebook accepts for a link-preview image.
+	 */
+	private const MIN_PREVIEW = 200;
+
+	/**
 	 * Build a context.
 	 *
 	 * @param string $type   'activity' | 'post' | 'member' | 'group'.
 	 * @param int    $id     Object ID.
 	 * @param object $object Loaded object (activity, post, user, group).
 	 * @param string $url    Canonical URL.
-	 * @param string $title  Title.
-	 * @param string $text   Short plain-text excerpt.
+	 * @param string $title  Title (stored as plain text: tags stripped, entities decoded; escape on output).
+	 * @param string $text   Short plain-text excerpt (same rule).
 	 * @param string $image  Image URL ('' when none).
 	 */
 	public function __construct(
@@ -33,7 +38,39 @@ final class Share_Context {
 		public string $title,
 		public string $text = '',
 		public string $image = ''
-	) {}
+	) {
+		$this->title = self::plain( $title );
+		$this->text  = self::plain( $text );
+	}
+
+	/**
+	 * Plain text for a share field. Every consumer escapes for its own context (attribute, URL,
+	 * email), so an entity left encoded here would show up literally, e.g. "Tom &amp; Jerry".
+	 *
+	 * @param string $value Text that may hold tags or HTML entities.
+	 */
+	private static function plain( string $value ): string {
+		return trim( html_entity_decode( wp_strip_all_tags( $value ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );
+	}
+
+	/**
+	 * Activity title as the viewer sees it on the page: the stored action run through the same
+	 * filters BuddyPress applies when it renders it (minus the timestamp), so plugins that hide or
+	 * rename the author (anonymous posting, moderation) apply to the share too. Never falls back to
+	 * the stored author's name.
+	 *
+	 * @param object $activity Activity.
+	 */
+	private static function activity_title( object $activity ): string {
+		$action = (string) $activity->action;
+		if ( '' !== $action ) {
+			$args   = array( 'no_timestamp' => true );
+			$action = (string) apply_filters_ref_array( 'bp_get_activity_action_pre_meta', array( $action, &$activity, $args ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- BuddyPress core hook.
+			$action = (string) apply_filters_ref_array( 'bp_get_activity_action', array( $action, &$activity, $args ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- BuddyPress core hook.
+		}
+		$title = self::plain( $action );
+		return '' !== $title ? $title : __( 'Shared update', 'bp-activity-social-share' );
+	}
 
 	/**
 	 * Context for a supported object, or null when it does not exist.
@@ -111,17 +148,12 @@ final class Share_Context {
 			);
 		}
 
-		$title = trim( wp_strip_all_tags( (string) $activity->action ) );
-		if ( '' === $title ) {
-			$title = bp_core_get_user_displayname( (int) $activity->user_id );
-		}
-
 		return new self(
 			'activity',
 			(int) $activity->id,
 			$activity,
 			(string) bp_activity_get_permalink( (int) $activity->id, $activity ),
-			$title,
+			self::activity_title( $activity ),
 			self::excerpt( (string) $activity->content ),
 			self::activity_image( $activity )
 		);
@@ -271,17 +303,18 @@ final class Share_Context {
 	}
 
 	/**
-	 * A member's or group's own picture: the uploaded avatar, else the cover image, else ''.
-	 * BuddyPress placeholders (mystery person / group, default Gravatar) never become a preview.
+	 * A member's or group's own picture, large enough for a link preview (Facebook ignores
+	 * images under 200x200): the uploaded avatar, else the cover image, else ''.
+	 * BuddyPress full avatars are 150x150 unless a site raises the size, so the cover usually wins.
+	 * Theme / BuddyPress placeholders and Gravatar never qualify: only files in uploads count.
 	 *
 	 * @param string $object 'member' | 'group'.
 	 * @param int    $id     User or group ID.
 	 */
 	private static function profile_image( string $object, int $id ): string {
-		$group      = 'group' === $object;
-		$has_avatar = $group ? bp_get_group_has_avatar( $id ) : bp_get_user_has_avatar( $id );
-		if ( $has_avatar ) {
-			$avatar = (string) bp_core_fetch_avatar(
+		$group  = 'group' === $object;
+		$avatar = ( $group ? bp_get_group_has_avatar( $id ) : bp_get_user_has_avatar( $id ) )
+			? (string) bp_core_fetch_avatar(
 				array(
 					'item_id' => $id,
 					'object'  => $group ? 'group' : 'user',
@@ -289,11 +322,13 @@ final class Share_Context {
 					'html'    => false,
 					'no_grav' => true,
 				)
-			);
-			if ( '' !== $avatar ) {
-				return (string) set_url_scheme( $avatar ); // Previews need an absolute URL, never "//host/...".
-			}
+			)
+			: '';
+		$size   = '' !== $avatar ? self::image_meta( $avatar ) : null;
+		if ( $size && min( $size['width'], $size['height'] ) >= self::MIN_PREVIEW ) {
+			return (string) set_url_scheme( $avatar ); // Previews need an absolute URL, never "//host/...".
 		}
+
 		$cover = function_exists( 'bp_attachments_get_attachment' )
 			? (string) bp_attachments_get_attachment(
 				'url',
@@ -303,7 +338,39 @@ final class Share_Context {
 				)
 			)
 			: '';
-		return '' !== $cover ? (string) set_url_scheme( $cover ) : '';
+		if ( '' === $cover ) {
+			return '';
+		}
+		// A cover is always an upload; offloaded (non-local) files are kept since their size is unknown.
+		$size = self::image_meta( $cover );
+		return ! $size || min( $size['width'], $size['height'] ) >= self::MIN_PREVIEW ? (string) set_url_scheme( $cover ) : '';
+	}
+
+	/**
+	 * Width, height, MIME type and path of an image stored in this site's uploads.
+	 * Null for anything outside uploads (theme defaults, remote or offloaded files).
+	 *
+	 * @param string $url Image URL.
+	 * @return array{width:int,height:int,mime:string,file:string}|null
+	 */
+	public static function image_meta( string $url ): ?array {
+		$uploads = wp_get_upload_dir();
+		$base    = set_url_scheme( (string) $uploads['baseurl'], 'https' );
+		$url     = set_url_scheme( strtok( $url, '?' ), 'https' );
+		if ( ! str_starts_with( $url, trailingslashit( $base ) ) ) {
+			return null;
+		}
+		$file = (string) $uploads['basedir'] . '/' . rawurldecode( substr( $url, strlen( trailingslashit( $base ) ) ) );
+		if ( str_contains( $file, '..' ) || ! is_file( $file ) ) {
+			return null;
+		}
+		$info = wp_getimagesize( $file );
+		return $info ? array(
+			'width'  => (int) $info[0],
+			'height' => (int) $info[1],
+			'mime'   => (string) $info['mime'],
+			'file'   => $file,
+		) : null;
 	}
 
 	/**

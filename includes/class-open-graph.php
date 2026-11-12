@@ -35,12 +35,18 @@ final class Open_Graph {
 		}
 
 		$image = $ctx->preview_image();
+		$size  = '' !== $image ? Share_Context::image_meta( $image ) : null;
 		$tags  = array(
 			'og:type'        => 'member' === $ctx->type ? 'profile' : 'article',
 			'og:title'       => $ctx->title,
 			'og:description' => $ctx->text,
 			'og:url'         => $ctx->url,
 			'og:image'       => $image,
+			// Sizes let Facebook render the image on the very first share instead of after a fetch.
+			'og:image:width'  => $size ? (string) $size['width'] : '',
+			'og:image:height' => $size ? (string) $size['height'] : '',
+			'og:image:type'   => $size ? $size['mime'] : '',
+			'og:image:alt'    => '' !== $image ? $ctx->title : '',
 			'og:site_name'   => get_bloginfo( 'name' ),
 			'twitter:card'   => '' !== $image ? 'summary_large_image' : 'summary',
 		);

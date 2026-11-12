@@ -91,7 +91,9 @@ final class Migration_3_6_0 {
 			$guest   = self::read( 'bp_share_services_logout_enable' );
 			$changes = array(
 				'networks'    => self::enabled_slugs( $services ),
-				'guest_share' => null === $guest ? true : (bool) $guest,
+				// 3.5.x showed Share to logged-in members only and never wrote this option, so a
+				// missing value keeps it that way. Fresh installs get the new default from Settings.
+				'guest_share' => null !== $guest && (bool) $guest,
 			);
 			$saved   = Settings::update( $changes );
 
@@ -118,6 +120,8 @@ final class Migration_3_6_0 {
 	 * Enabled slugs, in the stored order, from any legacy shape.
 	 *
 	 * Shapes seen in the wild: Name => Label, Name => array( 'chb_Name' => 0|1 ), lowercase duplicates.
+	 * 3.5.x showed every listed service and switched one off by deleting its key; the chb_* flag was
+	 * never read, so a listed service counts as on whatever its flag says (keeps what members saw).
 	 *
 	 * @param array $services Legacy value.
 	 * @return string[]
@@ -125,7 +129,7 @@ final class Migration_3_6_0 {
 	public static function enabled_slugs( array $services ): array {
 		$slugs = array();
 		foreach ( $services as $key => $value ) {
-			$enabled = is_array( $value ) ? (bool) array_filter( $value ) : ( '' !== trim( (string) $value ) && '0' !== (string) $value );
+			$enabled = is_array( $value ) ? ! empty( $value ) : ( '' !== trim( (string) $value ) && '0' !== (string) $value );
 			$slug    = self::SLUG_MAP[ strtolower( trim( (string) $key ) ) ] ?? '';
 			if ( $enabled && '' !== $slug && ! in_array( $slug, $slugs, true ) ) {
 				$slugs[] = $slug;

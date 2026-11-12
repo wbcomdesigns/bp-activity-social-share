@@ -34,16 +34,21 @@ final class Admin {
 	}
 
 	/**
-	 * Open the settings page after a single activation (as 3.5.x did). Bulk, network and WP-CLI activations stay put.
+	 * Open the settings page after a single activation of Free or Pro (as 3.5.x did); Pro lands on its
+	 * own Features tab. Bulk, network and WP-CLI activations stay put.
 	 *
 	 * @param string $plugin Plugin basename that was activated.
 	 */
 	public static function activation_redirect( string $plugin ): void {
+		$targets = array(
+			plugin_basename( BPAS_FILE ) => '',
+			\BPAS\Plugin::PRO_FILE     => '&tab=features',
+		);
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- core verified the activation nonce; this only reads which screen ran it.
-		if ( plugin_basename( BPAS_FILE ) !== $plugin || 'activate' !== ( $_REQUEST['action'] ?? '' ) || is_network_admin() || ! current_user_can( 'manage_options' ) ) {
+		if ( ! isset( $targets[ $plugin ] ) || 'activate' !== sanitize_key( wp_unslash( $_REQUEST['action'] ?? '' ) ) || is_network_admin() || ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		wp_safe_redirect( admin_url( 'admin.php?page=' . self::SLUG ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=' . self::SLUG . $targets[ $plugin ] ) );
 		exit;
 	}
 

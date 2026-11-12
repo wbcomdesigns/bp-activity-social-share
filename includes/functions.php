@@ -161,3 +161,14 @@ function bpas_group_url( object $group ): string {
 function bpas_rest_namespace(): string {
 	return 'bpas/v1';
 }
+
+/**
+ * Size, MIME type and path of an image stored in this site's uploads (null for theme defaults,
+ * remote or offloaded files). Previews use it to skip placeholders and to state image sizes.
+ *
+ * @param string $url Image URL.
+ * @return array{width:int,height:int,mime:string,file:string}|null
+ */
+function bpas_image_meta( string $url ): ?array {
+	return BPAS\Share_Context::image_meta( $url );
+}

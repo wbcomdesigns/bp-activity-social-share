@@ -32,17 +32,21 @@
 	--bpas-z: 1000;
 }
 
-/* Fallback for themes without their own dark mode tokens. */
+/*
+ * Dark mode: the same theme chain as :root (Reign redefines its --reign-site-* tokens under
+ * :root[data-bx-mode=dark], so they must stay in the chain), with dark literals for themes
+ * that have no dark tokens of their own.
+ */
 [data-theme="dark"],
 html.dark,
 body.dark-mode,
 html[data-bx-mode="dark"],
 body.buddyx-dark-theme {
-	--bpas-text: var(--bx-color-fg, var(--global-font-color, #e2e8f0));
-	--bpas-text-muted: var(--bx-color-fg-muted, #94a3b8);
-	--bpas-surface: var(--bx-color-bg-elevated, var(--color-theme-white-box, #1e293b));
-	--bpas-surface-hover: var(--bx-color-bg-muted, #273449);
-	--bpas-border: var(--bx-color-border, var(--global-border-color, #334155));
+	--bpas-text: var(--bx-color-fg, var(--global-font-color, var(--reign-site-body-text-color, #e2e8f0)));
+	--bpas-text-muted: var(--bx-color-fg-muted, var(--reign-site-alternate-text-color, #94a3b8));
+	--bpas-surface: var(--bx-color-bg-elevated, var(--color-theme-white-box, var(--reign-site-sections-bg-color, #1e293b)));
+	--bpas-surface-hover: var(--bx-color-bg-muted, var(--reign-site-secondary-bg-color, #273449));
+	--bpas-border: var(--bx-color-border, var(--global-border-color, var(--reign-site-border-color, #334155)));
 	--bpas-success: var(--bx-color-success, #4ade80); /* AA on the dark surface */
 	--bpas-shadow: 0 10px 30px rgb(0 0 0 / 45%);
 }

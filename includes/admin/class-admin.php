@@ -45,7 +45,7 @@ final class Admin {
 			\BPAS\Plugin::PRO_FILE     => '&tab=features',
 		);
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- core verified the activation nonce; this only reads which screen ran it.
-		if ( ! isset( $targets[ $plugin ] ) || 'activate' !== sanitize_key( wp_unslash( $_REQUEST['action'] ?? '' ) ) || is_network_admin() || ! current_user_can( 'manage_options' ) ) {
+		if ( ! isset( $targets[ $plugin ] ) || 'activate' !== sanitize_key( wp_unslash( $_REQUEST['action'] ?? '' ) ) || is_network_admin() || ! current_user_can( 'manage_options' ) || \BPAS\Plugin::blocker() ) {
 			return;
 		}
 		wp_safe_redirect( admin_url( 'admin.php?page=' . self::SLUG . $targets[ $plugin ] ) );

@@ -20,22 +20,9 @@ final class Plugin {
 	 * Runs on plugins_loaded.
 	 */
 	public static function boot(): void {
-		// No `Requires Plugins` header: WordPress matches it by folder slug, and BuddyBoss Platform
-		// (folder buddyboss-platform) provides buddypress() too, so the header blocked activation there.
-		if ( ! function_exists( 'buddypress' ) ) {
-			self::notice( static fn() => __( 'Activity Share for BuddyPress needs BuddyPress or BuddyBoss Platform to be active.', 'bp-activity-social-share' ) );
-			return;
-		}
-
-		if ( class_exists( 'Youzify' ) ) {
-			self::notice( static fn() => __( 'Activity Share for BuddyPress does not support Youzify and is inactive while Youzify is active.', 'bp-activity-social-share' ) );
-			return;
-		}
-
-		if ( self::legacy_pro_active() ) {
-			// Pro 2.x ships its own copy of everything. Stay out of its way and keep
-			// the legacy settings it reads until Pro is updated.
-			self::notice( static fn() => __( 'Activity Share Pro needs to be updated to version 3.6.0 or newer. Until then, sharing is provided by your current Pro version.', 'bp-activity-social-share' ) );
+		$blocked = self::blocker();
+		if ( $blocked ) {
+			self::notice( $blocked );
 			return;
 		}
 
@@ -48,6 +35,29 @@ final class Plugin {
 		if ( is_admin() ) {
 			Admin\Admin::init();
 		}
+	}
+
+	/**
+	 * Why the plugin cannot run on this site, or null when it can.
+	 * Shared by boot() and the activation redirect, so the redirect never lands on an unregistered page.
+	 *
+	 * @return callable|null Returns the admin notice text (built late: no translation before init).
+	 */
+	public static function blocker(): ?callable {
+		// No `Requires Plugins` header: WordPress matches it by folder slug, and BuddyBoss Platform
+		// (folder buddyboss-platform) provides buddypress() too, so the header blocked activation there.
+		if ( ! function_exists( 'buddypress' ) ) {
+			return static fn() => __( 'Activity Share for BuddyPress needs BuddyPress or BuddyBoss Platform to be active.', 'bp-activity-social-share' );
+		}
+		if ( class_exists( 'Youzify' ) ) {
+			return static fn() => __( 'Activity Share for BuddyPress does not support Youzify and is inactive while Youzify is active.', 'bp-activity-social-share' );
+		}
+		if ( self::legacy_pro_active() ) {
+			// Pro 2.x ships its own copy of everything. Stay out of its way and keep
+			// the legacy settings it reads until Pro is updated.
+			return static fn() => __( 'Activity Share Pro needs to be updated to version 3.6.0 or newer. Until then, sharing is provided by your current Pro version.', 'bp-activity-social-share' );
+		}
+		return null;
 	}
 
 	/**

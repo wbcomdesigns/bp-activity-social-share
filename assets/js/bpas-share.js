@@ -126,30 +126,34 @@
 		}
 	}
 
-	// Height of fixed / sticky bars stacked at the top of the screen (admin bar, sticky headers) at x.
-	function coveredTop( menu, x ) {
+	/*
+	 * Bottom of the fixed / sticky header bars (admin bar, sticky headers) above the button at x.
+	 * Probes the whole strip above the button, so a static bar between two sticky ones
+	 * (Reign's top bar between the admin bar and its sticky header) does not end the search.
+	 * Only bars at least half the screen wide count, so floating widgets never shrink the room.
+	 */
+	function coveredTop( menu, x, limit ) {
 		var top = 0;
-		for ( var i = 0; i < 4; i++ ) {
-			var bar = null;
-			document.elementsFromPoint( x, top + 1 ).some( function ( el ) {
+		var minWidth = document.documentElement.clientWidth / 2;
+		for ( var y = 1; y < limit; y += 8 ) {
+			document.elementsFromPoint( x, y ).some( function ( el ) {
 				for ( ; el && el !== document.documentElement; el = el.parentElement ) {
 					if ( menu.contains( el ) || el.contains( menu ) ) {
 						return false;
 					}
 					if ( /fixed|sticky/.test( window.getComputedStyle( el ).position ) ) {
-						bar = el;
+						var rect = el.getBoundingClientRect();
+						if ( rect.width < minWidth ) {
+							return false; // Narrow widget: look at what lies beneath it.
+						}
+						top = Math.max( top, rect.bottom );
 						return true;
 					}
 				}
 				return false;
 			} );
-			var bottom = bar ? bar.getBoundingClientRect().bottom : 0;
-			if ( bottom <= top ) {
-				break;
-			}
-			top = bottom;
 		}
-		return top;
+		return Math.min( top, limit );
 	}
 
 	/*
@@ -168,7 +172,7 @@
 		var toggle = menu.querySelector( 'summary' ).getBoundingClientRect();
 		var height = document.documentElement.clientHeight;
 		var below = height - toggle.bottom - 8;
-		var above = toggle.top - coveredTop( menu, toggle.left + toggle.width / 2 ) - 8;
+		var above = toggle.top - coveredTop( menu, toggle.left + toggle.width / 2, toggle.top ) - 8;
 		if ( rect.height > below ) {
 			var up = above > below;
 			menu.classList.toggle( 'bpas-share--up', up );

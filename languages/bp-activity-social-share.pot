@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-24T11:10:05+00:00\n"
+"POT-Creation-Date: 2026-11-14T13:11:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-activity-social-share\n"
@@ -39,52 +39,52 @@ msgstr ""
 msgid "https://wbcomdesigns.com/"
 msgstr ""
 
-#: includes/admin/class-admin.php:41
+#: includes/admin/class-admin.php:60
 #: includes/admin/views/hub.php:17
 msgid "WB Plugins"
 msgstr ""
 
-#: includes/admin/class-admin.php:43
+#: includes/admin/class-admin.php:62
 #: includes/admin/views/layout.php:26
 #: includes/admin/views/layout.php:39
 msgid "Activity Share"
 msgstr ""
 
-#: includes/admin/class-admin.php:76
+#: includes/admin/class-admin.php:95
 #: includes/admin/views/tab-networks.php:16
 msgid "Networks"
 msgstr ""
 
-#: includes/admin/class-admin.php:81
+#: includes/admin/class-admin.php:100
 msgid "Appearance"
 msgstr ""
 
-#: includes/admin/class-admin.php:167
+#: includes/admin/class-admin.php:186
 msgid "Settings saved."
 msgstr ""
 
-#: includes/admin/class-admin.php:168
+#: includes/admin/class-admin.php:187
 msgid "Settings could not be saved. Please try again."
 msgstr ""
 
-#: includes/admin/class-admin.php:169
+#: includes/admin/class-admin.php:188
 msgid "Saving..."
 msgstr ""
 
 #. translators: 1: network name, 2: position number.
-#: includes/admin/class-admin.php:171
+#: includes/admin/class-admin.php:190
 #, php-format
 msgid "%1$s moved to position %2$d."
 msgstr ""
 
-#: includes/admin/class-admin.php:172
+#: includes/admin/class-admin.php:191
 #: includes/admin/views/tab-appearance.php:20
 #: includes/class-settings.php:105
 msgctxt "button: share this item"
 msgid "Share"
 msgstr ""
 
-#: includes/admin/class-admin.php:186
+#: includes/admin/class-admin.php:205
 #: includes/admin/views/layout.php:46
 msgid "Settings"
 msgstr ""
@@ -276,73 +276,81 @@ msgstr ""
 msgid "Share URLs must start with https://."
 msgstr ""
 
-#: includes/class-networks.php:152
+#: includes/class-networks.php:166
 msgid "Facebook"
 msgstr ""
 
-#: includes/class-networks.php:160
+#: includes/class-networks.php:174
 msgctxt "social network, formerly Twitter"
 msgid "X"
 msgstr ""
 
-#: includes/class-networks.php:168
+#: includes/class-networks.php:182
 msgid "LinkedIn"
 msgstr ""
 
-#: includes/class-networks.php:176
+#: includes/class-networks.php:190
 msgid "WhatsApp"
 msgstr ""
 
-#: includes/class-networks.php:184
+#: includes/class-networks.php:198
 msgid "Telegram"
 msgstr ""
 
-#: includes/class-networks.php:192
+#: includes/class-networks.php:206
 msgid "Bluesky"
 msgstr ""
 
-#: includes/class-networks.php:200
+#: includes/class-networks.php:214
 msgid "Reddit"
 msgstr ""
 
-#: includes/class-networks.php:208
+#: includes/class-networks.php:222
 msgid "Pinterest"
 msgstr ""
 
-#: includes/class-networks.php:216
+#: includes/class-networks.php:230
 msgid "Email"
 msgstr ""
 
-#: includes/class-networks.php:224
+#: includes/class-networks.php:238
 msgid "Copy link"
 msgstr ""
 
-#: includes/class-plugin.php:28
+#: includes/class-plugin.php:50
+msgid "Activity Share for BuddyPress needs BuddyPress or BuddyBoss Platform to be active."
+msgstr ""
+
+#: includes/class-plugin.php:53
 msgid "Activity Share for BuddyPress does not support Youzify and is inactive while Youzify is active."
 msgstr ""
 
-#: includes/class-plugin.php:35
+#: includes/class-plugin.php:58
 msgid "Activity Share Pro needs to be updated to version 3.6.0 or newer. Until then, sharing is provided by your current Pro version."
 msgstr ""
 
-#: templates/share-menu.php:35
+#: includes/class-share-context.php:72
+msgid "Shared update"
+msgstr ""
+
+#: templates/share-menu.php:37
 msgid "Share options"
 msgstr ""
 
-#: templates/share-menu.php:40
+#: templates/share-menu.php:42
 msgid "Close"
 msgstr ""
 
-#: templates/share-menu.php:62
+#: templates/share-menu.php:64
 msgid "Share by email"
 msgstr ""
 
 #. translators: %s: network name, e.g. Facebook.
-#: templates/share-menu.php:62
+#: templates/share-menu.php:64
 #, php-format
 msgid "Share on %s (opens in a new window)"
 msgstr ""
 
-#: templates/share-menu.php:74
+#: templates/share-menu.php:76
 msgid "More options"
 msgstr ""

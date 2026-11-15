@@ -4,11 +4,11 @@ Members are not limited to sharing individual updates - they can share whole pro
 
 ## Member profiles
 
-A **Share** button appears next to the other buttons on every member's profile header, so a member can share their own profile or another member's. The site owner can turn this off under [Networks settings](../settings/01-networks.md).
+A compact **Share** icon button appears next to the other buttons on every member's profile header, so a member can share their own profile or another member's. It stays small so the profile's own actions stay the main ones; hovering it shows "Share this profile". When the theme folds extra header buttons into a "..." menu (Reign does this on other members' profiles), Share appears there as a text row. The site owner can turn this off under [Networks settings](../settings/01-networks.md).
 
 ## Public groups
 
-A **Share** button appears in the header of every **public** group. Private and hidden groups never show a Share button in their header, because their content is not meant to leave the group.
+The same compact **Share** icon ("Share this group") appears in the header of every **public** group. Private and hidden groups never show a Share button in their header, because their content is not meant to leave the group.
 
 ## Link previews
 

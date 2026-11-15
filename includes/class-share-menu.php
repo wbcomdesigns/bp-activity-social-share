@@ -18,7 +18,7 @@ final class Share_Menu {
 	 * Render the menu.
 	 *
 	 * @param Share_Context $ctx  Context.
-	 * @param array         $args Optional: label, position ('before'|'after'), class.
+	 * @param array         $args Optional: label, position ('before'|'after'), class, title (accessible name and tooltip of the toggle).
 	 */
 	public static function render( Share_Context $ctx, array $args = array() ): string {
 		if ( ! is_user_logged_in() && ! Settings::get( 'guest_share' ) ) {
@@ -32,6 +32,7 @@ final class Share_Menu {
 					'label'    => Settings::label(),
 					'position' => Settings::get( 'position' ),
 					'class'    => '',
+					'title'    => '',
 				),
 				$args
 			),
@@ -80,6 +81,7 @@ final class Share_Menu {
 			'position'     => 'before' === $args['position'] ? 'before' : 'after',
 			'colors'       => Settings::get( 'colors' ),
 			'class'        => (string) $args['class'],
+			'title'        => (string) $args['title'],
 			'items'        => $items,
 			'extra'        => $extra,
 			'toggle_extra' => $toggle_extra,

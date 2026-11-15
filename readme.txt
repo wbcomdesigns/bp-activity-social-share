@@ -107,7 +107,7 @@ No. Youzify has its own sharing, so this plugin stays inactive while Youzify is 
 A fresh rebuild: faster, accessible, works for visitors, and fits any theme.
 
 * New      - Visitors can share public activity; switch it off under Who and where.
-* New      - Share button on member profiles and public groups.
+* New      - A compact Share icon on member profiles and public groups, beside the profile's own buttons.
 * New      - Copy link button with a "Link copied" message.
 * New      - "More options" opens the phone's own share menu (Instagram, Messages and other apps).
 * New      - Telegram, Bluesky and Reddit sharing; X replaces Twitter.

@@ -13,6 +13,7 @@
  *     @type string             $position     'before' | 'after'.
  *     @type string             $colors       'brand' | 'theme'.
  *     @type string             $class        Extra classes.
+ *     @type string             $title        Optional accessible name and tooltip of the toggle (icon-only header buttons).
  *     @type array              $items        Networks: slug, label, type (link|mailto|copy), href, icon, mobile.
  *     @type string             $extra        Extension rows (already escaped HTML).
  *     @type string             $toggle_extra Extension markup inside the toggle (already escaped HTML).
@@ -23,11 +24,12 @@
 defined( 'ABSPATH' ) || exit;
 
 $bpas_ctx     = $view['ctx'];
+$bpas_name    = empty( $view['title'] ) ? '' : sprintf( ' title="%1$s" aria-label="%1$s"', esc_attr( $view['title'] ) );
 $bpas_classes = trim( sprintf( 'bpas-share bpas-share--%1$s bpas-share--%2$s %3$s', $view['position'], $view['colors'], $view['class'] ) );
 ?>
 <div class="generic-button bpas-share-wrap bpas-share-wrap--<?php echo esc_attr( $view['position'] ); ?>">
 	<details class="<?php echo esc_attr( $bpas_classes ); ?>" data-bpas-type="<?php echo esc_attr( $bpas_ctx->type ); ?>" data-bpas-id="<?php echo esc_attr( (string) $bpas_ctx->id ); ?>" data-bpas-url="<?php echo esc_url( $view['url'] ?? $bpas_ctx->url ); ?>" data-bpas-title="<?php echo esc_attr( $bpas_ctx->title ); ?>">
-		<summary class="bpas-share__toggle">
+		<summary class="bpas-share__toggle"<?php echo $bpas_name; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>>
 			<?php echo BPAS\Icons::get( 'share-2' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- bundled SVG. ?>
 			<span class="bpas-share__label"><?php echo esc_html( $view['label'] ); ?></span>
 			<?php echo $view['toggle_extra']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by the extension. ?>

@@ -34,7 +34,11 @@ final class Member_Header {
 		}
 		$ctx = Share_Context::for_object( 'member', (int) bp_displayed_user_id() );
 		if ( $ctx ) {
-			echo Share_Menu::render( $ctx, array( 'class' => 'bpas-share--header' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- template escapes.
+			$args = array(
+				'class' => 'bpas-share--header',
+				'title' => __( 'Share this profile', 'bp-activity-social-share' ),
+			);
+			echo Share_Menu::render( $ctx, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- template escapes.
 		}
 	}
 }

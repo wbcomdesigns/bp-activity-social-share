@@ -54,6 +54,8 @@ The new network appears on the Networks screen, ready to switch on. Other hooks:
 
 == Installation ==
 
+Requires BuddyPress 12.0 or higher, or BuddyBoss Platform.
+
 1. Install and activate BuddyPress.
 2. Install Activity Share for BuddyPress from Plugins > Add New, or upload the zip.
 3. Activate it. Sharing works right away with sensible defaults.

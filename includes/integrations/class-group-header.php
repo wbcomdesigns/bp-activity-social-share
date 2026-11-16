@@ -36,6 +36,12 @@ final class Group_Header {
 		if ( empty( $group->id ) || 'public' !== $group->status ) {
 			return;
 		}
+		// BuddyBoss fires bp_group_header_actions twice in one header (main and subscription buttons).
+		static $rendered = array();
+		if ( isset( $rendered[ $group->id ] ) ) {
+			return;
+		}
+		$rendered[ $group->id ] = true;
 		$ctx = Share_Context::for_object( 'group', (int) $group->id );
 		if ( $ctx ) {
 			$args = array(

@@ -18,4 +18,4 @@ When a post is shared, the destination network shows a preview card built from t
 
 ## Extending the network list
 
-Developers can add a network - for example Mastodon - with one function call. See the [developer guide](../developer-guide/01-hooks.md).
+Developers can add a network, such as Threads, with one function call. See the [developer guide](../developer-guide/01-hooks.md).

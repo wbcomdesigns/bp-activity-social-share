@@ -11,6 +11,8 @@ Members can repost an update to their own profile, or to a group they belong to,
 - **Repost in this group** - shown instead when the original post belongs to a group; the repost stays inside that group unless the group admin allows sharing out.
 - **Repost to a group** - shown for a member's own post, since members can only repost their own posts into a group, not to their own profile again.
 
+The activity line names what was reposted and where: "reposted an update", "a reply", "a post" or "a page", plus "in the group ..." for a group repost. Any other content type shows its title and type, for example "reposted Blue Hoodie (Product)".
+
 Reposting a repost always reposts the **original** post, so a chain never builds up. An author can turn off "Allow other members to repost my posts" in **Settings > General** on their own profile.
 
 ## Send to a friend

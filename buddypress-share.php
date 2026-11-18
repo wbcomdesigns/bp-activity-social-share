@@ -3,7 +3,7 @@
  * Plugin Name:       Activity Share for BuddyPress
  * Plugin URI:        https://wbcomdesigns.com/downloads/buddypress-activity-social-share/
  * Description:       Let members and visitors share BuddyPress activity, profiles and groups to social networks, copy the link, or use the phone's share sheet.
- * Version:           3.6.0
+ * Version:           3.6.1
  * Requires at least: 6.7
  * Requires PHP:      8.1
  * Author:            Wbcom Designs
@@ -18,7 +18,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'BPAS_VERSION', '3.6.0' );
+define( 'BPAS_VERSION', '3.6.1' );
 // Public API contract version (major.minor). Pro compares against this.
 define( 'BPAS_API_VERSION', '3.6' );
 // Schema / migration milestone. Bump with every new migration.

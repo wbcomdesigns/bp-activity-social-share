@@ -116,8 +116,6 @@ A fresh rebuild: faster, accessible, works for visitors, and fits any theme.
 * New      - Choose the button label, its position, and network colours or your theme's colours, with a live preview.
 * New      - Keyboard-friendly network ordering with up and down buttons.
 * New      - Developers can add their own networks with bpas_register_network().
-* Dev      - New bpas_is_shareable_activity filter decides which activity items get a Share button.
-* Dev      - New bpas_member_url() and bpas_group_url() return the right links on BuddyPress and BuddyBoss.
 * Improve  - The share menu opens as a bottom sheet on phones with large touch targets.
 * Improve  - Follows your theme's colours and dark mode automatically.
 * Improve  - The Share button and menu are styled by the plugin itself, so they look the same on any theme.
@@ -134,6 +132,8 @@ A fresh rebuild: faster, accessible, works for visitors, and fits any theme.
 * Fix      - Upgrading to Activity Share Pro no longer causes an activation error.
 * Fix      - The share menu no longer opens behind sticky theme headers, such as Reign's, near the top of the page.
 * Security - Link previews and shared text now use the activity as the viewer sees it, so details other plugins hide, such as a check-in's street address, no longer leak, and posts the viewer cannot see get no preview text.
+* Dev      - New bpas_is_shareable_activity filter decides which activity items get a Share button.
+* Dev      - New bpas_member_url() and bpas_group_url() return the right links on BuddyPress and BuddyBoss.
 * Dev      - Old settings are moved to the new format automatically and the old entries are removed.
 * Compat   - Requires WordPress 6.7 and PHP 8.1. Pair with Activity Share Pro 3.6.0.
 

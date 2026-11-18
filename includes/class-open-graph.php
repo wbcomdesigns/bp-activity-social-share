@@ -33,6 +33,10 @@ final class Open_Graph {
 		if ( ! $ctx || ! Visibility::can_share_externally( $ctx ) ) {
 			return;
 		}
+		// Nothing about an activity the viewer may not read (BuddyBoss serves such permalinks to guests).
+		if ( 'activity' === $ctx->type && ! Visibility::viewer_can_read( $ctx->object ) ) {
+			return;
+		}
 
 		$image = $ctx->preview_image();
 		$size  = '' !== $image ? Share_Context::image_meta( $image ) : null;

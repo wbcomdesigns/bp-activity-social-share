@@ -31,6 +31,20 @@ final class Visibility {
 	}
 
 	/**
+	 * Whether the current viewer (a guest for a link-preview crawler) may read the activity, by the
+	 * platform's own rule: BuddyBoss 3.6.2+ bb_activity_user_can_view() adds per-post privacy
+	 * (only me / friends / logged-in) to BuddyPress bp_activity_user_can_read().
+	 *
+	 * @param object $activity BP_Activity_Activity.
+	 */
+	public static function viewer_can_read( object $activity ): bool {
+		if ( function_exists( 'bb_activity_user_can_view' ) ) {
+			return (bool) bb_activity_user_can_view( (int) $activity->id, get_current_user_id() );
+		}
+		return function_exists( 'bp_activity_user_can_read' ) && (bool) bp_activity_user_can_read( $activity, get_current_user_id() );
+	}
+
+	/**
 	 * Group ID of a private or hidden group the activity belongs to, else 0.
 	 *
 	 * @param object $activity BP_Activity_Activity.

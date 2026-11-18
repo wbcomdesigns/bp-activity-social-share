@@ -133,6 +133,7 @@ A fresh rebuild: faster, accessible, works for visitors, and fits any theme.
 * Fix      - The Share button now appears in member and group headers on BuddyBoss Platform.
 * Fix      - Upgrading to Activity Share Pro no longer causes an activation error.
 * Fix      - The share menu no longer opens behind sticky theme headers, such as Reign's, near the top of the page.
+* Security - Link previews and shared text now use the activity as the viewer sees it, so details other plugins hide, such as a check-in's street address, no longer leak, and posts the viewer cannot see get no preview text.
 * Dev      - Old settings are moved to the new format automatically and the old entries are removed.
 * Compat   - Requires WordPress 6.7 and PHP 8.1. Pair with Activity Share Pro 3.6.0.
 

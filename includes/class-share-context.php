@@ -64,23 +64,67 @@ final class Share_Context {
 	private static function activity_title( object $activity ): string {
 		$action = (string) $activity->action;
 		if ( '' !== $action ) {
-			// BuddyPress callbacks on these filters (secondary avatars, theme and add-on hooks) read the
-			// loop global, which does not exist in <head> or REST. Point it at this activity while they run.
-			global $activities_template;
-			$saved   = $activities_template ?? null;
-			$swapped = (int) ( $saved->activity->id ?? 0 ) !== (int) $activity->id;
-			if ( $swapped ) {
-				$activities_template = (object) array( 'activity' => $activity ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- BuddyPress loop global, restored below.
-			}
-			$args   = array( 'no_timestamp' => true );
-			$action = (string) apply_filters_ref_array( 'bp_get_activity_action_pre_meta', array( $action, &$activity, $args ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- BuddyPress core hook.
-			$action = (string) apply_filters_ref_array( 'bp_get_activity_action', array( $action, &$activity, $args ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- BuddyPress core hook.
-			if ( $swapped ) {
-				$activities_template = $saved; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- restoring the BuddyPress loop global.
-			}
+			$action = self::in_loop(
+				$activity,
+				static function () use ( $action, $activity ) {
+					$args   = array( 'no_timestamp' => true );
+					$action = (string) apply_filters_ref_array( 'bp_get_activity_action_pre_meta', array( $action, &$activity, $args ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- BuddyPress core hook.
+					return (string) apply_filters_ref_array( 'bp_get_activity_action', array( $action, &$activity, $args ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- BuddyPress core hook.
+				}
+			);
 		}
 		$title = self::plain( $action );
 		return '' !== $title ? $title : __( 'Shared update', 'bp-activity-social-share' );
+	}
+
+	/**
+	 * Activity text as the current viewer sees it on the page: the stored content run through the
+	 * filters BuddyPress applies when it renders the body, so plugins that hide or coarsen part of
+	 * it for some viewers (a check-in's street address, moderation) apply to the share and the
+	 * link preview too. Never the raw stored content. A link-preview crawler is a guest.
+	 *
+	 * @param object $activity Activity.
+	 */
+	private static function activity_text( object $activity ): string {
+		$content = (string) $activity->content;
+		if ( '' === $content ) {
+			return '';
+		}
+		$html = self::in_loop(
+			$activity,
+			static function () use ( $content, $activity ) {
+				// The full body, not the stream's "[Read more]" cut (BuddyPress drops it the same way for REST).
+				$truncate = remove_filter( 'bp_get_activity_content_body', 'bp_activity_truncate_entry', 5 );
+				$html     = (string) apply_filters_ref_array( 'bp_get_activity_content_body', array( $content, &$activity ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- BuddyPress core hook.
+				if ( $truncate ) {
+					add_filter( 'bp_get_activity_content_body', 'bp_activity_truncate_entry', 5 );
+				}
+				return $html;
+			}
+		);
+		return self::excerpt( $html );
+	}
+
+	/**
+	 * Run BuddyPress render filters for one activity. Their callbacks (secondary avatars, theme and
+	 * add-on hooks) read the loop global, which does not exist in <head> or REST: point it at this
+	 * activity while they run, then restore it.
+	 *
+	 * @param object   $activity Activity.
+	 * @param callable $render   Returns the filtered string.
+	 */
+	private static function in_loop( object $activity, callable $render ): string {
+		global $activities_template;
+		$saved   = $activities_template ?? null;
+		$swapped = (int) ( $saved->activity->id ?? 0 ) !== (int) $activity->id;
+		if ( $swapped ) {
+			$activities_template = (object) array( 'activity' => $activity ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- BuddyPress loop global, restored below.
+		}
+		$out = (string) $render();
+		if ( $swapped ) {
+			$activities_template = $saved; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- restoring the BuddyPress loop global.
+		}
+		return $out;
 	}
 
 	/**
@@ -165,7 +209,7 @@ final class Share_Context {
 			$activity,
 			(string) bp_activity_get_permalink( (int) $activity->id, $activity ),
 			self::activity_title( $activity ),
-			self::excerpt( (string) $activity->content ),
+			self::activity_text( $activity ),
 			self::activity_image( $activity )
 		);
 	}

@@ -1,6 +1,6 @@
 {
   "name": "bp-activity-social-share",
-  "version": "3.6.0",
+  "version": "3.6.1",
   "private": true,
   "description": "Activity Share for BuddyPress - build tooling",
   "license": "GPL-2.0-or-later",

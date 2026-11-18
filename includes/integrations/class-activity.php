@@ -7,6 +7,7 @@
 
 namespace BPAS\Integrations;
 
+use BPAS\Settings;
 use BPAS\Share_Context;
 use BPAS\Share_Menu;
 
@@ -18,10 +19,11 @@ defined( 'ABSPATH' ) || exit;
 final class Activity {
 
 	/**
-	 * Hook registration.
+	 * Hook registration. The priority follows the owner's "Button position": other plugins add
+	 * their buttons at the default 10, so Share prints first (5) or last (999) in the bar.
 	 */
 	public static function init(): void {
-		add_action( 'bp_activity_entry_meta', array( __CLASS__, 'render' ) );
+		add_action( 'bp_activity_entry_meta', array( __CLASS__, 'render' ), 'before' === Settings::get( 'position' ) ? 5 : 999 );
 	}
 
 	/**

@@ -135,10 +135,11 @@ final class Share_Context {
 	 */
 	public static function for_object( string $type, int $id ): ?self {
 		$ctx = match ( $type ) {
-			'activity' => self::activity( $id ),
+			// Optional components are checked here, once, for every caller (Pro included).
+			'activity' => bp_is_active( 'activity' ) ? self::activity( $id ) : null,
 			'post'     => self::post( $id ),
 			'member'   => self::member( $id ),
-			'group'    => self::group( $id ),
+			'group'    => bp_is_active( 'groups' ) ? self::group( $id ) : null,
 			default    => null,
 		};
 		return $ctx ? apply_filters( 'bpas_share_context', $ctx ) : null;

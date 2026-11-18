@@ -4,7 +4,7 @@ Tags: buddypress, share, social share, activity, whatsapp
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 3.6.0
+Stable tag: 3.6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,18 @@ No. Youzify has its own sharing, so this plugin stays inactive while Youzify is 
 4. Appearance settings with a live preview.
 
 == Changelog ==
+
+= 3.6.1 - November 2026 =
+
+Fixes from release review for the share menu, the header Share button and the settings copy.
+
+* Fix      - With "After the other buttons", Share now prints after every other activity button, including ones other plugins add.
+* Fix      - The share menu re-measures while the page scrolls, so a header that turns sticky on scroll (BuddyX, Reign) no longer covers its first rows, and the menu closes once its button scrolls out of view.
+* Fix      - The Share button in member and group headers has its own background, so it stays visible over a dark cover photo in Reign.
+* Fix      - Clearer settings labels: "Share member profiles", "Share public groups" and "Adds a Share button next to the profile header buttons."
+* Fix      - Docs note that Pro's Send to a friend needs the BuddyPress Friend Connections and Private Messaging components.
+* Dev      - Activity and group sharing check that the BuddyPress component is switched on before use.
+* Compat   - Pair with Activity Share Pro 3.6.1.
 
 = 3.6.0 - November 2026 =
 

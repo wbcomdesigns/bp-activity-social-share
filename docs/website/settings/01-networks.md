@@ -15,7 +15,7 @@ On phones a **More options** button also appears automatically. It opens the pho
 | Setting | What it does | Default |
 |---|---|---|
 | Visitors can share | Shows the share menu to people who are not logged in, on public posts only. | On |
-| Share on member profiles | Adds a compact Share icon next to the profile header buttons. | On |
-| Share on public groups | Adds Share to public group headers. Private and hidden groups never show outside sharing. | On |
+| Share member profiles | Adds a Share button next to the profile header buttons. | On |
+| Share public groups | Adds a Share button to public group headers. Private and hidden groups never show outside sharing. | On |
 
 Click **Save changes** to apply your changes.

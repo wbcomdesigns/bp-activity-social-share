@@ -74,7 +74,7 @@ final class Open_Graph {
 		if ( function_exists( 'bp_is_user' ) && bp_is_user() && ! bp_is_single_activity() ) {
 			return Share_Context::for_object( 'member', (int) bp_displayed_user_id() );
 		}
-		if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
+		if ( bp_is_active( 'groups' ) && bp_is_group() ) {
 			$group = groups_get_current_group();
 			return empty( $group->id ) ? null : Share_Context::for_object( 'group', (int) $group->id );
 		}

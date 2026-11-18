@@ -190,6 +190,37 @@
 		}
 	}
 
+	/*
+	 * Re-measure the open menu while the page scrolls or resizes. Many themes make their header
+	 * sticky only after the first scroll (BuddyX, Reign, BuddyBoss), so a menu that opened upward
+	 * under a static header would end up beneath the header once it pins. One check per frame,
+	 * plus a trailing one for headers that slide in with a transition.
+	 */
+	var reflowFrame = 0;
+	var reflowTimer = 0;
+	function reflowOpen() {
+		reflowFrame = 0;
+		document.querySelectorAll( 'details.bpas-share[open]' ).forEach( function ( menu ) {
+			// Like a native popover, a dropdown closes once its button has scrolled out of sight
+			// (off screen or under a sticky header). Phones use the fixed bottom sheet instead.
+			var toggle = menu.querySelector( 'summary' ).getBoundingClientRect();
+			if ( ! phone.matches && ( toggle.top >= document.documentElement.clientHeight || toggle.bottom <= coveredTop( menu, toggle.left + toggle.width / 2, toggle.bottom ) ) ) {
+				close( menu, false );
+				return;
+			}
+			keepOnScreen( menu );
+		} );
+	}
+	function queueReflow() {
+		if ( ! reflowFrame ) {
+			reflowFrame = window.requestAnimationFrame( reflowOpen );
+		}
+		window.clearTimeout( reflowTimer );
+		reflowTimer = window.setTimeout( reflowOpen, 250 );
+	}
+	window.addEventListener( 'scroll', queueReflow, { passive: true } );
+	window.addEventListener( 'resize', queueReflow );
+
 	// Only one menu open at a time. `toggle` does not bubble, so capture it.
 	document.addEventListener( 'toggle', function ( event ) {
 		var menu = event.target;

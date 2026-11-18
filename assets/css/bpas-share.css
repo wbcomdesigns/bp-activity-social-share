@@ -244,7 +244,9 @@
 
 /* Member / group header: sharing is a secondary action, so a compact outline icon button, not
    another primary button competing with the profile's own actions. The label stays for screen
-   readers; the toggle's aria-label / title ("Share this profile") names it and gives the tooltip. */
+   readers; the toggle's aria-label / title ("Share this profile") names it and gives the tooltip.
+   It sits on its own surface: headers that lay their buttons over the cover photo (Reign's cover
+   layouts) would otherwise show the body-text icon on a dark photo. */
 .bpas-share--header .bpas-share__toggle {
 	display: inline-flex !important;
 	align-items: center;
@@ -255,7 +257,7 @@
 	padding: 0 !important;
 	border: 1px solid var(--bpas-border) !important;
 	border-radius: var(--bpas-radius-button) !important;
-	background: transparent !important;
+	background: var(--bpas-surface) !important;
 	color: var(--bpas-text) !important;
 	line-height: 1 !important;
 }

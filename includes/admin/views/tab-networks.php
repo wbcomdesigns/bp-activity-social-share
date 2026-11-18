@@ -49,14 +49,14 @@ defined( 'ABSPATH' ) || exit;
 			<label class="bpas-switch">
 				<input type="checkbox" name="show_on_profiles" value="1" <?php checked( $settings['show_on_profiles'] ); ?> />
 				<span class="bpas-switch__text">
-					<strong><?php esc_html_e( 'Share on member profiles', 'bp-activity-social-share' ); ?></strong>
-					<span><?php esc_html_e( 'Adds Share next to the profile header buttons.', 'bp-activity-social-share' ); ?></span>
+					<strong><?php esc_html_e( 'Share member profiles', 'bp-activity-social-share' ); ?></strong>
+					<span><?php esc_html_e( 'Adds a Share button next to the profile header buttons.', 'bp-activity-social-share' ); ?></span>
 				</span>
 			</label>
 			<label class="bpas-switch">
 				<input type="checkbox" name="show_on_groups" value="1" <?php checked( $settings['show_on_groups'] ); ?> />
 				<span class="bpas-switch__text">
-					<strong><?php esc_html_e( 'Share on public groups', 'bp-activity-social-share' ); ?></strong>
+					<strong><?php esc_html_e( 'Share public groups', 'bp-activity-social-share' ); ?></strong>
 					<span><?php esc_html_e( 'Private and hidden groups never show outside sharing.', 'bp-activity-social-share' ); ?></span>
 				</span>
 			</label>

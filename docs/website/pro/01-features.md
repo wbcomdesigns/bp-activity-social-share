@@ -7,7 +7,7 @@
 | Feature | What members / owners get | Default |
 |---|---|---|
 | Repost | **Repost** (instant, with Undo) and **Repost with comment** to your profile or a group. @mentions work in the comment. | On |
-| Send to a friend | Sends the post to a friend as a private message. | On |
+| Send to a friend | Sends the post to a friend as a private message. Needs the BuddyPress Friend Connections and Private Messaging components. | On |
 | Share replies | Replies get their own share menu and can be reposted. | On |
 | Counts and who reposted | Share count next to Share, and a list of who reposted. | On |
 | Share image for text posts | Text-only posts get a branded image when shared to Facebook, LinkedIn or WhatsApp. | On |

@@ -19,6 +19,8 @@ Reposting a repost always reposts the **original** post, so a chain never builds
 
 **Send to a friend** sends the post as a private BuddyPress message to one of the member's friends, with an optional note. The recipient must be able to read the original post - Activity Share Pro checks this before sending.
 
+Send to a friend needs both the BuddyPress **Friend Connections** and **Private Messaging** components. If either is turned off, the option is removed from the Share menu and from the Features settings.
+
 ## Share replies
 
 Replies to activity posts get their own Share menu and can be reposted too, following the privacy of their parent post.

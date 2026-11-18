@@ -1,53 +1,15 @@
 {
-  "product": "BuddyPress Activity Social Share",
+  "product": "Activity Share for BuddyPress",
   "productType": "plugin",
-  "shortId": "bpsocialshare",
+  "shortId": "bpas",
   "sections": [
-    {
-      "title": "Getting Started",
-      "slug": "getting-started",
-      "pages": [
-        { "title": "Introduction", "file": "getting-started/introduction.md" },
-        { "title": "Installation", "file": "getting-started/installation.md" },
-        { "title": "Quick Start", "file": "getting-started/quick-start.md" }
-      ]
-    },
-    {
-      "title": "Features",
-      "slug": "features",
-      "pages": [
-        { "title": "Features Overview", "file": "features/overview.md" }
-      ]
-    },
-    {
-      "title": "Usage",
-      "slug": "usage",
-      "pages": [
-        { "title": "Enable Social Networks", "file": "usage/enable-social-networks.md" },
-        { "title": "Icon Colors", "file": "usage/icon-colors.md" },
-        { "title": "Sharing on the Front End", "file": "usage/sharing-on-the-front-end.md" }
-      ]
-    },
-    {
-      "title": "Developer Guide",
-      "slug": "developer-guide",
-      "pages": [
-        { "title": "Hooks, Filters and Options", "file": "developer-guide/hooks-and-filters.md" }
-      ]
-    },
-    {
-      "title": "FAQ",
-      "slug": "faq",
-      "pages": [
-        { "title": "Frequently Asked Questions", "file": "faq/faq.md" }
-      ]
-    },
-    {
-      "title": "Troubleshooting",
-      "slug": "troubleshooting",
-      "pages": [
-        { "title": "Troubleshooting", "file": "troubleshooting/troubleshooting.md" }
-      ]
-    }
+    { "name": "Getting Started", "folder": "getting-started" },
+    { "name": "Features", "folder": "features" },
+    { "name": "Usage", "folder": "usage" },
+    { "name": "Settings", "folder": "settings" },
+    { "name": "Developer Guide", "folder": "developer-guide" },
+    { "name": "FAQ", "folder": "faq" },
+    { "name": "Troubleshooting", "folder": "troubleshooting" },
+    { "name": "Activity Share Pro", "folder": "pro" }
   ]
 }

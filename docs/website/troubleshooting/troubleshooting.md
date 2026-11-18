@@ -1,47 +1,47 @@
 # Troubleshooting
 
-## The plugin will not activate, or shows a "requires BuddyPress" notice
+## The Share menu is cut off or hidden by the theme
 
-The plugin requires BuddyPress. Install and activate BuddyPress, then activate this plugin. If you see a notice that BuddyPress is required, that is the cause.
+Activity Share automatically detects when the menu would open past the edge of the screen or inside a container that clips overflow, and adjusts its position (or temporarily lifts the clipping) while the menu is open. If a menu is still cut off:
 
-## A notice says the Pro version is already active
+1. Confirm you are on the latest version of both the plugin and your theme.
+2. Check for a very unusual container (for example `overflow: hidden` combined with a fixed height) around the activity stream - this is the one case the automatic fix cannot reach.
+3. Report the theme and page so the containing selector can be added to the fix.
 
-The free and Pro versions cannot run together. If BuddyPress Activity Social Share Pro is active, the free version deactivates itself. Keep only one of the two active.
+## The button label or "Share" text is not translated
 
-## On multisite, a notice says it must share the same network configuration
+1. Confirm your site's language has an available translation, or add your own with a plugin like Loco Translate, using the text domain `bp-activity-social-share` (or `buddypress-activity-share-pro` for Pro strings).
+2. If you only want to change the English word "Share", set your own **Button label** on the [Appearance](../settings/02-appearance.md) tab instead of relying on translation.
 
-The plugin stores its settings as network options and must be activated on the same site and with the same network configuration as BuddyPress. Activate it where BuddyPress is active.
+## The menu does not follow dark mode
 
-## The Share button does not appear
+Activity Share follows your theme's own colour tokens (BuddyX, BuddyX Pro, Reign and most themes using standard WordPress colour tokens). If your theme uses a non-standard dark-mode method, the menu may keep its light colours. This is a theme compatibility gap, not a broken setting - report the theme name so support can add a token mapping for it.
 
-Check each of these:
+## Link previews look wrong or duplicated when sharing
 
-- You are logged in. The button is shown to logged-in members only.
-- At least one network is enabled on the General Settings tab. If none is enabled, the button area shows "Please enable share services!" instead.
-- BuddyPress is active and the activity stream is displaying entries.
+- **Wrong image or text:** the preview is built from the post's own image and text. If it looks wrong, check the post has a featured image or a usable first image.
+- **Duplicated tags:** if you also run an SEO plugin (Yoast SEO, Rank Math, All in One SEO, SEOPress), Activity Share detects it and steps aside automatically. If you still see duplicate tags, confirm only one of the two is configured to output Open Graph tags for that page type.
 
-## The button area shows "Please enable share services!"
+## Visitors do not see the Share button
 
-No sharing network is enabled. Go to the General Settings tab and drag at least one network into the Enable list.
+Check **Visitors can share** is turned on under [Networks settings](../settings/01-networks.md). This setting only affects **public** posts - visitors never see sharing options on private or hidden group content, by design.
 
-## A network icon does not show even though I enabled it
+## Activity Share Pro will not activate, or a notice keeps appearing
 
-The front-end button row and the admin lists match network names case for network name. If a network was added or edited in an unexpected way, remove it from the Enable list and drag it back in so it is stored under the expected name. Then reload the activity stream.
+- **"Activity Share Pro requires the free plugin":** install and activate **Activity Share for BuddyPress** first, then Pro.
+- **"Update Activity Share Pro":** your Free plugin is newer than Pro. Update Pro to the same version.
+- **"Sharing is provided by your current Pro version":** you have an old Activity Share Pro (older than 3.6.0) active with a newer Free plugin. Free stands aside so your site keeps working; update Pro to 3.6.0 or later to finish the upgrade.
 
-## Links open in the wrong way (popup vs new tab)
+Free and Pro must always run the **same version number** - update them together.
 
-Adjust the "Open as popup window" checkbox on the General Settings tab. WhatsApp and E-mail always open directly and cannot be forced into a popup.
+## Share analytics shows zero
 
-## Icon colors do not change
+Share analytics is **off by default**. Turn it on under **WB Plugins > Activity Share > Features**, then give it a little time - clicks and visits only start counting from the moment it is switched on. Reposts and sends to friends are counted even with analytics off, so if those also show zero, confirm the **Repost** and **Send to a friend** features are turned on too.
 
-- Confirm you saved the Icon Color Settings tab.
-- An empty color field is not applied, so the icon keeps the theme's default color. Set an explicit color if you want to override the theme.
-- Theme styles can override the plugin's inline color. If a color still does not apply, check the theme's CSS for a more specific rule on the icon.
+## A short share link (`/s/...`) returns a 404
 
-## Shared links do not show a preview image
+This usually means WordPress permalinks need refreshing after activation or an update. Go to **Settings > Permalinks** and click **Save Changes** without changing anything - this rebuilds the rewrite rules the short links depend on.
 
-The Open Graph image is taken, in order, from the first image in the activity content, then from attached BuddyBoss / BuddyPress media, then from Youzer / Youzify media. If an activity has no image in any of these, the shared link has no preview image. Some networks also cache previews; use the network's own debugger to refresh the cache.
+## Still stuck?
 
-## There is no copy to clipboard button on the front end
-
-The plugin's front-end script includes a copy to clipboard handler, but the free version's activity template does not render a copy button, so nothing is displayed for it. This is expected in the free version.
+Check the [FAQ](../faq/faq.md), or contact Wbcom Designs support with your WordPress version, PHP version, the plugin versions (Free and Pro), and the exact steps to reproduce the issue.

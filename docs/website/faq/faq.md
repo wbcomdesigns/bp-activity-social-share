@@ -1,57 +1,34 @@
-# Frequently Asked Questions
+# Frequently asked questions
 
-## Do I need any other plugin for this to work?
+**Can members share to Instagram, TikTok or YouTube?**
+Those apps don't accept shared links from websites. On phones, members tap **More options** to open the phone's own share menu and pick any installed app.
 
-Yes. This plugin requires BuddyPress to be installed and active. Without BuddyPress the plugin deactivates itself and shows a notice.
+**Why can't I share to a Facebook Group?**
+Facebook's share window decides where a post can go; posting to a group depends on the member's own Facebook permissions.
 
-## Which social networks are supported?
+**Why is there no Share button on a post in a private group?**
+Only members can see those posts, so a link on another site wouldn't open for anyone else. Members can still copy the link for other members inside the group.
 
-Facebook, X (Twitter), Pinterest, Reddit, WordPress (Press This), Pocket, LinkedIn, WhatsApp, and E-mail. Each can be enabled or disabled from the General Settings tab.
+**Can I change the word "Share" or move the button?**
+Yes - on the [Appearance](../settings/02-appearance.md) tab you can set your own label and choose whether Share appears before or after the other activity buttons.
 
-## Who can see the Share button?
+**How do I stop the link-preview (Open Graph) tags?**
+They stop automatically when Yoast SEO, Rank Math, All in One SEO or SEOPress is active. Otherwise: `add_filter( 'bpas_open_graph_enabled', '__return_false' );`
 
-Logged-in members only. The button appears on activity entries when at least one sharing network is enabled.
+**Does Activity Share for BuddyPress work with BuddyBoss Platform or Youzify?**
+BuddyBoss Platform: supported on a best-effort basis. Youzify: not supported, because it ships its own sharing feature - both plugins stay inactive while Youzify is active.
 
-## How do I add a social network to the front end?
+**Does Activity Share Pro work without the free plugin?**
+No. Activity Share Pro is an add-on - install and activate Activity Share for BuddyPress first. If Pro is active without Free, it shows a notice with a one-click link to install and activate Free.
 
-On the General Settings tab, drag the network from the Disable list into the Enable list. The change saves as you drag.
+**Do I need a license key to use Activity Share Pro?**
+No. Every Pro feature works with or without an active license key. The license only controls whether the plugin receives automatic updates.
 
-## How do I remove a social network from the front end?
+**Can visitors repost or send a post to a friend?**
+No. Repost and Send to a friend require the member to be logged in.
 
-On the General Settings tab, drag the network from the Enable list back into the Disable list.
+**Is Activity Share for BuddyPress translation-ready?**
+Yes, including right-to-left languages. Every user-facing string, including JavaScript messages, is translatable.
 
-## Can I change the order the icons appear in?
-
-Yes. In the Enable list on the General Settings tab, drag the networks into the order you want. That order is used on the front end.
-
-## Do share links open in a popup or a new tab?
-
-That is controlled by the "Open as popup window" checkbox on the General Settings tab. Checked opens a popup; unchecked opens a new browser tab. WhatsApp and E-mail always open directly.
-
-## Can I change the icon colors?
-
-Yes. Use the Icon Color Settings tab to set a color for each network.
-
-## Can I change the "Share" button text?
-
-Yes, with code. Use the `bpas_share_button_text_override` filter described in the Developer Guide.
-
-## Is it compatible with the BuddyBoss Platform?
-
-Yes. The plugin uses BuddyBoss / BuddyPress media (`BP_Media`) when building the Open Graph image for a shared activity.
-
-## Is it compatible with rtMedia and Youzer / Youzify?
-
-The plugin reads the first image in the activity content for the Open Graph image, and it also reads Youzer and Youzify media attachments where present.
-
-## Does it show how many times an activity was shared?
-
-No. The plugin does not track or display a share count.
-
-## Can I run this together with the Pro version?
-
-No. If BuddyPress Activity Social Share Pro is active, the free version deactivates itself. Use one or the other.
-
-## Where do I get support?
-
-Visit wbcomdesigns.com for any questions about the plugin.
+**Can I add a network that isn't built in?**
+Yes - developers can register any network with `bpas_register_network()`. See the [developer guide](../developer-guide/01-hooks.md).

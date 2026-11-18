@@ -104,7 +104,7 @@ No. Youzify has its own sharing, so this plugin stays inactive while Youzify is 
 
 == Changelog ==
 
-= 3.6.0 - September 2026 =
+= 3.6.0 - November 2026 =
 
 A fresh rebuild: faster, accessible, works for visitors, and fits any theme.
 

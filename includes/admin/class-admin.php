@@ -126,6 +126,37 @@ final class Admin {
 	}
 
 	/**
+	 * Notice inside our own page when the Activity component is off. Drawn here, not on admin_notices:
+	 * suppress_foreign_notices() empties that hook on this screen.
+	 */
+	public static function render_component_notice(): void {
+		if ( ! function_exists( 'bp_is_active' ) || bp_is_active( 'activity' ) ) {
+			return;
+		}
+		$components = function_exists( 'bp_get_admin_url' )
+			? bp_get_admin_url( add_query_arg( 'page', 'bp-components', 'admin.php' ) )
+			: admin_url( 'admin.php?page=bp-components' );
+		?>
+		<div class="notice notice-warning inline">
+			<p>
+				<?php
+				echo wp_kses(
+					sprintf(
+						/* translators: %s: link to BuddyPress > Settings > Components. */
+						__( 'The BuddyPress Activity component is off. Sharing still works on groups and member profiles, but sharing from activity posts and reposting (Pro) are off until you turn Activity on in %s.', 'bp-activity-social-share' ),
+						'<a href="' . esc_url( $components ) . '">' . esc_html__( 'BuddyPress > Settings > Components', 'bp-activity-social-share' ) . '</a>'
+					),
+					array(
+						'a' => array( 'href' => array() ),
+					)
+				);
+				?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
 	 * Networks tab.
 	 */
 	public static function render_networks(): void {

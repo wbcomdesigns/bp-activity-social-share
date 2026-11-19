@@ -42,6 +42,10 @@ Share analytics is **off by default**. Turn it on under **WB Plugins > Activity 
 
 This usually means WordPress permalinks need refreshing after activation or an update. Go to **Settings > Permalinks** and click **Save Changes** without changing anything - this rebuilds the rewrite rules the short links depend on.
 
+## Activity share buttons and reposting are missing
+
+A notice at the top of **WB Plugins > Activity Share** says when the BuddyPress **Activity** component is off. Sharing still works on groups and member profiles, but sharing from activity posts and reposting (Pro) need Activity. Turn it on under **BuddyPress > Settings > Components**.
+
 ## Still stuck?
 
 Check the [FAQ](../faq/faq.md), or contact Wbcom Designs support with your WordPress version, PHP version, the plugin versions (Free and Pro), and the exact steps to reproduce the issue.

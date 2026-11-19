@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-18T13:33:43+00:00\n"
+"POT-Creation-Date: 2026-11-19T07:58:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-activity-social-share\n"
@@ -59,32 +59,42 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
-#: includes/admin/class-admin.php:186
+#. translators: %s: link to BuddyPress > Settings > Components.
+#: includes/admin/class-admin.php:146
+#, php-format
+msgid "The BuddyPress Activity component is off. Sharing still works on groups and member profiles, but sharing from activity posts and reposting (Pro) are off until you turn Activity on in %s."
+msgstr ""
+
+#: includes/admin/class-admin.php:147
+msgid "BuddyPress > Settings > Components"
+msgstr ""
+
+#: includes/admin/class-admin.php:217
 msgid "Settings saved."
 msgstr ""
 
-#: includes/admin/class-admin.php:187
+#: includes/admin/class-admin.php:218
 msgid "Settings could not be saved. Please try again."
 msgstr ""
 
-#: includes/admin/class-admin.php:188
+#: includes/admin/class-admin.php:219
 msgid "Saving..."
 msgstr ""
 
 #. translators: 1: network name, 2: position number.
-#: includes/admin/class-admin.php:190
+#: includes/admin/class-admin.php:221
 #, php-format
 msgid "%1$s moved to position %2$d."
 msgstr ""
 
-#: includes/admin/class-admin.php:191
+#: includes/admin/class-admin.php:222
 #: includes/admin/views/tab-appearance.php:20
 #: includes/class-settings.php:105
 msgctxt "button: share this item"
 msgid "Share"
 msgstr ""
 
-#: includes/admin/class-admin.php:205
+#: includes/admin/class-admin.php:236
 #: includes/admin/views/layout.php:46
 msgid "Settings"
 msgstr ""

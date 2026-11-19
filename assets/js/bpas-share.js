@@ -127,13 +127,14 @@
 	}
 
 	/*
-	 * Bottom of the fixed / sticky header bars (admin bar, sticky headers) above the button at x.
+	 * Bottom of the fixed / sticky / stacked header bars (admin bar, sticky headers, headers with a z-index) above the button at x.
 	 * Probes the whole strip above the button, so a static bar between two sticky ones
 	 * (Reign's top bar between the admin bar and its sticky header) does not end the search.
 	 * Only bars at least half the screen wide count, so floating widgets never shrink the room.
 	 */
 	function coveredTop( menu, x, limit ) {
 		var top = 0;
+		var pinned = 0; // Bottom of the bar pinned to the very top (the admin bar).
 		var minWidth = document.documentElement.clientWidth / 2;
 		for ( var y = 1; y < limit; y += 8 ) {
 			document.elementsFromPoint( x, y ).some( function ( el ) {
@@ -141,12 +142,21 @@
 					if ( menu.contains( el ) || el.contains( menu ) ) {
 						return false;
 					}
-					if ( /fixed|sticky/.test( window.getComputedStyle( el ).position ) ) {
-						var rect = el.getBoundingClientRect();
+					var style = window.getComputedStyle( el );
+					var rect = el.getBoundingClientRect();
+					// A header that stays in the flow but sets a z-index (BuddyX until it pins) covers the menu too.
+					// Only a site header (<header> / banner) at the top of the page or flush under the admin bar, so page bands never count.
+					var pins = /fixed|sticky/.test( style.position );
+					var stacked = 'static' !== style.position && parseInt( style.zIndex, 10 ) > 0 && rect.top <= pinned + 1 &&
+						( el.matches( 'header, [role="banner"]' ) || null !== el.querySelector( 'header, [role="banner"]' ) );
+					if ( pins || stacked ) {
 						if ( rect.width < minWidth ) {
 							return false; // Narrow widget: look at what lies beneath it.
 						}
 						top = Math.max( top, rect.bottom );
+						if ( pins && rect.top <= 1 ) {
+							pinned = rect.bottom;
+						}
 						return true;
 					}
 				}

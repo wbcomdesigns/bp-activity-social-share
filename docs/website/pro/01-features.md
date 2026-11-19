@@ -26,7 +26,7 @@ These are fixed behaviour, not settings:
 
 ## Share rewards
 
-Points for shares that bring a visitor or a new member turn on by themselves when **WB Gamification**, **GamiPress** or **myCRED** is active. Set the point values in that plugin.
+Points for shares that bring a visitor or a new member turn on by themselves when **WB Gamification**, **GamiPress** or **myCRED** is active. Set the point values in that plugin. **WB Plugins > Activity Share > Features** shows a read-only Share rewards line naming the active points plugin, or telling you to activate one.
 
 ## Notifications
 

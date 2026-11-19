@@ -49,8 +49,6 @@
 
 ## For developers
 
-- New: `bpas_register_network()` and `bpas_unregister_network()` to add or remove a network. See [Hooks](../developer-guide/01-hooks.md).
-- New filter `bpas_is_shareable_activity` decides which activity items get a Share button.
-- New functions `bpas_member_url()` and `bpas_group_url()` return the right links on BuddyPress and BuddyBoss.
-- The share menu template can be overridden in your theme at `bp-activity-social-share/share-menu.php`. See [Public functions, REST API and template override](../developer-guide/02-integration.md).
-- Settings now live in one option, `bpas_settings`. The old `bp_share_*` options are migrated and removed.
+- Settings now live in one option, `bpas_settings`. The old `bp_share_*` options are migrated and removed, so code that read them must use `bpas_get_setting()` instead. See [Public functions, REST API and template override](../developer-guide/02-integration.md).
+- The share menu template can be overridden in your theme at `bp-activity-social-share/share-menu.php`.
+- Networks are now added with `bpas_register_network()`. See [Hooks](../developer-guide/01-hooks.md).

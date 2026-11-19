@@ -21,15 +21,6 @@ BuddyPress 12.0 or later, or BuddyBoss Platform. See [Requirements](../getting-s
 **Does Activity Share for BuddyPress work with BuddyBoss Platform or Youzify?**
 BuddyBoss Platform: supported on a best-effort basis. Youzify: not supported, because it ships its own sharing feature - both plugins stay inactive while Youzify is active.
 
-**Does Activity Share Pro work without the free plugin?**
-No. Activity Share Pro is an add-on - install and activate Activity Share for BuddyPress first. WordPress refuses to activate Pro while Free is missing or off, and tells you to activate Free first. If you deactivate Free later, Pro pauses with one notice and a one-click link to activate Free again; your Pro settings are kept.
-
-**Do I need a license key to use Activity Share Pro?**
-No. Every Pro feature works with or without an active license key. The license only controls whether the plugin receives automatic updates.
-
-**Can visitors repost or send a post to a friend?**
-No. Visitors see the **Repost** and **Send to a friend** rows, but choosing one opens a **Join the conversation** box asking them to log in or register.
-
 **Visitors cannot share on my upgraded site. Why?**
 The **Visitors can share** switch is on for new installs. A site that had 3.5.x network settings keeps its earlier behaviour, where visitors could not share, until you turn the switch on under **WB Plugins > Activity Share > Networks**.
 

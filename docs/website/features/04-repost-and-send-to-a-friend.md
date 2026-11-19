@@ -8,22 +8,26 @@ Members can repost an update to their own profile, or to a group they belong to,
 
 - **Repost** - an instant repost with no comment. A toast lets the member **Undo** it right away, and the row changes to **Undo repost** while it still exists.
 - **Repost with comment** - opens a composer to add a comment before posting. @mentions in the comment work like any other update.
-- **Repost in this group** - shown instead when the original post belongs to a group; the repost stays inside that group unless the group admin allows sharing out.
-- **Repost to a group** - shown for a member's own post, since members can only repost their own posts into a group, not to their own profile again.
+- **Repost in this group** - shown instead when the original post belongs to a group; the repost stays inside that group. Posts from a private or hidden group always stay inside it. Posts from a public group can be reposted elsewhere unless the group admin turned that off.
+- **Repost to a group** - shown for a member's own post when the member belongs to at least one group. Members can only repost their own posts into a group, not back onto their own profile.
 
 The activity line names what was reposted and where: "reposted an update", "a reply", "a post" or "a page", plus "in the group ..." for a group repost. Any other content type shows its title and type, for example "reposted Blue Hoodie (Product)".
 
-Reposting a repost always reposts the **original** post, so a chain never builds up. An author can turn off "Allow other members to repost my posts" in **Settings > General** on their own profile.
+Reposting a repost always reposts the **original** post, so a chain never builds up. An author can turn off "Allow other members to repost my posts" in **Settings > General** on their own profile. A member can repost the same post to the same place only once.
+
+Reposting also works from the post itself for the content types you turned on under **Content types**: the Share menu on a blog post, page or product then offers **Repost** and **Repost with comment**, and the activity stream shows a quoted card of that content.
+
+People who are not logged in still see the **Repost** and **Send to a friend** rows. Choosing one opens a **Join the conversation** box with log in and, when registration is open, register links.
 
 ## Send to a friend
 
 **Send to a friend** sends the post as a private BuddyPress message to one of the member's friends, with an optional note. The recipient must be able to read the original post - Activity Share Pro checks this before sending.
 
-Send to a friend needs both the BuddyPress **Friend Connections** and **Private Messaging** components. If either is turned off, the option is removed from the Share menu and from the Features settings.
+Send to a friend needs both the BuddyPress **Friend Connections** and **Private Messaging** components. If either is turned off, the option is removed from the Share menu and from the Features settings. The row also stays hidden for members with no friends yet, and for posts that cannot be shared outside the community, such as posts in private groups.
 
 ## Share replies
 
-Replies to activity posts get their own Share menu and can be reposted too, following the privacy of their parent post.
+Replies to activity posts get their own Share menu and can be reposted too, following the privacy of their parent post. This needs both **Share replies** and **Repost** switched on.
 
 ## Reposted card
 
@@ -31,9 +35,9 @@ A repost shows a quoted card of the original post or update. If the original is 
 
 ## Group and member controls
 
-- Group admins of **public** groups can turn off "Allow sharing outside this group" and "Allow reposting out of this group" under **Manage > Settings**.
+- Group admins of **public** groups can untick "Members can share posts from this group to other sites (Facebook, X, WhatsApp...)" and "Members can repost posts from this group to their profile or other groups" in the **Sharing** box under **Manage > Settings**. Both are on by default. Private and hidden groups do not show these options because they never share outside.
 - Members can turn off "Allow other members to repost my posts" under **Settings > General** on their own profile.
 
 ## Notifications
 
-The original author gets one grouped on-site notification ("Anna and 5 others reposted your update") and, unless they turn it off in **Settings > Email**, at most one email per post per day.
+The original author gets one grouped on-site notification ("Anna and 5 others reposted your update") and, unless they turn it off in **Settings > Email**, at most one email per post per day. Undoing a repost removes that member from the notification.

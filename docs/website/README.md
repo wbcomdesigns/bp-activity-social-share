@@ -22,7 +22,8 @@ Free and Pro always ship the same version number and are installed together - Fr
 - [Getting Started](getting-started/01-requirements.md) - requirements, installation, your first share.
 - [Features](features/01-social-sharing.md) - what members, visitors and site owners can do.
 - [Usage](usage/01-share-a-post.md) - step-by-step guides for common tasks.
-- [Settings](settings/01-networks.md) - the Networks and Appearance admin screens.
+- [Settings](settings/01-networks.md) - the Networks and Appearance admin screens, and what happens to your data.
 - [Developer Guide](developer-guide/01-hooks.md) - hooks, public functions, REST API, shortcode and block.
 - [FAQ](faq/faq.md) and [Troubleshooting](troubleshooting/troubleshooting.md).
 - [Activity Share Pro](pro/01-features.md) - Pro features, content types, analytics and licensing.
+- [What's New](whats-new/whats-new-in-3-6-1.md) - update notes and a retest checklist for each release.

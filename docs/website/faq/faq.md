@@ -15,6 +15,9 @@ Yes - on the [Appearance](../settings/02-appearance.md) tab you can set your own
 **How do I stop the link-preview (Open Graph) tags?**
 They stop automatically when Yoast SEO, Rank Math, All in One SEO or SEOPress is active. Otherwise: `add_filter( 'bpas_open_graph_enabled', '__return_false' );`
 
+**Which BuddyPress version do I need?**
+BuddyPress 12.0 or later, or BuddyBoss Platform. See [Requirements](../getting-started/01-requirements.md).
+
 **Does Activity Share for BuddyPress work with BuddyBoss Platform or Youzify?**
 BuddyBoss Platform: supported on a best-effort basis. Youzify: not supported, because it ships its own sharing feature - both plugins stay inactive while Youzify is active.
 
@@ -25,7 +28,13 @@ No. Activity Share Pro is an add-on - install and activate Activity Share for Bu
 No. Every Pro feature works with or without an active license key. The license only controls whether the plugin receives automatic updates.
 
 **Can visitors repost or send a post to a friend?**
-No. Repost and Send to a friend require the member to be logged in.
+No. Visitors see the **Repost** and **Send to a friend** rows, but choosing one opens a **Join the conversation** box asking them to log in or register.
+
+**Visitors cannot share on my upgraded site. Why?**
+The **Visitors can share** switch is on for new installs. A site that had 3.5.x network settings keeps its earlier behaviour, where visitors could not share, until you turn the switch on under **WB Plugins > Activity Share > Networks**.
+
+**What happens to my data if I delete the plugin?**
+See [Updates, uninstall and your data](../settings/03-updates-and-uninstall.md).
 
 **Is Activity Share for BuddyPress translation-ready?**
 Yes, including right-to-left languages. Every user-facing string, including JavaScript messages, is translatable.

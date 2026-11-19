@@ -59,9 +59,10 @@ add_action( 'bpas_share_menu_items', function ( $ctx, $external ) {
 | `bpas_pro_user_can_repost` | filter | `$can, $user_id, $target` | Override who can repost |
 | `bpas_pro_share_visit` | action | `$sharer_id, $type, $id` | A short link brought a visit (used by rewards) |
 | `bpas_pro_share_signup` | action | `$sharer_id, $new_user_id` | A short link brought a new member (used by rewards) |
-| `bpas_pro_retention_days` | filter | `$days` (default 365) | Change how long analytics rows are kept |
+| `bpas_pro_retention_days` | filter | `$days` (default 365, never less than 30) | Change how long analytics rows are kept |
 | `bpas_pro_client_ip` | filter | `$ip` | Supply the real client IP behind a trusted proxy |
-| `bpas_pro_short_link_prefix` | filter | `$prefix` (default `s`) | Change the short-link path prefix |
+| `bpas_pro_short_link_prefix` | filter | `$prefix` (default `s`, or `share` when a page with the slug `s` exists) | Change the short-link path prefix |
+| `bpas_pro_image_card` | filter | `$enabled, $ctx` | Return `false` to skip the generated share image for one activity item |
 | `bpas_pro_default_settings` | filter | `$defaults` | Change Pro's default settings (features, content types) |
 | `bpas_pro_settings_updated` | action | `$settings` | React to a Pro settings save |
 | `bpas_pro_feature_{key}_enabled` | filter | `$enabled` | Override one Features-tab toggle in code |

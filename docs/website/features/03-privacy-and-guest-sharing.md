@@ -8,11 +8,11 @@ By default, people who are not logged in can share **public** activity - a commo
 
 This rule is fixed and cannot be turned off by a setting:
 
-- Activity inside a **private** or **hidden** group never offers network links, a public copy-link, or a link-preview card to anyone outside the group.
+- Activity inside a **private** or **hidden** group never offers network links, the phone share menu, or a link-preview card. If **Copy link** is switched on, it stays available as a plain link for people who are already members.
 - A reply to a private post follows the same rule as its parent post.
-- Hidden and spam activity are never shareable.
+- Activity that is hidden from the site-wide stream or marked as spam never offers outside sharing either.
 
-Members inside a private or hidden group still see their own in-group sharing options; the restriction is only about sending content to the public internet.
+The restriction is only about sending content to other sites; nothing changes for members reading the group.
 
 ## Why a post has no Share button
 

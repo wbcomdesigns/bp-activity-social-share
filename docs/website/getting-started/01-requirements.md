@@ -6,13 +6,15 @@ Before you install Activity Share for BuddyPress, check your site meets these re
 |---|---|
 | WordPress | 6.7 |
 | PHP | 8.1 |
-| BuddyPress | Active on the site (any recent version) |
+| BuddyPress | 12.0 or later, or BuddyBoss Platform |
 
-Activity Share for BuddyPress will not activate without BuddyPress active - WordPress shows this as a required plugin.
+If neither BuddyPress nor BuddyBoss Platform is active, the plugin stays idle and shows an admin notice: "Activity Share for BuddyPress needs BuddyPress or BuddyBoss Platform to be active." Activate one of them and sharing starts working.
+
+Sharing from activity posts needs the BuddyPress **Activity** component, and sharing public groups needs the **User Groups** component. Member profiles do not need either. Turn components on under **BuddyPress > Settings > Components**.
 
 ## Activity Share Pro
 
-If you also use **Activity Share Pro**, install and activate the free plugin first, then Pro. Free and Pro always ship the same version number - always update both together. If Pro is newer than Free, Pro pauses itself and shows a one-click update notice. If Free is newer than an old Pro, Free steps back and keeps the site working until Pro is updated.
+If you also use **Activity Share Pro**, install and activate the free plugin first, then Pro. Free and Pro ship the same version number - update both together. If the two versions differ slightly, Pro keeps working and shows a notice naming the plugin that is behind. If Free is too old for Pro (older than 3.6), Pro pauses and shows an **Update Activity Share for BuddyPress** button while sharing keeps working from Free. If an old Pro (older than 3.6.0) is active next to a newer Free, Free steps back and keeps the site working until Pro is updated.
 
 ## Theme support
 

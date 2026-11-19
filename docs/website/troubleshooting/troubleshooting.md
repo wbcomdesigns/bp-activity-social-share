@@ -26,17 +26,28 @@ Activity Share follows your theme's own colour tokens (BuddyX, BuddyX Pro, Reign
 
 Check **Visitors can share** is turned on under [Networks settings](../settings/01-networks.md). This setting only affects **public** posts - visitors never see sharing options on private or hidden group content, by design.
 
+## There is no Share button at all, and a notice shows on the Plugins or Dashboard screen
+
+- **"Activity Share for BuddyPress needs BuddyPress or BuddyBoss Platform to be active."** Activate BuddyPress or BuddyBoss Platform.
+- **"Activity Share for BuddyPress does not support Youzify and is inactive while Youzify is active."** Youzify has its own sharing. Deactivate Youzify to use this plugin.
+- **"Activity Share Pro needs to be updated to version 3.6.0 or newer. Until then, sharing is provided by your current Pro version."** An old Activity Share Pro (older than 3.6.0) is active. Free stands aside so the site keeps working. Update Pro to finish the upgrade.
+
 ## Activity Share Pro will not activate, or a notice keeps appearing
 
-- **"Activity Share Pro requires the free plugin":** install and activate **Activity Share for BuddyPress** first, then Pro.
-- **"Update Activity Share Pro":** your Free plugin is newer than Pro. Update Pro to the same version.
-- **"Sharing is provided by your current Pro version":** you have an old Activity Share Pro (older than 3.6.0) active with a newer Free plugin. Free stands aside so your site keeps working; update Pro to 3.6.0 or later to finish the upgrade.
+- **"Activity Share Pro was not activated. It needs the free Activity Share for BuddyPress plugin":** install and activate **Activity Share for BuddyPress** first, then Pro. Your Pro settings are untouched.
+- **"Activity Share Pro needs the free Activity Share for BuddyPress plugin. Your Pro settings are safe...":** Free was deactivated or removed after Pro was active. Use the button in the notice to install or activate it again.
+- **"Activity Share Pro is paused until Activity Share for BuddyPress is updated":** your Free plugin is older than 3.6. Update Free. Sharing keeps working meanwhile.
+- **"Please update Activity Share Pro to version X to match Activity Share for BuddyPress" (or the other way round):** the two plugins are on different releases. Update the one named in the notice. Pro keeps working in the meantime.
 
-Free and Pro must always run the **same version number** - update them together.
+Keep Free and Pro on the **same version number** and update them together.
 
 ## Share analytics shows zero
 
-Share analytics is **off by default**. Turn it on under **WB Plugins > Activity Share > Features**, then give it a little time - clicks and visits only start counting from the moment it is switched on. Reposts and sends to friends are counted even with analytics off, so if those also show zero, confirm the **Repost** and **Send to a friend** features are turned on too.
+Share analytics is **off by default**. Turn it on under **WB Plugins > Activity Share > Features**, then give it a little time - clicks and visits only start counting from the moment it is switched on. Visits also need **Short share links** to be on, because visits are counted when someone opens a short link. Reposts and sends to friends are counted even with analytics off, so if those also show zero, confirm the **Repost** and **Send to a friend** features are turned on too.
+
+## There is no Share button on one activity item
+
+Items with no text that are not reposts or blog-post updates, such as "joined the group" or "became friends with", have nothing to share and get no button. Items in private or hidden groups get a menu with only **Copy link** (when that is switched on) and no network links.
 
 ## A short share link (`/s/...`) returns a 404
 
@@ -45,6 +56,16 @@ This usually means WordPress permalinks need refreshing after activation or an u
 ## Activity share buttons and reposting are missing
 
 A notice at the top of **WB Plugins > Activity Share** says when the BuddyPress **Activity** component is off. Sharing still works on groups and member profiles, but sharing from activity posts and reposting (Pro) need Activity. Turn it on under **BuddyPress > Settings > Components**.
+
+## Send to a friend, Share replies or "Allow other members to repost my posts" are missing
+
+- **Send to a friend** needs the BuddyPress **Friend Connections** and **Private Messaging** components. Without both, the switch is removed from the Features tab and a note explains why.
+- **Share replies** works only while **Repost** is also on.
+- The member setting **Allow other members to repost my posts** appears under **Settings > General** only while **Repost** is on and the BuddyPress **Account Settings** component is active.
+
+## The share image for text posts is not generated
+
+Activity Share Pro draws this image with the PHP GD extension and FreeType. If your host does not have them, the feature does nothing and the preview uses your site icon or logo. Ask your host to enable GD with FreeType support.
 
 ## Still stuck?
 

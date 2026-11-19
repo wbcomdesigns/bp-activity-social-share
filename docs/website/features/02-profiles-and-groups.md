@@ -12,4 +12,4 @@ The same compact **Share** icon ("Share this group") appears in the header of ev
 
 ## Link previews
 
-When a shared profile or group link is opened, the destination site shows a preview built from the member's avatar and display name, or the group's avatar and description.
+When a shared profile or group link is opened, the destination site shows a preview built from the member's display name, or the group's name and description, plus a picture. The picture is the uploaded avatar when it is at least 200 by 200 pixels, otherwise the cover image, otherwise your site icon or logo. Default and Gravatar pictures are never used.

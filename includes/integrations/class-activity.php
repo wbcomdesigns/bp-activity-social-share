@@ -30,6 +30,9 @@ final class Activity {
 	 * Print the menu for the current loop activity (uses the loaded row: no extra query).
 	 */
 	public static function render(): void {
+		if ( is_embed() || is_feed() ) {
+			return;
+		}
 		global $activities_template;
 		$activity = $activities_template->activity ?? null;
 		if ( ! is_object( $activity ) ) {

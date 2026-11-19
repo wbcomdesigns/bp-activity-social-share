@@ -19,7 +19,7 @@ They stop automatically when Yoast SEO, Rank Math, All in One SEO or SEOPress is
 BuddyBoss Platform: supported on a best-effort basis. Youzify: not supported, because it ships its own sharing feature - both plugins stay inactive while Youzify is active.
 
 **Does Activity Share Pro work without the free plugin?**
-No. Activity Share Pro is an add-on - install and activate Activity Share for BuddyPress first. If Pro is active without Free, it shows a notice with a one-click link to install and activate Free.
+No. Activity Share Pro is an add-on - install and activate Activity Share for BuddyPress first. WordPress refuses to activate Pro while Free is missing or off, and tells you to activate Free first. If you deactivate Free later, Pro pauses with one notice and a one-click link to activate Free again; your Pro settings are kept.
 
 **Do I need a license key to use Activity Share Pro?**
 No. Every Pro feature works with or without an active license key. The license only controls whether the plugin receives automatic updates.

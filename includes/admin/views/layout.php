@@ -83,6 +83,7 @@ $bpas_group     = null;
 		</aside>
 
 		<main class="bpas-admin__main">
+			<?php \BPAS\Admin\Admin::render_component_notice(); ?>
 			<?php call_user_func( $tabs[ $current ]['render'] ); ?>
 		</main>
 	</div>

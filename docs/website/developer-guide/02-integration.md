@@ -33,7 +33,7 @@ Base: `/wp-json/bpas/v1/`.
 |---|---|---|---|
 | `settings` | GET, PATCH | `manage_options` | Free |
 | `reshare` | POST | Logged in | Pro |
-| `reshare/{id}` | DELETE | Author of the repost | Pro |
+| `reshare/{id}` | DELETE | Author of the repost, or a site moderator | Pro |
 | `send` | POST | Logged in | Pro |
 | `me/groups`, `me/friends` | GET | Logged in | Pro |
 | `activity/{id}/shares` | GET | Public (privacy-checked) | Pro |
@@ -41,6 +41,8 @@ Base: `/wp-json/bpas/v1/`.
 | `pro-settings` | GET, PATCH | `manage_options` | Pro |
 | `analytics` | GET | `manage_options` | Pro |
 | `track` | POST | Public (only records when Share analytics is on) | Pro |
+
+Pro registers its routes only while the BuddyPress component they need is on: reposting, counts and reposters need Activity, `send` and `me/friends` need both Friend Connections and Private Messaging, and `me/groups` needs User Groups.
 
 List responses use the envelope `{ items_key: [...], total, pages, has_more }`. Errors are `WP_Error` objects with an HTTP status of 401 (not logged in), 403 (not allowed), 404 (not found) or 409 (conflict, e.g. already reposted).
 

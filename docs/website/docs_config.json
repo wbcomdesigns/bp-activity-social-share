@@ -3,13 +3,193 @@
   "productType": "plugin",
   "shortId": "bpas",
   "sections": [
-    { "name": "Getting Started", "folder": "getting-started" },
-    { "name": "Features", "folder": "features" },
-    { "name": "Usage", "folder": "usage" },
-    { "name": "Settings", "folder": "settings" },
-    { "name": "Developer Guide", "folder": "developer-guide" },
-    { "name": "FAQ", "folder": "faq" },
-    { "name": "Troubleshooting", "folder": "troubleshooting" },
-    { "name": "Activity Share Pro", "folder": "pro" }
+    {
+      "name": "Getting Started",
+      "folder": "getting-started",
+      "description": "Check the requirements, install the plugin and make your first share.",
+      "pages": [
+        {
+          "slug": "01-requirements",
+          "title": "Requirements",
+          "file": "getting-started/01-requirements.md"
+        },
+        {
+          "slug": "02-installation",
+          "title": "Installation and Upgrading",
+          "file": "getting-started/02-installation.md"
+        },
+        {
+          "slug": "03-first-share",
+          "title": "Your First Share",
+          "file": "getting-started/03-first-share.md"
+        }
+      ]
+    },
+    {
+      "name": "Features",
+      "folder": "features",
+      "description": "What members, visitors and site owners can do with the Share menu.",
+      "pages": [
+        {
+          "slug": "01-social-sharing",
+          "title": "Social Sharing",
+          "file": "features/01-social-sharing.md"
+        },
+        {
+          "slug": "02-profiles-and-groups",
+          "title": "Sharing Profiles and Groups",
+          "file": "features/02-profiles-and-groups.md"
+        },
+        {
+          "slug": "03-privacy-and-guest-sharing",
+          "title": "Privacy and Guest Sharing",
+          "file": "features/03-privacy-and-guest-sharing.md"
+        },
+        {
+          "slug": "04-repost-and-send-to-a-friend",
+          "title": "Repost and Send to a Friend",
+          "file": "features/04-repost-and-send-to-a-friend.md"
+        },
+        {
+          "slug": "05-share-tracking",
+          "title": "Share Counts and Tracking",
+          "file": "features/05-share-tracking.md"
+        }
+      ]
+    },
+    {
+      "name": "Usage",
+      "folder": "usage",
+      "description": "Step-by-step guides for sharing, reposting and reviewing share analytics.",
+      "pages": [
+        {
+          "slug": "01-share-a-post",
+          "title": "Share a Post",
+          "file": "usage/01-share-a-post.md"
+        },
+        {
+          "slug": "02-repost-and-send-to-a-friend",
+          "title": "Repost or Send a Post to a Friend",
+          "file": "usage/02-repost-and-send-to-a-friend.md"
+        },
+        {
+          "slug": "03-review-share-analytics",
+          "title": "Review Your Share Analytics",
+          "file": "usage/03-review-share-analytics.md"
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "folder": "settings",
+      "description": "The Networks and Appearance screens, defaults, and what happens to your data.",
+      "pages": [
+        {
+          "slug": "01-networks",
+          "title": "Networks",
+          "file": "settings/01-networks.md"
+        },
+        {
+          "slug": "02-appearance",
+          "title": "Appearance",
+          "file": "settings/02-appearance.md"
+        },
+        {
+          "slug": "03-updates-and-uninstall",
+          "title": "Updates, Uninstall and Your Data",
+          "file": "settings/03-updates-and-uninstall.md"
+        }
+      ]
+    },
+    {
+      "name": "Developer Guide",
+      "folder": "developer-guide",
+      "description": "Hooks, public functions, the template override, shortcode and block.",
+      "pages": [
+        {
+          "slug": "01-hooks",
+          "title": "Hooks",
+          "file": "developer-guide/01-hooks.md"
+        },
+        {
+          "slug": "02-integration",
+          "title": "Public Functions, REST API and Template Override",
+          "file": "developer-guide/02-integration.md"
+        },
+        {
+          "slug": "03-shortcodes",
+          "title": "Shortcode and Block",
+          "file": "developer-guide/03-shortcodes.md"
+        }
+      ]
+    },
+    {
+      "name": "FAQ",
+      "folder": "faq",
+      "description": "Short answers to common questions.",
+      "pages": [
+        {
+          "slug": "faq",
+          "title": "Frequently Asked Questions",
+          "file": "faq/faq.md"
+        }
+      ]
+    },
+    {
+      "name": "Troubleshooting",
+      "folder": "troubleshooting",
+      "description": "Fixes for missing buttons, plugin notices and cut-off menus.",
+      "pages": [
+        {
+          "slug": "troubleshooting",
+          "title": "Troubleshooting",
+          "file": "troubleshooting/troubleshooting.md"
+        }
+      ]
+    },
+    {
+      "name": "Activity Share Pro",
+      "folder": "pro",
+      "description": "Pro features, content types, share analytics and the license.",
+      "pages": [
+        {
+          "slug": "01-features",
+          "title": "Activity Share Pro Features",
+          "file": "pro/01-features.md"
+        },
+        {
+          "slug": "02-content-types",
+          "title": "Content Types",
+          "file": "pro/02-content-types.md"
+        },
+        {
+          "slug": "03-analytics",
+          "title": "Share Analytics",
+          "file": "pro/03-analytics.md"
+        },
+        {
+          "slug": "04-license",
+          "title": "License",
+          "file": "pro/04-license.md"
+        }
+      ]
+    },
+    {
+      "name": "What's New",
+      "folder": "whats-new",
+      "description": "Update notes and a retest checklist for each release.",
+      "pages": [
+        {
+          "slug": "whats-new-in-3-6-1",
+          "title": "What's New in 3.6.1",
+          "file": "whats-new/whats-new-in-3-6-1.md"
+        },
+        {
+          "slug": "whats-new-in-3-6-0",
+          "title": "What's New in 3.6.0",
+          "file": "whats-new/whats-new-in-3-6-0.md"
+        }
+      ]
+    }
   ]
 }

@@ -18,6 +18,12 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// One copy only: stop if this plugin is already loaded from another folder.
+if ( defined( 'BP_ACTIVITY_SOCIAL_SHARE_LOADED' ) ) {
+	return;
+}
+define( 'BP_ACTIVITY_SOCIAL_SHARE_LOADED', __FILE__ ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- One-copy guard is named after the WordPress.org slug.
+
 define( 'BPAS_VERSION', '3.6.1' );
 // Public API contract version (major.minor). Pro compares against this.
 define( 'BPAS_API_VERSION', '3.6' );

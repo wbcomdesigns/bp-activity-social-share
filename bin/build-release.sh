@@ -3,12 +3,28 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 slug=bp-activity-social-share
+main=buddypress-share.php
 npm run build --silent
 bin/local-ci.sh
-version=$(grep -m1 -E '^\s*\*\s*Version:' buddypress-share.php | awk '{print $NF}')
+version=$(grep -m1 -E '^\s*\*\s*Version:' "$main" | awk '{print $NF}')
 rm -rf dist && mkdir -p "dist/$slug"
 rsync -a --exclude-from=<(sed 's#^/##' .distignore) --exclude=dist ./ "dist/$slug/"
-( cd dist && zip -qr "$slug-$version.zip" "$slug" )
-leaks=$(unzip -l "dist/$slug-$version.zip" | grep -iE '/docs/|/audit/|/bin/|/tests/|node_modules|CLAUDE|\.md$' || true)
+zip="$PWD/dist/$slug-$version.zip"
+# Deflate every entry: a PHP file stored uncompressed trips the store's upload firewall.
+( cd dist && python3 -I -c 'import os,sys,zipfile
+out,top=sys.argv[1],sys.argv[2]
+with zipfile.ZipFile(out,"w",zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+    for r,d,f in os.walk(top):
+        d.sort()
+        for n in sorted(f): z.write(os.path.join(r,n))' "$zip" "$slug" )
+
+# --- WordPress.org folder lock (Wbcom standard - do not edit) ----------------------
+top=$(unzip -Z1 "$zip" | head -1 | cut -d/ -f1)
+[ "$top" = "$slug" ] || { echo "Zip folder '$top' is not the WordPress.org slug '$slug'"; exit 1; }
+unzip -Z1 "$zip" | grep -qx "$slug/$main" || { echo "Main file $slug/$main missing from zip"; exit 1; }
+[ "$(LC_ALL=C grep -a -c '<?php' "$zip" || true)" = 0 ] || { echo "Zip has plain-text PHP (upload firewall)"; exit 1; }
+# -----------------------------------------------------------------------------------
+
+leaks=$(unzip -l "$zip" | grep -iE '/docs/|/audit/|/bin/|/tests/|node_modules|CLAUDE|\.md$' || true)
 [ -z "$leaks" ] || { echo "Zip contains dev files:"; echo "$leaks"; exit 1; }
 echo "Built dist/$slug-$version.zip"
